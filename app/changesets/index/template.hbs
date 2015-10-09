@@ -1,0 +1,7 @@
+<ul>
+{{#each model as |changeset|}}
+  <li>{{#link-to 'changesets.show' changeset}}Changeset #{{changeset.id}}{{/link-to}} ({{changeset.applied}})</li>
+{{/each}}
+</ul>
+
+<p>{{#link-to 'changesets.new'}}New Changeset{{/link-to}}</p>

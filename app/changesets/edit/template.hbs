@@ -1,0 +1,9 @@
+<h1>Changeset #{{model.id}}</h1>
+<p>{{textarea value=model.notes cols=100 rows=10}}</p>
+{{#unless model.applied }}
+  <p>{{textarea value=model.stringified_payload cols=100 rows=10}}</p>
+  {{!-- {{json-editor json=model.payload mode='text'}} --}}
+{{/unless}}
+
+{{#link-to 'changesets.show' model}}Cancel{{/link-to}}
+<input type="button" {{action 'update'}} value="Update" >
