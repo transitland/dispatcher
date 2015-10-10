@@ -11,6 +11,9 @@ Router.map(function() {
     this.route('edit', { path: '/:changeset_id/edit' });
     this.route('new');
   });
+  this.route('feeds', function() {
+    this.route('show', { path: '/:feed_id' });
+  });
 });
 
 export default Router;

@@ -2,6 +2,9 @@
   <div class="navbar-header">
     {{link-to 'Transitland Dispatcher' 'index' class="navbar-brand"}}
     <ul class="nav navbar-nav">
+      {{#linkTo 'feeds' tagName='li' href=null}}
+        {{#linkTo 'feeds'}}Feeds{{/linkTo}}
+      {{/linkTo}}
       {{#linkTo 'changesets' tagName='li' href=null}}
         {{#linkTo 'changesets'}}Changesets{{/linkTo}}
       {{/linkTo}}

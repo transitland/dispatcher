@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  redirect: function() {
-    this.transitionTo('changesets');
+  model: function() {
+    return this.store.findAll('feed');
   }
 });

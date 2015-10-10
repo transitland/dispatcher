@@ -5,7 +5,7 @@
   {{model.stringified_payload}}
 </pre>
 {{json-editor json=model.payload mode='view'}}
-{{#link-to 'changesets.edit' model}}Edit this Changeset{{/link-to}}
+{{#link-to 'changesets.edit' model class="btn btn-primary"}}Edit this Changeset{{/link-to}}
 
 {{#unless model.applied }}
   <input type="button" {{action 'apply'}} value="Apply" >
