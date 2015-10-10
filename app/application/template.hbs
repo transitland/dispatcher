@@ -1,5 +1,20 @@
-<h2 id="title">Transitland Dispatcher</h2>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-header">
+    {{link-to 'Transitland Dispatcher' 'index' class="navbar-brand"}}
+    <ul class="nav navbar-nav">
+      {{#linkTo 'changesets' tagName='li' href=null}}
+        {{#linkTo 'changesets'}}Changesets{{/linkTo}}
+      {{/linkTo}}
+    </ul>
+  </div>
+</nav>
 
-{{outlet}}
+<div class="container">
+  {{outlet}}
+</div>
 
-{{auth-token-input}}
+<nav class="navbar navbar-form navbar-fixed-bottom">
+  <div class="form-group">
+    {{auth-token-input}}
+  </div>
+</nav>

@@ -1,7 +1,13 @@
-<ul>
+<div class="list-group">
 {{#each model as |changeset|}}
-  <li>{{#link-to 'changesets.show' changeset}}Changeset #{{changeset.id}}{{/link-to}} ({{changeset.applied}})</li>
+  {{#link-to 'changesets.show' changeset class="list-group-item"}}
+    {{#if changeset.applied}}
+      <span class="badge">{{fa-icon "check"}}</span>
+    {{/if}}
+    <h4 class="list-group-item-heading">Changeset #{{changeset.id}}</h4>
+    <p class="list-group-item-text">{{changeset.notes}}</p>
+  {{/link-to}}
 {{/each}}
-</ul>
+</div>
 
-<p>{{#link-to 'changesets.new'}}New Changeset{{/link-to}}</p>
+{{#link-to 'changesets.new' class="btn btn-primary"}}New Changeset{{/link-to}}
