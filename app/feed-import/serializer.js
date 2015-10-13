@@ -1,9 +1,10 @@
 import DS from 'ember-data';
+import ApplicationSerializer from '../application/serializer';
 
-export default DS.RESTSerializer.extend({
-  attrs: {
-    feed: {
-      key: 'feed_onestop_id'
-    }
-  }
+export default ApplicationSerializer.extend({
+  // attrs: {
+  //   feed: {
+  //     key: 'feed_onestop_id'
+  //   }
+  // }
 });

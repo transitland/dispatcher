@@ -1,6 +1,15 @@
 <h1>{{model.onestop_id}}</h1>
 
-{{#each model.feed_imports as |feedImport|}}
-  <h1>hi</h1>
+
+
+<h2>Feed Imports</h2>
+{{#each feedImports as |feedImport|}}
+  {{feedImport.success}}
   {{feedImport.sha1}}
+  {{feedImport.import_log}}
+  {{feedImport.created_at}}
+  <h3>Feed Schedule Imports</h3>
+  {{#each feedImport.feed_schedule_imports as |feedScheduleImport|}}
+    {{feedScheduleImport.success}}
+  {{/each}}
 {{/each}}
