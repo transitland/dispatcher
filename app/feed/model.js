@@ -17,6 +17,16 @@ var Feed = DS.Model.extend({
 	feed_imports_count: DS.attr('number'),
 	created_at: DS.attr('date'),
 	updated_at: DS.attr('date'),
+  enqueue: function(import_level) {
+    var adapter = this.get('store').adapterFor('feed');
+    var url = adapter.urlPrefix() + '/webhooks/feed_eater';
+    adapter.ajax(url, 'post', {
+      data: {
+        feed_onestop_ids: [this.get('onestop_id')],
+        import_level: import_level
+      }
+    });
+  }
 });
 
 export default Feed;
