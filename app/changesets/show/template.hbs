@@ -1,12 +1,16 @@
 <h2>{{link-to 'Changesets' 'changesets'}} / Changeset #{{model.id}}</h2>
 
+<p>Applied: {{model.applied}}</p>
+
 <p>{{model.notes}}</p>
+
 <pre style="max-width: 100%; word-wrap: break-word;">
   {{model.stringified_payload}}
 </pre>
 {{json-editor json=model.payload mode='view'}}
-{{#link-to 'changesets.edit' model class="btn btn-primary"}}Edit this Changeset{{/link-to}}
 
 {{#unless model.applied }}
+  {{#link-to 'changesets.edit' model class="btn btn-primary"}}Edit this Changeset{{/link-to}}
+
   <input type="button" {{action 'apply'}} value="Apply" >
 {{/unless}}
