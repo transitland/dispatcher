@@ -1,29 +1,10 @@
-<h1>{{model.onestop_id}}</h1>
-
-
-<input type="button" {{action 'enqueue' 1}} value="Enqueue Level 1" class="btn btn-danger">
-<input type="button" {{action 'enqueue' 2}} value="Enqueue Level 2" class="btn btn-danger">
-
-<h2>Feed Versions</h2>
-{{#each model.feed_versions as |feedVersion|}}
-  <div class="panel panel-default">
-    <div class="panel-heading">Feed Version with sha1 {{feedVersion.sha1}}</div>
-    <div class="panel-body">
-      <h4>Feed Version Imports</h4>
-      {{#each feedVersion.feed_version_imports as |feedVersionImport| }}
-        <p>Success? {{feedVersionImport.success}}</p>
-        <p>Import log: {{feedVersionImport.import_log}}</p>
-        <p>Exception log: {{feedVersionImport.exception_log}}</p>
-        {{feedVersionImport.validation_report}}
-        <h5>Feed Schedule Imports</h5>
-        {{#each feedVersionImport.feed_schedule_imports as |feedScheduleImport|}}
-          <p>Success? {{feedScheduleImport.success}}</p>
-          <p>Import log: {{feedVersionImport.import_log}}</p>
-          <p>Exception log: {{feedVersionImport.exception_log}}</p>
-        {{/each}}
-      {{/each}}
-    </div>
+<div class="row">
+  <div class="col-md-6">
+    <h2>Feed: {{model.onestop_id}}</h2>
   </div>
-{{else}}
-  <p>No feed versions</p>
-{{/each}}
+  <div class="col-md-6 text-right">
+    {{enqueue-feed-controls feed=model}}
+  </div>
+</div>
+
+{{feed-versions-list feed=model}}

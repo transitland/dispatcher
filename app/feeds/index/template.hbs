@@ -1,9 +1,1 @@
-<div class="list-group">
-  {{#each model as |feed|}}
-    {{#link-to 'feeds.show' feed class="list-group-item"}}
-      <span class="badge">{{feed.feed_imports_count}}</span>
-      <h4 class="list-group-item-heading">{{feed.onestop_id}}</h4>
-      <p class="list-group-item-text">Last imported at: {{feed.last_imported_at}}</p>
-    {{/link-to}}
-  {{/each}}
-</div>
+{{feeds-list feeds=model}}

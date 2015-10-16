@@ -1,0 +1,17 @@
+<div class="panel-heading">
+  <h6 class="panel-title">Feed Schedule Import</h6>
+</div>
+<div class="panel-body">
+  <dl class="dl-horizontal">
+    <dt>Created at</dt>
+    <dd>{{feedScheduleImport.created_at}}</dd>
+    <dt>Updated at</dt>
+    <dd>{{feedScheduleImport.updated_at}}</dd>
+  </dl>
+  {{#if feedScheduleImport.import_log}}
+    {{collapsable-log-panel title="Import Log" body=feedScheduleImport.import_log}}
+  {{/if}}
+  {{#if feedScheduleImport.exception_log}}
+    {{collapsable-log-panel title="Exception Log" body=feedScheduleImport.exception_log panelClass="panel-danger"}}
+  {{/if}}
+</div>

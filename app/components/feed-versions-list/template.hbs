@@ -1,0 +1,34 @@
+<div class="panel-group">
+  {{#each feed.feed_versions as |feedVersion|}}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">Feed Version</h4>
+      </div>
+      <div class="panel-body">
+        <div class="panel-group">
+          <dl class="dl-horizontal">
+            <dt>SHA1</dt>
+            <dd>{{feedVersion.sha1}}</dd>
+            <dt>MD5</dt>
+            <dd>{{feedVersion.md5}}</dd>
+            <dt>Earliest calendar date</dt>
+            <dd>{{feedVersion.earliest_calendar_date}}</dd>
+            <dt>Latest calendar date</dt>
+            <dd>{{feedVersion.latest_calendar_date}}</dd>
+            <dt>Fetched at</dt>
+            <dd>{{feedVersion.fetched_at}}</dd>
+            <dt>Imported at</dt>
+            <dd>{{feedVersion.imported_at}}</dd>
+            <dt>Tags</dt>
+            <dd>{{stringify-json feedVersion.tags}}</dd>
+          </dl>
+          {{#each feedVersion.feed_version_imports as |feedVersionImport| }}
+            {{feed-versions-list/feed-version-import-panel feedVersionImport=feedVersionImport}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{else}}
+    <p>No feed versions</p>
+  {{/each}}
+</div>

@@ -10,14 +10,13 @@
       {{/linkTo}}
     </ul>
   </div>
+  <div class="navbar-form navbar-right">
+    <div class="form-group">
+      {{auth-token-input}}
+    </div>
+  </div>
 </nav>
 
 <div class="container">
   {{outlet}}
 </div>
-
-<nav class="navbar navbar-form navbar-fixed-bottom">
-  <div class="form-group">
-    {{auth-token-input}}
-  </div>
-</nav>

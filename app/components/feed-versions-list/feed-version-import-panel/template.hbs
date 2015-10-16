@@ -1,0 +1,24 @@
+<div class="panel-heading">
+  <h5 class="panel-title">Feed Version Import</h5>
+</div>
+<div class="panel-body">
+  <dl class="dl-horizontal">
+    <dt>Created at</dt>
+    <dd>{{feedVersionImport.created_at}}</dd>
+    <dt>Updated at</dt>
+    <dd>{{feedVersionImport.updated_at}}</dd>
+  </dl>
+  {{#if feedVersionImport.import_log}}
+    {{collapsable-log-panel title="Import Log" body=feedVersionImport.import_log}}
+  {{/if}}
+  {{#if feedVersionImport.exception_log}}
+    {{collapsable-log-panel title="Exception Log" body=feedVersionImport.exception_log panelClass="panel-danger"}}
+  {{/if}}
+  {{#if feedVersionImport.validation_report}}
+    {{collapsable-log-panel title="Validation Report" body=feedVersionImport.validation_report}}
+  {{/if}}
+
+  {{#each feedVersionImport.feed_schedule_imports as |feedScheduleImport|}}
+    {{feed-versions-list/feed-schedule-import-panel feedScheduleImport=feedScheduleImport}}
+  {{/each}}
+</div>
