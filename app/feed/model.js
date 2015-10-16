@@ -2,7 +2,7 @@ import Ember from 'ember';
 import DS from 'ember-data';
 
 var Feed = DS.Model.extend({
-	feed_imports: DS.hasMany('feed-import', { async: true }),
+	feed_versions: DS.hasMany('feed-version', { async: true }),
 	onestop_id: Ember.computed.alias('id'),
 	url: DS.attr('string'),
 	feed_format: DS.attr('string'),
