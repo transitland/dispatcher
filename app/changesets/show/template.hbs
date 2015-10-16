@@ -1,5 +1,5 @@
-{{#link-to 'changesets'}}Back to All Changesets{{/link-to}}
-<h1>Changeset #{{model.id}}</h1>
+<h2>{{link-to 'Changesets' 'changesets'}} / Changeset #{{model.id}}</h2>
+
 <p>{{model.notes}}</p>
 <pre style="max-width: 100%; word-wrap: break-word;">
   {{model.stringified_payload}}
