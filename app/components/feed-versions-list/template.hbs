@@ -2,7 +2,7 @@
   {{#each feed.feed_versions as |feedVersion|}}
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4 class="panel-title">Feed Version</h4>
+        <h4 class="panel-title">Feed Version <div class="pull-right">{{feed-eater-controls feedVersion=feedVersion}}</div></h4>
       </div>
       <div class="panel-body">
         <div class="panel-group">
