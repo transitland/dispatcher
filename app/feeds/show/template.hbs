@@ -1,3 +1,9 @@
 <h2>{{link-to 'Feeds' 'feeds'}} / {{model.onestop_id}}</h2>
 
+{{#if model.latest_fetch_exception_log}}
+  <div class="alert alert-danger">
+    <strong>Latest fetch exception log</strong>: {{model.latest_fetch_exception_log}} (at {{model.last_fetched_at}})
+  </div>
+{{/if}}
+
 {{feed-versions-list feed=model}}

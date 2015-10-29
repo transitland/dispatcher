@@ -4,6 +4,7 @@ import DS from 'ember-data';
 var Feed = DS.Model.extend({
 	feed_versions: DS.hasMany('feed-version', { async: true }),
 	onestop_id: Ember.computed.alias('id'),
+	import_status: DS.attr('string'),
 	url: DS.attr('string'),
 	feed_format: DS.attr('string'),
 	license_name: DS.attr('string'),
@@ -14,6 +15,7 @@ var Feed = DS.Model.extend({
 	last_sha1: DS.attr('string'),
 	last_fetched_at: DS.attr('string'),
 	last_imported_at: DS.attr('string'),
+	latest_fetch_exception_log: DS.attr('string'),
 	feed_versions_count: DS.attr('number'),
 	created_at: DS.attr('date'),
 	updated_at: DS.attr('date')
