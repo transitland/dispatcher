@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  store: Ember.inject.service(),
   actions: {
     fetchFeeds: function() {
       var adapter = this.get('store').adapterFor('feed');
