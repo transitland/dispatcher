@@ -43,10 +43,12 @@ module.exports = function(environment) {
 
   if (environment === 'staging') {
     ENV.datastoreHost = 'http://dev.transit.land';
+    ENV.baseURL = '/dispatcher';
   }
 
   if (environment === 'production') {
     ENV.datastoreHost = 'https://transit.land';
+    ENV.baseURL = '/dispatcher';
   }
 
   return ENV;
