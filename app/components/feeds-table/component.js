@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: ['list-group']
+  tagName: 'table',
+  classNames: ['table', 'table-hover']
 });

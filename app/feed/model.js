@@ -18,7 +18,21 @@ var Feed = DS.Model.extend({
 	latest_fetch_exception_log: DS.attr('string'),
 	feed_versions_count: DS.attr('number'),
 	created_at: DS.attr('date'),
-	updated_at: DS.attr('date')
+	updated_at: DS.attr('date'),
+	importStatusCssClass: Ember.computed('import_status', function() {
+		switch(this.get('import_status')) {
+			case 'most_recent_succeeded':
+				return 'success';
+			case 'most_recent_failed':
+				return 'danger';
+			case 'in_progress':
+				return 'active';
+			case 'never_imported':
+				return '';
+			case 'unknown':
+				return 'warning';
+		}
+	})
 });
 
 export default Feed;
