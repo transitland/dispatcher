@@ -9,4 +9,8 @@ export default DS.RESTSerializer.extend({
     payload[primaryModelClass.modelName] = rawPayload;
     return this._super(store, primaryModelClass, payload, id, requestType);
   },
+  serializeIntoHash: function(data, type, record, options) {
+    var root = Ember.String.underscore(type.modelName);
+    data[root] = this.serialize(record, options);
+  }
 });

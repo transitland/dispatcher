@@ -1,0 +1,20 @@
+<style>
+  .jsoneditor {
+    height: 500px;
+  }
+</style>
+
+<h2>{{link-to 'Changesets' 'changesets'}} / {{#link-to 'changesets.show' model.changeset}}Changeset #{{model.changeset.id}}{{/link-to}} / Payload #{{model.id}}</h2>
+
+<dl class="dl-horizontal">
+  <dt>Created</dt>
+  <dd>{{model.created_at}}</dd>
+  <dt>Updated</dt>
+  <dd>{{model.updated_at}}</dd>
+</dl>
+
+{{json-editor json=changePayload.payload mode='view'}}
+
+{{#unless changeset.applied }}
+  {{#link-to 'changesets.change-payloads.edit' model.changeset model class="btn btn-primary"}}Edit this payload{{/link-to}}
+{{/unless}}
