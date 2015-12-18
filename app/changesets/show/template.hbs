@@ -1,16 +1,23 @@
 <h2>{{link-to 'Changesets' 'changesets'}} / Changeset #{{model.id}}</h2>
 
-<p>Applied: {{model.applied}}</p>
-
-<p>{{model.notes}}</p>
-
-<pre style="max-width: 100%; word-wrap: break-word;">
-  {{model.stringified_payload}}
-</pre>
-{{json-editor json=model.payload mode='view'}}
+<dl class="dl-horizontal">
+  <dt>Notes</dt>
+  <dd>{{model.notes}}</dd>
+  <dt>Applied</dt>
+  <dd>{{model.applied}}</dd>
+  <dt>Created</dt>
+  <dd>{{model.created_at}}</dd>
+  <dt>Updated</dt>
+  <dd>{{model.updated_at}}</dd>
+</dl>
 
 {{#unless model.applied }}
   {{#link-to 'changesets.edit' model class="btn btn-primary"}}Edit this Changeset{{/link-to}}
-
   <input type="button" {{action 'apply'}} value="Apply" >
+{{else}}
+  Applied model; cannot edit or apply.
 {{/unless}}
+
+<h2>Change Payloads</h2>
+
+{{change-payloads-list changeset=model}}

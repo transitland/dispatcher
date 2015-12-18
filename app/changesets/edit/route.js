@@ -8,13 +8,10 @@ export default Ember.Route.extend({
     update: function() {
       var self = this;
       var changeset = self.currentModel;
-      var newPayload = JSON.parse(changeset.get('stringified_payload'));
-      changeset.set('payload', newPayload);
       changeset.save().then(function() {
         self.transitionTo('changesets.show', changeset);
       }).catch(function(error) {
-        debugger
-        ''
+        alert(error.message);
       });
     }
   }
