@@ -14,6 +14,14 @@ module.exports = function(environment) {
       }
     },
 
+    contentSecurityPolicy: {
+      'default-src': "'none'",
+      'connect-src': "'self' http://dev.transit.land https://transit.land",
+      'img-src': "'self'",
+      'style-src': "'self' 'unsafe-inline'",
+      'media-src': "'self'"
+    },
+
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
@@ -22,6 +30,13 @@ module.exports = function(environment) {
 
   if (environment === 'development') {
     ENV.datastoreHost = 'http://localhost:3000';
+    ENV.contentSecurityPolicy = {
+      'default-src': "'none'",
+      'connect-src': "'self' http://localhost:3000",
+      'img-src': "'self'",
+      'style-src': "'self' 'unsafe-inline'",
+      'media-src': "'self'"
+    }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
