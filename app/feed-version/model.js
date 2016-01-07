@@ -16,7 +16,7 @@ export default DS.Model.extend({
   enqueue: function(import_level) {
     var adapter = this.get('store').adapterFor('feed');
     var url = adapter.urlPrefix() + '/webhooks/feed_eater';
-    adapter.ajax(url, 'post', {
+    return adapter.ajax(url, 'post', {
       data: {
         feed_onestop_id: this.get('feed.onestop_id'),
         feed_version_sha1: this.get('sha1'),
