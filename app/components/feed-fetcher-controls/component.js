@@ -6,7 +6,13 @@ export default Ember.Component.extend({
     fetchFeeds: function() {
       var adapter = this.get('store').adapterFor('feed');
       var url = adapter.urlPrefix() + '/webhooks/feed_fetcher';
-      adapter.ajax(url, 'post', {});
+      const flashMessages = Ember.get(this, 'flashMessages');
+      adapter.ajax(url, 'post', {})
+      .then( () => {
+        flashMessages.success('Starting to fetch feeds!');
+      }).catch( () => {
+        flashMessages.danger('Error fetching feeds.');
+      });
     }
   }
 });
