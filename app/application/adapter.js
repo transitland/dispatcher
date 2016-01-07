@@ -10,5 +10,13 @@ export default DS.RESTAdapter.extend({
     return {
       'Authorization': `Token token=${this.get("session.authToken")}`
     };
-  })
+  }),
+  ajaxOptions: function(url, type, options) {
+    var hash = this._super(url, type, options);
+    if (typeof(ENV.apiProxyKey) !== "undefined") {
+      hash.data = hash.data || {};
+      hash.data["api_key"] = ENV.apiProxyKey;
+    }
+    return hash;
+  }
 });

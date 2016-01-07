@@ -64,6 +64,7 @@ module.exports = function(environment) {
   if (environment === 'production') {
     ENV.datastoreHost = 'https://transit.land';
     ENV.baseURL = '/dispatcher';
+    ENV.apiProxyKey= 'transitland-k3a9ArI';
   }
 
   return ENV;
