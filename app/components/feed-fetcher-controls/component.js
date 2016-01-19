@@ -15,7 +15,7 @@ export default Ember.Component.extend({
       }
       adapter.ajax(url, 'post', params)
       .then( () => {
-        flashMessages.success('Starting to fetch feeds!');
+        flashMessages.success('Starting to fetch feed(s)!');
       }).catch( () => {
         flashMessages.danger('Error fetching feeds.');
       });
