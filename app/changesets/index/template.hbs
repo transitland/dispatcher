@@ -1,15 +1,22 @@
-<h2>Changesets</h2>
-
-<div class="list-group">
-{{#each model as |changeset|}}
-  {{#link-to 'changesets.show' changeset class="list-group-item"}}
-    {{#if changeset.applied}}
-      <span class="badge">{{fa-icon "check"}}</span>
-    {{/if}}
-    <h4 class="list-group-item-heading">Changeset #{{changeset.id}}</h4>
-    <p class="list-group-item-text">{{changeset.notes}}</p>
-  {{/link-to}}
-{{/each}}
+<div class="row">
+  <div class="col-md-6">
+    <h2>Changesets</h2>
+  </div>
+  <div class="col-md-6 text-right">
+    {{#link-to 'changesets.new' class="btn btn-primary" }}New Changeset{{/link-to}}
+  </div>
 </div>
 
-{{#link-to 'changesets.new' class="btn btn-primary"}}New Changeset{{/link-to}}
+<div class="list-group">
+  {{#each model as |changeset|}}
+    {{#link-to 'changesets.show' changeset class="list-group-item" }}
+      {{#if changeset.applied}}
+        <span class="badge">{{fa-icon "check"}}</span>
+      {{/if}}
+      <h4 class="list-group-item-heading">Changeset #{{changeset.id}}</h4>
+      <p class="list-group-item-text">{{changeset.notes}}</p>
+    {{/link-to}}
+  {{/each}}
+</div>
+
+{{pagination-controls route="changesets" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset}}
