@@ -7,7 +7,13 @@ export default Ember.Component.extend({
       var adapter = this.get('store').adapterFor('feed');
       var url = adapter.urlPrefix() + '/webhooks/feed_fetcher';
       const flashMessages = Ember.get(this, 'flashMessages');
-      adapter.ajax(url, 'post', {})
+      var params = {};
+      if (typeof(this.get("feed")) !== 'undefined') {
+        params["data"] = {
+          feed_onestop_id: this.get("feed.onestop_id")
+        };
+      }
+      adapter.ajax(url, 'post', params)
       .then( () => {
         flashMessages.success('Starting to fetch feeds!');
       }).catch( () => {
