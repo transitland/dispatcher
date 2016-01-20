@@ -4,9 +4,10 @@ export default Ember.Component.extend({
   classNames: ['panel'],
   classNameBindings: ['panelClass'],
   panelClass: 'panel-default',
+  show: false,
   actions: {
     toggleCollapse: function() {
-      this.$('.collapse').collapse('toggle');
+      this.toggleProperty("show");
     }
   }
 });

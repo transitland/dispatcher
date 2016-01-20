@@ -6,12 +6,14 @@ export default Ember.Route.extend({
   },
   actions: {
     update: function() {
+      const flashMessages = Ember.get(this, 'flashMessages');
       var self = this;
       var changeset = self.currentModel;
       changeset.save().then(function() {
+        flashMessages.success("Changeset updated!");
         self.transitionTo('changesets.show', changeset);
       }).catch(function(error) {
-        alert(error.message);
+        flashMessages.danger(`Error(s) updating changeset: ${error.message}`);
       });
     }
   }

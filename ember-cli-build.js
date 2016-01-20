@@ -6,6 +6,9 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     emberCliFontAwesome: {
       useScss: true
+    },
+    'ember-cli-bootstrap-sassy': {
+      'js': false
     }
   });
 

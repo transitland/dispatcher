@@ -16,6 +16,8 @@
       <h4 class="list-group-item-heading">Changeset #{{changeset.id}}</h4>
       <p class="list-group-item-text">{{changeset.notes}}</p>
     {{/link-to}}
+  {{else}}
+    <p>No changesets.</p>
   {{/each}}
 </div>
 

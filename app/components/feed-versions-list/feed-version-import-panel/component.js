@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: ['panel'],
-  classNameBindings: ['isSuccessful'],
   isSuccessful: Ember.computed('feedVersionImport.success', function() {
     var success = this.get('feedVersionImport').get('success');
     if (success === true) {
