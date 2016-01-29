@@ -1,0 +1,6 @@
+<h2>{{link-to 'Users' 'users'}} / New User</h2>
+
+{{user-form user=model}}
+
+{{#link-to 'users'}}Cancel{{/link-to}}
+<input type="button" {{action 'create'}} value="Create" class="btn btn-primary">

@@ -1,5 +1,7 @@
 @import "bootstrap";
 @import "bower_components/font-awesome/scss/font-awesome";
+@import 'ember-power-select/themes/bootstrap';
+@import "ember-power-select";
 @import "pod-styles";
 
 .container {

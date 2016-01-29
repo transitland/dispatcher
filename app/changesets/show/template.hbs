@@ -9,6 +9,10 @@
   <dd>{{model.created_at}}</dd>
   <dt>Updated</dt>
   <dd>{{model.updated_at}}</dd>
+  {{#if model.user}}
+    <dt>Author</dt>
+    <dd>{{#link-to 'users.show' model.user}}{{model.user.name}} {{model.user.email}}{{/link-to}}</dd>
+  {{/if}}
 </dl>
 
 {{#unless model.applied }}
