@@ -5,7 +5,6 @@
         <h4 class="panel-title pull-left">Change Payload</h4>
         <div class="btn-group pull-right">
           {{#unless changeset.applied }}
-            <a class="btn btn-danger" {{action 'deleteChangePayload' changePayload}}>Delete this Payload</a>
             {{#link-to 'changesets.change-payloads.edit' changeset changePayload class="btn btn-primary" }}Edit this payload{{/link-to}}
           {{/unless}}
         </div>
