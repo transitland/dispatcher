@@ -16,4 +16,5 @@
 {{json-editor json=model.payload mode='form'}}
 
 {{#link-to 'changesets.show' model.changeset}}Cancel{{/link-to}}
+<a class="btn btn-danger" {{action 'delete' model}}>Delete this Payload</a>
 <input type="button" {{action 'update'}} value="Update" class="btn btn-primary">
