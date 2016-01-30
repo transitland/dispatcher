@@ -7,6 +7,7 @@ module.exports = function(environment) {
     baseURL: '/',
     locationType: 'auto',
     datastoreHost: 'https://transit.land',
+    AUTH_TOKEN_LOCALSTORAGE_KEY: 'transitland-dispatcher-auth-token',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

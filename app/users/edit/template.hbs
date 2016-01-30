@@ -1,0 +1,6 @@
+<h2>{{link-to 'Users' 'users'}} / Editing {{model.name}} {{model.email}}</h2>
+
+{{user-form user=model}}
+
+{{#link-to 'users.show' model}}Cancel{{/link-to}}
+<input type="button" {{action 'update'}} value="Update" class="btn btn-primary">
