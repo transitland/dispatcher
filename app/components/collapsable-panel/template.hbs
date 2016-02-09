@@ -1,0 +1,15 @@
+<div class="panel-heading" {{action 'toggleCollapse'}}>
+  <div class="pull-right">
+    {{#if show}}
+      {{fa-icon "caret-down"}}
+    {{else}}
+      {{fa-icon "caret-up"}}
+    {{/if}}
+  </div>
+  <h4 class="panel-title">{{title}}</h4>
+</div>
+<div class="panel-collapse {{if show "" "collapse"}}">
+  <div class="panel-body">
+    {{yield}}
+  </div>
+</div>

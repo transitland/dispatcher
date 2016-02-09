@@ -1,0 +1,19 @@
+<nav>
+  <ul class="pager">
+    {{#if hasPreviousPage}}
+      <li class="previous">
+        {{#link-to route (query-params offset=previousOffset) class="btn btn-default"}}
+          <span aria-hidden="true">&larr;</span> Previous
+        {{/link-to}}
+      </li>
+    {{/if}}
+
+    {{#if hasNextPage}}
+      <li class="next">
+        {{#link-to route (query-params offset=nextOffset) class="btn btn-default"}}
+          Next <span aria-hidden="true">&rarr;</span>
+        {{/link-to}}
+      </li>
+    {{/if}}
+  </ul>
+</nav>

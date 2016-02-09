@@ -1,4 +1,5 @@
 import DS from "ember-data";
+import Ember from "ember";
 
 export default DS.RESTSerializer.extend({
   // Custom json root. The API returns single models without a JSON root node.

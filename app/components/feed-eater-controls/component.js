@@ -7,8 +7,8 @@ export default Ember.Component.extend({
       this.get('feedVersion').enqueue(importLevel)
       .then( () => {
         flashMessages.success('Successfully enqueued feed version for import!');
-      }).catch( () => {
-        flashMessages.danger('Error enqueuing feed version for import.');
+      }).catch( (e) => {
+        flashMessages.danger(`Error enqueuing feed version for import: ${e.message}`);
       });
     }
   }

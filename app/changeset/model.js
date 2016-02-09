@@ -8,8 +8,9 @@ export default DS.Model.extend({
   applied_at: DS.attr('date'),
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),
+  user: DS.belongsTo('user', { async: true }),
   apply: function() {
-    var applicationAdapter = this.store.adapterFor(this.constructor.typeKey);
+    var applicationAdapter = this.store.adapterFor('changeset');
     var modelUrl = applicationAdapter.buildURL('changeset', this.id);
     var applyUrl = modelUrl + '/apply';
     return applicationAdapter.ajax(applyUrl, 'post');

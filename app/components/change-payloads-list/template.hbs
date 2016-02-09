@@ -2,7 +2,12 @@
   {{#each changeset.change_payloads as |changePayload|}}
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4 class="panel-title">Change Payload</h4>
+        <h4 class="panel-title pull-left">Change Payload</h4>
+        <div class="btn-group pull-right">
+          {{#unless changeset.applied }}
+            {{#link-to 'changesets.change-payloads.edit' changeset changePayload class="btn btn-primary" }}Edit this payload{{/link-to}}
+          {{/unless}}
+        </div>
       </div>
       <div class="panel-body">
         <div class="panel-group">
@@ -13,13 +18,10 @@
             <dd>{{changePayload.updated_at}}</dd>
           </dl>
           {{json-editor json=changePayload.payload mode='view'}}
-          {{#unless changeset.applied }}
-            {{#link-to 'changesets.change-payloads.edit' changeset changePayload class="btn btn-primary"}}Edit this payload{{/link-to}}
-          {{/unless}}
         </div>
       </div>
     </div>
-  {{else}}
-    <p>No change payloads</p>
+    {{else}}
+      <p>No change payloads</p>
   {{/each}}
 </div>
