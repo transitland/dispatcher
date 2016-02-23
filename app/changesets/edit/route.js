@@ -10,6 +10,17 @@ export default Ember.Route.extend({
     });
   },
   actions: {
+    delete: function() {
+      let self = this;
+      let changeset = self.currentModel.changeset;
+      const flashMessages = Ember.get(this, 'flashMessages');
+      changeset.destroyRecord().then(() => {
+        flashMessages.success("Changeset deleted!");
+        self.transitionTo('changesets');
+      }).catch(function(error) {
+        flashMessages.danger(`Error(s) deleting changeset: ${error.message}`);
+      });
+    },
     update: function() {
       const flashMessages = Ember.get(this, 'flashMessages');
       let self = this;
