@@ -19,12 +19,19 @@ export default DS.RESTAdapter.extend({
     // only need to include api_key when making GET requests
     // because those are the most frequent type of request.
     // if we include api_key in POSTs or PUTs, Datastore will barf
-    if (typeof(ENV.apiProxyKey) !== "undefined" && type === 'GET') {
+    if (type === 'GET') {
       let data = {};
       if (typeof(hash.data) === 'string') {
         data = JSON.parse(hash.data);
+      } else if (typeof(hash.data) !== "undefined") {
+        data = hash.data;
+      } else {
+        data = {};
       }
-      data["api_key"] = ENV.apiProxyKey;
+      if (typeof(ENV.apiProxyKey) !== "undefined" ) {
+        data["api_key"] = ENV.apiProxyKey;
+      }
+      data["total"] = true;
       hash.data = data;
     }
     return hash;
