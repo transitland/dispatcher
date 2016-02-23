@@ -1,7 +1,6 @@
-<h2>{{link-to 'Changesets' 'changesets'}} / Editing Changeset #{{model.id}}</h2>
+<h2>{{link-to 'Changesets' 'changesets'}} / Editing Changeset #{{model.changeset.id}}</h2>
 
-<h3>Notes</h3>
-<p>{{textarea value=model.notes cols=100 rows=10}}</p>
+{{changeset-form changeset=model.changeset users=model.users}}
 
-{{#link-to 'changesets.show' model}}Cancel{{/link-to}}
-<input type="button" {{action 'update'}} value="Update" class="btn btn-primary">
+{{#link-to 'changesets.show' model class="btn btn-default"}}Cancel{{/link-to}}
+<input type="button" {{action 'update'}} value="Update" class="btn btn-primary pull-right">

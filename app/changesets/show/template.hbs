@@ -16,7 +16,7 @@
 </dl>
 
 {{#unless model.applied }}
-  {{#link-to 'changesets.edit' model class="btn btn-primary" }}Edit changeset notes{{/link-to}}
+  {{#link-to 'changesets.edit' model class="btn btn-primary" }}Edit changeset{{/link-to}}
   <input type="button" class="btn btn-danger" {{action 'apply'}} value="Apply changeset">
   {{else}}
     <em>Applied model; cannot edit or apply.</em>

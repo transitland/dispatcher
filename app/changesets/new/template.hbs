@@ -1,8 +1,6 @@
 <h2>{{link-to 'Changesets' 'changesets'}} / New Changeset</h2>
 
-<p>{{textarea value=model.notes cols=100 rows=10}}</p>
-{{!-- <p>{{textarea value=model.payload cols=100 rows=10}}</p> --}}
 {{changeset-form changeset=model.changeset users=model.users}}
 
-{{#link-to 'changesets'}}Cancel{{/link-to}}
-<input type="button" {{action 'create'}} value="Create" class="btn btn-primary">
+{{#link-to 'changesets' class="btn btn-default"}}Cancel{{/link-to}}
+<input type="button" {{action 'create'}} value="Create" class="btn btn-primary pull-right">
