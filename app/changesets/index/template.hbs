@@ -7,6 +7,10 @@
   </div>
 </div>
 
+<div class="btn-toolbar" role="toolbar">
+  {{x-toggle showLabels=true on="already applied" off="not yet applied" value=applied}}
+</div>
+
 {{changeset-list changesets=model}}
 
 {{pagination-controls route="changesets" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset}}
