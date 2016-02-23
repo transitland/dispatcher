@@ -7,7 +7,7 @@
   <dd>{{model.updated_at}}</dd>
 </dl>
 
-{{json-editor json=model.payload mode='form'}}
+{{change-payload-viewer-editor changePayload=model editMode=true}}
 
 {{#link-to 'changesets.show' model.changeset}}Cancel{{/link-to}}
 <a class="btn btn-danger" {{action 'delete' model}}>Delete this Payload</a>
