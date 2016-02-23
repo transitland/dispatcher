@@ -7,9 +7,9 @@ export default Ember.Mixin.create({
   hasPreviousPage: Ember.computed("offset", function() {
     return this.get("offset") > 0;
   }),
-  hasNextPage: Ember.computed("model", function() {
-    if (this.model.meta && "next" in this.model.meta) {
-      return Ember.isPresent(this.model.meta.next);
+  hasNextPage: Ember.computed("model.meta.next", function() {
+    if (Ember.isPresent(this.get('model.meta.next'))) {
+      return true;
     } else {
       return false;
     }
