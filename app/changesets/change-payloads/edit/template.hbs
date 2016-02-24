@@ -9,6 +9,6 @@
 
 {{change-payload-viewer-editor changePayload=model editMode=true}}
 
-{{#link-to 'changesets.show' model.changeset}}Cancel{{/link-to}}
+{{#link-to 'changesets.show' model.changeset class="btn btn-default"}}Cancel{{/link-to}}
 <a class="btn btn-danger" {{action 'delete' model}}>Delete this Payload</a>
-<input type="button" {{action 'update'}} value="Update" class="btn btn-primary">
+<input type="button" {{action 'update'}} value="Update" class="btn btn-primary pull-right">

@@ -4,6 +4,7 @@
   <th>Last Fetched</th>
   <th>Import Status</th>
   <th>Last Imported</th>
+  <th>Import Level of Active Feed Version</th>
 </thead>
 <tbody>
   {{#each feeds as |feed|}}
@@ -26,6 +27,11 @@
       <td>
         {{#if feed.last_imported_at}}
           {{moment-from-now feed.last_imported_at}}
+        {{/if}}
+      </td>
+      <td>
+        {{#if feed.active_feed_version}}
+          {{feed.import_level_of_active_feed_version}}
         {{/if}}
       </td>
     {{/link-to}}

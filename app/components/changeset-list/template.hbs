@@ -2,7 +2,7 @@
   {{#each changesets as |changeset|}}
     {{#link-to 'changesets.show' changeset class="list-group-item" }}
       {{#if changeset.applied}}
-        <span class="badge">{{fa-icon "check"}}</span>
+        <span class="badge" style="background-color: green;">{{fa-icon "check"}}</span>
       {{/if}}
       <h4 class="list-group-item-heading">Changeset #{{changeset.id}}</h4>
       <p class="list-group-item-text">{{changeset.notes}}</p>

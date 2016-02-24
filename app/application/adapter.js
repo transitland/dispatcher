@@ -15,6 +15,13 @@ export default DS.RESTAdapter.extend({
       'Authorization': `Token token=${authToken}`
     };
   }),
+  pathForType: function(type) {
+    // model names should be underscored in URLs
+    // For example: /api/v1/feed_version_imports
+    let decamelized = Ember.String.decamelize(type);
+    let underscored = Ember.String.underscore(decamelized);
+    return Ember.String.pluralize(underscored);
+  },
   ajaxOptions: function(url, type, options) {
     var hash = this._super(url, type, options);
     // only need to include api_key when making GET requests
