@@ -3,7 +3,6 @@ import DS from 'ember-data';
 export default DS.Model.extend({
   feed: DS.belongsTo('feed', { async: true }),
   feed_version: DS.belongsTo('feed-version', { async: true }),
-  imported_from_changesets: DS.hasMany('changesets'),
 
   success: DS.attr('nullable-boolean'),
   import_log: DS.attr('string'),
