@@ -7,9 +7,11 @@
     <label for="notes">Notes</label>
     {{textarea id="notes" class="form-control" value=changeset.notes cols=100 rows=10}}
   </div>
-  <div class="form-group">
-    {{#each changeset.change_payloads as |changePayload|}}
-      {{change-payload-viewer-editor changePayload=changePayload editMode=true}}
-    {{/each}}
-  </div>
+  {{#if changeset.isNew}}
+    <div class="form-group">
+      {{#each changeset.change_payloads as |changePayload|}}
+        {{change-payload-viewer-editor changePayload=changePayload editMode=true}}
+      {{/each}}
+    </div>
+  {{/if}}
 </form>
