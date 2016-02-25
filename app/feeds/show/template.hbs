@@ -24,6 +24,18 @@
   <dd>{{model.license_redistribute}}</dd>
   <dt>License attribution text</dt>
   <dd>{{model.license_attribution_text}}</dd>
+  <dt># of feed versions</dt>
+  <dd>{{model.feed_versions_count}}</dd>
+  <dt>Active feed version</dt>
+  <dd>
+    {{#if model.active_feed_version}}
+      {{model.active_feed_version.sha1}}
+    {{else}}
+      <em>none</em>
+    {{/if}}
+  </dd>
+  <dt>Import level of active feed version</dt>
+  <dd>{{model.import_level_of_active_feed_version}}</dd>
   <dt>Created</dt>
   <dd>{{model.created_at}}</dd>
   <dt>Updated</dt>
