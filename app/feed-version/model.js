@@ -19,6 +19,11 @@ export default DS.Model.extend({
   is_active_feed_version: DS.attr('boolean'),
 
   sha1: Ember.computed.alias('id'),
+  import_level_at_least_level_one: Ember.computed.gte('import_level', 1),
+  import_level_is_level_two: Ember.computed.equal('import_level', 2),
+  import_level_at_least_level_two: Ember.computed.gte('import_level', 2),
+  import_level_at_least_level_three: Ember.computed.gte('import_level', 3),
+  import_level_at_least_level_four: Ember.computed.gte('import_level', 4),
 
   enqueue: function(import_level) {
     var adapter = this.get('store').adapterFor('feed');

@@ -1,0 +1,58 @@
+<div class="btn-group dropdown {{if dropDownExpanded "open"}}">
+  <button type="button" {{action 'toggleDropDownExpanded'}} class="btn btn-warning dropdown-toggle" aria-haspopup="true" aria-expanded="{{dropDownExpanded}}">
+    Change this Feed Version <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right">
+    <li>
+      <a {{action 'enqueue' 1}}>
+        Enqueue level 1: stops and routes
+        {{#if feedVersion.import_level_at_least_level_one}}
+          <span class="badge">again</span>
+        {{/if}}
+      </a>
+    </li>
+    <li>
+      <a {{action 'enqueue' 2}}>
+        Enqueue level 2: stops, routes, and schedules
+        {{#if feedVersion.import_level_at_least_level_two}}
+          <span class="badge">again</span>
+        {{/if}}
+      </a>
+    </li>
+    <li role="separator" class="divider"></li>
+    {{#if feedVersion.is_active_feed_version}}
+      <li><a><em>Already is the active feed version.</em></a></li>
+    {{else}}
+      <li><a {{action 'setAsActiveFeedVersion'}}>Set as Active Feed Version</a></li>
+    {{/if}}
+    <li role="separator" class="divider"></li>
+    {{#if feedVersion.import_level_at_least_level_two}}
+      <li>
+        <a {{action 'changeImportLevel' 2}}>
+          Set at level 2: not fetched by Valhalla
+          {{#if feedVersion.import_level_is_level_two}}
+            <span class="badge">current</span>
+          {{/if}}
+        </a>
+      </li>
+      <li>
+        <a {{action 'changeImportLevel' 3}}>
+          Set at level 3: fetched by Valhalla development
+          {{#if feedVersion.import_level_at_least_level_three}}
+            <span class="badge">current</span>
+          {{/if}}
+        </a>
+      </li>
+      <li>
+        <a {{action 'changeImportLevel' 4}}>
+          Set at level 4: fetched by Valhalla production
+          {{#if feedVersion.import_level_at_least_level_four}}
+            <span class="badge">current</span>
+          {{/if}}
+        </a>
+      </li>
+    {{else}}
+      <li><a><em>Must be imported at level 2 before making feed available to Valhalla.</em></a></li>
+    {{/if}}
+  </ul>
+</div>
