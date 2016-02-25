@@ -17,7 +17,7 @@ module.exports = function(environment) {
 
     contentSecurityPolicy: {
       'default-src': "'none' 'self' https://*.cloudfront.net",
-      'connect-src': "'self' https://*.transit.land http://localhost:*",
+      'connect-src': "'self' https://*.transit.land https://transit.land http://localhost:*",
       'img-src': "'self' data: ",
       "child-src": "'self' blob:",
       'style-src': "'self' 'unsafe-inline'",
@@ -30,6 +30,15 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
+  };
+
+  ENV['ember-cli-toggle'] = {
+    includedThemes: ['default'],
+    defaultShowLabels: true,
+    defaultTheme: 'default',
+    defaultSize: 'medium',
+    defaultOff: 'False',
+    defaultOn: 'True'
   };
 
   if (environment === 'development') {
@@ -56,13 +65,13 @@ module.exports = function(environment) {
   if (environment === 'staging') {
     ENV.datastoreHost = 'https://dev.transit.land';
     ENV.baseURL = '/dispatcher';
-    ENV.apiProxyKey= 'transitland-YFO6jk8';
+    ENV.apiProxyKey = 'transitland-YFO6jk8';
   }
 
   if (environment === 'production') {
     ENV.datastoreHost = 'https://transit.land';
     ENV.baseURL = '/dispatcher';
-    ENV.apiProxyKey= 'transitland-k3a9ArI';
+    ENV.apiProxyKey = 'transitland-k3a9ArI';
   }
 
   return ENV;

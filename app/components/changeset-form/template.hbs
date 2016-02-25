@@ -1,0 +1,17 @@
+<form>
+  <div class="form-group">
+    <label for="user">User</label>
+    {{user-select id="user" userToSet=changeset.user usersToSelectFrom=users}}
+  </div>
+  <div class="form-group">
+    <label for="notes">Notes</label>
+    {{textarea id="notes" class="form-control" value=changeset.notes cols=100 rows=10}}
+  </div>
+  {{#if changeset.isNew}}
+    <div class="form-group">
+      {{#each changeset.change_payloads as |changePayload|}}
+        {{change-payload-viewer-editor changePayload=changePayload editMode=true}}
+      {{/each}}
+    </div>
+  {{/if}}
+</form>

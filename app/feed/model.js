@@ -3,7 +3,11 @@ import DS from 'ember-data';
 
 var Feed = DS.Model.extend({
 	feed_versions: DS.hasMany('feed-version', { async: true }),
-	onestop_id: Ember.computed.alias('id'),
+  active_feed_version: DS.belongsTo('feed-version', { async: true, inverse: 'active_for_feed' }),
+	created_or_updated_in_changeset: DS.belongsTo('changeset', { async: true }),
+	changesets_imported_from_this_feed: DS.hasMany('changeset', { async: true, inverse: 'imported_from_feed' }),
+
+	import_level_of_active_feed_version: DS.attr('number'),
 	import_status: DS.attr('string'),
 	url: DS.attr('string'),
 	feed_format: DS.attr('string'),
@@ -19,6 +23,8 @@ var Feed = DS.Model.extend({
 	feed_versions_count: DS.attr('number'),
 	created_at: DS.attr('date'),
 	updated_at: DS.attr('date'),
+
+	onestop_id: Ember.computed.alias('id'),
 	importStatusCssClass: Ember.computed('import_status', function() {
 		switch(this.get('import_status')) {
 			case 'most_recent_succeeded':
