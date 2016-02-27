@@ -16,11 +16,14 @@ module.exports = function(environment) {
     },
 
     contentSecurityPolicy: {
-      'default-src': "'none'",
-      'connect-src': "'self' http://dev.transit.land https://transit.land",
-      'img-src': "'self'",
+      'default-src': "'none' 'self' https://*.cloudfront.net",
+      'connect-src': "'self' https://*.transit.land https://transit.land http://localhost:*",
+      'img-src': "'self' data: ",
+      "child-src": "'self' blob:",
       'style-src': "'self' 'unsafe-inline'",
-      'media-src': "'self'"
+      'media-src': "'self'",
+      'script-src': "'self'",
+      'font-src': "'self' https://*.cloudfront.net"
     },
 
     APP: {
@@ -29,15 +32,17 @@ module.exports = function(environment) {
     }
   };
 
+  ENV['ember-cli-toggle'] = {
+    includedThemes: ['default'],
+    defaultShowLabels: true,
+    defaultTheme: 'default',
+    defaultSize: 'medium',
+    defaultOff: 'False',
+    defaultOn: 'True'
+  };
+
   if (environment === 'development') {
     ENV.datastoreHost = 'http://localhost:3000';
-    ENV.contentSecurityPolicy = {
-      'default-src': "'none'",
-      'connect-src': "'self' http://localhost:3000",
-      'img-src': "'self'",
-      'style-src': "'self' 'unsafe-inline'",
-      'media-src': "'self'"
-    }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -58,15 +63,15 @@ module.exports = function(environment) {
   }
 
   if (environment === 'staging') {
-    ENV.datastoreHost = 'http://dev.transit.land';
+    ENV.datastoreHost = 'https://dev.transit.land';
     ENV.baseURL = '/dispatcher';
-    ENV.apiProxyKey= 'transitland-YFO6jk8';
+    ENV.apiProxyKey = 'transitland-YFO6jk8';
   }
 
   if (environment === 'production') {
     ENV.datastoreHost = 'https://transit.land';
     ENV.baseURL = '/dispatcher';
-    ENV.apiProxyKey= 'transitland-k3a9ArI';
+    ENV.apiProxyKey = 'transitland-k3a9ArI';
   }
 
   return ENV;

@@ -1,9 +1,3 @@
-<style>
-  .jsoneditor {
-    height: 500px;
-  }
-</style>
-
 <h2>{{link-to 'Changesets' 'changesets'}} / {{#link-to 'changesets.show' model.changeset}}Changeset #{{model.changeset.id}}{{/link-to}} / Editing Payload #{{model.id}}</h2>
 
 <dl class="dl-horizontal">
@@ -13,8 +7,8 @@
   <dd>{{model.updated_at}}</dd>
 </dl>
 
-{{json-editor json=model.payload mode='form'}}
+{{change-payload-viewer-editor changePayload=model editMode=true}}
 
-{{#link-to 'changesets.show' model.changeset}}Cancel{{/link-to}}
+{{#link-to 'changesets.show' model.changeset class="btn btn-default"}}Cancel{{/link-to}}
 <a class="btn btn-danger" {{action 'delete' model}}>Delete this Payload</a>
-<input type="button" {{action 'update'}} value="Update" class="btn btn-primary">
+<input type="button" {{action 'update'}} value="Update" class="btn btn-primary pull-right">

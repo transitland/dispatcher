@@ -1,0 +1,3 @@
+{{#power-select options=usersToSelectFrom selected=userToSet onchange=(action (mut userToSet)) onfocus=(action "handleFocus") allowClear=true as |user|}}
+  {{user.name}} {{user.email}}
+{{/power-select}}

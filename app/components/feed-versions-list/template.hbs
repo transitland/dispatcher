@@ -2,7 +2,20 @@
   {{#each feed.feed_versions as |feedVersion|}}
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h4 class="panel-title">Feed Version <div class="pull-right">{{feed-eater-controls feedVersion=feedVersion}}</div></h4>
+        <h4 class="panel-title">
+          {{feedVersion.sha1}}
+          {{#if feedVersion.is_active_feed_version}}
+            <span style="color: green;">
+              {{fa-icon icon="lightbulb-o" title="This is the active feed version."}}
+            </span>
+            <small>
+              this is the <strong style="color: green;">active feed version</strong>
+            </small>
+          {{/if}}
+          <div class="pull-right">
+            {{feed-version-controls feedVersion=feedVersion}}
+          </div>
+        </h4>
       </div>
       <div class="panel-body">
         <div class="panel-group">
@@ -19,6 +32,8 @@
             <dd>{{feedVersion.fetched_at}}</dd>
             <dt>Imported at</dt>
             <dd>{{feedVersion.imported_at}}</dd>
+            <dt>Import level</dt>
+            <dd>{{feedVersion.import_level}}</dd>
             <dt>Tags</dt>
             <dd>{{stringify-json feedVersion.tags}}</dd>
           </dl>

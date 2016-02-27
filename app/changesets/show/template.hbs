@@ -4,24 +4,55 @@
   <dt>Notes</dt>
   <dd>{{model.notes}}</dd>
   <dt>Applied</dt>
-  <dd>{{model.applied}}</dd>
+  <dd>
+    {{#if model.applied}}
+      <span style="color: green;">
+        {{fa-icon icon="check-square-o" title="This changeset has been applied."}}
+      </span>
+    {{else}}
+      {{fa-icon icon="square-o" title="This changeset has not been applied."}}
+    {{/if}}
+  </dd>
   <dt>Created</dt>
   <dd>{{model.created_at}}</dd>
   <dt>Updated</dt>
   <dd>{{model.updated_at}}</dd>
   {{#if model.user}}
     <dt>Author</dt>
-    <dd>{{#link-to 'users.show' model.user}}{{model.user.name}} {{model.user.email}}{{/link-to}}</dd>
+    <dd>
+      {{#link-to 'users.show' model.user}}{{model.user.name}} {{model.user.email}}{{/link-to}}
+    </dd>
+  {{/if}}
+  {{#if model.imported_from_feed}}
+    <dt>Imported from Feed</dt>
+    <dd>
+      {{#link-to 'feeds.show' model.imported_from_feed}}{{model.imported_from_feed.onestop_id}}{{/link-to}}
+    </dd>
+  {{/if}}
+  {{#if model.imported_from_feed_version}}
+    <dt>Imported from Feed Version</dt>
+    <dd>
+      {{#link-to 'feeds.show' model.imported_from_feed}}{{model.imported_from_feed_version.sha1}}{{/link-to}}
+    </dd>
   {{/if}}
 </dl>
 
 {{#unless model.applied }}
-  {{#link-to 'changesets.edit' model class="btn btn-primary" }}Edit changeset notes{{/link-to}}
+  {{#link-to 'changesets.edit' model class="btn btn-primary" }}Edit changeset{{/link-to}}
   <input type="button" class="btn btn-danger" {{action 'apply'}} value="Apply changeset">
-  {{else}}
-    <em>Applied model; cannot edit or apply.</em>
 {{/unless}}
 
-<h2>Change Payloads</h2>
+{{#if model.feeds_created_or_updated}}
+  <h2>Feeds created/updated by this changeset</h2>
+  <ul>
+    {{#each model.feeds_created_or_updated as |feed|}}
+      <li>
+        {{#link-to 'feeds.show' feed}}{{feed.onestop_id}}{{/link-to}}
+      </li>
+    {{/each}}
+  </ul>
+{{/if}}
 
-{{change-payloads-list changeset=model}}
+{{#if model.change_payloads}}
+  <h2>Change Payloads</h2> {{change-payloads-list changeset=model}}
+{{/if}}
