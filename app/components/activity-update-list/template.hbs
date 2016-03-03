@@ -1,0 +1,5 @@
+{{#each activityUpdates as |activityUpdate|}}
+  {{activity-update-list/activity-update-entry activityUpdate=activityUpdate}}
+{{else}}
+  <p>No activity updates.</p>
+{{/each}}

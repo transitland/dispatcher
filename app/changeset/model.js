@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import DS from 'ember-data';
+import EntityWithActivityModel from 'dispatcher/entity-with-activity/model';
 
-export default DS.Model.extend({
+export default EntityWithActivityModel.extend({
   change_payloads: DS.hasMany('change-payload', { async: true }),
   user: DS.belongsTo('user', { async: true }),
   imported_from_feed: DS.belongsTo('feed', { async: true, inverse: 'changesets_imported_from_this_feed' }),

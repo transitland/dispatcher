@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import DS from 'ember-data';
+import EntityWithActivityModel from 'dispatcher/entity-with-activity/model';
 
-var Feed = DS.Model.extend({
+export default EntityWithActivityModel.extend({
 	feed_versions: DS.hasMany('feed-version', { async: true }),
   active_feed_version: DS.belongsTo('feed-version', { async: true, inverse: 'active_for_feed' }),
 	created_or_updated_in_changeset: DS.belongsTo('changeset', { async: true }),
@@ -40,5 +41,3 @@ var Feed = DS.Model.extend({
 		}
 	})
 });
-
-export default Feed;
