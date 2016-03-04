@@ -37,6 +37,9 @@ export default ApplicationSerializer.extend(DS.EmbeddedRecordsMixin, {
     },
     feeds_created_or_updated: {
       serialize: false
+    },
+    activity_updates: {
+      serialize: false
     }
   }
 });
