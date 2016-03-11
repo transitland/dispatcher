@@ -4,10 +4,12 @@ import ApplicationSerializer from '../application/serializer';
 export default ApplicationSerializer.extend(DS.EmbeddedRecordsMixin, {
   attrs: {
     imported_from_feed: {
-      key: 'imported_from_feed_onestop_id'
+      key: 'imported_from_feed_onestop_id',
+      serialize: false
     },
     imported_from_feed_version: {
-      key: 'imported_from_feed_version_sha1'
+      key: 'imported_from_feed_version_sha1',
+      serialize: false
     },
     change_payloads: {
       serialize: 'records',
@@ -27,12 +29,6 @@ export default ApplicationSerializer.extend(DS.EmbeddedRecordsMixin, {
       serialize: false
     },
     updated_at: {
-      serialize: false
-    },
-    imported_from_feed: {
-      serialize: false
-    },
-    imported_from_feed_version: {
       serialize: false
     },
     feeds_created_or_updated: {

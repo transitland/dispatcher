@@ -15,7 +15,7 @@ Router.map(function() {
     this.route('new');
     this.route('change-payloads', { path: '/:changeset_id/change-payloads' }, function() {
       this.route('edit', { path: '/:change_payload_id/edit' });
-    })
+    });
   });
   this.route('feeds', function() {
     this.route('show', { path: '/:feed_id' });

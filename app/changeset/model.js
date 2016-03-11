@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import DS from 'ember-data';
 import EntityWithActivityModel from 'dispatcher/entity-with-activity/model';
 
