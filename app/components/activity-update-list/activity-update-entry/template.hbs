@@ -1,0 +1,9 @@
+<h4 class="list-group-item-heading">
+  {{#link-to activityUpdate.entityShowRoute activityUpdate.entity_id}}
+    {{activityUpdate.entity_type}} {{activityUpdate.entity_id}} {{activityUpdate.entity_action}}
+  {{/link-to}}
+</h4>
+
+<p class="list-group-item-text">{{activityUpdate.note}}</p>
+
+<p class="list-group-item-text"><em>{{moment-from-now activityUpdate.at_datetime}}</em></p>
