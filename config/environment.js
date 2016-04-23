@@ -21,15 +21,6 @@ module.exports = function(environment) {
     }
   };
 
-  ENV['ember-cli-toggle'] = {
-    includedThemes: ['default'],
-    defaultShowLabels: true,
-    defaultTheme: 'default',
-    defaultSize: 'medium',
-    defaultOff: 'False',
-    defaultOn: 'True'
-  };
-
   if (environment === 'development') {
     ENV.datastoreHost = 'http://localhost:3000';
     // ENV.APP.LOG_RESOLVER = true;
