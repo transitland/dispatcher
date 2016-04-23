@@ -8,7 +8,10 @@
 </div>
 
 <div class="btn-toolbar" role="toolbar">
-  {{x-toggle showLabels=true on="already applied" off="not yet applied" value=applied}}
+  <div class="btn-group" role="group">
+    {{toggle-button attr=applied text="not yet applied" value=false}}
+    {{toggle-button attr=applied text="already applied" value=true}}
+  </div>
 </div>
 
 {{changeset-list changesets=model}}
