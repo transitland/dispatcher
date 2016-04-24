@@ -25,6 +25,7 @@ Router.map(function() {
     this.route('edit', { path: '/:user_id/edit' });
     this.route('new');
   });
+  this.route('api-console');
 });
 
 export default Router;
