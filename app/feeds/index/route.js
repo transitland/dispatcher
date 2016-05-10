@@ -14,17 +14,11 @@ export default Ember.Route.extend(PaginatedRoute, {
     }
   },
   model: function(params) {
+    // Convert case
     var p = {};
-    if (params['activeFeedVersionUpdate']) {
-      p['active_feed_version_update'] = params['activeFeedVersionUpdate'];
-    }
-    if (params['activeFeedVersionExpired']) {
-      p['active_feed_version_expired'] = params['activeFeedVersionExpired']
-    }
-    if (params['activeFeedVersionValid']) {
-      p['active_feed_version_valid'] = params['activeFeedVersionValid']
-    }
-    console.log(p);
+    p['active_feed_version_update'] = params['activeFeedVersionUpdate'];
+    p['active_feed_version_expired'] = params['activeFeedVersionExpired'];
+    p['active_feed_version_valid'] = params['activeFeedVersionValid'];
     return this.store.query('feed', p);
   }
 });
