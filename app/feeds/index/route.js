@@ -3,11 +3,13 @@ import PaginatedRoute from 'dispatcher/mixins/paginated-route';
 
 export default Ember.Route.extend(PaginatedRoute, {
   queryParams: {
-    active_feed_version_update: {
+    activeFeedVersionUpdate: {
       refreshModel: true
     }
   },
   model: function(params) {
-    return this.store.query('feed', params);
+    var p = {};
+    p['active_feed_version_update'] = params['activeFeedVersionUpdate'];
+    return this.store.query('feed', p);
   }
 });
