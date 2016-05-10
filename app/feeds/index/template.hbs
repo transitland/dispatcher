@@ -9,6 +9,8 @@
 
 <div class="btn-toolbar" role="toolbar">
   {{x-toggle showLabels=true on="can be updated" off="cannot be updated" value=activeFeedVersionUpdate}}
+  Valid on: {{input type="text" value=activeFeedVersionValid}}
+  Expired on: {{input type="text" value=activeFeedVersionExpired}}
 </div>
 
 {{feeds-table feeds=model}}
