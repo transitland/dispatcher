@@ -16,6 +16,7 @@
     "moment": ">= 2.8.0",
     "moment-timezone": ">= 0.1.0",
     "loader.js": "ember-cli/loader.js#3.4.0",
-    "qunit": "~1.20.0"
+    "qunit": "~1.20.0",
+    "bootstrap-datepicker": "^1.6.1"
   }
 }
