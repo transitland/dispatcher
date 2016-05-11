@@ -54,5 +54,13 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
+  // import code and styles for JSON Editor
+  // used by app/components/json-editor/component.js 
+  app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.js');
+  app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.css');
+  app.import(app.bowerDirectory + '/jsoneditor/dist/img/jsoneditor-icons.svg', {
+    destDir: 'assets/img'
+  });
+
   return app.toTree();
 };

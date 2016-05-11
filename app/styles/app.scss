@@ -2,13 +2,13 @@
 @import "bower_components/font-awesome/scss/font-awesome";
 @import 'ember-power-select/themes/bootstrap';
 @import "ember-power-select";
-@import "pod-styles";
+@import "pod-styles.scss";
 
 .container {
   margin-top: 60px;
 }
 
-.jsoneditor {
+.jsoneditor-component {
   height: 500px;
 }
 
