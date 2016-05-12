@@ -13,7 +13,7 @@
       <span class="input-group-addon">
         Valid on:
       </span>
-      {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" changeDate="setActiveFeedVersionValid"}}
+      {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" value="active_feed_version_valid" changeDate="setActiveFeedVersionValid"}}
     </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
   <div class="col-lg-3">
@@ -21,12 +21,12 @@
       <span class="input-group-addon">
         Expired on:
       </span>
-      {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" changeDate="setActiveFeedVersionExpired"}}
+      {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" value="active_feed_version_expired" changeDate="setActiveFeedVersionExpired"}}
     </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
   <div class="col-lg-3">
     <div class="input-group">
-      {{x-toggle showLabels=true on="can be updated" off="" value=activeFeedVersionUpdate}}
+      {{x-toggle showLabels=true on="can be updated" off="" value=active_feed_version_update}}
     </div>
   </div>
 </div><!-- /.row -->
