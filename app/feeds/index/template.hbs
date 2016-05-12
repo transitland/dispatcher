@@ -7,6 +7,31 @@
   </div>
 </div>
 
+<div class="btn-toolbar" role="toolbar">
+  <div class="col-lg-3">
+    <div class="input-group">
+      <span class="input-group-addon">
+        Valid on:
+      </span>
+      {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" changeDate="setActiveFeedVersionValid"}}
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+  <div class="col-lg-3">
+    <div class="input-group">
+      <span class="input-group-addon">
+        Expired on:
+      </span>
+      {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" changeDate="setActiveFeedVersionExpired"}}
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+  <div class="col-lg-3">
+    <div class="input-group">
+      {{x-toggle showLabels=true on="can be updated" off="" value=activeFeedVersionUpdate}}
+    </div>
+  </div>
+</div><!-- /.row -->
+
+
 {{feeds-table feeds=model}}
 
 {{pagination-controls route="feeds" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset}}
