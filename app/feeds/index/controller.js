@@ -2,19 +2,20 @@ import Ember from 'ember';
 import PaginatedController from 'dispatcher/mixins/paginated-controller';
 
 export default Ember.Controller.extend(PaginatedController, {
-  activeFeedVersionUpdate: false,
-  activeFeedVersionExpired: null,
-  activeFeedVersionValid: null,
+  active_feed_version_update: false,
+  active_feed_version_expired: null,
+  active_feed_version_valid: null,
+  active_feed_version_import_level: null,
   actions: {
     setActiveFeedVersionExpired(date) {
       // Convert to YYYY-MM-DD
       date = date ? date.toISOString().slice(0,10) : "";
-      this.set('activeFeedVersionExpired', date);
+      this.set('active_feed_version_expired', date);
     },
     setActiveFeedVersionValid(date) {
       // Convert to YYYY-MM-DD
       date = date ? date.toISOString().slice(0,10) : "";
-      this.set('activeFeedVersionValid', date);
+      this.set('active_feed_version_valid', date);
     }
   }
 });
