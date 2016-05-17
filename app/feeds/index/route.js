@@ -11,6 +11,9 @@ export default Ember.Route.extend(PaginatedRoute, {
     },
     active_feed_version_valid: {
       refreshModel: true
+    },
+    active_feed_version_import_level: {
+      refreshModel: true
     }
   },
   model: function(params) {
