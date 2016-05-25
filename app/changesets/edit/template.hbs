@@ -2,6 +2,6 @@
 
 {{changeset-form changeset=model.changeset users=model.users}}
 
-{{#link-to 'changesets.show' model class="btn btn-default"}}Cancel{{/link-to}}
+{{#link-to 'changesets.show' model.changeset class="btn btn-default"}}Cancel{{/link-to}}
 <input type="button" {{action 'delete'}} value="Delete Changeset" class="btn btn-danger">
 <input type="button" {{action 'update'}} value="Update Changeset" class="btn btn-primary pull-right">
