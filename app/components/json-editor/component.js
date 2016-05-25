@@ -110,7 +110,7 @@ export default Ember.Component.extend({
    The callback is only invoked for errors triggered by a users action.
   */
   error: function(error) {
-    // console.error('An error occured: ', error);
+    console.error('An error occured in JSON Editor component: ', error);
   },
 
   /**
