@@ -10,7 +10,7 @@
   {{#if changeset.isNew}}
     <div class="form-group">
       {{#each changeset.change_payloads as |changePayload|}}
-        {{change-payload-viewer-editor changePayload=changePayload editMode=true}}
+        {{json-editor json=changePayload.payload mode='code'}}
       {{/each}}
     </div>
   {{/if}}
