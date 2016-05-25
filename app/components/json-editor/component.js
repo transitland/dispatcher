@@ -21,7 +21,7 @@ export default Ember.Component.extend({
   /**
 
   */
-  editor: Ember.computed('options', 'json', function() {
+  editor: Ember.computed('options', 'json', 'expand', function() {
     var self = this;
     var editor = self.get('_editor');
     // console.log('editor', editor);
@@ -223,6 +223,9 @@ export default Ember.Component.extend({
       var editor = self.get('editor');
       var json = self.get('json');
       editor.set(json);
+      if (Ember.isPresent(this.get('expand')) && this.get('expand') === 'all') {
+        editor.expandAll();
+      }
     }
   }),
 
