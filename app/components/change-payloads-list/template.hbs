@@ -17,7 +17,7 @@
             <dt>Updated</dt>
             <dd>{{changePayload.updated_at}}</dd>
           </dl>
-          {{change-payload-viewer-editor changePayload=changePayload editMode=false}}
+          {{json-editor json=changePayload.payload mode='view' expand='all'}}
         </div>
       </div>
     </div>

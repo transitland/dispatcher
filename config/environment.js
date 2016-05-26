@@ -15,17 +15,6 @@ module.exports = function(environment) {
       }
     },
 
-    contentSecurityPolicy: {
-      'default-src': "'none' 'self' https://*.cloudfront.net",
-      'connect-src': "'self' https://*.transit.land https://transit.land http://localhost:*",
-      'img-src': "'self' data: ",
-      "child-src": "'self' blob:",
-      'style-src': "'self' 'unsafe-inline'",
-      'media-src': "'self'",
-      'script-src': "'self'",
-      'font-src': "'self' https://*.cloudfront.net"
-    },
-
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created

@@ -3,7 +3,11 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   changeset: DS.belongsTo('changeset', { async: true }),
-  payload: DS.attr('', { defaultValue: { changes: [] } }),
+  payload: DS.attr('', { defaultValue: function() {
+    return {
+      changes: []
+    };
+  }}),
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),
   stringified_payload: Ember.computed('payload', function() {
