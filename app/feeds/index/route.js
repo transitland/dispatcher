@@ -14,9 +14,18 @@ export default Ember.Route.extend(PaginatedRoute, {
     },
     active_feed_version_import_level: {
       refreshModel: true
+    },
+    tag_key: {
+    },
+    tag_value: {
     }
   },
   model: function(params) {
     return this.store.query('feed', params);
+  },
+  actions: {
+    setTagKeyValue() {
+      this.refresh();
+    }
   }
 });
