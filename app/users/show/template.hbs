@@ -11,6 +11,6 @@
 
 {{#link-to 'users.edit' model class="btn btn-primary" }}Edit{{/link-to}}
 
-<h2>Changesets</h2>
+<h2>Changesets by User</h2>
 
-{{changeset-list changesets=model.changesets}}
+{{changeset-table changesets=model.changesets showUserColumn=false}}

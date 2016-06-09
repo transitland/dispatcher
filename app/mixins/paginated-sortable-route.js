@@ -7,6 +7,12 @@ export default Ember.Mixin.create({
     },
     per_page: {
       refreshModel: true
+    },
+    sort_key: {
+      refreshModel: true
+    },
+    sort_order: {
+      refreshModel: true
     }
   }
 });

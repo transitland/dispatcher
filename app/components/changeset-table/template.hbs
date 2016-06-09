@@ -1,0 +1,32 @@
+<thead>
+  <th>Changeset ID</th>
+  <th>Last updated</th>
+  <th>Applied?</th>
+  <th>Notes</th>
+  {{#if showUserColumn}}
+    <th>User</th>
+  {{/if}}
+</thead>
+<tbody>
+  {{#each changesets as |changeset|}}
+    {{#link-to "changesets.show" changeset tagName="tr" }}
+      <td>{{changeset.id}}</td>
+      <td>{{moment-from-now changeset.updated_at}}</td>
+      <td>
+        {{#if changeset.applied}}
+          <span class="badge" style="background-color: green;">{{fa-icon "check"}}</span>
+        {{/if}}
+      </td>
+      <td>{{changeset.notes}}</td>
+      {{#if showUserColumn}}
+        <td>
+          {{#link-to 'users.show' changeset.user}}
+            {{changeset.user.name}} {{changeset.user.email}}
+          {{/link-to}}
+        </td>
+      {{/if}}
+    {{/link-to}}
+  {{else}}
+    <p>No changesets.</p>
+  {{/each}}
+</tbody>
