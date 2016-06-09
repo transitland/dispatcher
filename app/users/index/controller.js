@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import PaginatedController from 'dispatcher/mixins/paginated-controller';
+import PaginatedSortableController from 'dispatcher/mixins/paginated-sortable-controller';
 
-export default Ember.Controller.extend(PaginatedController, {
+export default Ember.Controller.extend(PaginatedSortableController, {
 });
