@@ -7,6 +7,7 @@
   </div>
 </div>
 
+<!-- first row -->
 <div class="row">
   <div class="col-sm-3 col-xs-6">
     <div class="input-group">
@@ -44,6 +45,22 @@
     </div>
   </div>
 </div>
+<!-- second row -->
+<div class="row">
+  <div class="col-sm-3 col-xs-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        Tag
+      </span>
+      {{input class="form-control" value=tag_key placeholder="Key"}} {{input class="form-control" value=tag_value placeholder="Value"}}
+      <span class="input-group-addon">
+        <button {{action "setTagKeyValue"}}>Set</button>
+      </span>
+    </div>
+  </div>
+</div>
+
+<br />
 
 {{feeds-table feeds=model}}
 

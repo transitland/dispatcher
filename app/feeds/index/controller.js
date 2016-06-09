@@ -6,6 +6,8 @@ export default Ember.Controller.extend(PaginatedSortableController, {
   active_feed_version_expired: null,
   active_feed_version_valid: null,
   active_feed_version_import_level: null,
+  tag_key: null,
+  tag_value: null,
   actions: {
     setActiveFeedVersionExpired(date) {
       // Convert to YYYY-MM-DD
