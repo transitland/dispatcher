@@ -32,7 +32,7 @@ module.exports = function(defaults) {
     },
     // https://www.npmjs.com/package/ember-cli-bootstrap-sassy#bootstrap-javascript
     'ember-cli-bootstrap-sassy': {
-      'js': false,
+      'js': ['transition', 'collapse'],
       'glyphicons': false
     },
     // https://github.com/martndemus/ember-cli-font-awesome#customize-with-sassscss
@@ -55,7 +55,7 @@ module.exports = function(defaults) {
   // along with the exports of each module as its value.
 
   // import code and styles for JSON Editor
-  // used by app/components/json-editor/component.js 
+  // used by app/components/json-editor/component.js
   app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.js');
   app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.css');
   app.import(app.bowerDirectory + '/jsoneditor/dist/img/jsoneditor-icons.svg', {

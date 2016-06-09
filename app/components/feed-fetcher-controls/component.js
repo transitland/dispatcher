@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  tagName: 'span',
   store: Ember.inject.service(),
   actions: {
     fetchFeeds: function() {
