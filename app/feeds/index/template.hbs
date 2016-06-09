@@ -1,14 +1,15 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-xs-6">
     <h2>{{model.meta.total}} Feeds</h2>
   </div>
-  <div class="col-md-6 text-right">
+  <div class="col-xs-6 text-right">
     {{feed-fetcher-controls}}
   </div>
 </div>
 
-<div class="btn-toolbar" role="toolbar">
-  <div class="col-lg-3">
+<!-- first row -->
+<div class="row">
+  <div class="col-sm-3 col-xs-6">
     <div class="input-group">
       <span class="input-group-addon">
         Valid on:
@@ -16,7 +17,7 @@
       {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" value="active_feed_version_valid" changeDate="setActiveFeedVersionValid"}}
     </div>
   </div>
-  <div class="col-lg-3">
+  <div class="col-sm-3 col-xs-6">
     <div class="input-group">
       <span class="input-group-addon">
         Expired on:
@@ -24,7 +25,7 @@
       {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" value="active_feed_version_expired" changeDate="setActiveFeedVersionExpired"}}
     </div>
   </div>
-  <div class="col-lg-3">
+  <div class="col-sm-3 col-xs-6">
     <div class="input-group">
       <span class="input-group-addon">
         Import level:
@@ -38,13 +39,29 @@
       </select>
     </div>
   </div>
-  <div class="col-lg-3">
+  <div class="col-sm-3 col-xs-6">
     <div class="input-group">
       {{x-toggle showLabels=true onLabel="can be updated" offLabel="" value=active_feed_version_update}}
     </div>
   </div>
 </div>
+<!-- second row -->
+<div class="row">
+  <div class="col-sm-3 col-xs-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        Tag
+      </span>
+      {{input class="form-control" value=tag_key placeholder="Key"}} {{input class="form-control" value=tag_value placeholder="Value"}}
+      <span class="input-group-addon">
+        <button {{action "setTagKeyValue"}}>Set</button>
+      </span>
+    </div>
+  </div>
+</div>
+
+<br />
 
 {{feeds-table feeds=model}}
 
-{{pagination-controls route="feeds" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset}}
+{{pagination-controls route="feeds" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset perPage=per_page}}

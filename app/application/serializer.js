@@ -17,7 +17,7 @@ export default DS.RESTSerializer.extend({
   extractMeta: function(store, typeClass, payload) {
     if (payload && payload.hasOwnProperty('meta')) {
       if (!payload.meta.hasOwnProperty('next') || Ember.isEmpty(payload.meta.next)) {
-        // The meta.next property will be used by app/mixins/paginated-controller
+        // The meta.next property will be used by app/mixins/paginated-sortable-controller
         // to decide if there's another page of results. By default, Ember Data
         // won't nullify the meta properties from a past result. So we'll do that
         // here...
