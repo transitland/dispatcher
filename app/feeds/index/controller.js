@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import PaginatedController from 'dispatcher/mixins/paginated-controller';
+import PaginatedSortableController from 'dispatcher/mixins/paginated-sortable-controller';
 
-export default Ember.Controller.extend(PaginatedController, {
+export default Ember.Controller.extend(PaginatedSortableController, {
   active_feed_version_update: false,
   active_feed_version_expired: null,
   active_feed_version_valid: null,
