@@ -11,6 +11,6 @@
   {{x-toggle showLabels=true onLabel="already applied" offLabel="not yet applied" value=applied}}
 </div>
 
-{{changeset-list changesets=model}}
+{{changeset-table changesets=model showUserColumn=true}}
 
 {{pagination-controls route="changesets" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset perPage=per_page}}
