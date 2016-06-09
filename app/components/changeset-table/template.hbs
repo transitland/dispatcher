@@ -1,5 +1,6 @@
 <thead>
   <th>Changeset ID</th>
+  <th>Last updated</th>
   <th>Applied?</th>
   <th>Notes</th>
   {{#if showUserColumn}}
@@ -10,6 +11,7 @@
   {{#each changesets as |changeset|}}
     {{#link-to "changesets.show" changeset tagName="tr" }}
       <td>{{changeset.id}}</td>
+      <td>{{moment-from-now changeset.updated_at}}</td>
       <td>
         {{#if changeset.applied}}
           <span class="badge" style="background-color: green;">{{fa-icon "check"}}</span>
