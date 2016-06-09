@@ -1,24 +1,34 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-header">
-    {{link-to 'Transitland Dispatcher' 'index' class="navbar-brand"}}
-    <ul class="nav navbar-nav">
-      {{#link-to 'index' tagName='li' href=null}}
-        {{#link-to 'index'}}Activity{{/link-to}}
-      {{/link-to}}
-      {{#link-to 'feeds' tagName='li' href=null}}
-        {{#link-to 'feeds'}}Feeds{{/link-to}}
-      {{/link-to}}
-      {{#link-to 'changesets' tagName='li' href=null}}
-        {{#link-to 'changesets'}}Changesets{{/link-to}}
-      {{/link-to}}
-      {{#link-to 'users' tagName='li' href=null}}
-        {{#link-to 'users'}}Users{{/link-to}}
-      {{/link-to}}
-    </ul>
-  </div>
-  <div class="navbar-form navbar-right">
-    <div class="form-group">
-      {{auth-token-input}}
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-to-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      {{link-to 'Transitland Dispatcher' 'index' class="navbar-brand"}}
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-to-collapse">
+      <ul class="nav navbar-nav">
+        {{#link-to 'index' tagName='li' href=null}}
+          {{#link-to 'index'}}Activity{{/link-to}}
+        {{/link-to}}
+        {{#link-to 'feeds' tagName='li' href=null}}
+          {{#link-to 'feeds'}}Feeds{{/link-to}}
+        {{/link-to}}
+        {{#link-to 'changesets' tagName='li' href=null}}
+          {{#link-to 'changesets'}}Changesets{{/link-to}}
+        {{/link-to}}
+        {{#link-to 'users' tagName='li' href=null}}
+          {{#link-to 'users'}}Users{{/link-to}}
+        {{/link-to}}
+      </ul>
+      <div class="navbar-form navbar-right">
+        <div class="form-group">
+          {{auth-token-input}}
+        </div>
+      </div>
     </div>
   </div>
 </nav>
