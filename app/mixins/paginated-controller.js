@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  per_page: 50,
+  per_page: '50',
   queryParams: ["offset", "per_page"],
   offset: 0,
   hasPreviousPage: Ember.computed("offset", function() {
