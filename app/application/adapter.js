@@ -1,20 +1,13 @@
 import Ember from 'ember';
 import DS from 'ember-data';
 import ENV from 'dispatcher/config/environment';
+import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
 
-export default DS.RESTAdapter.extend({
-  session: Ember.inject.service(),
+export default DS.RESTAdapter.extend(DataAdapterMixin, {
+  authorizer: 'authorizer:token',
   host: ENV.datastoreHost,
   namespace: 'api/v1',
   coalesceFindRequests: true,
-  headers: Ember.computed('session.authToken', function() {
-    // Sometimes this is loaded before the session is available.
-    // For example, when the users index route goes out to GET users.
-    var authToken = this.get("session.authToken") || localStorage.getItem(ENV.AUTH_TOKEN_LOCALSTORAGE_KEY);
-    return {
-      'Authorization': `Token token=${authToken}`
-    };
-  }),
   pathForType: function(type) {
     // model names should be underscored in URLs
     // For example: /api/v1/feed_version_imports
@@ -35,9 +28,6 @@ export default DS.RESTAdapter.extend({
         data = hash.data;
       } else {
         data = {};
-      }
-      if (typeof(ENV.apiProxyKey) !== "undefined" ) {
-        data["api_key"] = ENV.apiProxyKey;
       }
       data["total"] = true;
       hash.data = data;
