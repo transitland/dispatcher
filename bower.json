@@ -8,6 +8,8 @@
     "jsoneditor": "^5.5.2",
     "bootstrap-datepicker": "^1.6.1",
     "bootstrap-sass": "^3.3.6",
-    "font-awesome": "~4.5.0"
+    "font-awesome": "~4.5.0",
+    "leaflet": "^0.7.7",
+    "leaflet.markercluster": "^0.5.0"
   }
 }
