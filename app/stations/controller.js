@@ -1,10 +1,11 @@
 import Ember from 'ember';
 import PaginatedSortableController from 'dispatcher/mixins/paginated-sortable-controller';
+/* global L */
 
-var myIcon = L.icon({
-    iconUrl: 'iconm.png',
-    iconRetinaUrl: 'my-icon@2x.png',
-    iconSize: [19, 48],
+var stopPlatformIcon = L.icon({
+    iconUrl: 'assets/images/marker-icon.png',
+    iconRetinaUrl: 'assets/images/marker-icon-2x.png',
+    iconSize: [38, 95],
     iconAnchor: [22, 94],
     popupAnchor: [-3, -76],
     shadowUrl: 'my-icon-shadow.png',
@@ -14,9 +15,10 @@ var myIcon = L.icon({
 });
 
 export default Ember.Controller.extend(PaginatedSortableController, {
-  lat: 37.78948,
-  lng: -122.39710,
-  zoom: 10,
+  lat: 37.32955,
+  lng: -121.90311,
+  zoom: 14,
+  stopIconTest: stopPlatformIcon,
   actions: {
     updateCenter(e) {
       let center = e.target.getCenter();
