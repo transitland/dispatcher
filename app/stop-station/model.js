@@ -14,12 +14,12 @@ export default EntityWithActivityModel.extend({
   stop_platforms: DS.hasMany('stop-station', { async: true, modelFor: 'stop-station', inverse: 'parent_stop'}),
   // stop_egresses: DS.hasMany('stop-station', { async: true, modelFor: 'stop-station' }),
   lat: Ember.computed('geometry', function() {
-    return this.get('geometry').coordinates[1]
+    return this.get('geometry').coordinates[1];
   }),
   lng: Ember.computed('geometry', function() {
-    return this.get('geometry').coordinates[0]
+    return this.get('geometry').coordinates[0];
   }),
   stationArea: Ember.computed('stop_platforms', 'stop_egresses', function() {
-    return this.get('stop_platforms').map(function(sp){return sp.get('geometry').coordinates.reverse()});
+    return this.get('stop_platforms').map(function(sp){return sp.get('geometry').coordinates.reverse();});
   }),
 });
