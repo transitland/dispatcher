@@ -1,0 +1,8 @@
+<h4>{{stop.id}}</h4>
+<div class="form-group">
+  <label for="name">Name</label>
+  {{input id="name" value=stop.name class="form-control"}}
+</div>
+<div class="form-group">
+  <input type="button" {{action 'save'}} value="Save" class="btn btn-primary">
+</div>
