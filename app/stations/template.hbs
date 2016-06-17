@@ -2,16 +2,12 @@
   {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
   {{#each model as |stop|}}
     {{#marker-layer lat=stop.lat lng=stop.lng draggable=true popupOpen=(readonly stop.isOpen) onDragend=(action "updateLocation" stop)}}
-      Stop: {{stop.onestop_id}}<br/>
-      Lat: {{stop.lat}}<br />
-      Lng: {{stop.lng}}
+      {{stop-form stop=stop}}
     {{/marker-layer}}
 
     {{#each stop.stop_platforms as |stop_platform|}}
-      {{#marker-layer icon=myIcon lat=stop_platform.lat lng=stop_platform.lng draggable=true popupOpen=(readonly stop_platform.isOpen) onDragend=(action "updateLocation" stop_platform)}}
-        StopPlatform: {{stop_platform.onestop_id}}<br/>
-        Lat: {{stop_platform.lat}}<br />
-        Lng: {{stop_platform.lng}}
+      {{#marker-layer lat=stop_platform.lat lng=stop_platform.lng draggable=true popupOpen=(readonly stop_platform.isOpen) onDragend=(action "updateLocation" stop_platform)}}
+        {{stop-form stop=stop_platform}}
       {{/marker-layer}}
     {{/each}}
 
@@ -21,6 +17,8 @@
 
   {{/each}}
 {{/leaflet-map}}
+
+StopIcon: {{stopIcons}}
 
 <ul>
   {{#each model as |stop|}}
