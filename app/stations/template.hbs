@@ -1,4 +1,4 @@
-{{#leaflet-map lat=lat lng=lng zoom=zoom onMoveend=(action "updateCenter")}}
+{{#leaflet-map lat=lat lng=lng zoom=zoom onMoveend=(action "updateView")}}
   {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
   {{#each model as |stop|}}
     {{#marker-layer lat=stop.lat lng=stop.lng draggable=true popupOpen=(readonly stop.isOpen) onDragend=(action "updateLocation" stop)}}

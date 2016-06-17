@@ -17,13 +17,18 @@ var stopPlatformIcon = L.icon({
 export default Ember.Controller.extend(PaginatedSortableController, {
   lat: 37.32955,
   lng: -121.90311,
+  bbox: null,
   zoom: 14,
   stopIconTest: stopPlatformIcon,
   actions: {
-    updateCenter(e) {
+    updateView(e) {
       let center = e.target.getCenter();
+      let zoom = e.target.getZoom();
+      var bounds = e.target.getBounds();
       this.set('lat', center.lat);
       this.set('lng', center.lng);
+      this.set('zoom', zoom);
+      this.set('bbox', bounds.toBBoxString());
     },
     updateLocation(r, e) {
       let location = e.target.getLatLng();
