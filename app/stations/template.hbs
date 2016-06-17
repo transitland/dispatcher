@@ -1,3 +1,35 @@
-Before Outlet
-{{outlet}}
-After Outlet
+{{#leaflet-map lat=lat lng=lng zoom=zoom onMoveend=(action "updateCenter")}}
+  {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+  {{#each model as |stop|}}
+    {{#marker-layer lat=stop.lat lng=stop.lng draggable=true popupOpen=(readonly stop.isOpen) onDragend=(action "updateLocation" stop)}}
+      Stop: {{stop.onestop_id}}<br/>
+      Lat: {{stop.lat}}<br />
+      Lng: {{stop.lng}}
+    {{/marker-layer}}
+
+    {{#each stop.stop_platforms as |stop_platform|}}
+      {{#marker-layer icon=myIcon lat=stop_platform.lat lng=stop_platform.lng draggable=true popupOpen=(readonly stop_platform.isOpen) onDragend=(action "updateLocation" stop_platform)}}
+        StopPlatform: {{stop_platform.onestop_id}}<br/>
+        Lat: {{stop_platform.lat}}<br />
+        Lng: {{stop_platform.lng}}
+      {{/marker-layer}}
+    {{/each}}
+
+    {{#polygon-layer locations=stop.stationArea color="red"}}
+      Station Area
+    {{/polygon-layer}}
+
+  {{/each}}
+{{/leaflet-map}}
+
+<ul>
+  {{#each model as |stop|}}
+    <li>Stop: {{stop.id}}
+      <ul>
+        {{#each stop.stop_platforms as |stop_platform|}}
+          <li>StopPlatform: {{stop_platform.id}}</li>
+        {{/each}}
+      </ul>
+    </li>
+  {{/each}}
+</ul>
