@@ -1,6 +1,18 @@
 import Ember from 'ember';
 import PaginatedSortableController from 'dispatcher/mixins/paginated-sortable-controller';
 
+var myIcon = L.icon({
+    iconUrl: 'iconm.png',
+    iconRetinaUrl: 'my-icon@2x.png',
+    iconSize: [19, 48],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+    shadowUrl: 'my-icon-shadow.png',
+    shadowRetinaUrl: 'my-icon-shadow@2x.png',
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+});
+
 export default Ember.Controller.extend(PaginatedSortableController, {
   lat: 37.78948,
   lng: -122.39710,
