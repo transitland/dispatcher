@@ -43,7 +43,7 @@
     "ember-component-css": "0.2.0-beta.4",
     "ember-data": "^2.5.0",
     "ember-export-application-global": "^1.0.5",
-    "ember-leaflet": "git://github.com/gabesmed/ember-leaflet.git#8c22085c93ababc709c9c01d11905fccac496f71",
+    "ember-leaflet": "2.2.7",
     "ember-load-initializers": "^0.5.1",
     "ember-moment": "6.1.0",
     "ember-power-select": "0.10.9",
