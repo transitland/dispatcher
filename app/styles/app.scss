@@ -16,3 +16,7 @@
     margin-left: 320px;
   }
 }
+
+html, body, .container, .ember-view, .leaflet-container, .row, .col-md-9  {
+  height: 100%;
+}
