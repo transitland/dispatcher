@@ -1,5 +1,5 @@
 <div class="list-group">
   {{#each model.issues as |issue|}}
-    <button {{action "issueClicked" issue}} type="button" class="list-group-item">{{issue.id}}</button>
+    <button type="button" class="list-group-item" {{action "issueClicked" issue}}>{{issue.id}}</button>
   {{/each}}
 </div>
