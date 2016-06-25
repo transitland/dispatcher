@@ -1,4 +1,4 @@
-{{stop-map model=model lat=lat lng=lng zoom=zoom updateView=(action "updateView")}}
+{{stop-map model=model lat=lat lng=lng zoom=zoom onView=(action "updateView") onBounds=(action "updateBounds")}}
 
 <ul>
   {{#each model as |stop|}}
