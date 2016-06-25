@@ -19,7 +19,7 @@ export default EntityWithActivityModel.extend({
   lng: Ember.computed('geometry', function() {
     return this.get('geometry').coordinates[0];
   }),
-  stationArea: Ember.computed('stop_platforms', 'stop_egresses', function() {
+  stationArea: Ember.computed('stop_platforms.@each.lat', 'stop_egresses.@each.lng', function() {
     return this.get('stop_platforms').map(function(sp){return sp.get('geometry').coordinates.reverse();});
   }),
 });
