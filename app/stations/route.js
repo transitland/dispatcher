@@ -3,8 +3,16 @@ import PaginatedSortableRoute from 'dispatcher/mixins/paginated-sortable-route';
 
 export default Ember.Route.extend(PaginatedSortableRoute, {
   queryParams: {
-    bbox: {
+    lat: {
       replace: true,
+    },
+    lng: {
+      replace: true,
+    },
+    zoom: {
+      replace: true
+    },
+    bbox: {
       refreshModel: true
     }
   },
