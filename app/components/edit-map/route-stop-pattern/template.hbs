@@ -1,0 +1,5 @@
+{{#each model.issueRouteStopPatterns as |rsp|}}
+  {{#polyline-layer locations=rsp.coordinates}}
+    <p>{{rsp.onestop_id}}</p>
+  {{/polyline-layer}}
+{{/each}}

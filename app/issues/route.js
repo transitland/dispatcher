@@ -5,7 +5,9 @@ export default Ember.Route.extend({
     var issues = this.store.query('issue', params);
     return Ember.RSVP.hash({
       issues: issues,
-      selectedIssue: null
+      selectedIssue: null,
+      issueRouteStopPatterns: null,
+      issueStops: null
     });
   }
 });

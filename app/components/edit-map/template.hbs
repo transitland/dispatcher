@@ -1,5 +1,6 @@
-{{#leaflet-map lat=lat lng=lng zoom=zoom options=options}}
+{{#leaflet-map lat=lat lng=lng zoom=zoom options=options bounds=model.bounds model=model}}
   {{#tile-layer url=url}}
-    {{outlet}}
+    {{edit-map/route-stop-pattern model=model}}
+    {{edit-map/stop-marker model=model}}
   {{/tile-layer}}
 {{/leaflet-map}}
