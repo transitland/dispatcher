@@ -9,6 +9,7 @@
 
 <!-- first row -->
 <div class="row">
+
   <div class="col-sm-3 col-xs-6">
     <div class="input-group">
       <span class="input-group-addon">
@@ -17,6 +18,7 @@
       {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" value="active_feed_version_valid" changeDate="setActiveFeedVersionValid"}}
     </div>
   </div>
+
   <div class="col-sm-3 col-xs-6">
     <div class="input-group">
       <span class="input-group-addon">
@@ -25,6 +27,7 @@
       {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" value="active_feed_version_expired" changeDate="setActiveFeedVersionExpired"}}
     </div>
   </div>
+
   <div class="col-sm-3 col-xs-6">
     <div class="input-group">
       <span class="input-group-addon">
@@ -39,14 +42,17 @@
       </select>
     </div>
   </div>
+
   <div class="col-sm-3 col-xs-6">
     <div class="input-group">
       {{x-toggle showLabels=true onLabel="can be updated" offLabel="" value=active_feed_version_update}}
     </div>
   </div>
+
 </div>
 <!-- second row -->
 <div class="row">
+
   <div class="col-sm-3 col-xs-6">
     <div class="input-group">
       <span class="input-group-addon">
@@ -58,6 +64,20 @@
       </span>
     </div>
   </div>
+
+  <div class="col-sm-3 col-xs-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        Fetch exception:
+      </span>
+      <select class="form-control" onchange={{action (mut latest_fetch_exception) value="target.value"}}>
+        <option value=""></option>
+        <option value="true" selected={{eq latest_fetch_exception "true"}}>True</option>
+        <option value="false" selected={{eq latest_fetch_exception "false"}}>False</option>
+      </select>
+    </div>
+  </div>
+
 </div>
 
 <br />
