@@ -15,6 +15,9 @@ export default Ember.Route.extend(PaginatedSortableRoute, {
     active_feed_version_import_level: {
       refreshModel: true
     },
+    latest_fetch_exception: {
+      refreshModel: true
+    },
     tag_key: {
     },
     tag_value: {
