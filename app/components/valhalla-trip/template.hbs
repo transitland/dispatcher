@@ -1,0 +1,10 @@
+{{getTrip}}
+{{#if trip}}
+  {{#if trip.status_message}}
+    OK
+  {{else}}
+    FAIL
+  {{/if}}
+{{else}}
+  WAIT
+{{/if}}
