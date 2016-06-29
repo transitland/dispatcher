@@ -1,8 +1,7 @@
 import Ember from 'ember';
+import ENV from 'dispatcher/config/environment';
 
 export default Ember.Service.extend({
-  url: 'https://valhalla.mapzen.com/route',
-  valhalla_api_key: null,
   queue: [],
   rate_limit: 500,
   run() {
@@ -43,8 +42,8 @@ export default Ember.Service.extend({
   },
   // Get Valhalla Route
   getRoute(origin_coords, destination_coords, departure_date_time) {
-    var api_key = this.get('valhalla_api_key');
-    var url = this.get('url');
+    var api_key = ENV.valhallaApiKey;
+    var url = ENV.valhallaHost;
     var params = {
       locations: [
         {lon: origin_coords[0], lat: origin_coords[1], type: 'break'},
