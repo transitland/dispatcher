@@ -1,13 +1,10 @@
-{{stop-map model=model lat=lat lng=lng zoom=zoom onView=(action "updateView") onBounds=(action "updateBounds")}}
+<div class="row">
+  <div class="col-xs-6">
+    <h2>Stations</h2>
+  </div>
+  <div class="col-xs-6 text-right">
+    <button {{action "saveStops"}} class="btn btn-primary pull-right">Save</button>
+  </div>
+</div>
 
-<ul>
-  {{#each model as |stop|}}
-    <li>Stop: {{stop.id}}
-      <ul>
-        {{#each stop.stop_platforms as |stop_platform|}}
-          <li>StopPlatform: {{stop_platform.id}}</li>
-        {{/each}}
-      </ul>
-    </li>
-  {{/each}}
-</ul>
+{{stop-map stops=model lat=lat lng=lng zoom=zoom onView=(action "updateView") onBounds=(action "updateBounds")}}
