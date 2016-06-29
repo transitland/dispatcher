@@ -12,14 +12,42 @@ export default EntityWithActivityModel.extend({
 	tags: DS.attr(),
   parent_stop: DS.belongsTo('stop-station', { async: true, modelFor: 'stop-station' }),
   stop_platforms: DS.hasMany('stop-station', { async: true, modelFor: 'stop-station', inverse: 'parent_stop'}),
-  // stop_egresses: DS.hasMany('stop-station', { async: true, modelFor: 'stop-station' }),
-  lat: Ember.computed('geometry', function() {
-    return this.get('geometry').coordinates[1];
+  parent_stop_onestop_id: Ember.computed('parent_stop', {
+    get(key) {
+      return this.get('parent_stop').get('id');
+    },
+    set(key, value) {
+      this.set('parent_stop', value);
+    }
   }),
-  lng: Ember.computed('geometry', function() {
-    return this.get('geometry').coordinates[0];
+  coordinates: Ember.computed('geometry', {
+    get(key) {
+      return this.get('geometry').coordinates.reverse();
+    },
+    set(key, value) {
+      return this.setCoordinates(value);
+    }
   }),
-  stationArea: Ember.computed('stop_platforms.@each.lat', 'stop_egresses.@each.lng', function() {
-    return this.get('stop_platforms').map(function(sp){return sp.get('geometry').coordinates.reverse();});
+  setCoordinates: function(value) {
+    var geometry = this.get('geometry');
+    console.log('before', geometry.coordinates);
+    geometry.coordinates = value.reverse();
+    this.set('geometry', geometry);
+    console.log('after', geometry.coordinates);
+  },
+  stationLines: Ember.computed('stop_platforms.@each.geometry', function() {
+    var origin = this.get('coordinates');
+    var lines = this.get('stop_platforms').map(function(stop_platform) {
+      return [origin, stop_platform.get('coordinates')];
+    });
+    console.log(JSON.stringify(lines));
+    return lines
   }),
+  toChange: function() {
+    return {
+      onestopId: this.id,
+      parent_stop_onestop_id: this.get('parent_stop_onestop_id'),
+      geometry: this.get('geometry')
+    }
+  }
 });
