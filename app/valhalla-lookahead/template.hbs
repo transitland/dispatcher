@@ -1,4 +1,4 @@
-<h1>Feed Route-o-matic</h1>
+<h1>Route-o-matic</h1>
 
 <style>
 table.valhalla-test td {
@@ -6,32 +6,26 @@ table.valhalla-test td {
 }
 </style>
 
-<table class="valhalla-test">
+<table class="table table-hover">
   <thead>
-    <tr>
-      <th>Feed</th>
-      <th>Origin</th>
-      <th>Destination</th>
-      {{#each departure_date_times as |departure_date_time|}}
-        <th>{{departure_date_time}}</th>
-      {{/each}}
-    </tr>
+    <th>Origin</th>
+    <th>Destination</th>
+    {{#each departure_date_times as |departure_date_time|}}
+      <th>{{departure_date_time}}</th>
+    {{/each}}
   </thead>
 
   {{#each model as |feed_stop_pairs|}}
     <tbody>
       <tr>
-        <td>{{feed_stop_pairs.feed.id}}</td>
+        <td colspan="10"><h4>{{feed_stop_pairs.feed.id}}</h4></td>
       </tr>
     {{#each feed_stop_pairs.stop_pairs as |stop_pair|}}
       <tr>
-        <td></td>
         <td>{{stop_pair.[0].id}}</td>
         <td>{{stop_pair.[1].id}}</td>
         {{#each departure_date_times as |departure_date_time|}}
-          <td>
-            {{valhalla-trip origin=stop_pair.[0] destination=stop_pair.[1] departure_date_time=departure_date_time}}
-          </td>
+          {{valhalla-trip origin=stop_pair.[0] destination=stop_pair.[1] departure_date_time=departure_date_time}}
         {{/each}}
       </tr>
     {{/each}}

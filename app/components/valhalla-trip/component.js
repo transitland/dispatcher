@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   valhalla_route: Ember.inject.service('valhalla-route'),
+  tagName: 'td',
+  classNameBindings: ['failure:danger', 'success:success'],
   origin: null,
   destination: null,
   departure_date_time: null,
@@ -13,6 +15,7 @@ export default Ember.Component.extend({
       this.get('departure_date_time'),
       function(result) {
         console.log(result);
+        self.set('success', true)
         self.set('trip', result.trip)
       },
       function(failure) {
