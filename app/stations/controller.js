@@ -18,7 +18,10 @@ export default Ember.Controller.extend(PaginatedSortableController, {
         .map(function(stop) {
           return stop.toChange();
         });
-      console.log(changes);
+      var changeset = {
+        changes: changes.map(function(change){return {action: 'createUpdate', change: change}})
+      }
+      console.log(JSON.stringify(changeset));
     },
     updateBounds(bounds) {
       this.set('bbox', bounds.toBBoxString());

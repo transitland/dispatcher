@@ -25,7 +25,6 @@ export default Ember.Component.extend({
     },
     updateLocation(stop, e) {
       let location = e.target.getLatLng();
-      // stop.set('coordinates', [location.lat, location.lng]);
       stop.setCoordinates([location.lng, location.lat]);
     }
   }
