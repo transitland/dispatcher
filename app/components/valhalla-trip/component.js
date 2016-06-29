@@ -14,13 +14,12 @@ export default Ember.Component.extend({
       this.get('destination').get('geometry').coordinates,
       this.get('departure_date_time'),
       function(result) {
-        console.log(result);
-        self.set('success', true)
-        self.set('trip', result.trip)
+        self.set('success', true);
+        self.set('trip', result.trip);
       },
       function(failure) {
-        self.set('failure', failure)
+        self.set('failure', failure);
       }
-    )
+    );
   })
 });

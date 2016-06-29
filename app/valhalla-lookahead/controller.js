@@ -6,6 +6,5 @@ export default Ember.Controller.extend({
     var tomorrow = new Date(today);
     tomorrow.setDate(today.getDate()+offset);
     return tomorrow;
-  }),
-  sample_routes: 2
+  })
 });

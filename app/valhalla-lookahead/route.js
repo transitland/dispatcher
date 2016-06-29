@@ -19,7 +19,7 @@ function shuffle_sample(array, count) {
 export default Ember.Route.extend({
   model: function(params) {
     var self = this;
-
+    params = params;
     // Find feeds
     return this.store.query('feed', {
       per_page: 10,
@@ -37,7 +37,7 @@ export default Ember.Route.extend({
 
           // Sample routes for each feed
           var route_sample = [];
-          for (var i=0; i < result.meta.total; i++) { route_sample.push(i) }
+          for (var i=0; i < result.meta.total; i++) { route_sample.push(i); }
           route_sample = shuffle_sample(route_sample, 2);
 
           // Find routes
@@ -51,7 +51,8 @@ export default Ember.Route.extend({
 
               // Sample stops for each route
               var route = result.get('firstObject');
-              return shuffle_sample(route.get('stops_served_by_route'), 2).map(function(i) { return i.stop_onestop_id })
+              return shuffle_sample(route.get('stops_served_by_route'), 2)
+                .map(function(i) { return i.stop_onestop_id; });
 
             });
           })).then(function(results) {
@@ -60,11 +61,11 @@ export default Ember.Route.extend({
             return {
               feed: feed,
               stop_pairs: results
-            }
+            };
 
           });
         });
-      }))
+      }));
     }).then(function(results) {
 
       // Flatten all stop_pair onestop_ids, fetch stops, map to stop records
@@ -73,19 +74,21 @@ export default Ember.Route.extend({
         i.stop_pairs.forEach(function(j){
           stop_onestop_ids.push(j[0]);
           stop_onestop_ids.push(j[1]);
-        })
+        });
       });
       return self.store.query('stop', {
         onestop_id: stop_onestop_ids
       }).then(function(stops) {
         var stop_hash = {};
-        stops.forEach(function(stop) { stop_hash[stop.id] = stop});
+        stops.forEach(function(stop) { stop_hash[stop.id] = stop; });
         results.forEach(function(i) {
-          i.stop_pairs = i.stop_pairs.map(function(stop_pair) { return [stop_hash[stop_pair[0]], stop_hash[stop_pair[1]]] })
+          i.stop_pairs = i.stop_pairs.map(function(stop_pair) {
+            return [stop_hash[stop_pair[0]], stop_hash[stop_pair[1]]];
+          });
         });
-        return results
-      })
+        return results;
+      });
 
-    })
+    });
   }
 });
