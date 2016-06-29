@@ -22,7 +22,7 @@ export default Ember.Route.extend({
 
     // Find feeds
     return this.store.query('feed', {
-      per_page: 2,
+      per_page: 10,
       tag_key: 'demo_feed',
       tag_value: 'true'
     }).then(function(feeds) {
