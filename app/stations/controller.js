@@ -9,6 +9,16 @@ export default Ember.Controller.extend(PaginatedSortableController, {
   per_page: 10,
   actions: {
     saveStops() {
+      var changes = this
+        .store
+        .peekAll('stop-station')
+        .filter(function(stop) {
+          return stop.get('hasDirtyAttributes')
+        })
+        .map(function(stop) {
+          return stop.toChange();
+        });
+      console.log(changes);
     },
     updateBounds(bounds) {
       this.set('bbox', bounds.toBBoxString());
