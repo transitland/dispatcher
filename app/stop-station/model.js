@@ -20,28 +20,17 @@ export default EntityWithActivityModel.extend({
       this.set('parent_stop', value);
     }
   }),
-  coordinates: Ember.computed('geometry', {
-    get(key) {
-      return this.get('geometry').coordinates.reverse();
-    },
-    set(key, value) {
-      return this.setCoordinates(value);
-    }
+  coordinates: Ember.computed('geometry', function () {
+    return this.get('geometry').coordinates.reverse();
   }),
   setCoordinates: function(value) {
-    var geometry = this.get('geometry');
-    console.log('before', geometry.coordinates);
-    geometry.coordinates = value.reverse();
-    this.set('geometry', geometry);
-    console.log('after', geometry.coordinates);
+    this.set('geometry', {type: 'Point', coordinates: value});
   },
-  stationLines: Ember.computed('stop_platforms.@each.geometry', function() {
+  stationLines: Ember.computed('geometry', 'stop_platforms.@each.geometry', function() {
     var origin = this.get('coordinates');
-    var lines = this.get('stop_platforms').map(function(stop_platform) {
+    return this.get('stop_platforms').map(function(stop_platform) {
       return [origin, stop_platform.get('coordinates')];
     });
-    console.log(JSON.stringify(lines));
-    return lines
   }),
   toChange: function() {
     return {
