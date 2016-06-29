@@ -23,13 +23,10 @@ export default Ember.Component.extend({
       this.get('onView')(center.lat, center.lng, zoom);
       this.get('onBounds')(bounds);
     },
-    updateLocation(r, e) {
-      console.log('updateLocation:', r.id);
+    updateLocation(stop, e) {
       let location = e.target.getLatLng();
-      Ember.setProperties(r, {
-        lat: location.lat,
-        lng: location.lng
-      });
+      // stop.set('coordinates', [location.lat, location.lng]);
+      stop.setCoordinates([location.lng, location.lat]);
     }
   }
 });

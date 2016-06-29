@@ -2,18 +2,18 @@
 
   {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
-  {{#each model as |stop|}}
-    {{#marker-layer lat=stop.lat lng=stop.lng draggable=true popupOpen=(readonly stop.isOpen) onDragend=(action "updateLocation" stop)}}
+  {{#each stops as |stop|}}
+    {{#marker-layer location=stop.coordinates draggable=true popupOpen=(readonly stop.isOpen) onDragend=(action "updateLocation" stop)}}
       {{stop-form stop=stop}}
     {{/marker-layer}}
 
     {{#each stop.stop_platforms as |stop_platform|}}
-      {{#marker-layer lat=stop_platform.lat lng=stop_platform.lng draggable=true popupOpen=(readonly stop_platform.isOpen) onDragend=(action "updateLocation" stop_platform)}}
-        {{stop-form stop=stop_platform}}
+      {{#marker-layer location=stop_platform.coordinates draggable=true popupOpen=(readonly stop_platform.isOpen) onDragend=(action "updateLocation" stop_platform)}}
+        {{stop-form stops=stops stop=stop_platform}}
       {{/marker-layer}}
     {{/each}}
 
-    {{#polygon-layer locations=stop.stationArea color="red"}}
+    {{#polygon-layer locations=stop.stationLines color="red"}}
       Station Area
     {{/polygon-layer}}
 
