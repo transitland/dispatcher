@@ -1,22 +1,27 @@
 import Ember from 'ember';
-import PaginatedSortableRoute from 'dispatcher/mixins/paginated-sortable-route';
 
-export default Ember.Route.extend(PaginatedSortableRoute, {
+export default Ember.Route.extend({
   queryParams: {
+    zoom: {
+      replace: true
+    },
     lat: {
       replace: true,
     },
     lng: {
       replace: true,
     },
-    zoom: {
-      replace: true
-    },
     bbox: {
+      replace: true,
       refreshModel: true
     }
   },
   model: function(params) {
-    return this.store.query('stop-station', params);
+    var bbox = params.bbox;
+    if (bbox) {
+      return this.store.query('stop-station', {
+        bbox: bbox
+      });
+    }
   }
 });
