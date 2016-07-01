@@ -1,6 +1,6 @@
 <h4>{{stop.id}}</h4>
 <div class="form-group">
-  <label for="name">Name</label>
+  <label for="name">Name:</label>
   {{input id="name" value=stop.name class="form-control"}}
 </div>
 
@@ -8,7 +8,7 @@
   <div class="form-group">
     <label for="parent_stop_onestop_id">Parent Stop:</label>
     {{#power-select
-      options=stops
+      options=parent_stops
       selected=stop.parent_stop
       onchange=(action (mut stop.parent_stop_onestop_id))
       as |option|

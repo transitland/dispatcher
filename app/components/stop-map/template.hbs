@@ -1,15 +1,25 @@
+<div class="row">
+  <div class="col-xs-6">
+    <h2>Stations</h2>
+  </div>
+  <div class="col-xs-6 text-right">
+    <button {{action "setBounds"}} class="btn btn-primary">Refresh</button>
+    <button {{action "saveStops"}} class="btn btn-primary">Save</button>
+  </div>
+</div>
+
 {{#leaflet-map lat=lat lng=lng zoom=zoom onZoomend=(action "updateView") onDragend=(action "updateView")}}
 
   {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
   {{#each stops as |stop|}}
-    {{#marker-layer location=stop.coordinates draggable=true popupOpen=(readonly stop.isOpen) onDragend=(action "updateLocation" stop)}}
+    {{#marker-layer location=stop.coordinates draggable=true popupOpen=(readonly stop.isOpen) onDrag=(action "updateStopLocation" stop)}}
       {{stop-form stop=stop}}
     {{/marker-layer}}
 
     {{#each stop.stop_platforms as |stop_platform|}}
-      {{#marker-layer location=stop_platform.coordinates draggable=true popupOpen=(readonly stop_platform.isOpen) onDragend=(action "updateLocation" stop_platform)}}
-        {{stop-form stops=stops stop=stop_platform}}
+      {{#marker-layer location=stop_platform.coordinates draggable=true popupOpen=(readonly stop_platform.isOpen) onDrag=(action "updateStopLocation" stop_platform)}}
+        {{stop-form parent_stops=stops stop=stop_platform}}
       {{/marker-layer}}
     {{/each}}
 
