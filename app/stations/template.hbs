@@ -1,10 +1,1 @@
-<div class="row">
-  <div class="col-xs-6">
-    <h2>Stations</h2>
-  </div>
-  <div class="col-xs-6 text-right">
-    <button {{action "saveStops"}} class="btn btn-primary pull-right">Save</button>
-  </div>
-</div>
-
-{{stop-map stops=model lat=lat lng=lng zoom=zoom onView=(action "updateView") onBounds=(action "updateBounds")}}
+{{stop-map stops=model bbox=bbox lat=lat lng=lng zoom=zoom}}
