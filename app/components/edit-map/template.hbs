@@ -1,4 +1,4 @@
-{{#leaflet-map lat=lat lng=lng zoom=zoom options=options bounds=model.bounds model=model}}
+{{#leaflet-map lat=lat lng=lng zoom=zoom options=options bounds=bounds model=model onLayeradd=(action "actionLayeradd")}}
   {{#tile-layer url=url}}
     {{edit-map/route-stop-pattern model=model}}
     {{edit-map/stop-marker model=model}}
