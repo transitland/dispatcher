@@ -3,8 +3,9 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   actions: {
     issueClicked: function(issue) {
+      this.store.unloadAll('route-stop-pattern');
+      this.store.unloadAll('stop');
       this.set('model.selectedIssue', issue);
-      var self = this;
       var rsps = [];
       var stops = [];
       issue.get('entities_with_issues').forEach(function(entity){

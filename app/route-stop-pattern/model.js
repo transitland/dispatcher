@@ -12,7 +12,7 @@ export default DS.Model.extend({
 	created_at: DS.attr('date'),
 	updated_at: DS.attr('date'),
 	geometry: DS.attr(),
-	tags: DS.attr()
+	tags: DS.attr(),
 
 	coordinates: Ember.computed(function(){
 		var coords = this.get('geometry').coordinates.map(function(coord){

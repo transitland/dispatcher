@@ -1,10 +1,12 @@
-<div class="row">
-  <div class="col-md-3">
-    <h3>Issues</h3>
-    {{issue-table model=model issueClicked="issueClicked"}}
-    {{issue-details issue=model.selectedIssue}}
-  </div>
-  <div class="col-md-9">
-    {{edit-map model=model}}
+<div class="container has-leaflet-map">
+  <div class="row has-leaflet-map">
+    <div class="col-md-3">
+      <h3>Issues</h3>
+      {{issue-table model=model issueClicked="issueClicked"}}
+      {{issue-details issue=model.selectedIssue}}
+    </div>
+    <div class="col-md-9 has-leaflet-map">
+      {{edit-map model=model}}
+    </div>
   </div>
 </div>

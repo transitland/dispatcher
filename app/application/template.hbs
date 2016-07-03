@@ -36,10 +36,8 @@
   </div>
 </nav>
 
-<div class="container">
-  {{#each flashMessages.queue as |flash|}}
-    {{flash-message flash=flash}}
-  {{/each}}
+{{#each flashMessages.queue as |flash|}}
+  {{flash-message flash=flash}}
+{{/each}}
 
-  {{outlet}}
-</div>
+{{outlet}}
