@@ -12,7 +12,7 @@
     {{#each changesets as |changeset|}}
       {{#link-to "changesets.show" changeset tagName="tr" }}
         <td>{{changeset.id}}</td>
-        <td>{{moment-from-now changeset.updated_at}}</td>
+        <td>{{time-since-with-mouseover changeset.updated_at}}</td>
         <td>
           {{#if changeset.applied}}
             <span class="badge" style="background-color: green;">{{fa-icon "check"}}</span>
