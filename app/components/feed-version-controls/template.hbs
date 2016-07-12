@@ -19,6 +19,22 @@
         {{/if}}
       </a>
     </li>
+    <li>
+      <a {{action 'enqueue' 3}}>
+        Enqueue level 3: fetched by Valhalla development
+        {{#if feedVersion.import_level_at_least_level_two}}
+          <span class="badge">again</span>
+        {{/if}}
+      </a>
+    </li>
+    <li>
+      <a {{action 'enqueue' 4}}>
+        Enqueue level 4: fetched by Valhalla production
+        {{#if feedVersion.import_level_at_least_level_two}}
+          <span class="badge">again</span>
+        {{/if}}
+      </a>
+    </li>
     <li role="separator" class="divider"></li>
     {{#if feedVersion.is_active_feed_version}}
       <li><a><em>Already is the active feed version.</em></a></li>
