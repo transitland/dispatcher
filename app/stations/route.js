@@ -18,10 +18,19 @@ export default Ember.Route.extend({
   },
   model: function(params) {
     var bbox = params.bbox;
-    if (bbox) {
-      return this.store.query('stop-station', {
-        bbox: bbox
-      });
-    }
+    // Changeset
+    let changeset = this.store.createRecord('changeset', {
+      notes: ''
+    });
+    changeset.get('change_payloads').createRecord();
+    // Users
+    let users = this.store.findAll('user');
+    // Stops
+    let stops = this.store.query('stop-station', {bbox: bbox});
+    return Ember.RSVP.hash({
+      changeset: changeset,
+      users: users,
+      stops: stops
+    });
   }
 });
