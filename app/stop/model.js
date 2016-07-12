@@ -17,7 +17,7 @@ export default EntityWithActivityModel.extend({
     this.set('geometry', {type: 'Point', coordinates: value});
   },
   entityType: function() {
-    return 'stop'
+    return 'stop';
   },
   toChange: function() {
     return {
@@ -27,6 +27,6 @@ export default EntityWithActivityModel.extend({
         type: "Point",
         coordinates: this.get('geometry').coordinates
       }
-    }
+    };
   }
 });

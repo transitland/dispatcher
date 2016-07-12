@@ -13,11 +13,10 @@ export default Stop.extend({
     }
   }),
   entityType: function() {
-    return 'stopPlatform'
+    return 'stopPlatform';
   },
   toChange: function() {
-
-    var z = {
+    return {
       onestopId: this.id,
       parentStopOnestopId: this.get('parent_stop').get('id'),
       name: this.get('name'),
@@ -25,8 +24,6 @@ export default Stop.extend({
         type: "Point",
         coordinates: this.get('geometry').coordinates
       }
-    }
-    console.log(z);
-    return z
+    };
   }
 });
