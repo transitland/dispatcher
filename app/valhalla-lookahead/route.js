@@ -56,7 +56,7 @@ export default Ember.Route.extend(PaginatedSortableRoute, {
           // Sample routes for each feed
           var route_sample = [];
           for (var i=0; i < result.meta.total; i++) { route_sample.push(i); }
-          route_sample = shuffle_sample(route_sample, 2);
+          route_sample = shuffle_sample(route_sample, 1);
 
           // Find routes
           return Ember.RSVP.all(route_sample.map(function(offset) {
@@ -68,13 +68,8 @@ export default Ember.Route.extend(PaginatedSortableRoute, {
             }).then(function(result) {
 
               // Sample stops for each route
-              var served = result.get('firstObject').get('stops_served_by_route')
-              // return [
-              //   served[0].stop_onestop_id,
-              //   served[served.length-1].stop_onestop_id
-              // ]
-              return shuffle_sample(served, 2)
-               .map(function(i) { return i.stop_onestop_id; });
+              var served = result.get('firstObject').get('stops_served_by_route');
+              return shuffle_sample(served, 2).map(function(i) { return i.stop_onestop_id; });
 
             });
           })).then(function(results) {
@@ -99,7 +94,7 @@ export default Ember.Route.extend(PaginatedSortableRoute, {
         });
       });
       return self.store.query('stop', {
-        onestop_id: stop_onestop_ids
+        onestop_id: stop_onestop_ids.join(",")
       }).then(function(stops) {
         var stop_hash = {};
         stops.forEach(function(stop) { stop_hash[stop.id] = stop; });
