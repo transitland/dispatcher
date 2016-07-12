@@ -1,41 +1,52 @@
+{{#if anyFeedsSelected}}
+  <div class="panel panel-primary">
+    <div class="panel-heading">Run Commands on Selected Feeds</div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6">
+          {{feed-fetcher-controls feeds=selectedFeeds buttonText="Fetch selected feed(s)"}}
+        </div>
+        <div class="col-md-6">
+          Import lastest version of feed(s) at:
+          <div class="btn-group" role="group" aria-label="Enqueue import:">
+            <button type="button" class="btn btn-warning" title="operators, stops, routes" {{action "enqueueSelectedFeedsForImport" 1}}>Level 1</button>
+            <button type="button" class="btn btn-warning" title="operators, stops, routes, schedules" {{action "enqueueSelectedFeedsForImport" 2}}>Level 2</button>
+            <button type="button" class="btn btn-warning" title="operators, stops, routes, schedules, Valhalla dev" {{action "enqueueSelectedFeedsForImport" 3}}>Level 3</button>
+            <button type="button" class="btn btn-warning" title="operators, stops, routes, schedules, Valhalla dev, Valhalla prod" {{action "enqueueSelectedFeedsForImport" 4}}>Level 4</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}
+
 <table class="table table-hover">
   <thead>
-    <th>Onestop ID</th>
-    <th># of Feed Versions</th>
-    <th>Last Fetched</th>
-    <th>Import Status</th>
-    <th>Last Imported</th>
-    <th>Import Level of Active Feed Version</th>
+    <tr>
+      <th>
+        {{#if allFeedsSelected}}
+          <input type="checkbox" {{action "selectNone"}} checked>
+        {{else}}
+          {{#if anyFeedsSelected}}
+            <!-- some day it would be nice to be able to mark this checkbox
+                 as indeterminate -->
+            <input type="checkbox" {{action "selectAll"}}>
+          {{else}}
+            <input type="checkbox" {{action "selectAll"}}>
+          {{/if}}
+        {{/if}}
+      </th>
+      <th>Onestop ID</th>
+      <th># of Feed Versions</th>
+      <th>Last Fetched</th>
+      <th>Import Status</th>
+      <th>Last Imported</th>
+      <th>Import Level of Active Feed Version</th>
+    </tr>
   </thead>
   <tbody>
-    {{#each feeds as |feed|}}
-      {{#link-to "feeds.show" feed tagName="tr" }}
-        <td>
-          <h4>{{feed.onestop_id}}</h4>
-        </td>
-        <td>{{feed.feed_versions_count}}</td>
-        <td class="">
-          {{#if feed.last_fetched_at}}
-            {{moment-from-now feed.last_fetched_at}}
-          {{/if}}
-          {{#if feed.latest_fetch_exception_log}}
-            {{fa-icon "exclamation-triangle" size=2 classNames="text-danger" title=feed.latest_fetch_exception_log}}
-          {{/if}}
-        </td>
-        <td class="{{feed.importStatusCssClass}}">
-          {{feed.import_status}}
-        </td>
-        <td>
-          {{#if feed.last_imported_at}}
-            {{moment-from-now feed.last_imported_at}}
-          {{/if}}
-        </td>
-        <td>
-          {{#if feed.active_feed_version}}
-            {{feed.import_level_of_active_feed_version}}
-          {{/if}}
-        </td>
-      {{/link-to}}
+    {{#each selectableFeeds as |feed|}}
+      {{feeds-table/feed-row feed=feed}}
     {{/each}}
   </tbody>
 </table>
