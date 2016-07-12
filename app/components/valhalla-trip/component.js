@@ -9,13 +9,13 @@ export default Ember.Component.extend({
   departure_date_time: null,
   transit_maneuvers: Ember.computed('trip', function() {
     return this.get('trip').legs[0].maneuvers.filter(function(maneuver) {
-      return maneuver.travel_mode == 'transit'
-    })
+      return maneuver.travel_mode === 'transit';
+    });
   }),
   pedestrian_maneuvers: Ember.computed('trip', function() {
     return this.get('trip').legs[0].maneuvers.filter(function(maneuver) {
-      return maneuver.travel_mode == 'pedestrian'
-    })
+      return maneuver.travel_mode === 'pedestrian';
+    });
   }),
   trip: Ember.computed(function() {
     var self = this;
