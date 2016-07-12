@@ -7,9 +7,11 @@
   </div>
 </div>
 
-<div class="btn-toolbar" role="toolbar">
-  {{x-toggle showLabels=true onLabel="already applied" offLabel="not yet applied" value=applied}}
-</div>
+{{#collapsable-panel title="Filter changesets" panelClass="panel-primary" show=true}}
+  <div class="btn-toolbar" role="toolbar">
+    {{x-toggle showLabels=true onLabel="already applied" offLabel="not yet applied" value=applied}}
+  </div>
+{{/collapsable-panel}}
 
 {{changeset-table changesets=model showUserColumn=true}}
 

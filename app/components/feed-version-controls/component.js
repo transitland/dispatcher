@@ -30,6 +30,8 @@ export default Ember.Component.extend({
         flashMessages.success('Successfully enqueued feed version for import!');
       }).catch( (e) => {
         flashMessages.danger(`Error enqueuing feed version for import: ${e.message}`);
+      }).finally(function() {
+        self.set('dropDownExpanded', false);
       });
     }
   }

@@ -28,10 +28,10 @@
             <dd>{{feedVersion.earliest_calendar_date}}</dd>
             <dt>Latest calendar date</dt>
             <dd>{{feedVersion.latest_calendar_date}}</dd>
-            <dt>Fetched at</dt>
-            <dd>{{feedVersion.fetched_at}}</dd>
-            <dt>Imported at</dt>
-            <dd>{{feedVersion.imported_at}}</dd>
+            <dt>Fetched</dt>
+            <dd>{{time-since-with-mouseover feedVersion.fetched_at}}</dd>
+            <dt>Imported</dt>
+            <dd>{{time-since-with-mouseover feedVersion.imported_at}}</dd>
             <dt>Import level</dt>
             <dd>{{feedVersion.import_level}}</dd>
             <dt>Tags</dt>
