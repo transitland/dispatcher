@@ -14,9 +14,9 @@
     {{/if}}
   </dd>
   <dt>Created</dt>
-  <dd>{{model.created_at}}</dd>
+  <dd>{{time-since-with-mouseover model.created_at}}</dd>
   <dt>Updated</dt>
-  <dd>{{model.updated_at}}</dd>
+  <dd>{{time-since-with-mouseover model.updated_at}}</dd>
   {{#if model.user}}
     <dt>Author</dt>
     <dd>
