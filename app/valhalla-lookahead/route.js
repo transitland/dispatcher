@@ -50,9 +50,13 @@ export default Ember.Route.extend({
             }).then(function(result) {
 
               // Sample stops for each route
-              var route = result.get('firstObject');
-              return shuffle_sample(route.get('stops_served_by_route'), 2)
-                .map(function(i) { return i.stop_onestop_id; });
+              var served = result.get('firstObject').get('stops_served_by_route')
+              // return [
+              //   served[0].stop_onestop_id,
+              //   served[served.length-1].stop_onestop_id
+              // ]
+              return shuffle_sample(served, 2)
+               .map(function(i) { return i.stop_onestop_id; });
 
             });
           })).then(function(results) {
