@@ -20,24 +20,6 @@ export default Ember.Component.extend({
   zoom: 0,
   bounds: null,
   actions: {
-    saveStops() {
-      console.log('stop-map saveStops');
-      var changes = this.stops
-        .filter(function(stop) {
-          return stop.get('hasDirtyAttributes')
-        })
-        .map(function(stop) {
-          return stop.toChange();
-        });
-      var changeset = {
-        changes: changes.map(function(change){return {action: 'createUpdate', change: change}})
-      }
-      console.log(JSON.stringify(changeset));
-    },
-    setBounds() {
-      console.log('stop-map setBounds');
-      this.set('bbox', this.get('bounds').toBBoxString());
-    },
     updateView(e) {
       console.log('stop-map updateView');
       let center = e.target.getCenter();
@@ -46,10 +28,10 @@ export default Ember.Component.extend({
       this.set('lat', center.lat);
       this.set('lng', center.lng);
       this.set('zoom', zoom);
-      this.set('bounds', bounds);
+      this.set('bbox', bounds.toBBoxString());
     },
     updateStopLocation(stop, e) {
-      console.log('stop-map updateStopLocation');
+      console.log('stop-map updateStopLocation: ', stop.id);
       let location = e.target.getLatLng();
       stop.setCoordinates([location.lng, location.lat]);
     }
