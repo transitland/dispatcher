@@ -1,0 +1,17 @@
+<h2>{{model.meta.total}} Feeds</h2>
+
+{{#collapsable-panel title="Filter Feeds" panelClass="panel-primary" show=true}}
+  {{feed-controls
+      active_feed_version_update=active_feed_version_update
+      active_feed_version_expired=active_feed_version_expired
+      active_feed_version_valid=active_feed_version_valid
+      active_feed_version_import_level=active_feed_version_import_level
+      latest_fetch_exception=latest_fetch_exception
+      tag_key=tag_key
+      tag_value=tag_value
+  }}
+{{/collapsable-panel}}
+
+{{feeds-table feeds=model}}
+
+{{pagination-controls route="feeds" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset perPage=per_page}}

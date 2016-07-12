@@ -19,16 +19,13 @@ export default Ember.Route.extend(PaginatedSortableRoute, {
       refreshModel: true
     },
     tag_key: {
+      refreshModel: true
     },
     tag_value: {
+      refreshModel: true
     }
   },
   model: function(params) {
     return this.store.query('feed', params);
-  },
-  actions: {
-    setTagKeyValue() {
-      this.refresh();
-    }
   }
 });
