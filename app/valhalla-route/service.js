@@ -56,8 +56,8 @@ export default Ember.Service.extend({
         }
       },
       date_time: {
-        type: 0,
-        value: departure_date_time.toISOString()
+        type: 1,
+        value: departure_date_time.toISOString().slice(0,16)
       }
     };
     return Ember.$.getJSON(url, {
