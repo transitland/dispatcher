@@ -10,8 +10,8 @@
   </thead>
   <tbody>
     {{#each changesets as |changeset|}}
-      {{#link-to "changesets.show" changeset tagName="tr" }}
-        <td>{{changeset.id}}</td>
+      <tr>
+        <td>{{link-to changeset.id "changesets.show" changeset}}</td>
         <td>{{time-since-with-mouseover changeset.updated_at}}</td>
         <td>
           {{#if changeset.applied}}
@@ -26,7 +26,7 @@
             {{/link-to}}
           </td>
         {{/if}}
-      {{/link-to}}
+      </tr>
     {{else}}
       <p>No changesets.</p>
     {{/each}}
