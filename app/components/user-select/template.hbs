@@ -1,3 +1,11 @@
-{{#power-select options=usersToSelectFrom selected=userToSet onchange=(action (mut userToSet)) onfocus=(action "handleFocus") allowClear=true as |user|}}
-  {{user.name}} {{user.email}}
+{{#power-select
+  options=usersToSelectFrom
+  selected=userToSet
+  matcher=userMatcher
+  onchange=(action (mut userToSet))
+  allowClear=true
+  as |user|}}
+
+  {{user.name}} &lt;{{user.email}}&gt;
+
 {{/power-select}}

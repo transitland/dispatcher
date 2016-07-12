@@ -1,9 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  actions: {
-    handleFocus(select) {
-      select.actions.open();
-    }
+  userMatcher(user, term) {
+    return (user.get('name') + ' ' + user.get('email')).indexOf(term);
   }
 });

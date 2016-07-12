@@ -1,0 +1,28 @@
+<td>
+  {{input type="checkbox" checked=feed.isSelected}}
+</td>
+<td>
+  <h4>{{link-to feed.onestop_id 'feeds.show' feed}}</h4>
+</td>
+<td>{{feed.feed_versions_count}}</td>
+<td class="">
+  {{#if feed.last_fetched_at}}
+    {{moment-from-now feed.last_fetched_at}}
+  {{/if}}
+  {{#if feed.latest_fetch_exception_log}}
+    {{fa-icon "exclamation-triangle" size=2 classNames="text-danger" title=feed.latest_fetch_exception_log}}
+  {{/if}}
+</td>
+<td class="{{feed.importStatusCssClass}}">
+  {{feed.import_status}}
+</td>
+<td>
+  {{#if feed.last_imported_at}}
+    {{moment-from-now feed.last_imported_at}}
+  {{/if}}
+</td>
+<td>
+  {{#if feed.active_feed_version}}
+    {{feed.import_level_of_active_feed_version}}
+  {{/if}}
+</td>
