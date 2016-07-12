@@ -54,9 +54,10 @@
   <dd>{{model.last_imported_at}}</dd>
 </dl>
 {{#if model.latest_fetch_exception_log}}
-  <div class="alert alert-danger">
-    <strong>Latest fetch exception log</strong>: {{model.latest_fetch_exception_log}} (at {{model.last_fetched_at}})
-  </div>
+  {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
+    <strong>Exception log from {{moment-from-now model.last_fetched_at}} ago:</strong>
+    <pre>{{model.latest_fetch_exception_log}}</pre>
+  {{/collapsable-panel}}
 {{/if}}
 
 <h2>Changesets imported from this feed</h2>
