@@ -1,86 +1,71 @@
-<div class="row">
-  <div class="col-xs-6">
-    <h2>{{model.meta.total}} Feeds</h2>
-  </div>
-  <div class="col-xs-6 text-right">
-    {{feed-fetcher-controls}}
-  </div>
-</div>
+<h2>{{model.meta.total}} Feeds</h2>
 
-<!-- first row -->
-<div class="row">
-
-  <div class="col-sm-3 col-xs-6">
-    <div class="input-group">
-      <span class="input-group-addon">
-        Valid on:
-      </span>
-      {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" value="active_feed_version_valid" changeDate="setActiveFeedVersionValid"}}
+{{#collapsable-panel title="Filter Feeds" panelClass="panel-primary" show=true}}
+  <div class="row">
+    <div class="col-sm-3 col-xs-6">
+      <div class="input-group">
+        <span class="input-group-addon">
+          Valid on:
+        </span>
+        {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" value="active_feed_version_valid" changeDate="setActiveFeedVersionValid"}}
+      </div>
+    </div>
+    <div class="col-sm-3 col-xs-6">
+      <div class="input-group">
+        <span class="input-group-addon">
+          Expired on:
+        </span>
+        {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" value="active_feed_version_expired" changeDate="setActiveFeedVersionExpired"}}
+      </div>
+    </div>
+    <div class="col-sm-3 col-xs-6">
+      <div class="input-group">
+        <span class="input-group-addon">
+          Import level:
+        </span>
+        <select class="form-control" onchange={{action (mut active_feed_version_import_level) value="target.value"}}>
+          <option value=""></option>
+          <option value="1" selected={{eq active_feed_version_import_level "1"}}>Operator, stop, routes (1)</option>
+          <option value="2" selected={{eq active_feed_version_import_level "2"}}>Schedule (2)</option>
+          <option value="3" selected={{eq active_feed_version_import_level "3"}}>Valhalla Dev (3)</option>
+          <option value="4" selected={{eq active_feed_version_import_level "4"}}>Valhalla Prod (4)</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-3 col-xs-6">
+      <div class="input-group">
+        {{x-toggle showLabels=true onLabel="can be updated" offLabel="" value=active_feed_version_update}}
+      </div>
     </div>
   </div>
 
-  <div class="col-sm-3 col-xs-6">
-    <div class="input-group">
-      <span class="input-group-addon">
-        Expired on:
-      </span>
-      {{bootstrap-datepicker class="form-control" autoclose=true clearBtn=true todayBtn=true format="yyyy-mm-dd" value="active_feed_version_expired" changeDate="setActiveFeedVersionExpired"}}
+  <!-- second row -->
+  <div class="row">
+    <div class="col-sm-3 col-xs-6">
+      <div class="input-group">
+        <span class="input-group-addon">
+          Tag
+        </span>
+        {{input class="form-control" value=tag_key placeholder="Key"}} {{input class="form-control" value=tag_value placeholder="Value"}}
+        <span class="input-group-addon">
+          <button {{action "setTagKeyValue"}} class="btn btn-default">Filter</button>
+        </span>
+      </div>
+    </div>
+    <div class="col-sm-3 col-xs-6">
+      <div class="input-group">
+        <span class="input-group-addon">
+          Fetch exception:
+        </span>
+        <select class="form-control" onchange={{action (mut latest_fetch_exception) value="target.value"}}>
+          <option value=""></option>
+          <option value="true" selected={{eq latest_fetch_exception "true"}}>True</option>
+          <option value="false" selected={{eq latest_fetch_exception "false"}}>False</option>
+        </select>
+      </div>
     </div>
   </div>
-
-  <div class="col-sm-3 col-xs-6">
-    <div class="input-group">
-      <span class="input-group-addon">
-        Import level:
-      </span>
-      <select class="form-control" onchange={{action (mut active_feed_version_import_level) value="target.value"}}>
-        <option value=""></option>
-        <option value="1" selected={{eq active_feed_version_import_level "1"}}>Operator, stop, routes (1)</option>
-        <option value="2" selected={{eq active_feed_version_import_level "2"}}>Schedule (2)</option>
-        <option value="3" selected={{eq active_feed_version_import_level "3"}}>Valhalla Dev (3)</option>
-        <option value="4" selected={{eq active_feed_version_import_level "4"}}>Valhalla Prod (4)</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="col-sm-3 col-xs-6">
-    <div class="input-group">
-      {{x-toggle showLabels=true onLabel="can be updated" offLabel="" value=active_feed_version_update}}
-    </div>
-  </div>
-
-</div>
-<!-- second row -->
-<div class="row">
-
-  <div class="col-sm-3 col-xs-6">
-    <div class="input-group">
-      <span class="input-group-addon">
-        Tag
-      </span>
-      {{input class="form-control" value=tag_key placeholder="Key"}} {{input class="form-control" value=tag_value placeholder="Value"}}
-      <span class="input-group-addon">
-        <button {{action "setTagKeyValue"}}>Set</button>
-      </span>
-    </div>
-  </div>
-
-  <div class="col-sm-3 col-xs-6">
-    <div class="input-group">
-      <span class="input-group-addon">
-        Fetch exception:
-      </span>
-      <select class="form-control" onchange={{action (mut latest_fetch_exception) value="target.value"}}>
-        <option value=""></option>
-        <option value="true" selected={{eq latest_fetch_exception "true"}}>True</option>
-        <option value="false" selected={{eq latest_fetch_exception "false"}}>False</option>
-      </select>
-    </div>
-  </div>
-
-</div>
-
-<br />
+{{/collapsable-panel}}
 
 {{feeds-table feeds=model}}
 
