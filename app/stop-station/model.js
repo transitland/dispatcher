@@ -10,8 +10,8 @@ export default EntityWithActivityModel.extend({
 	updated_at: DS.attr('date'),
 	geometry: DS.attr(),
 	tags: DS.attr(),
-  parent_stop: DS.belongsTo('stop-station', { async: true, modelFor: 'stop-station' }),
-  stop_platforms: DS.hasMany('stop-station', { async: true, modelFor: 'stop-station', inverse: 'parent_stop'}),
+  parent_stop: DS.belongsTo('stop-station', { modelFor: 'stop-station' }),
+  stop_platforms: DS.hasMany('stop-station', { modelFor: 'stop-station', inverse: 'parent_stop'}),
   parent_stop_onestop_id: Ember.computed('parent_stop', {
     get(key) {
       return this.get('parent_stop').get('id');
@@ -35,7 +35,8 @@ export default EntityWithActivityModel.extend({
   toChange: function() {
     return {
       onestopId: this.id,
-      parent_stop_onestop_id: this.get('parent_stop_onestop_id'),
+      parentStopOnestopId: this.get('parent_stop_onestop_id'),
+      name: this.get('name'),
       geometry: this.get('geometry')
     }
   }
