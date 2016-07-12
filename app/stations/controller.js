@@ -7,8 +7,8 @@ export default Ember.Controller.extend({
   zoom: 14,
   getChanges: function() {
     var entities = [];
-    entities = entities.concat(this.store.peekAll('stop-station').filter(function(e) { return e.get('hasDirtyAttributes') }));
-    entities = entities.concat(this.store.peekAll('stop-platform').filter(function(e) { return e.get('hasDirtyAttributes') }));
+    entities = entities.concat(this.store.peekAll('stop-station').filter(function(e) { return e.get('hasDirtyAttributes'); }));
+    entities = entities.concat(this.store.peekAll('stop-platform').filter(function(e) { return e.get('hasDirtyAttributes'); }));
     return entities.map(function(e) {
       var ret = {};
       ret['action'] = 'createUpdate';
@@ -17,7 +17,7 @@ export default Ember.Controller.extend({
     });
   },
   actions: {
-    showChangeset: function(changes) {
+    showChangeset: function() {
       var payload = {changes: this.getChanges()};
       this.model.changeset.get('change_payloads').get('firstObject').set('payload', payload);
       this.set('showChangeset', true);
