@@ -56,6 +56,7 @@ module.exports = function(defaults) {
 
   // import code and styles for JSON Editor
   // used by app/components/json-editor/component.js
+  app.import(app.bowerDirectory + '/bootstrap-sass/assets/javascripts/bootstrap.js');
   app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.js');
   app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.css');
   app.import(app.bowerDirectory + '/jsoneditor/dist/img/jsoneditor-icons.svg', {
