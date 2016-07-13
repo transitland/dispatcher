@@ -7,6 +7,13 @@ export default Ember.Component.extend({
   zoom: 12,
   options: {
   },
+  draw: {
+    polyline: false,
+    polygon: false,
+    rectangle: false,
+    circle: false,
+    marker: false
+  },
   edit: {
     featureGroup: L.featureGroup()
   },
@@ -30,8 +37,12 @@ export default Ember.Component.extend({
     actionDrawEdited: function(EditedEvent) {
       this.sendAction('actionDrawEdited', EditedEvent);
     },
+    // TODO: consolidate these?
     stopAdded: function(leafletId, onestop_id){
-      this.sendAction('stopAdded', leafletId, onestop_id)
+      this.sendAction('stopAdded', leafletId, onestop_id);
+    },
+    rspAdded: function(leafletId, onestop_id){
+      this.sendAction('rspAdded', leafletId, onestop_id);
     }
   }
 });

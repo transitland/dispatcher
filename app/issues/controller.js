@@ -29,6 +29,9 @@ export default Ember.Controller.extend({
     },
     actionDrawEdited: function(EditedEvent) {
       var self = this;
+
+      // TODO: duplication refactor
+
       this.get('model.issueStops').forEach(function(stop){
         for (var layer in EditedEvent.layers._layers) {
           if (stop.get('onestop_id') === self.get('leafletObjects')[layer]) {
@@ -37,8 +40,20 @@ export default Ember.Controller.extend({
           }
         }
       });
+
+      this.get('model.issueRouteStopPatterns').forEach(function(rsp){
+        for (var layer in EditedEvent.layers._layers) {
+          if (rsp.get('onestop_id') === self.get('leafletObjects')[layer]) {
+            var latlngs = EditedEvent.layers._layers[layer]._latlngs;
+            rsp.set('coordinates',latlngs.map(function(latlng){ return [latlng.lat, latlng.lng]; }));
+          }
+        }
+      });
     },
     stopAdded: function(leafletId, onestop_id) {
+      this.get('leafletObjects')[leafletId] = onestop_id;
+    },
+    rspAdded: function(leafletId, onestop_id) {
       this.get('leafletObjects')[leafletId] = onestop_id;
     }
   }
