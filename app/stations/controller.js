@@ -25,8 +25,14 @@ export default Ember.Controller.extend({
     hideChangeset: function() {
       this.set('showChangeset', false);
     },
-    saveChangeset: function() {
-      this.model.changeset.save();
+    saveChangeset: function(apply) {
+      var self = this;
+      return this.model.changeset.save()
+        .then(function(changeset) {
+          return changeset.apply()
+        }).then(function(changeset) {
+          self.set('showChangeset', false);
+      })
     },
     setBounds: function() {
       this.set('bbox', this.get('bounds').toBBoxString());
