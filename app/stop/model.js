@@ -10,6 +10,7 @@ export default EntityWithActivityModel.extend({
 	updated_at: DS.attr('date'),
 	geometry: DS.attr(),
 	tags: DS.attr(),
+  timezone: DS.attr('string'),
   coordinates: Ember.computed('geometry', function () {
     return this.get('geometry').coordinates.slice().reverse();
   }),
@@ -23,6 +24,7 @@ export default EntityWithActivityModel.extend({
     return {
       onestopId: this.id,
       name: this.get('name'),
+      timezone: this.get('timezone'),
       geometry: {
         type: "Point",
         coordinates: this.get('geometry').coordinates

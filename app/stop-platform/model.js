@@ -20,6 +20,7 @@ export default Stop.extend({
       onestopId: this.id,
       parentStopOnestopId: this.get('parent_stop').get('id'),
       name: this.get('name'),
+      timezone: this.get('timezone'),      
       geometry: {
         type: "Point",
         coordinates: this.get('geometry').coordinates
