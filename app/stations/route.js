@@ -20,7 +20,7 @@ export default Ember.Route.extend({
     var bbox = params.bbox;
     // Changeset
     let changeset = this.store.createRecord('changeset', {
-      notes: ''
+      notes: 'Station editor:'
     });
     changeset.get('change_payloads').createRecord();
     // Users
