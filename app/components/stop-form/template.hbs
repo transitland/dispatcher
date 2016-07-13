@@ -16,4 +16,7 @@
       {{option.name}}<br />{{option.id}}
     {{/power-select}}
   </div>
+{{else}}
+    <button type="button" class="btn btn-primary" {{action "newPlatform"}}>New Platform</button>
+    <button type="button" class="btn btn-primary" {{action "newEgress"}}>New Egress</button>
 {{/if}}
