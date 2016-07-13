@@ -1,20 +1,24 @@
 import Ember from 'ember';
 /* global L */
 
+var stopStationIcon = L.icon({
+  iconUrl: 'assets/images/search-active.png',
+  iconSize: [36, 54],
+  iconAnchor: [18, 54],
+  popupAnchor: [0, -54]
+})
+
 var stopPlatformIcon = L.icon({
-    iconUrl: 'assets/images/marker-icon.png',
-    iconRetinaUrl: 'assets/images/marker-icon-2x.png',
-    iconSize: [38, 95],
-    iconAnchor: [22, 94],
-    popupAnchor: [-3, -76],
-    shadowUrl: 'my-icon-shadow.png',
-    shadowRetinaUrl: 'my-icon-shadow@2x.png',
-    shadowSize: [68, 95],
-    shadowAnchor: [22, 94]
+  iconUrl: 'assets/images/capital-l.png',
+  iconSize: [16, 16],
+  iconAnchor: [8, 8],
+  popupAnchor: [0, -16]
 });
 
+
 export default Ember.Component.extend({
-  stopIconTest: stopPlatformIcon,
+  stopPlatformIcon: stopPlatformIcon,
+  stopStationIcon: stopStationIcon,
   lat: 0,
   lng: 0,
   zoom: 0,
