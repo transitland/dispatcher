@@ -28,5 +28,8 @@ export default Ember.Controller.extend({
     saveChangeset: function() {
       this.model.changeset.save();
     },
+    setBounds: function() {
+      this.set('bbox', this.get('bounds').toBBoxString());
+    }
   }
 });

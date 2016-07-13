@@ -25,17 +25,15 @@ export default Ember.Component.extend({
   bounds: null,
   actions: {
     updateView(e) {
-      console.log('stop-map updateView');
       let center = e.target.getCenter();
       var zoom = e.target.getZoom();
       var bounds = e.target.getBounds();
       this.set('lat', center.lat);
       this.set('lng', center.lng);
       this.set('zoom', zoom);
-      this.set('bbox', bounds.toBBoxString());
+      this.set('bounds', bounds);
     },
     updateStopLocation(stop, e) {
-      console.log('stop-map updateStopLocation: ', stop.id);
       let location = e.target.getLatLng();
       stop.setCoordinates([location.lng, location.lat]);
     }
