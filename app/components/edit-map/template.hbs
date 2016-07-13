@@ -1,6 +1,10 @@
-{{#leaflet-map lat=lat lng=lng zoom=zoom options=options bounds=bounds model=model onLayeradd=(action "actionLayeradd")}}
+{{#leaflet-map lat=lat lng=lng zoom=zoom options=options bounds=bounds model=model stopAdded="stopAdded" onLayeradd=(action "actionLayeradd")}}
   {{#tile-layer url=url}}
+    {{#measure-control position="topright"}}{{/measure-control}}
+    {{#draw-control edit=edit drawEdited="actionDrawEdited"}}{{/draw-control}}
     {{edit-map/route-stop-pattern model=model}}
-    {{edit-map/stop-marker model=model}}
+    {{#each model.issueStops as |stop|}}
+      {{edit-map/stop-marker stopAdded="stopAdded" model=stop onestop_id=stop.onestop_id}}
+    {{/each}}
   {{/tile-layer}}
 {{/leaflet-map}}

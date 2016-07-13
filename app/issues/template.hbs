@@ -1,12 +1,12 @@
 <div class="container has-leaflet-map">
   <div class="row has-leaflet-map">
     <div class="col-md-3">
-      <h3>Issues</h3>
-      {{issue-table model=model issueClicked="issueClicked"}}
+      <h3>Route Geometry Issues</h3>
+      {{issue-table model=model stopAdded="stopAdded" issueClicked="issueClicked"}}
     </div>
     <div class="col-md-9 has-leaflet-map">
       {{issue-details classNames='issue-details' issue=model.selectedIssue}}
-      {{edit-map model=model}}
+      {{edit-map model=model stopAdded="stopAdded" actionDrawEdited="actionDrawEdited"}}
     </div>
   </div>
 </div>

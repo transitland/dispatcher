@@ -18,6 +18,10 @@
   },
   "author": "",
   "license": "MIT",
+  "dependencies": {
+    "ember-leaflet-measure": "0.0.0",
+    "ember-leaflet-draw": "0.0.0"
+  },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",
     "ember-ajax": "0.7.1",

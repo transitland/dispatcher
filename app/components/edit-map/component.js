@@ -6,16 +6,32 @@ export default Ember.Component.extend({
   url: "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
   zoom: 12,
   options: {
-    drawControl: true
+  },
+  edit: {
+    featureGroup: L.featureGroup()
   },
 
   actions: {
     actionLayeradd: function(addEvent) {
+      if (addEvent.layer.hasOwnProperty('editing')) {
+        this.get('edit.featureGroup').addLayer(addEvent.layer);
+      }
       try {
-        this.set('bounds', L.latLngBounds(addEvent.layer.getLatLngs()));
+        this.set('bounds', new L.latLngBounds(addEvent.layer.getLatLngs()));
       } catch (e) {
 
       }
+    },
+    actionLayerremove: function(addEvent) {
+      if (addEvent.layer.hasOwnProperty('editing')) {
+        this.get('edit.featureGroup').removeLayer(addEvent.layer);
+      }
+    },
+    actionDrawEdited: function(EditedEvent) {
+      this.sendAction('actionDrawEdited', EditedEvent);
+    },
+    stopAdded: function(leafletId, onestop_id){
+      this.sendAction('stopAdded', leafletId, onestop_id)
     }
   }
 });

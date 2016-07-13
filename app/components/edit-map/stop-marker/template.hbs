@@ -1,5 +1,3 @@
-{{#each model.issueStops as |stop|}}
-  {{#marker-layer location=stop.coordinates}}
-    <p>{{stop.onestop_id}}</p>
-  {{/marker-layer}}
-{{/each}}
+{{#marker-layer onAdd="stopAdded" location=model.coordinates}}
+  <p>{{model.onestop_id}}</p>
+{{/marker-layer}}
