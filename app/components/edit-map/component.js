@@ -7,13 +7,7 @@ export default Ember.Component.extend({
   zoom: 12,
   options: {
   },
-  draw: {
-    polyline: false,
-    polygon: false,
-    rectangle: false,
-    circle: false,
-    marker: false
-  },
+  draw: false,
   edit: {
     featureGroup: L.featureGroup()
   },

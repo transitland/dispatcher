@@ -1,0 +1,12 @@
+<div class="page-header">
+  <h3>Route Geometry Issues</h3>
+</div>
+<div class="row has-leaflet-map">
+  <div class="col-md-3">
+    {{issue-table model=model rspAdded="rspAdded" stopAdded="stopAdded" issueClicked="issueClicked"}}
+  </div>
+  <div class="col-md-9 has-leaflet-map">
+    {{issue-details classNames='issue-details' issue=model.selectedIssue}}
+    {{edit-map model=model rspAdded="rspAdded" stopAdded="stopAdded" actionDrawEdited="actionDrawEdited"}}
+  </div>
+</div>
