@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  closeText: 'Close',
+  okText: 'OK',
   actions: {
     ok: function() {
       this.$('.modal').modal('hide');

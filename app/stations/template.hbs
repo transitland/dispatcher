@@ -4,8 +4,8 @@
 </style>
 
 {{#if showChangeset}}
-  {{#modal-dialog title='Changeset' ok='saveChangeset' close='hideChangeset'}}
-    {{changeset-form changeset=model.changeset users=model.users}}
+  {{#modal-dialog title='Changeset' ok='saveChangeset' close='hideChangeset' okText='Apply Changeset'}}
+    {{changeset-form changeset=model.changeset users=model.users }}
   {{/modal-dialog}}
 {{/if}}
 
