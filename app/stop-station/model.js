@@ -48,6 +48,7 @@ export default Stop.extend({
       {
         id: this.id + separator + fragment,
         geometry: this.get('geometry'),
+        timezone: this.get('timezone'),        
         name: 'New Egress'
       }
     );
