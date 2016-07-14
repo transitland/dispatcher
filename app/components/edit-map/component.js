@@ -12,14 +12,28 @@ export default Ember.Component.extend({
     featureGroup: L.featureGroup()
   },
 
+  isEntity: function(layer) {
+    if (layer.hasOwnProperty('editing')) {
+      if (layer.hasOwnProperty('options')) {
+        if (layer.options.hasOwnProperty('title') && layer.options.title !== "") {
+          return true;
+        }
+        else if (layer.hasOwnProperty('_latlngs')) {
+          return true;
+        }
+      }
+    }
+    return false;
+  },
+
   actions: {
     actionLayeradd: function(addEvent) {
-      if (addEvent.layer.hasOwnProperty('editing')) {
+      if (this.isEntity(addEvent.layer)) {
         this.get('edit.featureGroup').addLayer(addEvent.layer);
       }
     },
     actionLayerremove: function(addEvent) {
-      if (addEvent.layer.hasOwnProperty('editing')) {
+      if (this.isEntity(addEvent.layer)) {
         this.get('edit.featureGroup').removeLayer(addEvent.layer);
       }
     },

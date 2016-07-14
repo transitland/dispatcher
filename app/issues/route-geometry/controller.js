@@ -8,6 +8,13 @@ export default Ember.Controller.extend({
 
   actions: {
     issueClicked: function(issue) {
+
+      if (this.get('model.selectedIssue')) {
+        if (issue.get('id') === this.get('model.selectedIssue').get('id')) {
+          return;
+        }
+      }
+
       this.store.unloadAll('route-stop-pattern');
       this.store.unloadAll('stop');
       this.set('leafletObjects',{});

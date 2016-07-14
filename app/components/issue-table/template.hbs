@@ -1,5 +1,10 @@
 <div class="list-group">
   {{#each model.issues as |issue|}}
-    <button type="button" class="list-group-item" {{action "issueClicked" issue}}>{{issue.id}}</button>
+    <button type="button" data-toggle="collapse" data-target="#{{issue.id}}" class="list-group-item" {{action "issueClicked" issue}}>
+      {{issue.id}}
+    </button>
+    <div id={{issue.id}} class="collapse">
+      {{issue-details classNames='issue-details' issue=issue}}
+    </div>
   {{/each}}
 </div>
