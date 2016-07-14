@@ -21,69 +21,73 @@ function shuffle_sample(array, count) {
 export default Ember.Route.extend(FeedParamsRoute, PaginatedSortableRoute, {
   model: function(params) {
     var self = this;
+    var meta = null;
+    
     // Find feeds
     return this.store.query('feed', params).then(function(feeds) {
+      // Save the meta, for pagination
+      meta = feeds.meta;
+
       // Find total routes for feed
-      return Ember.RSVP.all(feeds.map(function(feed){
+      var route_count_promises = feeds.map(function(feed) {
+        console.log('route_count_promises:', feed.id);
         return self.store.query('route', {
           imported_from_feed: feed.id,
           per_page: 0,
           total: true
-        }).then(function(result) {
-
-          // Sample routes for each feed
-          var route_sample = [];
-          for (var i=0; i < result.meta.total; i++) { route_sample.push(i); }
-          route_sample = shuffle_sample(route_sample, 1);
-
-          // Find routes
-          return Ember.RSVP.all(route_sample.map(function(offset) {
-            return self.store.query('route', {
-              imported_from_feed: feed.id,
-              per_page: 1,
-              offset: offset,
-              total: false
-            }).then(function(result) {
-
-              // Sample stops for each route
-              var served = result.get('firstObject').get('stops_served_by_route');
-              return shuffle_sample(served, 2).map(function(i) { return i.stop_onestop_id; });
-
-            });
-          })).then(function(results) {
-
-            // Return the feed and stop pairs
-            return {
-              feed: feed,
-              stop_pairs: results
-            };
-
-          });
-        });
-      }));
-    }).then(function(results) {
-
-      // Flatten all stop_pair onestop_ids, fetch stops, map to stop records
-      var stop_onestop_ids = [];
-      results.forEach(function(i){
-        i.stop_pairs.forEach(function(j){
-          stop_onestop_ids.push(j[0]);
-          stop_onestop_ids.push(j[1]);
         });
       });
-      return self.store.query('stop', {
-        onestop_id: stop_onestop_ids.join(",")
-      }).then(function(stops) {
-        var stop_hash = {};
-        stops.forEach(function(stop) { stop_hash[stop.id] = stop; });
-        results.forEach(function(i) {
-          i.stop_pairs = i.stop_pairs.map(function(stop_pair) {
-            return [stop_hash[stop_pair[0]], stop_hash[stop_pair[1]]];
-          });
-        });
-        return results;
-      });
+      return Ember.RSVP.all(route_count_promises)
+    }).then(function(route_count_results) {
 
-    });
-  }
+      // Sample routes from the total routes for each feed
+      var route_promises = route_count_results.map(function(route_count) {
+        var feed_onestop_id = route_count.query.imported_from_feed;
+        var route_sample = [];
+        for (var i=0; i < route_count.meta.total; i++) { route_sample.push(i) }
+        return shuffle_sample(route_sample, 2).map(function(route_offset) {
+          console.log('route_promises:', feed_onestop_id, route_offset);
+          return self.store.query('route', {
+            imported_from_feed: feed_onestop_id,
+            per_page: 1,
+            offset: route_offset,
+            total: false
+          })
+        });
+      });
+      return Ember.RSVP.all([].concat.apply([], route_promises));
+    }).then(function(route_results) {
+
+      // Sample stops from each route
+      var stop_promises = route_results.map(function(route_result) {
+        var route = route_result.get('firstObject');
+        var stops_served_sample = shuffle_sample(route.get('stops_served_by_route'), 2).map (function(stop_served) { return stop_served.stop_onestop_id });
+        console.log('served', route.id, stops_served_sample);
+        return self.store.query('stop', {
+          imported_from_feed: route_result.query.imported_from_feed,
+          onestop_id: stops_served_sample.join(',')
+        })
+      });
+      return Ember.RSVP.all([].concat.apply([], stop_promises));
+    }).then(function(stop_results) {
+
+      // Aggregate back to feed
+      var feed_stop_pairs = [];
+      feed_stop_pairs.meta = meta;
+      var lookup = {};
+      stop_results.forEach(function(stop_result) {
+        var feed_onestop_id = stop_result.query.imported_from_feed;
+        var pairs = lookup[feed_onestop_id];
+        if (!pairs) {
+          pairs = {};
+          pairs.feed = self.store.peekRecord('feed', feed_onestop_id);
+          pairs.stop_pairs = [];
+          lookup[feed_onestop_id] = pairs;
+          feed_stop_pairs.push(pairs);
+        }
+        pairs.stop_pairs.push(stop_result.toArray());
+      });
+      return feed_stop_pairs;
+    }); // end query feed
+  }  // end model
 });
