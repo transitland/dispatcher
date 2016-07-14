@@ -25,7 +25,7 @@ Router.map(function() {
     this.route('edit', { path: '/:user_id/edit' });
     this.route('new');
   });
-  this.route('valhalla-lookahead');
+  this.route('routecheck');
 });
 
 export default Router;
