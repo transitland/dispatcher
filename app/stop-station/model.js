@@ -4,7 +4,7 @@ import Stop from 'dispatcher/stop/model';
 
 function next_fragment(entities, separator) {
   var ids = entities.map(function(i){return i.id.split(separator)[1]});
-  var fragment = null;
+  var fragment = "";
   for (var i=0; i < 1000; i++) {
     fragment = String(i);
     if (ids.indexOf(fragment) == -1) {

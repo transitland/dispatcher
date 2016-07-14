@@ -35,7 +35,6 @@ export default Ember.Controller.extend({
         }).then(function(changeset) {
           flashMessages.success(`Changeset created & applied`);
           self.set('showChangeset', false);
-          
         }).catch(function(error) {
           flashMessages.danger(`Error(s) updating change payload: ${error.message}`);
         });
