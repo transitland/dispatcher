@@ -26,13 +26,18 @@ export default Ember.Controller.extend({
       this.set('showChangeset', false);
     },
     saveChangeset: function(apply) {
+      const flashMessages = Ember.get(this, 'flashMessages');
       var self = this;
       return this.model.changeset.save()
         .then(function(changeset) {
           return changeset.apply()
         }).then(function(changeset) {
+          flashMessages.success(`Changeset created & applied`);
           self.set('showChangeset', false);
-      })
+          
+        }).catch(function(error) {
+          flashMessages.danger(`Error(s) updating change payload: ${error.message}`);
+        });
     },
     setBounds: function() {
       this.set('bbox', this.get('bounds').toBBoxString());
