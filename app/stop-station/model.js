@@ -47,8 +47,8 @@ export default Stop.extend({
     return this.get('stop_egresses').createRecord(
       {
         id: this.id + separator + fragment,
+        timezone: this.get('timezone'),
         geometry: this.get('geometry'),
-        timezone: this.get('timezone'),        
         name: 'New Egress'
       }
     );
