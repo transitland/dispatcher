@@ -1,4 +1,5 @@
 import Ember from 'ember';
+//import L from 'ember-leafet';
 
 export default Ember.Controller.extend({
   leafletObjects: {
@@ -26,6 +27,25 @@ export default Ember.Controller.extend({
       stops = this.store.query('stop', {onestop_id: stops.join(',')});
       this.set('model.issueRouteStopPatterns', rsps);
       this.set('model.issueStops', stops);
+
+      var bounds;
+
+      var self = this;
+      stops.then(function(){
+        bounds = new L.latLngBounds(stops.map(function(stop) {
+
+          return new L.latLng(stop.get('coordinates'));
+        }));
+
+        rsps.then(function(){
+          rsps.forEach(function(rsp){
+            rsp.get('coordinates').forEach(function(coord){
+              bounds.extend(new L.latLng(coord));
+            });
+          });
+          self.set('model.bounds', bounds);
+        });
+      });
     },
     actionDrawEdited: function(EditedEvent) {
       var self = this;

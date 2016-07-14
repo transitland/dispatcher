@@ -12,7 +12,8 @@ export default Ember.Route.extend({
       issues: issues,
       selectedIssue: null,
       issueRouteStopPatterns: null,
-      issueStops: null
+      issueStops: null,
+      bounds: null
     });
   }
 });

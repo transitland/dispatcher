@@ -15,10 +15,8 @@ export default DS.Model.extend({
 	tags: DS.attr(),
 
 	coordinates: Ember.computed(function(){
-		var coords = this.get('geometry').coordinates.map(function(coord){
-			coord.reverse();
-			return coord;
+		return this.get('geometry').coordinates.map(function(coord){
+			return coord.reverse();
 		});
-		return coords;
 	})
 });

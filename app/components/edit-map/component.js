@@ -17,11 +17,6 @@ export default Ember.Component.extend({
       if (addEvent.layer.hasOwnProperty('editing')) {
         this.get('edit.featureGroup').addLayer(addEvent.layer);
       }
-      try {
-        this.set('bounds', new L.latLngBounds(addEvent.layer.getLatLngs()));
-      } catch (e) {
-
-      }
     },
     actionLayerremove: function(addEvent) {
       if (addEvent.layer.hasOwnProperty('editing')) {

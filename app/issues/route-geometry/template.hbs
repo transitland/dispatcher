@@ -4,9 +4,9 @@
 <div class="row has-leaflet-map">
   <div class="col-md-3">
     {{issue-table model=model rspAdded="rspAdded" stopAdded="stopAdded" issueClicked="issueClicked"}}
+    {{issue-details classNames='issue-details' issue=model.selectedIssue}}
   </div>
   <div class="col-md-9 has-leaflet-map">
-    {{issue-details classNames='issue-details' issue=model.selectedIssue}}
     {{edit-map model=model rspAdded="rspAdded" stopAdded="stopAdded" actionDrawEdited="actionDrawEdited"}}
   </div>
 </div>

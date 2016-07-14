@@ -1,6 +1,6 @@
-{{#leaflet-map lat=lat lng=lng zoom=zoom options=options bounds=bounds model=model rspAdded="rspAdded" stopAdded="stopAdded" onLayeradd=(action "actionLayeradd")}}
+{{#leaflet-map lat=lat lng=lng zoom=zoom bounds=model.bounds options=options model=model rspAdded="rspAdded" stopAdded="stopAdded" onLayeradd=(action "actionLayeradd")}}
   {{#tile-layer url=url}}
-    {{#measure-control primaryLengthUnit="meters" secondaryLengthUnit="kilometers" position="topright"}}{{/measure-control}}
+    {{#measure-control primaryLengthUnit="meters" secondaryLengthUnit="kilometers" position="topleft"}}{{/measure-control}}
     {{#draw-control edit=edit draw=draw drawEdited="actionDrawEdited"}}{{/draw-control}}
     {{#each model.issueRouteStopPatterns as |rsp|}}
       {{edit-map/route-stop-pattern rspAdded="rspAdded" model=rsp onestop_id=rsp.onestop_id}}
