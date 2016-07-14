@@ -26,8 +26,24 @@
       {{/marker-layer}}
     {{/each}}
 
-    {{#polygon-layer locations=stop.stationLines color="red"}}
-      Station Area
+    {{#each stop.stop_egresses as |stop_egress|}}
+      {{#marker-layer
+        icon=stopEgressIcon
+        location=stop_egress.coordinates
+        draggable=true
+        popupOpen=stop_egress.isOpen
+        onDrag=(action "updateStopLocation" stop_egress)
+      }}
+        {{stop-form parent_stops=stops stop=stop_egress}}
+      {{/marker-layer}}
+    {{/each}}
+
+    {{#polygon-layer locations=stop.stationPlatformLines color="red"}}
+      Platforms
+    {{/polygon-layer}}
+
+    {{#polygon-layer locations=stop.stationEgressLines color="blue"}}
+      Egresses
     {{/polygon-layer}}
 
   {{/each}}

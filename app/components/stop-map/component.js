@@ -15,9 +15,16 @@ var stopPlatformIcon = L.icon({
   popupAnchor: [0, -16]
 });
 
+var stopEgressIcon = L.icon({
+  iconUrl: 'assets/images/capital-l.png',
+  iconSize: [16, 16],
+  iconAnchor: [8, 8],
+  popupAnchor: [0, -16]
+});
 
 export default Ember.Component.extend({
   stopPlatformIcon: stopPlatformIcon,
+  stopEgressIcon: stopEgressIcon,
   stopStationIcon: stopStationIcon,
   lat: 0,
   lng: 0,
