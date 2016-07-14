@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import PaginatedSortableRoute from 'dispatcher/mixins/paginated-sortable-route';
+import FeedParamsRoute from 'dispatcher/mixins/feed-params-route';
 
 // Fisher-Yates Shuffle from Mike Bostock
 // https://bost.ocks.org/mike/shuffle/
@@ -17,30 +18,7 @@ function shuffle_sample(array, count) {
   return array.slice(0,count);
 }
 
-export default Ember.Route.extend(PaginatedSortableRoute, {
-  queryParams: {
-    active_feed_version_update: {
-      refreshModel: true
-    },
-    active_feed_version_expired: {
-      refreshModel: true
-    },
-    active_feed_version_valid: {
-      refreshModel: true
-    },
-    active_feed_version_import_level: {
-      refreshModel: true
-    },
-    latest_fetch_exception: {
-      refreshModel: true
-    },
-    tag_key: {
-      refreshModel: true
-    },
-    tag_value: {
-      refreshModel: true
-    }
-  },
+export default Ember.Route.extend(FeedParamsRoute, PaginatedSortableRoute, {
   model: function(params) {
     var self = this;
     // Find feeds
