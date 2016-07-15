@@ -24,7 +24,7 @@ export default Ember.Route.extend({
     });
     changeset.get('change_payloads').createRecord();
     // Users
-    let users = []; // this.store.findAll('user');
+    let users = this.store.findAll('user');
     // Stops
     let stops = this.store.query('stop-station', {bbox: bbox, per_page: 100, total: false});
     return Ember.RSVP.hash({
