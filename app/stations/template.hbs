@@ -1,8 +1,3 @@
-<style>
-  .jsoneditor { height: 400px !important }
-  textarea #notes { height: 100px !important }
-</style>
-
 {{#if showChangeset}}
   {{#modal-dialog title='Changeset' ok='saveChangeset' close='hideChangeset' okText='Apply Changeset'}}
     {{changeset-form changeset=model.changeset users=model.users }}
