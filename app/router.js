@@ -26,6 +26,7 @@ Router.map(function() {
     this.route('new');
   });
   this.route('stations');
+  this.route('routingcheck');
 });
 
 export default Router;

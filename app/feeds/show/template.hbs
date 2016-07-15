@@ -35,11 +35,11 @@
     {{/if}}
   </dd>
   <dt>Import level of active feed version</dt>
-  <dd>{{model.import_level_of_active_feed_version}}</dd>
+  <dd>{{number-as-pips model.import_level_of_active_feed_version 4}}</dd>
   <dt>Created</dt>
-  <dd>{{model.created_at}}</dd>
+  <dd>{{time-since-with-mouseover model.created_at}}</dd>
   <dt>Updated</dt>
-  <dd>{{model.updated_at}}</dd>
+  <dd>{{time-since-with-mouseover model.updated_at}}</dd>
   {{#if model.created_or_updated_in_changeset}}
     <dt>Created or updated in</dt>
     <dd>
@@ -49,9 +49,9 @@
     </dd>
   {{/if}}
   <dt>Last fetched at</dt>
-  <dd>{{model.last_fetched_at}}</dd>
+  <dd>{{time-since-with-mouseover model.last_fetched_at}}</dd>
   <dt>Last imported at</dt>
-  <dd>{{model.last_imported_at}}</dd>
+  <dd>{{time-since-with-mouseover model.last_imported_at}}</dd>
 </dl>
 {{#if model.latest_fetch_exception_log}}
   {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
