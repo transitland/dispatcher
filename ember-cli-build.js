@@ -32,7 +32,6 @@ module.exports = function(defaults) {
     },
     // https://www.npmjs.com/package/ember-cli-bootstrap-sassy#bootstrap-javascript
     'ember-cli-bootstrap-sassy': {
-      'js': ['transition', 'collapse'],
       'glyphicons': false
     },
     // https://github.com/martndemus/ember-cli-font-awesome#customize-with-sassscss

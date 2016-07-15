@@ -28,6 +28,8 @@ Router.map(function() {
   this.route('issues', function() {
     this.route('route-geometry');
   });
+  this.route('stations');
+  this.route('routingcheck');
 });
 
 export default Router;

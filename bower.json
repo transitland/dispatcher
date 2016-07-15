@@ -11,6 +11,7 @@
     "font-awesome": "~4.5.0",
     "leaflet": "~0.7.7",
     "leaflet-measure": "ljagis/leaflet-measure#^2.0.1",
-    "leaflet-draw": "Leaflet/Leaflet.draw"
+    "leaflet-draw": "Leaflet/Leaflet.draw",
+    "leaflet.markercluster": "^0.5.0"
   }
 }

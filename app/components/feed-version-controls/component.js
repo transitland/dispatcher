@@ -24,6 +24,7 @@ export default Ember.Component.extend({
       });
     },
     enqueue: function(importLevel) {
+      var self = this;
       const flashMessages = Ember.get(this, 'flashMessages');
       this.get('feedVersion').enqueue(importLevel)
       .then( () => {

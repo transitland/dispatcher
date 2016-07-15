@@ -35,7 +35,7 @@ export default Ember.Component.extend({
       const flashMessages = Ember.get(this, 'flashMessages');
       let importPromises = this.get('selectedFeeds').map(function(feed) {
         return feed.content.enqueue(importLevel);
-      })
+      });
       Ember.RSVP.allSettled(importPromises).then( () => {
         flashMessages.success('Successfully enqueued latest versions of feed(s) for import!');
       }).catch( (e) => {
