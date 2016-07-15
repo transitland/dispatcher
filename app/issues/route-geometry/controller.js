@@ -40,7 +40,6 @@ export default Ember.Controller.extend({
       var self = this;
       stops.then(function(){
         bounds = new L.latLngBounds(stops.map(function(stop) {
-
           return new L.latLng(stop.get('coordinates'));
         }));
 
