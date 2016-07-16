@@ -6,6 +6,18 @@ export default Ember.Controller.extend({
 
   },
 
+  getChanges: function() {
+    var entities = [];
+    entities = entities.concat(this.store.peekAll('route-stop-pattern').filter(function(e) { return e.get('attributes'); }));
+    entities = entities.concat(this.store.peekAll('stop').filter(function(e) { return e.get('attributes'); }));
+    return entities.map(function(e) {
+      var ret = {};
+      ret['action'] = 'createUpdate';
+      ret[e.entityType()] = e.toChange();
+      return ret;
+    });
+  },
+
   actions: {
     issueClicked: function(issue) {
 
@@ -63,6 +75,8 @@ export default Ember.Controller.extend({
           if (stop.get('onestop_id') === self.get('leafletObjects')[layer]) {
             var latlng = EditedEvent.layers._layers[layer]._latlng;
             stop.set('coordinates',[latlng.lat, latlng.lng]);
+            self.store.findRecord('stop', self.get('leafletObjects')[layer])
+              .set('coordinates', [latlng.lat, latlng.lng]);
           }
         }
       });
@@ -71,10 +85,22 @@ export default Ember.Controller.extend({
         for (var layer in EditedEvent.layers._layers) {
           if (rsp.get('onestop_id') === self.get('leafletObjects')[layer]) {
             var latlngs = EditedEvent.layers._layers[layer]._latlngs;
-            rsp.set('coordinates',latlngs.map(function(latlng){ return [latlng.lat, latlng.lng]; }));
+            rsp.set('coordinates', latlngs.map(function(latlng){ return [latlng.lat, latlng.lng]; }));
+            var coords = latlngs.map(function(latlng){ return [latlng.lat, latlng.lng]; });
+            self.store.peekRecord('route-stop-pattern', self.get('leafletObjects')[layer])
+              .set('coordinates', coords);
+            console.log(self.store.peekRecord('route-stop-pattern',self.get('leafletObjects')[layer]).coordinates );
           }
         }
       });
+    },
+    showChangeset: function() {
+      var payload = {changes: this.getChanges()};
+      this.model.changeset.get('change_payloads').get('firstObject').set('payload', payload);
+      this.set('showChangeset', true);
+    },
+    hideChangeset: function() {
+      this.set('showChangeset', false);
     },
     stopAdded: function(leafletId, onestop_id) {
       this.get('leafletObjects')[leafletId] = onestop_id;

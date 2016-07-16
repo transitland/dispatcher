@@ -8,12 +8,17 @@ export default Ember.Route.extend({
                             'rsp_line_inaccurate',
                             'stop_position_inaccurate'].join(',')
     var issues = this.store.query('issue', params);
+    let changeset = this.store.createRecord('changeset', {
+      notes: 'Issue resolution:'
+    });
+    changeset.get('change_payloads').createRecord();
     return Ember.RSVP.hash({
       issues: issues,
       selectedIssue: null,
       issueRouteStopPatterns: null,
       issueStops: null,
-      bounds: null
+      bounds: null,
+      changeset: changeset
     });
   }
 });
