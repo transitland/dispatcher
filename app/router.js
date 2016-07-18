@@ -25,6 +25,8 @@ Router.map(function() {
     this.route('edit', { path: '/:user_id/edit' });
     this.route('new');
   });
+  this.route('stations');
+  this.route('routingcheck');
 });
 
 export default Router;

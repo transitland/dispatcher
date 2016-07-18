@@ -13,7 +13,11 @@
   <dt>Feed format</dt>
   <dd>{{model.feed_format}}</dd>
   <dt>Tags</dt>
-  <dd>{{model.tags}}</dd>
+  <dd>
+    {{#each-in model.tags as |key value|}}
+      {{key}}: {{value}} <br />
+    {{/each-in}}
+  </dd>
   <dt>License name and/or URL</dt>
   <dd>{{model.license_name}} {{model.license_url}}</dd>
   <dt>License use without attribution</dt>

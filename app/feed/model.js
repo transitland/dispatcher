@@ -11,6 +11,7 @@ export default EntityWithActivityModel.extend({
   import_level_of_active_feed_version: DS.attr('number'),
   import_status: DS.attr('string'),
   url: DS.attr('string'),
+  tags: DS.attr(),
   feed_format: DS.attr('string'),
   license_name: DS.attr('string'),
   license_url: DS.attr('string'),

@@ -1,0 +1,50 @@
+{{#leaflet-map lat=lat lng=lng zoom=zoom onZoomend=(action "updateView") onDragend=(action "updateView")}}
+
+  {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+
+  {{#each stops as |stop|}}
+
+    {{#marker-layer
+      icon=stopStationIcon
+      location=stop.coordinates
+      draggable=true
+      popupOpen=stop.isOpen
+      onDrag=(action "updateStopLocation" stop)
+    }}
+      {{stop-form stop=stop}}
+    {{/marker-layer}}
+
+    {{#each stop.stop_platforms as |stop_platform|}}
+      {{#marker-layer
+        icon=stopPlatformIcon
+        location=stop_platform.coordinates
+        draggable=true
+        popupOpen=stop_platform.isOpen
+        onDrag=(action "updateStopLocation" stop_platform)
+      }}
+        {{stop-form parent_stops=stops stop=stop_platform}}
+      {{/marker-layer}}
+    {{/each}}
+
+    {{#each stop.stop_egresses as |stop_egress|}}
+      {{#marker-layer
+        icon=stopEgressIcon
+        location=stop_egress.coordinates
+        draggable=true
+        popupOpen=stop_egress.isOpen
+        onDrag=(action "updateStopLocation" stop_egress)
+      }}
+        {{stop-form parent_stops=stops stop=stop_egress}}
+      {{/marker-layer}}
+    {{/each}}
+
+    {{#polygon-layer locations=stop.stationPlatformLines color="red"}}
+      Platforms
+    {{/polygon-layer}}
+
+    {{#polygon-layer locations=stop.stationEgressLines color="blue"}}
+      Egresses
+    {{/polygon-layer}}
+
+  {{/each}}
+{{/leaflet-map}}
