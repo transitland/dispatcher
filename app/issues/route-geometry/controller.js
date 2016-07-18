@@ -8,18 +8,30 @@ export default Ember.Controller.extend({
 
   getChanges: function() {
     var entities = [];
-    entities = entities.concat(this.store.peekAll('route-stop-pattern').filter(function(e) { return e.get('attributes'); }));
-    entities = entities.concat(this.store.peekAll('stop').filter(function(e) { return e.get('attributes'); }));
+    entities = entities.concat(this.store.peekAll('route-stop-pattern').filter(function(e) { return e.get('hasDirtyAttributes'); }));
+    entities = entities.concat(this.store.peekAll('stop').filter(function(e) { return e.get('hasDirtyAttributes'); }));
+    var self = this;
     return entities.map(function(e) {
       var ret = {};
       ret['action'] = 'createUpdate';
+      ret['issuesResolved'] = [parseInt(self.model.selectedIssue.id)];
       ret[e.entityType()] = e.toChange();
       return ret;
     });
   },
 
+  currentClicked: null,
+
   actions: {
     issueClicked: function(issue) {
+
+      // Ember.$('.list-group').classList.remove('active');
+      //
+      // this.set('currentClicked', Ember.$('#but-'+issue.id));
+      // console.log(this.get('currentClicked'));
+      // if (this.get('currentClicked')) {
+      //   this.get('currentClicked').addClass('active');
+      // }
 
       if (this.get('model.selectedIssue')) {
         if (issue.get('id') === this.get('model.selectedIssue').get('id')) {
@@ -74,9 +86,7 @@ export default Ember.Controller.extend({
         for (var layer in EditedEvent.layers._layers) {
           if (stop.get('onestop_id') === self.get('leafletObjects')[layer]) {
             var latlng = EditedEvent.layers._layers[layer]._latlng;
-            stop.set('coordinates',[latlng.lat, latlng.lng]);
-            self.store.findRecord('stop', self.get('leafletObjects')[layer])
-              .set('coordinates', [latlng.lat, latlng.lng]);
+            stop.setCoordinates([latlng.lng, latlng.lat]);
           }
         }
       });
@@ -85,11 +95,7 @@ export default Ember.Controller.extend({
         for (var layer in EditedEvent.layers._layers) {
           if (rsp.get('onestop_id') === self.get('leafletObjects')[layer]) {
             var latlngs = EditedEvent.layers._layers[layer]._latlngs;
-            rsp.set('coordinates', latlngs.map(function(latlng){ return [latlng.lat, latlng.lng]; }));
-            var coords = latlngs.map(function(latlng){ return [latlng.lat, latlng.lng]; });
-            self.store.peekRecord('route-stop-pattern', self.get('leafletObjects')[layer])
-              .set('coordinates', coords);
-            console.log(self.store.peekRecord('route-stop-pattern',self.get('leafletObjects')[layer]).coordinates );
+            rsp.setCoordinates(latlngs.map(function(latlng){ return [latlng.lng, latlng.lat]; }));
           }
         }
       });
@@ -101,6 +107,20 @@ export default Ember.Controller.extend({
     },
     hideChangeset: function() {
       this.set('showChangeset', false);
+    },
+    saveChangeset: function(apply) {
+      const flashMessages = Ember.get(this, 'flashMessages');
+      var self = this;
+      return this.model.changeset.save()
+        .then(function(changeset) {
+          return changeset.apply()
+        }).then(function(changeset) {
+          flashMessages.success('Changeset created & applied. Issue resolved.');
+          self.set('showChangeset', false);
+          self.transitionToRoute('issues.route-geometry');
+        }).catch(function(error) {
+          flashMessages.danger('Error(s) updating change payload: ${error.message}');
+        });
     },
     stopAdded: function(leafletId, onestop_id) {
       this.get('leafletObjects')[leafletId] = onestop_id;

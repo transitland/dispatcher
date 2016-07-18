@@ -17,7 +17,7 @@ export default EntityWithActivityModel.extend({
     return this.get('geometry').coordinates.slice().reverse();
   }),
   setCoordinates: function(value) {
-    this.set('geometry', {type: 'Point', coordinates: value});
+    this.set('geometry', {type: 'Point', coordinates: value.map(function(c) { return Math.round(c * 100000) / 100000; } ) });
   },
   entityType: function() {
     return 'stop';

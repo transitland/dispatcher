@@ -18,9 +18,12 @@ export default EntityWithActivityModel.extend({
 
 	coordinates: Ember.computed(function(){
 		return this.get('geometry').coordinates.map(function(coord){
-			return coord.reverse();
+			return coord.slice().reverse();
 		});
 	}),
+	setCoordinates: function(coords) {
+		this.set('geometry', {type: 'LineString', coordinates: coords});
+	},
 	entityType: function() {
     return 'routeStopPattern';
   },

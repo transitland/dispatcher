@@ -15,6 +15,7 @@ export default EntityWithActivityModel.extend({
   // routes_created_or_updated: DS.hasMany('routes', { async: true, inverse: '' }),
   // routes_destroyed: DS.hasMany('routes', { async: true, inverse: '' }),
 
+  issuesResolved: DS.attr(),
   notes: DS.attr('string'),
   applied: DS.attr('boolean'),
   applied_at: DS.attr('date'),
