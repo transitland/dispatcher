@@ -27,6 +27,7 @@ Router.map(function() {
   });
   this.route('issues', function() {
     this.route('route-geometry');
+    this.route('create');
   });
   this.route('stations');
   this.route('routingcheck');
