@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
 
   getChanges: function() {
     var entities = [];
-    entities = entities.concat(this.store.peekAll('route-stop-pattern').filter(function(e) { return e.get('hasDirtyAttributes'); }));
+    entities = entities.concat(this.store.peekAll('route-stop-pattern').filter(function(e) { return e.get('hasDirtyAttributes'); }) );
     entities = entities.concat(this.store.peekAll('stop').filter(function(e) { return e.get('hasDirtyAttributes'); }));
     var self = this;
     return entities.map(function(e) {
@@ -24,14 +24,6 @@ export default Ember.Controller.extend({
 
   actions: {
     issueClicked: function(issue) {
-
-      // Ember.$('.list-group').classList.remove('active');
-      //
-      // this.set('currentClicked', Ember.$('#but-'+issue.id));
-      // console.log(this.get('currentClicked'));
-      // if (this.get('currentClicked')) {
-      //   this.get('currentClicked').addClass('active');
-      // }
 
       if (this.get('model.selectedIssue')) {
         if (issue.get('id') === this.get('model.selectedIssue').get('id')) {
@@ -117,7 +109,7 @@ export default Ember.Controller.extend({
         }).then(function(changeset) {
           flashMessages.success('Changeset created & applied. Issue resolved.');
           self.set('showChangeset', false);
-          self.transitionToRoute('issues.route-geometry');
+          window.location.reload(true);
         }).catch(function(error) {
           flashMessages.danger('Error(s) updating change payload: ${error.message}');
         });

@@ -9,7 +9,7 @@ export default EntityWithActivityModel.extend({
   stop_distances: DS.attr(),
   stop_pattern: DS.attr(),
   color: DS.attr('string'),
-  route_onestop_id: DS.attr('string'),
+  route_onestop_id: DS.attr('string', {readOnly: true}),
 	onestop_id: Ember.computed.alias('id'),
 	created_at: DS.attr('date'),
 	updated_at: DS.attr('date'),
@@ -22,7 +22,11 @@ export default EntityWithActivityModel.extend({
 		});
 	}),
 	setCoordinates: function(coords) {
-		this.set('geometry', {type: 'LineString', coordinates: coords});
+		this.set('geometry', {type: 'LineString',
+								coordinates: coords.map(function(c) {
+											return [ Math.round(100000*c[0])/100000, Math.round(100000*c[0])/100000];
+								})
+		});
 	},
 	entityType: function() {
     return 'routeStopPattern';
@@ -30,10 +34,9 @@ export default EntityWithActivityModel.extend({
   toChange: function() {
     return {
       onestopId: this.get('onestop_id'),
-			routeOnestopId: this.get('route_onestop_id'),
       stopPattern: this.get('stop_pattern'),
       geometry: {
-        type: "Point",
+        type: "LineString",
         coordinates: this.get('geometry').coordinates
       }
     };
