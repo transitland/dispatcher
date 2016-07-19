@@ -23,9 +23,7 @@ export default EntityWithActivityModel.extend({
 	}),
 	setCoordinates: function(coords) {
 		this.set('geometry', {type: 'LineString',
-								coordinates: coords.map(function(c) {
-											return [ Math.round(100000*c[0])/100000, Math.round(100000*c[0])/100000];
-								})
+													coordinates: coords.map(function(c) { return c.map(function(n) { return parseFloat(n.toFixed(5));  } ) })
 		});
 	},
 	entityType: function() {
