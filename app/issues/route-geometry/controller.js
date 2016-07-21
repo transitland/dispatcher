@@ -20,8 +20,6 @@ export default Ember.Controller.extend({
     });
   },
 
-  currentClicked: null,
-
   actions: {
     issueClicked: function(issue) {
 
