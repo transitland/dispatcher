@@ -6,7 +6,7 @@ export default Ember.Route.extend({
       notes: ''
     });
     changeset.get('change_payloads').createRecord();
-    let users = this.store.findAll('user');
+    let users = this.store.query('user', { per_page: false });
     return Ember.RSVP.hash({
       changeset: changeset,
       users: users
