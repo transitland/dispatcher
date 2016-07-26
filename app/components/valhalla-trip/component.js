@@ -19,6 +19,10 @@ export default Ember.Component.extend({
   }),
   trip: Ember.computed(function() {
     var self = this;
+    if (!this.get('origin') || !this.get('destination')) {
+      console.log("Problem with origin/destination: skipping");
+      return;
+    }
     this.get('valhalla_route').add(
       this.get('origin').get('geometry').coordinates,
       this.get('destination').get('geometry').coordinates,
