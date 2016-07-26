@@ -21,6 +21,8 @@ function shuffle_sample(array, count) {
 export default Ember.Route.extend(FeedParamsRoute, PaginatedSortableRoute, {
   valhalla_route: Ember.inject.service('valhalla-route'),
   model: function(params) {
+    // Reset valhalla queue
+    this.get('valhalla_route').empty();
     var self = this;
     var meta = null;
 
