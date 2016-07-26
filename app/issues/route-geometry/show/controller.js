@@ -22,7 +22,6 @@ export default Ember.Controller.extend({
 
   actions: {
     issueClicked: function(issue) {
-      console.log(this.get('model.selectedIssue').id);
       if (this.get('model.selectedIssue')) {
         if (issue.get('id') === this.get('model.selectedIssue').get('id')) {
           return;
