@@ -26,13 +26,13 @@ export default Ember.Controller.extend({
     hideChangeset: function() {
       this.set('showChangeset', false);
     },
-    saveChangeset: function(apply) {
+    saveChangeset: function() {
       const flashMessages = Ember.get(this, 'flashMessages');
       var self = this;
       return this.model.changeset.save()
         .then(function(changeset) {
-          return changeset.apply()
-        }).then(function(changeset) {
+          return changeset.apply();
+        }).then(function() {
           flashMessages.success(`Changeset created & applied`);
           self.set('showChangeset', false);
         }).catch(function(error) {

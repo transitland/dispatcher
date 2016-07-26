@@ -36,6 +36,7 @@ export default Ember.Service.extend({
     this.poll();
   },
   empty() {
+    console.log('empty queue');
     this.get('queue').setObjects([]);
   },
   // Get Valhalla Route

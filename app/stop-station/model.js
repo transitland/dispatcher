@@ -3,12 +3,12 @@ import DS from 'ember-data';
 import Stop from 'dispatcher/stop/model';
 
 function next_fragment(entities, separator) {
-  var ids = entities.map(function(i){return i.id.split(separator)[1]});
+  var ids = entities.map(function(i) {return i.id.split(separator)[1]; });
   var fragment = "";
   for (var i=0; i < 1000; i++) {
     fragment = String(i);
-    if (ids.indexOf(fragment) == -1) {
-      break
+    if (ids.indexOf(fragment) === -1) {
+      break;
     }
   }
   return fragment;
