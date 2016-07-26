@@ -6,6 +6,7 @@ export default Ember.Service.extend({
   rate_limit: ENV.valhallaRateLimit,
   api_key: ENV.valhallaApiKey,
   url: ENV.valhallaHost,
+  url_lrm: "http://valhalla.github.io/demos/routing/index.html#",
   run() {
     var job = this.get('queue').shift();
     return this.getRoute(
@@ -40,10 +41,22 @@ export default Ember.Service.extend({
     this.get('queue').setObjects([]);
   },
   // Get Valhalla Route
-  getRoute(origin_coords, destination_coords, departure_date_time) {
+  get_url(params) {
     var api_key = this.get('api_key');
     var url = this.get('url');
-    var params = {
+    return url + "?" + Ember.$.param({json: JSON.stringify(params), api_key: api_key});
+  },
+  get_url_lrm(params) {
+    return this.get('url_lrm') + $.param({
+      loc: [params.locations[0].lat, params.locations[0].lon].join(','),
+      locations: JSON.stringify(params.locations),
+      costing: JSON.stringify(params.costing),
+      costing_options: JSON.stringify(params.costing_options),
+      datetime: JSON.stringify(params.date_time)
+    });
+  },
+  route_params(origin_coords, destination_coords, departure_date_time) {
+    return {
       locations: [
         {lon: origin_coords[0], lat: origin_coords[1], type: 'break'},
         {lon: destination_coords[0], lat: destination_coords[1], type: 'break'}
@@ -61,9 +74,5 @@ export default Ember.Service.extend({
         value: departure_date_time.toISOString().slice(0,16)
       }
     };
-    return Ember.$.getJSON(url, {
-      json: JSON.stringify(params),
-      api_key: api_key
-    });
   }
 });
