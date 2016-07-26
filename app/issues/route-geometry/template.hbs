@@ -1,22 +1,5 @@
-{{#if showChangeset}}
-  {{#modal-dialog title='Changeset' ok='saveChangeset' close='hideChangeset' okText='Apply Changeset'}}
-    {{changeset-form changeset=model.changeset users=model.users }}
-  {{/modal-dialog}}
-{{/if}}
-
 <div class="page-header">
   <h3>Route Geometry Issues</h3>
 </div>
-<div class="row has-leaflet-map">
-  <div class="col-md-3">
-    {{issue-table model=model rspAdded="rspAdded" stopAdded="stopAdded" issueClicked="issueClicked"}}
-  </div>
-  <div class="col-md-9 has-leaflet-map">
-    <div class="route-geometry-resolve-button">
-      <button {{action "showChangeset"}} class="btn btn-primary">Resolve</button>
-    </div>
-    <div class="has-leaflet-map">
-      {{edit-map model=model rspAdded="rspAdded" stopAdded="stopAdded" actionDrawEdited="actionDrawEdited"}}
-    </div>
-  </div>
-</div>
+
+{{outlet}}

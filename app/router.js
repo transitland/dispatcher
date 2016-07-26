@@ -26,7 +26,9 @@ Router.map(function() {
     this.route('new');
   });
   this.route('issues', function() {
-    this.route('route-geometry');
+    this.route('route-geometry', function() {
+      this.route('show', { path: '/:issue_id' });
+    });
     this.route('create');
   });
   this.route('stations');

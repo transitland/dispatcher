@@ -1,7 +1,7 @@
 import Ember from 'ember';
-//import L from 'ember-leafet';
 
 export default Ember.Controller.extend({
+
   leafletObjects: {
 
   },
@@ -22,50 +22,13 @@ export default Ember.Controller.extend({
 
   actions: {
     issueClicked: function(issue) {
-
+      console.log(this.get('model.selectedIssue').id);
       if (this.get('model.selectedIssue')) {
         if (issue.get('id') === this.get('model.selectedIssue').get('id')) {
           return;
         }
       }
-
-      this.store.unloadAll('route-stop-pattern');
-      this.store.unloadAll('stop');
-      this.set('leafletObjects',{});
-
-      this.set('model.selectedIssue', issue);
-      var rsps = [];
-      var stops = [];
-      issue.get('entities_with_issues').forEach(function(entity){
-        if (entity.onestop_id.split('-')[0] === 'r') {
-          rsps.push(entity.onestop_id);
-        }
-        else if (entity.onestop_id.split('-')[0] === 's') {
-          stops.push(entity.onestop_id);
-        }
-      });
-      rsps = this.store.query('route-stop-pattern', {onestop_id: rsps.join(',')});
-      stops = this.store.query('stop', {onestop_id: stops.join(',')});
-      this.set('model.issueRouteStopPatterns', rsps);
-      this.set('model.issueStops', stops);
-
-      var bounds;
-
-      var self = this;
-      stops.then(function(){
-        bounds = new L.latLngBounds(stops.map(function(stop) {
-          return new L.latLng(stop.get('coordinates'));
-        }));
-
-        rsps.then(function(){
-          rsps.forEach(function(rsp){
-            rsp.get('coordinates').forEach(function(coord){
-              bounds.extend(new L.latLng(coord));
-            });
-          });
-          self.set('model.bounds', bounds);
-        });
-      });
+      this.transitionToRoute('issues.route-geometry.show', issue.id);
     },
     actionDrawEdited: function(EditedEvent) {
       var self = this;

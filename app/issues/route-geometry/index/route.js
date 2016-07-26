@@ -1,6 +1,14 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  renderTemplate: function() {
+    this.render();
+
+    this.render('components/issue-table', {
+      into: 'issues.route-geometry.index',
+      outlet: 'issue-table'
+    });
+  },
 
   model: function(params) {
     params['issue_type'] = ['stop_rsp_distance_gap',
@@ -9,17 +17,8 @@ export default Ember.Route.extend({
                             'stop_position_inaccurate'].join(',');
     params['open'] = true;
     var issues = this.store.query('issue', params);
-    let changeset = this.store.createRecord('changeset', {
-      notes: 'Issue resolution:'
-    });
-    changeset.get('change_payloads').createRecord();
     return Ember.RSVP.hash({
-      issues: issues,
-      selectedIssue: null,
-      issueRouteStopPatterns: null,
-      issueStops: null,
-      bounds: null,
-      changeset: changeset
+      issues: issues
     });
   }
 });
