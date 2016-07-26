@@ -9,14 +9,10 @@ export default Ember.Service.extend({
   url_lrm: "http://valhalla.github.io/demos/routing/index.html#",
   run() {
     var job = this.get('queue').shift();
-    return this.getRoute(
-      job[0],
-      job[1],
-      job[2]
-    ).then(function(trip){
-      job[3](trip);
+    return Ember.$.getJSON(job.url).then(function(trip){
+      job.success(trip);
     }, function(failure) {
-      job[4](failure);
+      job.failure(failure);
     });
   },
   poll() {
@@ -31,10 +27,15 @@ export default Ember.Service.extend({
       }, this.get('rate_limit'));
     }
   },
-  add(origin, destination, departure_date_time, callback, failure) {
-    var job = [origin, destination, departure_date_time, callback, failure];
+  add(url, success, failure) {
+    var job = {
+      url: url,
+      success: success,
+      failure: failure
+    }
     this.get('queue').push(job);
     this.poll();
+    return job;
   },
   empty() {
     console.log('empty queue');
