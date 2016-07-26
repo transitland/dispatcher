@@ -43,7 +43,7 @@ export default Ember.Route.extend(FeedParamsRoute, PaginatedSortableRoute, {
           total: true
         });
       });
-      return Ember.RSVP.all(rsp_count_promises)
+      return Ember.RSVP.all(rsp_count_promises);
 
     }).then(function(rsp_count_results) {
       // Sample routes from the total routes for each feed
@@ -51,8 +51,8 @@ export default Ember.Route.extend(FeedParamsRoute, PaginatedSortableRoute, {
         var feed_onestop_id = rsp_count.query.imported_from_feed;
         var feed_version_sha1 = rsp_count.query.imported_from_feed_version;
         var rsp_sample = [];
-        for (var i=0; i < rsp_count.meta.total; i++) { rsp_sample.push(i) }
-        if (rsp_count.meta.total == 0) {
+        for (var i=0; i < rsp_count.meta.total; i++) { rsp_sample.push(i); }
+        if (rsp_count.meta.total === 0) {
           console.log("No rsps!");
           rsp_sample.push(0);
         }
@@ -64,7 +64,7 @@ export default Ember.Route.extend(FeedParamsRoute, PaginatedSortableRoute, {
             per_page: 1,
             offset: rsp_offset,
             total: false
-          })
+          });
         });
       });
       return Ember.RSVP.all([].concat.apply([], rsp_promises));

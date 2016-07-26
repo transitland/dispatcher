@@ -6,7 +6,7 @@ var stopStationIcon = L.icon({
   iconSize: [36, 54],
   iconAnchor: [18, 54],
   popupAnchor: [0, -54]
-})
+});
 
 var stopPlatformIcon = L.icon({
   iconUrl: 'assets/images/capital-l.png',
