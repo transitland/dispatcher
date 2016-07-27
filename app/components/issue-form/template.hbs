@@ -1,0 +1,16 @@
+<div class="form-group">
+  <label>Entities</label>
+  {{#power-select-multiple options=entities placeholder="Select Entity Onestop Ids" selected=onestop_id onchange=(action (mut onestop_id)) as |onestop_id|}}
+    {{onestop_id}}
+  {{/power-select-multiple}}
+</div>
+<div class="form-group">
+  <label>Issue Type</label>
+  {{#power-select options=issueTypes searchField="display" selected=issue_type onchange=(action (mut issue_type)) onfocus=(action "handleFocus") allowClear=true as |issueType|}}
+    {{underscored-string-to-title-case issueType}}
+  {{/power-select}}
+</div>
+<div class="form-group">
+  <label for="name">Details</label>
+  {{input id="details" value="" class="form-control"}}
+</div>
