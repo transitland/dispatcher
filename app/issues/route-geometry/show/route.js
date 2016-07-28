@@ -1,14 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  renderTemplate: function() {
-    this.render();
-
-    this.render('components/issue-table', {
-      into: 'issues.route-geometry.show',
-      outlet: 'issue-table'
-    });
-  },
 
   model: function(params) {
     var self = this;
@@ -25,6 +17,8 @@ export default Ember.Route.extend({
       changeset.get('change_payloads').createRecord();
       var rsps = [];
       var stops = [];
+      // do on issue model itself
+      // check operator serializer, polymorphic relationship, async
       selectedIssue.get('entities_with_issues').forEach(function(entity){
         if (entity.onestop_id.split('-')[0] === 'r') {
           rsps.push(entity.onestop_id);

@@ -5,25 +5,7 @@ export default Ember.Component.extend({
   lng: -122.4,
   url: "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
   zoom: 12,
-  bounds: Ember.computed(function(){
-    var bounds;
-    var self = this;
-    this.edit.featureGroup.eachLayer(function(layer){
-      console.log(layer);
-      let b;
-      if (self.isEntity(layer)) {
-        if (typeof layer.getLatLngs === 'function') {
-          b = layer.getLatLngs();
-        }
-        else {
-          b = layer.getLatLng();
-        }
-      }
-      if (bounds) bounds.extend(b)
-      else bounds = L.latLngBounds(b)
-    });
-    this.set('bounds', bounds);
-  }),
+  bounds: L.latLngBounds([L.latLng(37.77, -122.4), L.latLng(37.76,-122.5)]),
   options: {
   },
   draw: false,

@@ -6,7 +6,7 @@
 
 <div class="row has-leaflet-map">
   <div class="col-md-3">
-    {{outlet 'issue-table'}}
+    {{#issue-table model=model issueClicked="issueClicked"}}{{/issue-table}}
   </div>
   <div class="col-md-9 has-leaflet-map">
     <div class="route-geometry-resolve-button">
