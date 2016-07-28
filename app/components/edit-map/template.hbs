@@ -1,4 +1,4 @@
-{{#leaflet-map lat=lat lng=lng zoom=zoom bounds=model.bounds options=options rspAdded="rspAdded" stopAdded="stopAdded" onLayerremove=(action "actionLayerremove") onLayeradd=(action "actionLayeradd")}}
+{{#leaflet-map bounds=model.bounds options=options rspAdded="rspAdded" stopAdded="stopAdded" onLayerremove=(action "actionLayerremove") onLayeradd=(action "actionLayeradd")}}
   {{#tile-layer url=url}}
     {{#measure-control primaryLengthUnit="meters" secondaryLengthUnit="kilometers" position="topleft"}}{{/measure-control}}
     {{#draw-control edit=edit draw=draw drawEdited="actionDrawEdited"}}{{/draw-control}}

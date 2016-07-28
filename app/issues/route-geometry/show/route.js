@@ -44,7 +44,7 @@ export default Ember.Route.extend({
             selectedIssue: selectedIssue,
             issueRouteStopPatterns: rsps,
             issueStops: stops,
-            bounds: null,
+            bounds: bounds,
             changeset: changeset
           });
         });

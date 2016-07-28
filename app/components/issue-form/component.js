@@ -18,7 +18,6 @@ export default Ember.Component.extend({
     //.concat(this.get('model.operators').map(function(e){return e.id}))
     //.concat(this.get('model.routes').map(function(e){return e.id}))
     .concat(this.get('model.route_stop_patterns').map(function(e){return e.id}));
-    console.log(entities);
     return entities;
   }),
   actions: {
