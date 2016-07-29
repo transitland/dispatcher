@@ -24,12 +24,18 @@
   {{#each model as |feed_stop_pairs|}}
     <tbody>
       <tr>
-        <td colspan="10"><h4>{{feed_stop_pairs.feed.id}}</h4></td>
+        <td colspan="10">
+          <h4>{{link-to feed_stop_pairs.feed.onestop_id 'feeds.show' feed_stop_pairs.feed.onestop_id}}</h4>
+        </td>
       </tr>
     {{#each feed_stop_pairs.stop_pairs as |stop_pair|}}
       <tr>
-        <td>{{stop_pair.[0].id}}</td>
-        <td>{{stop_pair.[1].id}}</td>
+        <td>
+          {{stop_pair.[0].id}}
+        </td>
+        <td>
+          {{stop_pair.[1].id}}
+        </td>
         {{#each departure_date_times as |departure_date_time|}}
           {{valhalla-trip origin=stop_pair.[0] destination=stop_pair.[1] departure_date_time=departure_date_time}}
         {{/each}}
