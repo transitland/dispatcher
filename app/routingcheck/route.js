@@ -18,6 +18,17 @@ function shuffle_sample(array, count) {
   return array.slice(0,count);
 }
 
+// Find the first and last stop that aren't the same.
+function stop_endpoints(stops) {
+  var origin = stops[0];
+  var destination = null;
+  for (var i = stops.length - 1; i >= 0; i--) {
+    destination = stops[i];
+    if (destination != origin) { break }
+  }
+  return [origin, stops[stops.length-1]];
+}
+
 export default Ember.Route.extend(FeedParamsRoute, PaginatedSortableRoute, {
   valhalla_route: Ember.inject.service('valhalla-route'),
   model: function(params) {
@@ -81,8 +92,7 @@ export default Ember.Route.extend(FeedParamsRoute, PaginatedSortableRoute, {
             per_page: 2
           });
         }
-        var stop_pattern = rsp.get('stop_pattern');
-        var stop_pattern_sample = [stop_pattern[0], stop_pattern[stop_pattern.length-1]];
+        var stop_pattern_sample = stop_endpoints(rsp.get('stop_pattern'));
         console.log('stop_pattern', rsp.id, stop_pattern_sample);
         return self.store.query('stop', {
           imported_from_feed: rsp_result.query.imported_from_feed,
