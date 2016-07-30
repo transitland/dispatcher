@@ -61,18 +61,24 @@ export default Ember.Controller.extend({
       this.set('showChangeset', false);
     },
     saveChangeset: function(apply) {
-      const flashMessages = Ember.get(this, 'flashMessages');
       var self = this;
       return this.model.changeset.save()
         .then(function(changeset) {
-          return changeset.apply()
+          self.set('applyingSpinner', true);
+          return changeset.apply();
         }).then(function(changeset) {
-          flashMessages.success('Changeset created & applied. Issue resolved.');
+          self.set('applyingSpinner', false);
           self.set('showChangeset', false);
-          window.location.reload(true);
+          self.set('applyMessage', {show: true, error: false, message: 'Changeset created and applied. Issue ' + self.get('model.selectedIssue.id') + ' has been successfully resolved.'});
         }).catch(function(error) {
-          flashMessages.danger('Error(s) updating change payload: ${error.message}');
+          self.set('applyingSpinner', false);
+          self.set('showChangeset', false);
+          self.set('applyMessage', {show: true, error: true, message: 'Error resolving issue ' + self.get('model.selectedIssue.id') + '. ' + error.message});
         });
+    },
+    toggleApplyMessage: function() {
+      this.set('applyMessage.show', false);
+      if (!this.get('applyMessage').error) window.location.reload(true)
     },
     stopAdded: function(leafletId, onestop_id) {
       this.get('leafletObjects')[leafletId] = onestop_id;

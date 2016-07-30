@@ -4,6 +4,16 @@
   {{/modal-dialog}}
 {{/if}}
 
+{{#if applyMessage.show}}
+  {{#modal-message title='Apply Message' close='toggleApplyMessage'}}
+    <p>{{applyMessage.message}}</p>
+  {{/modal-message}}
+{{/if}}
+
+{{#if applyingSpinner}}
+  {{#loading-spinner}}{{/loading-spinner}}
+{{/if}}
+
 <div class="row has-leaflet-map">
   <div class="col-md-3">
     {{#issue-table model=model issueClicked="issueClicked"}}{{/issue-table}}
