@@ -8,5 +8,11 @@ export default Ember.Route.extend({
       //routes: this.store.query('route',params),
       route_stop_patterns: this.store.query('route_stop_pattern',params)
     });
+  },
+  actions: {
+    saveIssue(issueData) {
+      let issue = this.store.createRecord('issue', issueData);
+      issue.save();
+    }
   }
 });
