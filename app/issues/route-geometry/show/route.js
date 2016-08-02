@@ -2,6 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  // this is temporary
+  beforeModel: function(transition){
+    this.set('feed_onestop_id', transition.params['issues.route-geometry'].feed_id);
+  },
+
   model: function(params) {
     var self = this;
     return this.store.find('issue', params['issue_id']).then(function(selectedIssue){
@@ -10,6 +15,7 @@ export default Ember.Route.extend({
                               'rsp_line_inaccurate',
                               'stop_position_inaccurate'].join(',');
       params['open'] = true;
+      params['feed_onestop_id'] = self.get('feed_onestop_id');
       var issues = self.store.query('issue', params);
       let changeset = self.store.createRecord('changeset', {
         notes: 'Issue resolution:'

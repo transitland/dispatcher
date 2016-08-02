@@ -21,6 +21,16 @@ export default Ember.Component.extend({
       "uncategorized"
     ]
   },
+  acceptedAttributes: {
+    "stop_rsp_distance_gap": ["geometry"],
+    "distance_calculation_inaccurate": ["stop_distances", "geometry"],
+    "stop_position_inaccurate": ["geometry"],
+    "stop_name": ["name"],
+    "route_color": ["color"],
+    "route_name": ["name"],
+    "rsp_line_inaccurate": ["geometry"],
+    "uncategorized": []
+  },
   selectedEntities: [],
   selectedIssueType: [],
   selectedAttribute: '',
@@ -59,7 +69,7 @@ export default Ember.Component.extend({
     return Array.from(issueTypes);
   },
   computeAvailableAttributes: function() {
-    return ["geometry"];
+    return this.get("acceptedAttributes")[this.get("selectedIssueType")];
   },
   entities: Ember.computed(function(){
     var entities = [];
@@ -77,13 +87,13 @@ export default Ember.Component.extend({
     handleEntityChanged(select) {
       this.set('selectedEntities', select);
       this.set('issueTypes', this.computeIssueTypes());
-      this.set('attributes', this.computeAvailableAttributes());
     },
     handleAttribute(select) {
       this.set('selectedAttribute', select.highlighted);
     },
     handleType(select) {
       this.set('selectedIssueType', select.highlighted);
+      this.set('attributes', this.computeAvailableAttributes());
     },
     inputChanged(input) {
       this.set('details', input);
