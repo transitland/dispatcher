@@ -21,6 +21,7 @@
   <div class="col-md-9 has-leaflet-map">
     <div class="route-geometry-resolve-button">
       <button {{action "showChangeset"}} class="btn btn-primary">Resolve</button>
+      <button {{action "closeIssue"}} class="btn btn-primary">Close</button>
     </div>
     <div class="has-leaflet-map">
       {{#edit-map model=model rspAdded="rspAdded" stopAdded="stopAdded" actionDrawEdited="actionDrawEdited"}}{{/edit-map}}

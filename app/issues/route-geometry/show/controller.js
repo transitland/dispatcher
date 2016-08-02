@@ -57,6 +57,9 @@ export default Ember.Controller.extend({
       this.model.changeset.get('change_payloads').get('firstObject').set('payload', payload);
       this.set('showChangeset', true);
     },
+    closeIssue: function() {
+      alert('coming soon');
+    },
     hideChangeset: function() {
       this.set('showChangeset', false);
     },

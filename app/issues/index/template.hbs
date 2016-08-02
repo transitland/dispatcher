@@ -1,12 +1,16 @@
 <div class="jumbotron">
   <h3>View, Create, and Resolve Issues</h3>
   <div class="container">
+    <label>Choose Feed</label>
+    {{#power-select options=model.feeds searchField="display" selected=feed onchange=(action (mut feed)) onfocus=(action "onFocus") allowClear=true as |feed|}}
+      {{feed.id}}
+    {{/power-select}}
     <div class="row">
       <div class="col-md-6 issues-link">
-        {{#link-to "issues.new" class="list-group-item active"}}Create{{/link-to}}
+        {{#link-to "issues.new" selectedFeed class="list-group-item active"}}Create{{/link-to}}
       </div>
       <div class="col-md-6 issues-link">
-        {{#link-to "issues.route-geometry" class="list-group-item active"}}Route Geometry{{/link-to}}
+        {{#link-to "issues.route-geometry" selectedFeed class="list-group-item active"}}Route Geometry{{/link-to}}
       </div>
     </div>
   </div>
