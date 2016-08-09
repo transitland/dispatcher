@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  queryParams: ['feed_onestop_id'],
+  queryParams: ['feed_onestop_id', 'open'],
 
   feed_onestop_id: '',
 

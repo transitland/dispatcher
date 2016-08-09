@@ -15,6 +15,7 @@ export default Ember.Route.extend({
                             'distance_calculation_inaccurate',
                             'rsp_line_inaccurate',
                             'stop_position_inaccurate'].join(',');
+    console.log(params);
     var issues = this.store.query('issue', params);
     return Ember.RSVP.hash({
       issues: issues,
