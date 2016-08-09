@@ -10,18 +10,11 @@ export default Ember.Route.extend({
     });
   },
 
-  // this is temporary
-  beforeModel: function(transition){
-    this.set('feed_onestop_id', transition.params['issues.route-geometry'].feed_id);
-  },
-
   model: function(params) {
     params['issue_type'] = ['stop_rsp_distance_gap',
                             'distance_calculation_inaccurate',
                             'rsp_line_inaccurate',
                             'stop_position_inaccurate'].join(',');
-    params['open'] = true;
-    params['feed_onestop_id'] = this.get('feed_onestop_id');
     var issues = this.store.query('issue', params);
     return Ember.RSVP.hash({
       issues: issues,

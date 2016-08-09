@@ -74,9 +74,6 @@ export default Ember.Component.extend({
   entities: Ember.computed(function(){
     var entities = [];
     entities = entities.concat(this.get('model.stops').map(function(e){return e.id}))
-    //.concat(this.get('model.routes').map(function(e){return e.id}))
-    //.concat(this.get('model.operators').map(function(e){return e.id}))
-    //.concat(this.get('model.routes').map(function(e){return e.id}))
     .concat(this.get('model.route_stop_patterns').map(function(e){return e.id}));
     return entities;
   }),

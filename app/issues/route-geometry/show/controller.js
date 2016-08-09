@@ -2,6 +2,12 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
+  queryParams: ['feed_onestop_id'],
+
+  feed_onestop_id: '',
+
+  open: true,
+
   leafletObjects: {
 
   },
@@ -27,7 +33,7 @@ export default Ember.Controller.extend({
           return;
         }
       }
-      this.transitionToRoute('issues.route-geometry.show', issue.id);
+      this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: { feed_onestop_id: this.get('feed_onestop_id') } });
     },
     actionDrawEdited: function(EditedEvent) {
       var self = this;
