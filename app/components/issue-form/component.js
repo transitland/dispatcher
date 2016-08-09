@@ -88,12 +88,12 @@ export default Ember.Component.extend({
       this.set('selectedEntities', select);
       this.set('issueTypes', this.computeIssueTypes());
     },
-    handleAttribute(select) {
-      this.set('selectedAttribute', select.highlighted);
-    },
     handleType(select) {
       this.set('selectedIssueType', select.highlighted);
       this.set('attributes', this.computeAvailableAttributes());
+    },
+    handleAttribute(select) {
+      this.set('selectedAttribute', select.highlighted);
     },
     inputChanged(input) {
       this.set('details', input);

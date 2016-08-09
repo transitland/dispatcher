@@ -18,13 +18,13 @@
 </div>
 <div class="form-group">
   <label>Attribute Choices</label>
-  {{#power-select options=attributes searchField="display" selected=selectedAttribute onchange=(action (mut attribute)) onfocus=(action "handleAttribute") allowClear=true as |attribute|}}
+  {{#power-select options=attributes searchField="display" selected=selectedAttribute onchange=(action (mut selectedAttribute)) onfocus=(action "handleAttribute") allowClear=true as |attribute|}}
     {{attribute}}
   {{/power-select}}
 </div>
 <div class="form-group">
   <label for="name">Details</label>
-  {{input id="details" value="" enter=(action "inputChanged") class="form-control"}}
+  {{input id="details" value="" focus-out=(action "inputChanged") class="form-control"}}
 </div>
 <div class="form-group">
   <button type="button" class="btn btn-primary" {{action "createIssue"}}>Create</button>
