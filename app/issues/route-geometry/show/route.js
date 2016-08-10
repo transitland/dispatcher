@@ -2,13 +2,20 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  queryParams: {
+    issue_type: {
+      refreshModel: true
+    }
+  },
+
   model: function(params) {
     var self = this;
     return this.store.find('issue', params['issue_id']).then(function(selectedIssue){
-      params['issue_type'] = ['stop_rsp_distance_gap',
-                              'distance_calculation_inaccurate',
-                              'rsp_line_inaccurate',
-                              'stop_position_inaccurate'].join(',');
+      let issueTypes = ['stop_rsp_distance_gap',
+                        'distance_calculation_inaccurate',
+                        'rsp_line_inaccurate',
+                        'stop_position_inaccurate'];
+      if (!('issue_type' in params)) params['issue_type'] = issueTypes.join(',')
       var issues = self.store.query('issue', params);
       let changeset = self.store.createRecord('changeset', {
         notes: 'Issue resolution:'

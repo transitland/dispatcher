@@ -5,9 +5,15 @@
 {{/if}}
 
 {{#if applyMessage.show}}
-  {{#modal-message title='Apply Message' close='toggleApplyMessage'}}
+  {{#modal-message title='Apply Issue-resolving Changeset' close='toggleApplyMessage'}}
     <p>{{applyMessage.message}}</p>
   {{/modal-message}}
+{{/if}}
+
+{{#if closeMessage.show}}
+  {{#modal-dialog title='Closing Issue' ok='closeIssue' close='toggleCloseMessage' closeText='Cancel' okText='Ok'}}
+    <p>{{closeMessage.message}}</p>
+  {{/modal-dialog}}
 {{/if}}
 
 {{#if applyingSpinner}}
@@ -21,7 +27,7 @@
   <div class="col-md-9 has-leaflet-map">
     <div class="route-geometry-resolve-button">
       <button {{action "showChangeset"}} class="btn btn-primary">Resolve</button>
-      <button {{action "closeIssue"}} class="btn btn-primary">Close</button>
+      <button {{action "closeDialog"}} class="btn btn-primary">Close</button>
     </div>
     <div class="has-leaflet-map">
       {{#edit-map model=model rspAdded="rspAdded" stopAdded="stopAdded" actionDrawEdited="actionDrawEdited"}}{{/edit-map}}

@@ -1,5 +1,11 @@
 <div class="row has-leaflet-map">
   <div class="col-md-3">
+    <div class="form-group">
+      <label>Issue Type</label>
+      {{#power-select options=model.issueTypes searchField="display" selected=issue_type onchange=(action "typeChanged") allowClear=true as |issueType|}}
+        {{issueType}}
+      {{/power-select}}
+    </div>
     {{outlet 'issue-table'}}
   </div>
   <div class="col-md-9 has-leaflet-map">

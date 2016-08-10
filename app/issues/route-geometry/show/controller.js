@@ -2,11 +2,20 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  queryParams: ['feed_onestop_id', 'open'],
+  queryParams: ['feed_onestop_id', 'open', 'issue_type'],
+
+  issue_type: '',
 
   feed_onestop_id: '',
 
   open: true,
+
+  queryParamsObject: function() {
+    var queryParams = {};
+    var self = this;
+    this.get('queryParams').forEach(function(param) { queryParams[param] = self.get(param);  });
+    return queryParams;
+  },
 
   leafletObjects: {
 
@@ -33,7 +42,8 @@ export default Ember.Controller.extend({
           return;
         }
       }
-      this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: { feed_onestop_id: this.get('feed_onestop_id') } });
+      let queryParams = this.queryParamsObject();
+      this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: queryParams });
     },
     actionDrawEdited: function(EditedEvent) {
       var self = this;
@@ -63,9 +73,6 @@ export default Ember.Controller.extend({
       this.model.changeset.get('change_payloads').get('firstObject').set('payload', payload);
       this.set('showChangeset', true);
     },
-    closeIssue: function() {
-      alert('coming soon');
-    },
     hideChangeset: function() {
       this.set('showChangeset', false);
     },
@@ -88,6 +95,19 @@ export default Ember.Controller.extend({
     toggleApplyMessage: function() {
       this.set('applyMessage.show', false);
       if (!this.get('applyMessage').error) window.location.reload(true)
+    },
+    closeDialog: function() {
+      this.set('closeMessage', {show: true, message: 'Close issue ' + this.get('model.selectedIssue.id')});
+    },
+    closeIssue: function() {
+      this.model.selectedIssue.set('open', false);
+      this.model.selectedIssue.save();
+      this.set('closeMessage.show', false);
+      let queryParams = this.queryParamsObject();
+      this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParams });
+    },
+    toggleCloseMessage: function() {
+      this.set('closeMessage.show', false);
     },
     stopAdded: function(leafletId, onestop_id) {
       this.get('leafletObjects')[leafletId] = onestop_id;
