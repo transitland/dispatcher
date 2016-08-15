@@ -94,7 +94,10 @@ export default Ember.Controller.extend({
     },
     toggleApplyMessage: function() {
       this.set('applyMessage.show', false);
-      if (!this.get('applyMessage').error) window.location.reload(true)
+      if (!this.get('applyMessage').error) {
+        let queryParams = this.queryParamsObject();
+        this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParams });
+      }
     },
     closeDialog: function() {
       this.set('closeMessage', {show: true, message: 'Close issue ' + this.get('model.selectedIssue.id')});
