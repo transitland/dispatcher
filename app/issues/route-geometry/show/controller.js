@@ -2,13 +2,15 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  queryParams: ['feed_onestop_id', 'open', 'issue_type'],
+  queryParams: ['feed_onestop_id', 'open', 'issue_type', 'per_page'],
 
   issue_type: '',
 
   feed_onestop_id: '',
 
   open: true,
+
+  per_page: '∞',
 
   queryParamsObject: function() {
     var queryParams = {};
@@ -43,6 +45,7 @@ export default Ember.Controller.extend({
         }
       }
       let queryParams = this.queryParamsObject();
+      console.log(queryParams);
       this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: queryParams });
     },
     actionDrawEdited: function(EditedEvent) {
