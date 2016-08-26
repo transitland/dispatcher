@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   model: function(params) {
     let changeset = this.store.find('changeset', params['changeset_id']);
-    let users = this.store.findAll('user');
+    let users = this.store.query('user', { per_page: false });
     return Ember.RSVP.hash({
       changeset: changeset,
       users: users

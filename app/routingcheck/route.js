@@ -18,59 +18,90 @@ function shuffle_sample(array, count) {
   return array.slice(0,count);
 }
 
+// Find the first and last stop that aren't the same.
+function stop_endpoints(stops) {
+  var origin = stops[0];
+  var destination = null;
+  for (var i = stops.length - 1; i >= 0; i--) {
+    destination = stops[i];
+    if (destination != origin) { break }
+  }
+  return [origin, stops[stops.length-1]];
+}
+
 export default Ember.Route.extend(FeedParamsRoute, PaginatedSortableRoute, {
+  valhalla_route: Ember.inject.service('valhalla-route'),
   model: function(params) {
+    // Reset valhalla queue
+    this.get('valhalla_route').empty();
     var self = this;
     var meta = null;
-    
+
     // Find feeds
     return this.store.query('feed', params).then(function(feeds) {
       // Save the meta, for pagination
       meta = feeds.meta;
 
       // Find total routes for feed
-      var route_count_promises = feeds.map(function(feed) {
-        console.log('route_count_promises:', feed.id);
-        return self.store.query('route', {
-          imported_from_feed: feed.id,
+      var rsp_count_promises = feeds.map(function(feed) {
+        var feed_onestop_id = feed.id;
+        var active_feed_version = feed.get('active_feed_version').get('id');
+        console.log('route_count_promises:', feed_onestop_id, active_feed_version);
+        return self.store.query('route-stop-pattern', {
+          imported_from_feed: feed_onestop_id,
+          imported_from_feed_version: active_feed_version,
           per_page: 0,
           total: true
         });
       });
-      return Ember.RSVP.all(route_count_promises)
-    }).then(function(route_count_results) {
+      return Ember.RSVP.all(rsp_count_promises);
 
+    }).then(function(rsp_count_results) {
       // Sample routes from the total routes for each feed
-      var route_promises = route_count_results.map(function(route_count) {
-        var feed_onestop_id = route_count.query.imported_from_feed;
-        var route_sample = [];
-        for (var i=0; i < route_count.meta.total; i++) { route_sample.push(i) }
-        return shuffle_sample(route_sample, 2).map(function(route_offset) {
-          console.log('route_promises:', feed_onestop_id, route_offset);
-          return self.store.query('route', {
+      var rsp_promises = rsp_count_results.map(function(rsp_count) {
+        var feed_onestop_id = rsp_count.query.imported_from_feed;
+        var feed_version_sha1 = rsp_count.query.imported_from_feed_version;
+        var rsp_sample = [];
+        for (var i=0; i < rsp_count.meta.total; i++) { rsp_sample.push(i); }
+        if (rsp_count.meta.total === 0) {
+          console.log("No rsps!");
+          rsp_sample.push(0);
+        }
+        return shuffle_sample(rsp_sample, 2).map(function(rsp_offset) {
+          console.log('rsp_promises:', feed_onestop_id, feed_version_sha1, rsp_offset);
+          return self.store.query('route-stop-pattern', {
             imported_from_feed: feed_onestop_id,
+            imported_from_feed_version: feed_version_sha1,
             per_page: 1,
-            offset: route_offset,
+            offset: rsp_offset,
             total: false
-          })
+          });
         });
       });
-      return Ember.RSVP.all([].concat.apply([], route_promises));
-    }).then(function(route_results) {
+      return Ember.RSVP.all([].concat.apply([], rsp_promises));
 
+    }).then(function(rsp_results) {
       // Sample stops from each route
-      var stop_promises = route_results.map(function(route_result) {
-        var route = route_result.get('firstObject');
-        var stops_served_sample = shuffle_sample(route.get('stops_served_by_route'), 2).map (function(stop_served) { return stop_served.stop_onestop_id });
-        console.log('served', route.id, stops_served_sample);
+      var stop_promises = rsp_results.map(function(rsp_result) {
+        var rsp = rsp_result.get('firstObject');
+        if (!rsp) {
+          console.log("No rsp! Selecting first two stops in feed.");
+          return self.store.query('stop', {
+            imported_from_feed: rsp_result.query.imported_from_feed,
+            imported_from_feed_version: rsp_result.query.imported_from_feed_version,
+            per_page: 2
+          });
+        }
+        var stop_pattern_sample = stop_endpoints(rsp.get('stop_pattern'));
+        console.log('stop_pattern', rsp.id, stop_pattern_sample);
         return self.store.query('stop', {
-          imported_from_feed: route_result.query.imported_from_feed,
-          onestop_id: stops_served_sample.join(',')
-        })
+          imported_from_feed: rsp_result.query.imported_from_feed,
+          onestop_id: stop_pattern_sample.join(',')
+        });
       });
       return Ember.RSVP.all([].concat.apply([], stop_promises));
-    }).then(function(stop_results) {
 
+    }).then(function(stop_results) {
       // Aggregate back to feed
       var feed_stop_pairs = [];
       feed_stop_pairs.meta = meta;
@@ -88,6 +119,7 @@ export default Ember.Route.extend(FeedParamsRoute, PaginatedSortableRoute, {
         pairs.stop_pairs.push(stop_result.toArray());
       });
       return feed_stop_pairs;
-    }); // end query feed
+    });
+
   }  // end model
 });

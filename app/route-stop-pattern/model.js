@@ -16,7 +16,6 @@ export default EntityWithActivityModel.extend({
 	updated_at: DS.attr('date'),
 	geometry: DS.attr(),
 	tags: DS.attr(),
-
 	stopsWithDistances: Ember.computed('stop_pattern', function(){
 		var self = this;
 		var args = {};
@@ -25,7 +24,6 @@ export default EntityWithActivityModel.extend({
 		}));
 		return Ember.ArrayProxy.extend(Ember.PromiseProxyMixin).create(args);
 	}),
-
 	coordinates: Ember.computed(function(){
 		return this.get('geometry').coordinates.map(function(coord){
 			return coord.slice().reverse();
