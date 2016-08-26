@@ -85,7 +85,8 @@ export default Ember.Controller.extend({
         }).then(function(changeset) {
           self.set('applyingSpinner', false);
           self.set('showChangeset', false);
-          self.set('applyMessage', {show: true, error: false, message: 'Changeset created and applied. Issue ' + self.get('model.selectedIssue.id') + ' has been successfully resolved.'});
+          self.set('applyMessage', {show: true, error: false, newIssues: changeset['applied'][1], message: 'Changeset created and applied. Issue ' +
+                                                                        self.get('model.selectedIssue.id') + ' has been successfully resolved. '});
         }).catch(function(error) {
           self.set('applyingSpinner', false);
           self.set('showChangeset', false);

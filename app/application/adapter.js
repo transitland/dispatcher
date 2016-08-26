@@ -11,6 +11,7 @@ export default DS.RESTAdapter.extend({
     // Sometimes this is loaded before the session is available.
     // For example, when the users index route goes out to GET users.
     var authToken = this.get("session.authToken") || localStorage.getItem(ENV.AUTH_TOKEN_LOCALSTORAGE_KEY);
+    var authToken = 'thiscanbeanything';
     return {
       'Authorization': `Token token=${authToken}`
     };

@@ -34,6 +34,7 @@ export default Ember.Route.extend({
         }
       });
       return self.store.query('stop', {onestop_id: stops.join(',')}).then(function(stops){
+
         var bounds = new L.latLngBounds(stops.map(function(stop) {
           return new L.latLng(stop.get('coordinates'));
         }));

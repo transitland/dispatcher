@@ -4,6 +4,9 @@
     {{#draw-control edit=edit draw=draw drawEdited="actionDrawEdited"}}{{/draw-control}}
     {{#each model.issueRouteStopPatterns as |rsp|}}
       {{edit-map/route-stop-pattern rspAdded="rspAdded" model=rsp onestop_id=rsp.onestop_id}}
+      {{#each rsp.stopsWithDistances as |stop index|}}
+        {{edit-map/display-stop model=stop.stop sequence=index distance=stop.distance onestop_id=stop.onestop_id}}
+      {{/each}}
     {{/each}}
     {{#each model.issueStops as |stop|}}
       {{edit-map/stop-marker stopAdded="stopAdded" model=stop onestop_id=stop.onestop_id}}

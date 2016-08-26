@@ -7,6 +7,12 @@
 {{#if applyMessage.show}}
   {{#modal-message title='Apply Issue-resolving Changeset' close='toggleApplyMessage'}}
     <p>{{applyMessage.message}}</p>
+    {{#each applyMessage.newIssues as |issue|}}
+      <h3>New Issue:</h3>
+      {{#each-in issue as |key value|}}
+        <p>{{key}}: {{value}}</p>
+      {{/each-in}}
+    {{/each}}
   {{/modal-message}}
 {{/if}}
 
