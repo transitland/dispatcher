@@ -8,11 +8,11 @@ export default Ember.Route.extend({
   },
 
   model: function(params) {
-    let issueTypes = ['stop_rsp_distance_gap',
+    let issueTypes = ['all', 'stop_rsp_distance_gap',
                       'distance_calculation_inaccurate',
                       'rsp_line_inaccurate',
                       'stop_position_inaccurate'];
-    if (!('issue_type' in params)) params['issue_type'] = issueTypes.join(',')
+    if (!('issue_type' in params) || params['issue_type'] === 'all') params['issue_type'] = issueTypes.join(',')
     let issues = this.store.query('issue', params);
     return Ember.RSVP.hash({
       issues: issues,
