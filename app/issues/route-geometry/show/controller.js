@@ -45,7 +45,6 @@ export default Ember.Controller.extend({
         }
       }
       let queryParams = this.queryParamsObject();
-      console.log(queryParams);
       this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: queryParams });
     },
     actionDrawEdited: function(EditedEvent) {
@@ -108,10 +107,12 @@ export default Ember.Controller.extend({
     },
     closeIssue: function() {
       this.model.selectedIssue.set('open', false);
-      this.model.selectedIssue.save();
-      this.set('closeMessage.show', false);
-      let queryParams = this.queryParamsObject();
-      this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParams });
+      var self = this;
+      this.model.selectedIssue.save().then(function(){
+        self.set('closeMessage.show', false);
+        let queryParams = self.queryParamsObject();
+        self.transitionToRoute('issues.route-geometry.index', { queryParams: queryParams });
+      });
     },
     toggleCloseMessage: function() {
       this.set('closeMessage.show', false);

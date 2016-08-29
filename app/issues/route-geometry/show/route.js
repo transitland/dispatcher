@@ -3,6 +3,9 @@ import Ember from 'ember';
 export default Ember.Route.extend({
 
   queryParams: {
+    open: {
+      refreshModel: true
+    },
     issue_type: {
       refreshModel: true
     }
