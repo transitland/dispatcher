@@ -27,5 +27,12 @@ export default EntityWithActivityModel.extend({
     var modelUrl = applicationAdapter.buildURL('changeset', this.id);
     var applyUrl = modelUrl + '/apply';
     return applicationAdapter.ajax(applyUrl, 'post');
-  }
+  },
+
+  apply_async: function() {
+    var applicationAdapter = this.store.adapterFor('changeset');
+    var modelUrl = applicationAdapter.buildURL('changeset', this.id);
+    var applyUrl = modelUrl + '/apply_async';
+    return applicationAdapter.ajax(applyUrl, 'post');
+  },
 });

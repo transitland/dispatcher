@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  queryParams: ['feed_onestop_id', 'open', 'issue_type', 'per_page'],
+  queryParams: ['feed_onestop_id', 'open', 'status', 'issue_type', 'per_page'],
 
   issue_type: '',
 
@@ -11,6 +11,8 @@ export default Ember.Controller.extend({
   open: true,
 
   per_page: '∞',
+
+  status: 0,
 
   queryParamsObject: function() {
     var queryParams = {};
@@ -83,16 +85,21 @@ export default Ember.Controller.extend({
       return this.model.changeset.save()
         .then(function(changeset) {
           self.set('applyingSpinner', true);
-          return changeset.apply();
-        }).then(function(changeset) {
+          return changeset.apply_async();
+        }).then(function(response) {
+          console.log(response);
           self.set('applyingSpinner', false);
           self.set('showChangeset', false);
-          self.set('applyMessage', {show: true, error: false, newIssues: changeset['applied'][1], message: 'Changeset created and applied. Issue ' +
-                                                                        self.get('model.selectedIssue.id') + ' has been successfully resolved. '});
+          if (response.status === 'queued') {
+            self.set('applyMessage', {show: true, error: false, newIssues: [], message: 'Applying changeset to resolve issue ' + self.get('model.selectedIssue.id') });
+          }
+          else if (response.status === 'error') {
+            self.set('applyingSpinner', false);
+            self.set('showChangeset', false);
+            self.set('applyMessage', {show: true, error: true, message: 'Error resolving issue ' + self.get('model.selectedIssue.id') + '. ' + error.message});
+          }
         }).catch(function(error) {
-          self.set('applyingSpinner', false);
-          self.set('showChangeset', false);
-          self.set('applyMessage', {show: true, error: true, message: 'Error resolving issue ' + self.get('model.selectedIssue.id') + '. ' + error.message});
+
         });
     },
     toggleApplyMessage: function() {
@@ -112,6 +119,8 @@ export default Ember.Controller.extend({
         self.set('closeMessage.show', false);
         let queryParams = self.queryParamsObject();
         self.transitionToRoute('issues.route-geometry.index', { queryParams: queryParams });
+      }).catch(function(error){
+        self.set('closeMessage', {show: true, error: true, message: 'Error closing issue ' + self.get('model.selectedIssue.id') + '. ' + error.message});
       });
     },
     toggleCloseMessage: function() {
