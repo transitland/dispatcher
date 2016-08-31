@@ -9,6 +9,10 @@ export default Ember.Route.extend({
   },
 
   model: function(params) {
+    // In the future, it would be worthwhile to consider keeping entities
+    // and their edits across issues.
+    this.store.unloadAll();
+
     var self = this;
     return this.store.find('issue', params['issue_id']).then(function(selectedIssue){
       let issueTypes = ['all', 'stop_rsp_distance_gap',
@@ -23,7 +27,7 @@ export default Ember.Route.extend({
       changeset.get('change_payloads').createRecord();
       var rsps = [];
       var stops = [];
-      // do on issue model itself
+      // TODO: do on issue model itself
       // check operator serializer, polymorphic relationship, async
       selectedIssue.get('entities_with_issues').forEach(function(entity){
         if (entity.onestop_id.split('-')[0] === 'r') {
