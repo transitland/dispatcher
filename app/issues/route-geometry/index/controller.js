@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  queryParams: ['feed_onestop_id', 'open', 'status', 'issue_type', 'per_page'],
+  queryParams: ['feed_onestop_id', 'open', 'issue_type', 'per_page'],
 
   issue_type: '',
 
@@ -11,8 +11,6 @@ export default Ember.Controller.extend({
   open: true,
 
   per_page: '∞',
-
-  status: 0,
 
   queryParamsObject: function() {
     var queryParams = {};
