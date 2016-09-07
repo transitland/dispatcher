@@ -20,9 +20,6 @@
         {{#link-to 'changesets' tagName='li' href=null}}
           {{#link-to 'changesets'}}Changesets{{/link-to}}
         {{/link-to}}
-        {{#link-to 'issues' tagName='li' href=null}}
-          {{#link-to 'issues'}}Issues{{/link-to}}
-        {{/link-to}}
         {{#link-to 'users' tagName='li' href=null}}
           {{#link-to 'users'}}Users{{/link-to}}
         {{/link-to}}
@@ -31,6 +28,9 @@
         {{/link-to}}
         {{#link-to 'routingcheck' tagName='li' href=null}}
           {{#link-to 'routingcheck'}}Routing Check{{/link-to}}
+        {{/link-to}}
+        {{#link-to 'issues' tagName='li' href=null}}
+          {{#link-to 'issues'}}Issues{{/link-to}}
         {{/link-to}}
       </ul>
       <div class="navbar-form navbar-right">
@@ -42,8 +42,10 @@
   </div>
 </nav>
 
-{{#each flashMessages.queue as |flash|}}
-  {{flash-message flash=flash}}
-{{/each}}
+<div class="container">
+  {{#each flashMessages.queue as |flash|}}
+    {{flash-message flash=flash}}
+  {{/each}}
 
-{{outlet}}
+  {{outlet}}
+</div>

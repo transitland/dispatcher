@@ -1,4 +1,4 @@
-<div class="row has-leaflet-map">
+<div class="row">
   <div class="col-md-3">
     <div class="form-group">
       <label>Issue Type</label>
@@ -8,12 +8,9 @@
     </div>
     {{#issue-table model=model issueClicked="issueClicked"}}{{/issue-table}}
   </div>
-  <div class="col-md-9 has-leaflet-map">
-    <div class="route-geometry-resolve-button">
-      <button class="btn btn-primary">Resolve</button>
-      <button class="btn btn-primary">Close</button>
-    </div>
-    <div class="has-leaflet-map">
+  <div class="col-md-9">
+    {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
+    <div>
       {{#edit-map model=model}}{{/edit-map}}
     </div>
   </div>

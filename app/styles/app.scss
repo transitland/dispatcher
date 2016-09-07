@@ -2,6 +2,7 @@
 @import "bower_components/font-awesome/scss/font-awesome";
 @import 'ember-power-select/themes/bootstrap';
 @import "ember-power-select";
+@import "pod-styles.scss";
 
 .container {
   margin-top: 60px;
@@ -16,18 +17,6 @@
   }
 }
 
-.route-geometry-resolve-button {
-  margin-left: 30%;
-  margin-right: 30%;
-  padding: 10px;
+.leaflet-container {
+  height: 800px;
 }
-
-.issues-link {
-  padding: 30px;
-}
-
-html, body, .ember-view, .has-leaflet-map {
-  height: 100%;
-}
-
-@import "pod-styles.scss";
