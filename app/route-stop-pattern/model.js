@@ -8,6 +8,7 @@ export default EntityWithActivityModel.extend({
   trips: DS.attr(),
   stop_distances: DS.attr(),
   stop_pattern: DS.attr(),
+	stops: DS.hasMany('stop', {async: true}),
   color: DS.attr('string'),
   route_onestop_id: DS.attr('string', {readOnly: true}),
 	onestop_id: Ember.computed.alias('id'),
@@ -15,7 +16,14 @@ export default EntityWithActivityModel.extend({
 	updated_at: DS.attr('date'),
 	geometry: DS.attr(),
 	tags: DS.attr(),
-
+	stopsWithDistances: Ember.computed('stop_pattern', function(){
+		var self = this;
+		var args = {};
+		args.promise =  Ember.RSVP.all(this.get('stop_pattern').map(function(stop_onestop_id, index){
+			return Ember.RSVP.hash({ stop: self.store.findRecord('stop', stop_onestop_id), distance: self.get('stop_distances')[index] });
+		}));
+		return Ember.ArrayProxy.extend(Ember.PromiseProxyMixin).create(args);
+	}),
 	coordinates: Ember.computed(function(){
 		return this.get('geometry').coordinates.map(function(coord){
 			return coord.slice().reverse();

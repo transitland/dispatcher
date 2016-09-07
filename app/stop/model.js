@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import DS from 'ember-data';
+
 import EntityWithActivityModel from 'dispatcher/entity-with-activity/model';
 
 export default EntityWithActivityModel.extend({
@@ -10,12 +11,13 @@ export default EntityWithActivityModel.extend({
 	updated_at: DS.attr('date'),
 	geometry: DS.attr(),
 	tags: DS.attr(),
+
   timezone: DS.attr('string'),
   coordinates: Ember.computed('geometry', function () {
     return this.get('geometry').coordinates.slice().reverse();
   }),
   setCoordinates: function(value) {
-    this.set('geometry', {type: 'Point', coordinates: value});
+    this.set('geometry', {type: 'Point', coordinates: value.map(function(c) { return parseFloat(c.toFixed(5)); } ) });
   },
   entityType: function() {
     return 'stop';

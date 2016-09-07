@@ -18,6 +18,10 @@
   },
   "author": "",
   "license": "MIT",
+  "dependencies": {
+    "ember-leaflet-measure": "transitland/ember-leaflet-draw#master",
+    "ember-leaflet-draw": "transitland/ember-leaflet-draw#master"
+  },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",
     "ember-ajax": "0.7.1",

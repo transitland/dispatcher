@@ -25,6 +25,12 @@ Router.map(function() {
     this.route('edit', { path: '/:user_id/edit' });
     this.route('new');
   });
+  this.route('issues', function() {
+    this.route('route-geometry', function() {
+      this.route('show', { path: '/:issue_id' });
+    });
+    this.route('new', {path: 'new/:feed_id' });
+  });
   this.route('stations');
   this.route('routingcheck');
 });
