@@ -6,8 +6,7 @@ inflector.plural(/entity-with-issue/i, 'entities-with-issues');
 inflector.singular(/entities-with-issue/i, 'entity-with-issues');
 
 export default DS.Model.extend({
-  issue_type: DS.attr('string'),
-  details: DS.attr('string'),
-  open: DS.attr('boolean'),
-  entities_with_issues: DS.hasMany('entity-with-issues', { async: true, inverse: 'issue' })
+  issue: DS.belongsTo('issue', {inverse: 'entities_with_issues'}),
+  onestop_id: DS.attr('string'),
+  entity_attribute: DS.attr('string')
 });
