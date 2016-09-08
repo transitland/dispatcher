@@ -11,8 +11,11 @@ export default Ember.Route.extend({
   model: function(params) {
     // In the future, it would be worthwhile to consider keeping entities
     // and their edits across issues.
+    this.store.unloadAll('changeset');
+    this.store.unloadAll('change_payload');
     this.store.unloadAll('stop');
     this.store.unloadAll('route-stop-pattern');
+    // leave issues, so as to not have to repopulate issues table
 
     var self = this;
     return this.store.find('issue', params['issue_id']).then(function(selectedIssue){
