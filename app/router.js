@@ -33,6 +33,8 @@ Router.map(function() {
   });
   this.route('stations');
   this.route('routingcheck');
+
+  this.route('error', { path: "*path" });
 });
 
 export default Router;
