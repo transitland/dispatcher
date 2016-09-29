@@ -15,6 +15,7 @@ export default EntityWithActivityModel.extend({
   // routes_created_or_updated: DS.hasMany('routes', { async: true, inverse: '' }),
   // routes_destroyed: DS.hasMany('routes', { async: true, inverse: '' }),
 
+  issuesResolved: DS.attr(),
   notes: DS.attr('string'),
   applied: DS.attr('boolean'),
   applied_at: DS.attr('date'),
@@ -26,5 +27,12 @@ export default EntityWithActivityModel.extend({
     var modelUrl = applicationAdapter.buildURL('changeset', this.id);
     var applyUrl = modelUrl + '/apply';
     return applicationAdapter.ajax(applyUrl, 'post');
-  }
+  },
+
+  apply_async: function() {
+    var applicationAdapter = this.store.adapterFor('changeset');
+    var modelUrl = applicationAdapter.buildURL('changeset', this.id);
+    var applyUrl = modelUrl + '/apply_async';
+    return applicationAdapter.ajax(applyUrl, 'post');
+  },
 });

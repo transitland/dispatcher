@@ -24,12 +24,15 @@ export default Ember.Component.extend({
       });
     },
     enqueue: function(importLevel) {
+      var self = this;
       const flashMessages = Ember.get(this, 'flashMessages');
       this.get('feedVersion').enqueue(importLevel)
       .then( () => {
         flashMessages.success('Successfully enqueued feed version for import!');
       }).catch( (e) => {
         flashMessages.danger(`Error enqueuing feed version for import: ${e.message}`);
+      }).finally(function() {
+        self.set('dropDownExpanded', false);
       });
     }
   }

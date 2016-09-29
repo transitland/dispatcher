@@ -13,7 +13,11 @@
   <dt>Feed format</dt>
   <dd>{{model.feed_format}}</dd>
   <dt>Tags</dt>
-  <dd>{{model.tags}}</dd>
+  <dd>
+    {{#each-in model.tags as |key value|}}
+      {{key}}: {{value}} <br />
+    {{/each-in}}
+  </dd>
   <dt>License name and/or URL</dt>
   <dd>{{model.license_name}} {{model.license_url}}</dd>
   <dt>License use without attribution</dt>
@@ -35,11 +39,11 @@
     {{/if}}
   </dd>
   <dt>Import level of active feed version</dt>
-  <dd>{{model.import_level_of_active_feed_version}}</dd>
+  <dd>{{number-as-pips model.import_level_of_active_feed_version 4}}</dd>
   <dt>Created</dt>
-  <dd>{{model.created_at}}</dd>
+  <dd>{{time-since-with-mouseover model.created_at}}</dd>
   <dt>Updated</dt>
-  <dd>{{model.updated_at}}</dd>
+  <dd>{{time-since-with-mouseover model.updated_at}}</dd>
   {{#if model.created_or_updated_in_changeset}}
     <dt>Created or updated in</dt>
     <dd>
@@ -49,14 +53,15 @@
     </dd>
   {{/if}}
   <dt>Last fetched at</dt>
-  <dd>{{model.last_fetched_at}}</dd>
+  <dd>{{time-since-with-mouseover model.last_fetched_at}}</dd>
   <dt>Last imported at</dt>
-  <dd>{{model.last_imported_at}}</dd>
+  <dd>{{time-since-with-mouseover model.last_imported_at}}</dd>
 </dl>
 {{#if model.latest_fetch_exception_log}}
-  <div class="alert alert-danger">
-    <strong>Latest fetch exception log</strong>: {{model.latest_fetch_exception_log}} (at {{model.last_fetched_at}})
-  </div>
+  {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
+    <strong>Exception log from {{moment-from-now model.last_fetched_at}} ago:</strong>
+    <pre>{{model.latest_fetch_exception_log}}</pre>
+  {{/collapsable-panel}}
 {{/if}}
 
 <h2>Changesets imported from this feed</h2>

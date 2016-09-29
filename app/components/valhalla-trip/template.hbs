@@ -1,0 +1,12 @@
+{{#if trip}}
+  {{transit_maneuvers.length}} transit <br />
+  {{trip.summary.length}} km / {{trip.summary.time}} sec
+{{else if failure}}
+  FAIL<br />
+  
+{{else}}
+  ...<br />
+
+{{/if}}
+<br />
+<a href="{{route_url}}">api</a> <a href="{{route_url_lrm}}">lrm</a>

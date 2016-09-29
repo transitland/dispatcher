@@ -1,0 +1,56 @@
+<h4>{{stop.id}}</h4>
+<div class="form-group">
+  <label for="name">Name:</label>
+  {{input id="name" value=stop.name class="form-control"}}
+</div>
+
+{{#if stop.parent_stop}}
+
+  <div class="form-group">
+    <h5>Parent Stop:</h5>
+    <ul><li><a {{action "switchPopup" stop.parent_stop}}>
+      {{stop.parent_stop.name}}<br />
+      {{stop.parent_stop.id}}
+    </a></li></ul>
+    {{#power-select
+      options=parent_stops
+      selected=stop.parent_stop
+      onchange=(action (mut stop.parent_stop_onestop_id))
+      as |option|
+    }}
+      {{option.name}}<br />{{option.id}}
+    {{/power-select}}
+  </div>
+
+{{else}}
+
+  <div class="form-group">
+    <h5>{{stop.stop_platforms.length}} Platforms</h5>
+    <ul>
+      {{#each stop.stop_platforms as |stop_platform|}}
+      <li><a {{action "switchPopup" stop_platform}}>
+        {{stop_platform.name}}<br />
+        {{stop_platform.id}}
+      </a></li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="form-group">
+    <h5>{{stop.stop_egresses.length}} Egresses</h5>
+    <ul>
+      {{#each stop.stop_egresses as |stop_egress|}}
+      <li><a {{action "switchPopup" stop_egress}}>
+        {{stop_egress.name}}<br />
+        {{stop_egress.id}}
+      </a></li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="form-group">
+    <button type="button" class="btn btn-primary" {{action "newPlatform"}}>New Platform</button>
+    <button type="button" class="btn btn-primary" {{action "newEgress"}}>New Egress</button>
+  </div>
+
+{{/if}}

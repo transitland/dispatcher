@@ -14,9 +14,9 @@
     {{/if}}
   </dd>
   <dt>Created</dt>
-  <dd>{{model.created_at}}</dd>
+  <dd>{{time-since-with-mouseover model.created_at}}</dd>
   <dt>Updated</dt>
-  <dd>{{model.updated_at}}</dd>
+  <dd>{{time-since-with-mouseover model.updated_at}}</dd>
   {{#if model.user}}
     <dt>Author</dt>
     <dd>
@@ -38,7 +38,7 @@
 </dl>
 
 {{#unless model.applied }}
-  {{#link-to 'changesets.edit' model class="btn btn-primary" }}Edit changeset{{/link-to}}
+  {{#link-to 'changesets.edit' model.id class="btn btn-primary" }}Edit changeset{{/link-to}}
   <input type="button" class="btn btn-danger" {{action 'apply'}} value="Apply changeset">
 {{/unless}}
 

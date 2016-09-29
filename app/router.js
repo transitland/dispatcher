@@ -26,6 +26,16 @@ Router.map(function() {
     this.route('new');
     this.route('sign_in');
   });
+  this.route('issues', function() {
+    this.route('route-geometry', function() {
+      this.route('show', { path: '/:issue_id' });
+    });
+    this.route('new', {path: 'new/:feed_id' });
+  });
+  this.route('stations');
+  this.route('routingcheck');
+
+  this.route('error', { path: "*path" });
 });
 
 export default Router;

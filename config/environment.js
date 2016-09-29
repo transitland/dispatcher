@@ -7,6 +7,10 @@ module.exports = function (environment) {
     baseURL: '/',
     locationType: 'auto',
     datastoreHost: 'https://transit.land',
+    // Valhalla
+    valhallaHost: 'https://valhalla.mapzen.com/route',
+    valhallaApiKey: 'valhalla-xwXfg5J',
+    valhallaRateLimit: 600,
     AUTH_TOKEN_LOCALSTORAGE_KEY: 'transitland-dispatcher-auth-token',
     EmberENV: {
       FEATURES: {
@@ -53,6 +57,8 @@ module.exports = function (environment) {
 
   if (environment === 'staging') {
     ENV.datastoreHost = 'https://dev.transit.land';
+    ENV.valhallaHost = 'https://valhalla.dev.mapzen.com/route';
+    ENV.valhallaApiKey = 'valhalla-tQaRSNc';
     ENV.baseURL = '/dispatcher';
     ENV.apiProxyKey = 'transitland-YFO6jk8';
   }
