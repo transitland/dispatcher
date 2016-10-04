@@ -26,8 +26,10 @@
   <dd>{{model.license_create_derived_product}}</dd>
   <dt>License redistribute</dt>
   <dd>{{model.license_redistribute}}</dd>
-  <dt>License attribution text</dt>
-  <dd>{{model.license_attribution_text}}</dd>
+  {{#if model.license_attribution_text}}
+    <dt>License attribution text</dt>
+    <dd>{{model.license_attribution_text}}</dd>
+  {{/if}}
   <dt># of feed versions</dt>
   <dd>{{model.feed_versions_count}}</dd>
   <dt>Active feed version</dt>
