@@ -3,6 +3,7 @@ import config from './config/environment';
 
 const Router = Ember.Router.extend({
   location: config.locationType,
+  rootURL: config.rootURL,
   scrollToTop: function() {
     window.scrollTo(0, 0);
   }.on('didTransition')
