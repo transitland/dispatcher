@@ -1,0 +1,29 @@
+<h2>{{link-to 'Issues' 'issues'}} / Issue #{{model.id}}</h2>
+
+<dl class="dl-horizontal">
+  <dt>Issue Type</dt>
+  <dd>{{model.issue_type}}</dd>
+  <dt>Details</dt>
+  <dd>{{model.details}}</dd>
+  <dt>Open</dt>
+  <dd>{{model.open}}</dd>
+</dl>
+
+<h2>Issue entities</h2>
+
+<table class="table table-hover">
+  <thead>
+    <th>Entity ID</th>
+    <th>Entity Attribute</th>
+  </thead>
+  <tbody>
+    {{#each model.entities_with_issues as |entity_with_issue|}}
+      <tr>
+        <td>{{entity_with_issue.onestop_id}}</td>
+        <td>{{entity_with_issue.entity_attribute}}</td>
+      </tr>
+    {{else}}
+      <p>No entities.</p>
+    {{/each}}
+  </tbody>
+</table>
