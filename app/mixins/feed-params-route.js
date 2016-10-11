@@ -17,6 +17,9 @@ export default Ember.Mixin.create({
     latest_fetch_exception: {
       refreshModel: true
     },
+    latest_feed_version_import_status: {
+      refreshModel: true
+    },
     tag_key: {
       refreshModel: true
     },
