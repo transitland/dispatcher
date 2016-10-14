@@ -78,4 +78,18 @@
       </select>
     </div>
   </div>
+  <div class="col-sm-3 col-xs-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        Latest import:
+      </span>
+      <select class="form-control" onchange={{action (mut latest_feed_version_import_status) value="target.value"}}>
+        <option value=""></option>
+        <option value="true" selected={{eq latest_feed_version_import_status "true"}}>Succeded</option>
+        <option value="false" selected={{eq latest_feed_version_import_status "false"}}>Failed</option>
+        <option value="null" selected={{eq latest_feed_version_import_status "null"}}>In Progres</option>
+      </select>
+    </div>
+  </div>
+
 </div>
