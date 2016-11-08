@@ -121,6 +121,14 @@ export default Ember.Controller.extend({
         var applyUrl = modelUrl + '/apply_async';
         this.pollChangesetApply(applyUrl, applicationAdapter);
       }
+      if (this.get('applyMessage').status === 'error') {
+        // clean the changeset, but leave edits.
+        let changeset = this.store.createRecord('changeset', {
+          notes: 'Issue resolution:'
+        });
+        changeset.get('change_payloads').createRecord();
+        this.set('model.changeset', changeset);
+      }
     },
     closeDialog: function() {
       this.set('closeMessage', {show: true, message: 'Close issue ' + this.get('model.selectedIssue.id')});
