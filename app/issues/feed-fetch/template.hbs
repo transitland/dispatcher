@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Issue Type</label>
+      {{#power-select options=model.issueTypes searchField="display" selected=issue_type onchange=(action "typeChanged") allowClear=true as |issueType|}}
+        {{issueType}}
+      {{/power-select}}
+    </div>
+    <!-- {{#issue-table model=model issueClicked="issueClicked"}}{{/issue-table}} -->
+  </div>
+</div>
