@@ -1,23 +1,7 @@
 import Ember from 'ember';
+import IssuesController from 'dispatcher/mixins/issues-controller'
 
-export default Ember.Controller.extend({
-
-  queryParams: ['feed_onestop_id', 'open', 'issue_type', 'per_page'],
-
-  issue_type: '',
-
-  feed_onestop_id: '',
-
-  open: true,
-
-  per_page: '∞',
-
-  queryParamsObject: function() {
-    var queryParams = {};
-    var self = this;
-    this.get('queryParams').forEach(function(param) { queryParams[param] = self.get(param);  });
-    return queryParams;
-  },
+export default Ember.Controller.extend(IssuesController, {
 
   leafletObjects: {
 
@@ -61,8 +45,8 @@ export default Ember.Controller.extend({
           return;
         }
       }
-      let queryParams = this.queryParamsObject();
-      this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: queryParams });
+      let queryParamsObject = this.queryParamsObject();
+      this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: queryParamsObject });
     },
     actionDrawEdited: function(EditedEvent) {
       var self = this;
@@ -112,8 +96,8 @@ export default Ember.Controller.extend({
     toggleApplyMessage: function() {
       this.set('applyMessage.show', false);
       if (this.get('applyMessage').status === 'complete') {
-        let queryParams = this.queryParamsObject();
-        this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParams });
+        let queryParamsObject = this.queryParamsObject();
+        this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParamsObject });
       }
       if (this.get('applyMessage').status === 'queued') {
         var applicationAdapter = this.store.adapterFor('changeset');
@@ -138,8 +122,8 @@ export default Ember.Controller.extend({
       var self = this;
       this.model.selectedIssue.save().then(function(){
         self.set('closeMessage.show', false);
-        let queryParams = self.queryParamsObject();
-        self.transitionToRoute('issues.route-geometry.index', { queryParams: queryParams });
+        let queryParamsObject = self.queryParamsObject();
+        self.transitionToRoute('issues.route-geometry.index', { queryParams: queryParamsObject });
       }).catch(function(error){
         self.set('closeMessage', {show: true, error: true, message: 'Error closing issue ' + self.get('model.selectedIssue.id') + '. ' + error.message});
       });
