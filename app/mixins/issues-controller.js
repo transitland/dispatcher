@@ -21,7 +21,6 @@ export default Ember.Mixin.create({
   actions: {
     typeChanged: function(selected) {
       this.set('issue_type', selected);
-      let queryParams = this.queryParamsObject();
     }
   }
 });
