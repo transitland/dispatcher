@@ -14,7 +14,7 @@ export default Ember.Route.extend(IssuesRoute, PaginatedSortableRoute, {
       let issues = this.store.query('issue', params);
       return Ember.RSVP.hash({
         issues: issues,
-        issueTypes: self.issueTypes,
+        issueTypes: self.issueTypes
       });
   }
 });
