@@ -5,7 +5,7 @@ import PaginatedSortableController from 'dispatcher/mixins/paginated-sortable-co
 export default Ember.Controller.extend(IssuesController, PaginatedSortableController, {
   actions: {
     issueClicked: function(issue) {
-      console.log(issue);
+      // TODO ?
     }
   }
 });
