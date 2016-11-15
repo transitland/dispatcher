@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import IssueResolvingChangesetsController from 'dispatcher/mixins/issue-resolving-changesets-controller';
 
-export default Ember.Controller.extend(IssueResolvingChangesetsController, {
+export default Ember.Controller.extend({
   getChanges: function() {
     var ret = {};
     ret['action'] = 'createUpdate';
