@@ -71,7 +71,7 @@
       <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}} ago:</strong>
       <div class="list-group">
         <pre><button type="button" data-toggle="collapse in" data-target="#{{issue.id}}" class="list-group-item active" {{action "issueClicked"}}>
-            Feed Fetch Issue: #{{issue.id}}
+            Feed Fetch Issue #{{issue.id}}
           </button>
           <div id={{issue.id}} class="collapse {{if selected "in"}}">
             {{issue-details classNames='issue-details' issue=issue}}
