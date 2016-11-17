@@ -16,16 +16,16 @@ export default Ember.Controller.extend({
     var self = this;
     applicationAdapter.ajax(url, 'post').then(function(response){
       if (response.status === 'complete') {
-        self.set('applyMessage', {show: true, status: response.status, newIssues: [], message: 'Successfully resolved issue ' + self.model.issues.get('firstObject') });
+        self.set('applyMessage', {show: true, status: response.status, newIssues: [], message: 'Successfully resolved issue ' + self.model.issues.get('firstObject').id });
       }
       else if (response.status === 'error') {
-        self.set('applyMessage', {show: true, status: response.status, message: 'Error resolving issue ' + self.model.issues.get('firstObject') + '. ' + response.errors});
+        self.set('applyMessage', {show: true, status: response.status, message: 'Error resolving issue ' + self.model.issues.get('firstObject').id + '. ' + response.errors});
       }
       else {
         Ember.run.later(self.pollChangesetApply.bind(self, url, applicationAdapter), 5000);
       }
     }).catch(function(error){
-      self.set('applyMessage', {show: true, status: 'error', message: 'Error resolving issue ' + self.model.issues.get('firstObject') + '. ' + error.errors.map(function(e){ return e.message}).join('. ')});
+      self.set('applyMessage', {show: true, status: 'error', message: 'Error resolving issue ' + self.model.issues.get('firstObject').id + '. ' + error.errors.map(function(e){ return e.message}).join('. ')});
     });
   },
 
@@ -47,7 +47,7 @@ export default Ember.Controller.extend({
         }).then(function(response) {
           self.set('applyingSpinner', false);
           self.set('showChangeset', false);
-          self.set('applyMessage', {show: true, status: response.status, newIssues: [], message: 'Applying changeset to resolve issue ' + self.model.issues.get('firstObject').get('id') });
+          self.set('applyMessage', {show: true, status: response.status, newIssues: [], message: 'Applying changeset to resolve issue ' + self.model.issues.get('firstObject').id });
         }).catch(function(error) {
 
         });
@@ -55,8 +55,8 @@ export default Ember.Controller.extend({
     toggleApplyMessage: function() {
       this.set('applyMessage.show', false);
       if (this.get('applyMessage').status === 'complete') {
-        let queryParamsObject = this.queryParamsObject();
-        this.transitionToRoute('feeds.show', { queryParams: queryParamsObject });
+        let feed_id = this.model.feed.id;
+        this.transitionToRoute('feeds.show', feed_id);
       }
       if (this.get('applyMessage').status === 'queued') {
         var applicationAdapter = this.store.adapterFor('changeset');
@@ -65,7 +65,7 @@ export default Ember.Controller.extend({
         this.pollChangesetApply(applyUrl, applicationAdapter);
       }
       if (this.get('applyMessage').status === 'error') {
-        // clean the changeset, but leave edits.
+        // clean the changeset
         let changeset = this.store.createRecord('changeset', {
           notes: 'Issue resolution:'
         });
@@ -82,8 +82,8 @@ export default Ember.Controller.extend({
       var self = this;
       thisIssue.save().then(function(){
         self.set('closeMessage.show', false);
-        let queryParamsObject = self.queryParamsObject();
-        self.transitionToRoute('feeds.show', { queryParams: queryParamsObject });
+        let feed_id = self.model.feed.id;
+        self.transitionToRoute('feeds.show', feed_id);
       }).catch(function(error){
         self.set('closeMessage', {show: true, error: true, message: 'Error closing issue ' + thisIssue.id + '. ' + error.message});
       });

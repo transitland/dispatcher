@@ -4,6 +4,28 @@
   {{/modal-dialog}}
 {{/if}}
 
+{{#if applyMessage.show}}
+  {{#modal-message title='Apply Issue-resolving Changeset' close='toggleApplyMessage'}}
+    <p>{{applyMessage.message}}</p>
+    {{#each applyMessage.newIssues as |issue|}}
+      <h3>New Issue:</h3>
+      {{#each-in issue as |key value|}}
+        <p>{{key}}: {{value}}</p>
+      {{/each-in}}
+    {{/each}}
+  {{/modal-message}}
+{{/if}}
+
+{{#if closeMessage.show}}
+  {{#modal-dialog title='Closing Issue' ok='closeIssue' close='toggleCloseMessage' closeText='Cancel' okText='Ok'}}
+    <p>{{closeMessage.message}}</p>
+  {{/modal-dialog}}
+{{/if}}
+
+{{#if applyingSpinner}}
+  {{#loading-spinner}}{{/loading-spinner}}
+{{/if}}
+
 <div class="row">
   <div class="col-md-6">
     <h2>{{link-to 'Feeds' 'feeds'}} / {{model.feed.onestop_id}}</h2>
