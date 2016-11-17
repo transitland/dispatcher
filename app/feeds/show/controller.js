@@ -56,7 +56,7 @@ export default Ember.Controller.extend({
       this.set('applyMessage.show', false);
       if (this.get('applyMessage').status === 'complete') {
         let feed_id = this.model.feed.id;
-        this.transitionToRoute('feeds.show', feed_id);
+        window.location.reload(true);
       }
       if (this.get('applyMessage').status === 'queued') {
         var applicationAdapter = this.store.adapterFor('changeset');
@@ -83,7 +83,7 @@ export default Ember.Controller.extend({
       thisIssue.save().then(function(){
         self.set('closeMessage.show', false);
         let feed_id = self.model.feed.id;
-        self.transitionToRoute('feeds.show', feed_id);
+        window.location.reload(true);
       }).catch(function(error){
         self.set('closeMessage', {show: true, error: true, message: 'Error closing issue ' + thisIssue.id + '. ' + error.message});
       });
