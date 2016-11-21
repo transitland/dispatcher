@@ -9,9 +9,9 @@
   {{#if feed.last_fetched_at}}
     {{time-since-with-mouseover feed.last_fetched_at}}
   {{/if}}
-  {{#if feed.latest_fetch_exception_log}}
+  <!-- {{#if feed.latest_fetch_exception_log}}
     {{fa-icon "exclamation-triangle" size=2 classNames="text-danger" title=feed.latest_fetch_exception_log}}
-  {{/if}}
+  {{/if}} -->
 </td>
 <td class="{{feed.importStatusCssClass}}">
   {{feed.import_status}}
