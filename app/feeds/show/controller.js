@@ -75,7 +75,7 @@ export default Ember.Controller.extend({
       }
     },
     closeDialog: function() {
-      this.set('closeMessage', {show: true, message: 'Close issue ' + this.model.issues.get('firstObject')});
+      this.set('closeMessage', {show: true, message: 'Close issue ' + this.model.issues.get('firstObject').id });
     },
     closeIssue: function() {
       let thisIssue = this.model.issues.get('firstObject');
