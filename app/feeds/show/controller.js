@@ -47,7 +47,7 @@ export default Ember.Controller.extend({
         }).then(function(response) {
           self.set('applyingSpinner', false);
           self.set('showChangeset', false);
-          self.set('applyMessage', {show: true, status: response.status, newIssues: [], message: 'Applying changeset to resolve issue ' + self.model.issues.get('firstObject').id });
+          self.set('applyMessage', { show: true, status: response.status, newIssues: [], message: 'Applying changeset to resolve issue ' + self.model.issues.get('firstObject').id });
         }).catch(function(error) {
 
         });
@@ -75,20 +75,20 @@ export default Ember.Controller.extend({
       }
     },
     closeDialog: function() {
-      this.set('closeMessage', {show: true, message: 'Close issue ' + this.model.issues.get('firstObject').id });
+      this.set('closeMessage', { show: true, message: 'Closing issues is unavailable.' } );
     },
     closeIssue: function() {
-      let thisIssue = this.model.issues.get('firstObject');
-      thisIssue.set('open', false);
-      var self = this;
-      thisIssue.save().then(function(){
-        self.set('closeMessage.show', false);
-        this.store.unloadAll();
-        let feed_id = self.model.feed.id;
-        this.transitionToRoute('feeds.show', feed_id);
-      }).catch(function(error){
-        self.set('closeMessage', {show: true, error: true, message: 'Error closing issue ' + thisIssue.id + '. ' + error.message});
-      });
+      // let thisIssue = this.model.issues.get('firstObject');
+      // thisIssue.set('open', false);
+      // var self = this;
+      // thisIssue.save().then(function(){
+      //   self.set('closeMessage.show', false);
+      //   this.store.unloadAll();
+      //   let feed_id = self.model.feed.id;
+      //   this.transitionToRoute('feeds.show', feed_id);
+      // }).catch(function(error){
+      //   self.set('closeMessage', {show: true, error: true, message: 'Error closing issue ' + thisIssue.id + '. ' + error.message});
+      // });
     },
     toggleCloseMessage: function() {
       this.set('closeMessage.show', false);
