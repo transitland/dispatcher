@@ -1,74 +1,112 @@
+{{#if showChangeset}}
+  {{#modal-dialog title='Changeset' ok='saveChangeset' close='hideChangeset' okText='Apply Changeset'}}
+    {{changeset-form changeset=model.changeset users=model.users }}
+  {{/modal-dialog}}
+{{/if}}
+
+{{#if applyMessage.show}}
+  {{#modal-message title='Apply Issue-resolving Changeset' close='toggleApplyMessage'}}
+    <p>{{applyMessage.message}}</p>
+    {{#each applyMessage.newIssues as |issue|}}
+      <h3>New Issue:</h3>
+      {{#each-in issue as |key value|}}
+        <p>{{key}}: {{value}}</p>
+      {{/each-in}}
+    {{/each}}
+  {{/modal-message}}
+{{/if}}
+
+{{#if closeMessage.show}}
+  {{#modal-dialog title='Closing Issue' ok='closeIssue' close='toggleCloseMessage' closeText='Cancel' okText='Ok'}}
+    <p>{{closeMessage.message}}</p>
+  {{/modal-dialog}}
+{{/if}}
+
+{{#if applyingSpinner}}
+  {{#loading-spinner}}{{/loading-spinner}}
+{{/if}}
+
 <div class="row">
   <div class="col-md-6">
-    <h2>{{link-to 'Feeds' 'feeds'}} / {{model.onestop_id}}</h2>
+    <h2>{{link-to 'Feeds' 'feeds'}} / {{model.feed.onestop_id}}</h2>
   </div>
   <div class="col-md-6 text-right">
-    {{feed-fetcher-controls feed=model}}
+    {{feed-fetcher-controls feed=model.feed}}
   </div>
 </div>
 
 <dl class="dl-horizontal">
   <dt>URL</dt>
-  <dd>{{model.url}}</dd>
+  <dd>{{model.feed.url}}</dd>
   <dt>Feed format</dt>
-  <dd>{{model.feed_format}}</dd>
+  <dd>{{model.feed.feed_format}}</dd>
   <dt>Tags</dt>
   <dd>
-    {{#each-in model.tags as |key value|}}
+    {{#each-in model.feed.tags as |key value|}}
       {{key}}: {{value}} <br />
     {{/each-in}}
   </dd>
   <dt>License name and/or URL</dt>
-  <dd>{{model.license_name}} {{model.license_url}}</dd>
+  <dd>{{model.feed.license_name}} {{model.feed.license_url}}</dd>
   <dt>License use without attribution</dt>
-  <dd>{{model.license_use_without_attribution}}</dd>
+  <dd>{{model.feed.license_use_without_attribution}}</dd>
   <dt>License created derived product</dt>
-  <dd>{{model.license_create_derived_product}}</dd>
+  <dd>{{model.feed.license_create_derived_product}}</dd>
   <dt>License redistribute</dt>
-  <dd>{{model.license_redistribute}}</dd>
-  {{#if model.license_attribution_text}}
+  <dd>{{model.feed.license_redistribute}}</dd>
+  {{#if model.feed.license_attribution_text}}
     <dt>License attribution text</dt>
-    <dd>{{model.license_attribution_text}}</dd>
+    <dd>{{model.feed.license_attribution_text}}</dd>
   {{/if}}
   <dt># of feed versions</dt>
-  <dd>{{model.feed_versions_count}}</dd>
+  <dd>{{model.feed.feed_versions_count}}</dd>
   <dt>Active feed version</dt>
   <dd>
-    {{#if model.active_feed_version}}
-      {{model.active_feed_version.sha1}}
+    {{#if model.feed.active_feed_version}}
+      {{model.feed.active_feed_version.sha1}}
     {{else}}
       <em>none</em>
     {{/if}}
   </dd>
   <dt>Import level of active feed version</dt>
-  <dd>{{number-as-pips model.import_level_of_active_feed_version 4}}</dd>
+  <dd>{{number-as-pips model.feed.import_level_of_active_feed_version 4}}</dd>
   <dt>Created</dt>
-  <dd>{{time-since-with-mouseover model.created_at}}</dd>
+  <dd>{{time-since-with-mouseover model.feed.created_at}}</dd>
   <dt>Updated</dt>
-  <dd>{{time-since-with-mouseover model.updated_at}}</dd>
-  {{#if model.created_or_updated_in_changeset}}
+  <dd>{{time-since-with-mouseover model.feed.updated_at}}</dd>
+  {{#if model.feed.created_or_updated_in_changeset}}
     <dt>Created or updated in</dt>
     <dd>
-      {{#link-to 'changesets.show' model.created_or_updated_in_changeset}}
-        changeset #{{model.created_or_updated_in_changeset.id}}
+      {{#link-to 'changesets.show' model.feed.created_or_updated_in_changeset}}
+        changeset #{{model.feed.created_or_updated_in_changeset.id}}
       {{/link-to}}
     </dd>
   {{/if}}
   <dt>Last fetched at</dt>
-  <dd>{{time-since-with-mouseover model.last_fetched_at}}</dd>
+  <dd>{{time-since-with-mouseover model.feed.last_fetched_at}}</dd>
   <dt>Last imported at</dt>
-  <dd>{{time-since-with-mouseover model.last_imported_at}}</dd>
+  <dd>{{time-since-with-mouseover model.feed.last_imported_at}}</dd>
 </dl>
-{{#if model.latest_fetch_exception_log}}
-  {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
-    <strong>Exception log from {{moment-from-now model.last_fetched_at}} ago:</strong>
-    <pre>{{model.latest_fetch_exception_log}}</pre>
-  {{/collapsable-panel}}
+{{#if model.issues}}
+  {{#each model.issues as |issue|}}
+    {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
+      <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}} ago:</strong>
+      <div class="list-group">
+        <pre><button type="button" data-toggle="collapse in" data-target="#{{issue.id}}" class="list-group-item active" {{action "issueClicked"}}>
+            Feed Fetch Issue #{{issue.id}}
+          </button>
+          <div id={{issue.id}} class="collapse {{if selected "in"}}">
+            {{issue-details classNames='issue-details' issue=issue}}
+          </div></pre>
+      </div>
+      {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
+    {{/collapsable-panel}}
+  {{/each}}
 {{/if}}
 
 <h2>Changesets imported from this feed</h2>
 <ul>
-  {{#each model.changesets_imported_from_this_feed as |changeset|}}
+  {{#each model.feed.changesets_imported_from_this_feed as |changeset|}}
     <li>
       {{#link-to 'changesets.show' changeset}}
         changeset #{{changeset.id}}
@@ -80,4 +118,4 @@
 </ul>
 
 <h2>Feed versions</h2>
-{{feed-versions-list feed=model}}
+{{feed-versions-list feed=model.feed}}

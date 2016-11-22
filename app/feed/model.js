@@ -22,7 +22,6 @@ export default EntityWithActivityModel.extend({
   last_sha1: DS.attr('string'),
   last_fetched_at: DS.attr('date'),
   last_imported_at: DS.attr('date'),
-  latest_fetch_exception_log: DS.attr('string'),
   feed_versions_count: DS.attr('number'),
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),

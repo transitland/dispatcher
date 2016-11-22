@@ -1,33 +1,21 @@
 import Ember from 'ember';
+import IssuesController from 'dispatcher/mixins/issues-controller';
 
-export default Ember.Controller.extend({
-
-  queryParams: ['feed_onestop_id', 'open', 'issue_type', 'per_page'],
-
-  issue_type: '',
-
-  feed_onestop_id: '',
-
-  open: true,
-
-  per_page: '∞',
-
-  queryParamsObject: function() {
-    var queryParams = {};
-    var self = this;
-    this.get('queryParams').forEach(function(param) { queryParams[param] = self.get(param);  });
-    return queryParams;
-  },
-
+export default Ember.Controller.extend(IssuesController, {
   actions: {
     issueClicked: function(issue) {
-      let queryParams = this.queryParamsObject();
-      this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: queryParams });
+      var self = this;
+      let queryParamsObject = self.queryParamsObject();
+      this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: queryParamsObject });
     },
     typeChanged: function(selected) {
-      this.set('issue_type', selected);
-      let queryParams = this.queryParamsObject();
-      this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParams });
+      var self = this;
+      var orig_func = self._super;
+      Ember.run.next(function(){
+        orig_func.call(self, selected);
+        let queryParamsObject = self.queryParamsObject();
+        self.transitionToRoute('issues.route-geometry.index', { queryParams: queryParamsObject });
+      });
     }
   }
 });
