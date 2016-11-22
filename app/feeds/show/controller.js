@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
   selected: false,
 
   getChanges: function() {
-    let thisIssue = this.model.issues.get('firstObject');
+    let thisIssue = this.model.feed.get('issues').get('firstObject');
     var ret = {};
     ret['action'] = 'createUpdate';
     ret['issuesResolved'] = [ Number(thisIssue.get('id')) ];
@@ -78,7 +78,7 @@ export default Ember.Controller.extend({
       this.set('closeMessage', { show: true, message: 'Closing issues is unavailable.' } );
     },
     closeIssue: function() {
-      // let thisIssue = this.model.issues.get('firstObject');
+      // let thisIssue = this.model.feed.get('issues').get('firstObject');
       // thisIssue.set('open', false);
       // var self = this;
       // thisIssue.save().then(function(){
