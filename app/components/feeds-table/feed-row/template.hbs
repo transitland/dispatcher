@@ -13,6 +13,9 @@
     {{fa-icon "exclamation-triangle" size=2 classNames="text-danger" title=feed.latest_fetch_exception_log}}
   {{/if}} -->
 </td>
+<td class="{{feed.fetchStatusCssClass}}">
+  {{feed.issues.firstObject.issue_type}}
+</td>
 <td class="{{feed.importStatusCssClass}}">
   {{feed.import_status}}
 </td>
