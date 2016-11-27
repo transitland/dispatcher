@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      {{#feeds-select-table feeds=model.feeds feedClicked="feedClicked"}}{{/feeds-select-table}}
+      {{#feeds-select-table feeds=model.feeds feedClicked="feedClicked" selectedFeed=selectedFeed}}{{/feeds-select-table}}
       {{pagination-controls route="issues" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset perPage=per_page}}
     </div>
     <div class="col-md-8">

@@ -1,7 +1,13 @@
 <div class="list-group">
   {{#each feeds as |feed|}}
-    <button type="button" class="list-group-item" {{action "feedClicked" feed}}>
+    {{#if (eq feed.onestop_id selectedFeed)}}
+    <button type="button" class="list-group-item active" {{action "feedClicked" feed}}>
       {{feed.onestop_id}}
     </button>
+    {{else}}
+      <button type="button" class="list-group-item" {{action "feedClicked" feed}}>
+        {{feed.onestop_id}}
+      </button>
+    {{/if}}
   {{/each}}
 </div>
