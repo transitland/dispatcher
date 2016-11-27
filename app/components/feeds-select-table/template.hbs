@@ -1,0 +1,7 @@
+<div class="list-group">
+  {{#each feeds as |feed|}}
+    <button type="button" class="list-group-item" {{action "feedClicked" feed}}>
+      {{feed.onestop_id}}
+    </button>
+  {{/each}}
+</div>
