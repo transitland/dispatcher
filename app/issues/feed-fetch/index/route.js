@@ -2,11 +2,10 @@ import Ember from 'ember';
 import IssuesRoute from 'dispatcher/mixins/issues-route';
 
 export default Ember.Route.extend(IssuesRoute, {
-
-  issueTypes: ['all', 'stop_rsp_distance_gap',
-                    'distance_calculation_inaccurate',
-                    'rsp_line_inaccurate',
-                    'stop_position_inaccurate'],
+  issueTypes: ['all', 'feed_fetch_invalid_source',
+                    'feed_fetch_invalid_zip',
+                    'feed_fetch_invalid_url',
+                    'feed_fetch_invalid_response'],
 
   model: function(params) {
     var self = this;
@@ -14,8 +13,7 @@ export default Ember.Route.extend(IssuesRoute, {
     let issues = this.store.query('issue', params);
     return Ember.RSVP.hash({
       issues: issues,
-      issueTypes: self.issueTypes,
-      bounds: L.latLngBounds([L.latLng(37.77, -122.4), L.latLng(37.76,-122.5)])
+      issueTypes: self.issueTypes
     });
   }
 });
