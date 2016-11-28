@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
   selected: false,
 
   getChanges: function() {
-    let thisIssue = this.model.issues.get('firstObject');
+    let thisIssue = this.model.feed.get('issues').get('firstObject');
     var ret = {};
     ret['action'] = 'createUpdate';
     ret['issuesResolved'] = [ Number(thisIssue.get('id')) ];
@@ -14,18 +14,19 @@ export default Ember.Controller.extend({
 
   pollChangesetApply: function(url, applicationAdapter) {
     var self = this;
+    let thisIssue = self.model.feed.get('issues').get('firstObject');
     applicationAdapter.ajax(url, 'post').then(function(response){
       if (response.status === 'complete') {
-        self.set('applyMessage', {show: true, status: response.status, newIssues: [], message: 'Successfully resolved issue ' + self.model.issues.get('firstObject').id });
+        self.set('applyMessage', {show: true, status: response.status, newIssues: [], message: 'Successfully resolved issue ' + thisIssue.id });
       }
       else if (response.status === 'error') {
-        self.set('applyMessage', {show: true, status: response.status, message: 'Error resolving issue ' + self.model.issues.get('firstObject').id + '. ' + response.errors});
+        self.set('applyMessage', {show: true, status: response.status, message: 'Error resolving issue ' + thisIssue.id + '. ' + response.errors});
       }
       else {
         Ember.run.later(self.pollChangesetApply.bind(self, url, applicationAdapter), 5000);
       }
     }).catch(function(error){
-      self.set('applyMessage', {show: true, status: 'error', message: 'Error resolving issue ' + self.model.issues.get('firstObject').id + '. ' + error.errors.map(function(e){ return e.message}).join('. ')});
+      self.set('applyMessage', {show: true, status: 'error', message: 'Error resolving issue ' + thisIssue.get('firstObject').id + '. ' + error.errors.map(function(e){ return e.message}).join('. ')});
     });
   },
 
@@ -47,7 +48,7 @@ export default Ember.Controller.extend({
         }).then(function(response) {
           self.set('applyingSpinner', false);
           self.set('showChangeset', false);
-          self.set('applyMessage', { show: true, status: response.status, newIssues: [], message: 'Applying changeset to resolve issue ' + self.model.issues.get('firstObject').id });
+          self.set('applyMessage', { show: true, status: response.status, newIssues: [], message: 'Applying changeset to resolve issue ' + self.model.feed.get('issues').get('firstObject').id });
         }).catch(function(error) {
 
         });
@@ -78,7 +79,7 @@ export default Ember.Controller.extend({
       this.set('closeMessage', { show: true, message: 'Closing issues is unavailable.' } );
     },
     closeIssue: function() {
-      // let thisIssue = this.model.issues.get('firstObject');
+      // let thisIssue = this.model.feed.get('issues').get('firstObject');
       // thisIssue.set('open', false);
       // var self = this;
       // thisIssue.save().then(function(){
