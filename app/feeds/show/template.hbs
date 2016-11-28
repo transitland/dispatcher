@@ -59,8 +59,8 @@
   <dt>Last imported at</dt>
   <dd>{{time-since-with-mouseover model.feed.last_imported_at}}</dd>
 </dl>
-{{#if model.issues}}
-  {{#each model.issues as |issue|}}
+{{#if model.feed.issues}}
+  {{#each model.feed.issues as |issue|}}
     {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
       <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}} ago:</strong><br/>
       {{#link-to 'issues.feed-fetch.show' issue.id}}

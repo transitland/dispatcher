@@ -15,6 +15,7 @@ export default Ember.Controller.extend(IssuesController, {
 
   pollChangesetApply: function(url, applicationAdapter) {
     var self = this;
+    let thisIssue = self.model.feed.get('issues').get('firstObject');
     applicationAdapter.ajax(url, 'post').then(function(response){
       if (response.status === 'complete') {
         self.set('applyMessage', {show: true, status: response.status, newIssues: [], message: 'Successfully resolved issue ' + self.model.selectedIssue.id });
@@ -84,7 +85,7 @@ export default Ember.Controller.extend(IssuesController, {
       this.set('closeMessage', { show: true, message: 'Closing issues is unavailable.' } );
     },
     closeIssue: function() {
-      // let thisIssue = this.model.issues.get('firstObject');
+      // let thisIssue = this.model.feed.get('issues').get('firstObject');
       // thisIssue.set('open', false);
       // var self = this;
       // thisIssue.save().then(function(){
