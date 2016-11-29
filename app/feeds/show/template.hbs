@@ -49,9 +49,9 @@
   {{#if model.feed.created_or_updated_in_changeset}}
     <dt>Created or updated in</dt>
     <dd>
-      {{#link-to 'changesets.show' model.feed.created_or_updated_in_changeset}}
+      <h4>{{#link-to 'changesets.show' model.feed.created_or_updated_in_changeset}}
         changeset #{{model.feed.created_or_updated_in_changeset.id}}
-      {{/link-to}}
+      {{/link-to}}</h4>
     </dd>
   {{/if}}
   <dt>Last fetched at</dt>
@@ -63,9 +63,9 @@
   {{#each model.feed.issues as |issue|}}
     {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
       <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}} ago:</strong><br/>
-      {{#link-to 'issues.feed-fetch.show' issue.id}}
-        Issue Id: {{issue.id}}
-      {{/link-to}}
+      <h4>{{#link-to 'issues.feed-fetch.show' issue.id}}
+        View and Resolve Issue #{{issue.id}}
+      {{/link-to}}</h4>
     {{/collapsable-panel}}
   {{/each}}
 {{/if}}
