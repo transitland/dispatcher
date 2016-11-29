@@ -1,31 +1,3 @@
-{{#if showChangeset}}
-  {{#modal-dialog title='Changeset' ok='saveChangeset' close='hideChangeset' okText='Apply Changeset'}}
-    {{changeset-form changeset=model.changeset users=model.users }}
-  {{/modal-dialog}}
-{{/if}}
-
-{{#if applyMessage.show}}
-  {{#modal-message title='Apply Issue-resolving Changeset' close='toggleApplyMessage'}}
-    <p>{{applyMessage.message}}</p>
-    {{#each applyMessage.newIssues as |issue|}}
-      <h3>New Issue:</h3>
-      {{#each-in issue as |key value|}}
-        <p>{{key}}: {{value}}</p>
-      {{/each-in}}
-    {{/each}}
-  {{/modal-message}}
-{{/if}}
-
-{{#if closeMessage.show}}
-  {{#modal-dialog title='Closing Issue' ok='closeIssue' close='toggleCloseMessage' closeText='Cancel' okText='Ok'}}
-    <p>{{closeMessage.message}}</p>
-  {{/modal-dialog}}
-{{/if}}
-
-{{#if applyingSpinner}}
-  {{#loading-spinner}}{{/loading-spinner}}
-{{/if}}
-
 <div class="row">
   <div class="col-md-6">
     <h2>{{link-to 'Feeds' 'feeds'}} / {{model.feed.onestop_id}}</h2>
@@ -87,19 +59,13 @@
   <dt>Last imported at</dt>
   <dd>{{time-since-with-mouseover model.feed.last_imported_at}}</dd>
 </dl>
-{{#if model.issues}}
-  {{#each model.issues as |issue|}}
+{{#if model.feed.issues}}
+  {{#each model.feed.issues as |issue|}}
     {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
-      <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}} ago:</strong>
-      <div class="list-group">
-        <pre><button type="button" data-toggle="collapse in" data-target="#{{issue.id}}" class="list-group-item active" {{action "issueClicked"}}>
-            Feed Fetch Issue #{{issue.id}}
-          </button>
-          <div id={{issue.id}} class="collapse {{if selected "in"}}">
-            {{issue-details classNames='issue-details' issue=issue}}
-          </div></pre>
-      </div>
-      {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
+      <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}} ago:</strong><br/>
+      {{#link-to 'issues.feed-fetch.show' issue.id}}
+        Issue Id: {{issue.id}}
+      {{/link-to}}
     {{/collapsable-panel}}
   {{/each}}
 {{/if}}

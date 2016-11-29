@@ -1,10 +1,11 @@
 import Ember from 'ember';
+import IssuesController from 'dispatcher/mixins/issues-controller';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(IssuesController, {
   selected: false,
 
   getChanges: function() {
-    let thisIssue = this.model.issues.get('firstObject');
+    let thisIssue = this.model.selectedIssue;
     var ret = {};
     ret['action'] = 'createUpdate';
     ret['issuesResolved'] = [ Number(thisIssue.get('id')) ];
@@ -14,22 +15,29 @@ export default Ember.Controller.extend({
 
   pollChangesetApply: function(url, applicationAdapter) {
     var self = this;
+    let thisIssue = self.model.feed.get('issues').get('firstObject');
     applicationAdapter.ajax(url, 'post').then(function(response){
       if (response.status === 'complete') {
-        self.set('applyMessage', {show: true, status: response.status, newIssues: [], message: 'Successfully resolved issue ' + self.model.issues.get('firstObject').id });
+        self.set('applyMessage', {show: true, status: response.status, newIssues: [], message: 'Successfully resolved issue ' + self.model.selectedIssue.id });
       }
       else if (response.status === 'error') {
-        self.set('applyMessage', {show: true, status: response.status, message: 'Error resolving issue ' + self.model.issues.get('firstObject').id + '. ' + response.errors});
+        self.set('applyMessage', {show: true, status: response.status, message: 'Error resolving issue ' + self.model.selectedIssue.id + '. ' + response.errors});
       }
       else {
         Ember.run.later(self.pollChangesetApply.bind(self, url, applicationAdapter), 5000);
       }
     }).catch(function(error){
-      self.set('applyMessage', {show: true, status: 'error', message: 'Error resolving issue ' + self.model.issues.get('firstObject').id + '. ' + error.errors.map(function(e){ return e.message}).join('. ')});
+      self.set('applyMessage', {show: true, status: 'error', message: 'Error resolving issue ' + self.model.selectedIssue.id + '. ' + error.errors.map(function(e){ return e.message}).join('. ')});
     });
   },
 
   actions: {
+    issueClicked: function(issue) {
+      var self = this;
+      this.set('selected', !this.get('selected'));
+      let queryParamsObject = self.queryParamsObject();
+      this.transitionToRoute('issues.feed-fetch.show', issue.id, { queryParams: queryParamsObject });
+    },
     showChangeset: function() {
       var payload = {changes: this.getChanges()};
       this.model.changeset.get('change_payloads').get('firstObject').set('payload', payload);
@@ -47,7 +55,7 @@ export default Ember.Controller.extend({
         }).then(function(response) {
           self.set('applyingSpinner', false);
           self.set('showChangeset', false);
-          self.set('applyMessage', { show: true, status: response.status, newIssues: [], message: 'Applying changeset to resolve issue ' + self.model.issues.get('firstObject').id });
+          self.set('applyMessage', { show: true, status: response.status, newIssues: [], message: 'Applying changeset to resolve issue ' + self.model.selectedIssue.id });
         }).catch(function(error) {
 
         });
@@ -56,8 +64,7 @@ export default Ember.Controller.extend({
       this.set('applyMessage.show', false);
       if (this.get('applyMessage').status === 'complete') {
         this.store.unloadAll();
-        let feed_id = this.model.feed.id;
-        this.transitionToRoute('feeds.show', { queryParams: { feed_id: feed_id } });
+        this.transitionToRoute('issues.feed-fetch.index');
       }
       if (this.get('applyMessage').status === 'queued') {
         var applicationAdapter = this.store.adapterFor('changeset');
@@ -78,7 +85,7 @@ export default Ember.Controller.extend({
       this.set('closeMessage', { show: true, message: 'Closing issues is unavailable.' } );
     },
     closeIssue: function() {
-      // let thisIssue = this.model.issues.get('firstObject');
+      // let thisIssue = this.model.feed.get('issues').get('firstObject');
       // thisIssue.set('open', false);
       // var self = this;
       // thisIssue.save().then(function(){
@@ -92,9 +99,6 @@ export default Ember.Controller.extend({
     },
     toggleCloseMessage: function() {
       this.set('closeMessage.show', false);
-    },
-    issueClicked: function() {
-      this.set('selected', !this.get('selected'));
     }
   }
 });
