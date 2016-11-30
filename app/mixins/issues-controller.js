@@ -103,16 +103,15 @@ export default Ember.Mixin.create({
     closeIssue: function() {
       this.model.selectedIssue.set('open', false);
       var self = this;
-      modelIssue.save().then(function(){
+      self.model.selectedIssue.save().then(function(){
         self.set('closeMessage.show', false);
         let queryParamsObject = self.queryParamsObject();
-        self.transitionToRoute(this.index_route, { queryParams: queryParamsObject });
+        self.transitionToRoute(self.index_route, { queryParams: queryParamsObject });
       }).catch(function(error){
-        self.set('closeMessage', {show: true, error: true, message: 'Error closing issue ' + self.get('model.selectedIssue.id') + '. ' + error.message});
+        self.set('closeMessage', {show: true, error: true, message: 'Error closing issue ' + self.model.selectedIssue.id + '. ' + error.message});
       });
     },
     closeDialog: function() {
-      console.log('test');
       this.set('closeMessage', {show: true, message: 'Close issue ' + this.get('model.selectedIssue.id')});
     }
   }
