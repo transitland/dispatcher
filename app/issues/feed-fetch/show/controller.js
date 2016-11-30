@@ -34,11 +34,7 @@ export default Ember.Controller.extend(IssuesController, {
       }
       if (this.get('applyMessage').status === 'error') {
         // clean the changeset
-        let changeset = this.store.createRecord('changeset', {
-          notes: 'Issue resolution:'
-        });
-        changeset.get('change_payloads').createRecord();
-        this.set('model.changeset', changeset);
+        this.cleanChangeset();
       }
     },
     closeDialog: function() {

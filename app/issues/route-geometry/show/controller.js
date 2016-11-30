@@ -22,20 +22,6 @@ export default Ember.Controller.extend(IssuesController, {
   },
 
   actions: {
-    saveChangeset: function(apply) {
-      var self = this;
-      return this.model.changeset.save()
-        .then(function(changeset) {
-          self.set('applyingSpinner', true);
-          return changeset.apply_async();
-        }).then(function(response) {
-          self.set('applyingSpinner', false);
-          self.set('showChangeset', false);
-          self.set('applyMessage', {show: true, status: response.status, newIssues: [], message: 'Applying changeset to resolve issue ' + self.get('model.selectedIssue.id') });
-        }).catch(function(error) {
-
-        });
-    },
     toggleApplyMessage: function() {
       this.set('applyMessage.show', false);
       if (this.get('applyMessage').status === 'complete') {
@@ -50,15 +36,8 @@ export default Ember.Controller.extend(IssuesController, {
       }
       if (this.get('applyMessage').status === 'error') {
         // clean the changeset, but leave edits.
-        let changeset = this.store.createRecord('changeset', {
-          notes: 'Issue resolution:'
-        });
-        changeset.get('change_payloads').createRecord();
-        this.set('model.changeset', changeset);
+        this.cleanChangeset();
       }
-    },
-    closeDialog: function() {
-      this.set('closeMessage', {show: true, message: 'Close issue ' + this.get('model.selectedIssue.id')});
     },
     closeIssue: function() {
       this.model.selectedIssue.set('open', false);

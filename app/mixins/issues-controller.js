@@ -15,6 +15,14 @@ export default Ember.Mixin.create({
 
   },
 
+  emptyChangeset: function() {
+    let changeset = this.store.createRecord('changeset', {
+      notes: 'Issue resolution:'
+    });
+    changeset.get('change_payloads').createRecord();
+    this.set('model.changeset', changeset);
+  },
+
   queryParamsObject: function() {
     var queryParams = {};
     var self = this;
@@ -57,6 +65,9 @@ export default Ember.Mixin.create({
 
         });
     },
+    toggleApplyMessage: function() {
+
+    },
     typeChanged: function(selected) {
       this.set('issue_type', selected);
     },
@@ -71,5 +82,8 @@ export default Ember.Mixin.create({
     toggleCloseMessage: function() {
       this.set('closeMessage.show', false);
     },
+    closeDialog: function() {
+      this.set('closeMessage', {show: true, message: 'Close issue ' + this.get('model.selectedIssue.id')});
+    }
   }
 });
