@@ -12,6 +12,9 @@
           <div class="panel-body">{{#link-to "issues.new" selectedFeed}}Create New Issues{{/link-to}}</div>
         </div>
         <div class="panel panel-default">
+          <div class="panel-body">{{#link-to "issues.feed-fetch" (query-params of_entity=selectedFeed)}}Feed Fetch{{/link-to}}</div>
+        </div>
+        <div class="panel panel-default">
           <div class="panel-body">{{#link-to "issues.route-geometry" (query-params feed_onestop_id=selectedFeed)}}Route Geometry{{/link-to}}</div>
         </div>
       </div>

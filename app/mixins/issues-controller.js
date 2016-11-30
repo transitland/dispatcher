@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  queryParams: ['feed_onestop_id', 'open', 'issue_type', 'per_page'],
+  queryParams: ['feed_onestop_id', 'open', 'issue_type', 'per_page', 'of_entity'],
 
   issue_type: '',
 
@@ -10,6 +10,8 @@ export default Ember.Mixin.create({
   open: true,
 
   per_page: '∞',
+
+  of_entity: '',
 
   getChanges: function() {
 
