@@ -1,10 +1,16 @@
 import Ember from 'ember';
 import IssuesController from 'dispatcher/mixins/issues-controller';
+import IssuesResolvingChangesetController from 'dispatcher/mixins/issues-resolving-changeset-controller';
+import IssuesCloseController from 'dispatcher/mixins/issues-close-controller';
 
-export default Ember.Controller.extend(IssuesController, {
+export default Ember.Controller.extend(IssuesController,
+                                       IssuesResolvingChangesetController,
+                                       IssuesCloseController, {
   selected: false,
 
   index_route: 'issues.feed-fetch.index',
+
+  show_route: 'issues.feed-fetch.show',
 
   getChanges: function() {
     let thisIssue = this.model.selectedIssue;
@@ -16,12 +22,6 @@ export default Ember.Controller.extend(IssuesController, {
   },
 
   actions: {
-    issueClicked: function(issue) {
-      var self = this;
-      this.set('selected', !this.get('selected'));
-      let queryParamsObject = self.queryParamsObject();
-      this.transitionToRoute('issues.feed-fetch.show', issue.id, { queryParams: queryParamsObject });
-    },
     closeDialog: function() {
       this.set('closeMessage', { show: true, message: 'Closing issues is unavailable.' } );
     },

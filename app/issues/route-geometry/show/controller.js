@@ -1,13 +1,19 @@
 import Ember from 'ember';
 import IssuesController from 'dispatcher/mixins/issues-controller';
+import IssuesResolvingChangesetController from 'dispatcher/mixins/issues-resolving-changeset-controller';
+import IssuesCloseController from 'dispatcher/mixins/issues-close-controller';
 
-export default Ember.Controller.extend(IssuesController, {
+export default Ember.Controller.extend(IssuesController,
+                                       IssuesResolvingChangesetController,
+                                       IssuesCloseController, {
 
   leafletObjects: {
 
   },
 
   index_route: 'issues.route-geometry.index',
+
+  show_route: 'issues.route-geometry.show',
 
   getChanges: function() {
     var entities = [];
@@ -24,15 +30,6 @@ export default Ember.Controller.extend(IssuesController, {
   },
 
   actions: {
-    issueClicked: function(issue) {
-      if (this.get('model.selectedIssue')) {
-        if (issue.get('id') === this.get('model.selectedIssue').get('id')) {
-          return;
-        }
-      }
-      let queryParamsObject = this.queryParamsObject();
-      this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: queryParamsObject });
-    },
     actionDrawEdited: function(EditedEvent) {
       var self = this;
 
