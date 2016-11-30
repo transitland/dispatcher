@@ -18,6 +18,12 @@
       {{key}}: {{value}} <br />
     {{/each-in}}
   </dd>
+  <dt>Operators In Feed</dt>
+  <dd>
+    {{#each model.feed.operators_in_feed as |oif|}}
+      {{oif.operator_onestop_id}}: {{oif.gtfs_agency_id}} <br />
+    {{/each}}
+  </dd>
   <dt>License name and/or URL</dt>
   <dd>{{model.feed.license_name}} {{model.feed.license_url}}</dd>
   <dt>License use without attribution</dt>
