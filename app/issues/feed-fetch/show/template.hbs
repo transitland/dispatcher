@@ -19,12 +19,9 @@
 {{/if}}
 
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
     {{#issue-table model=model issueClicked="issueClicked" showChangeset="showChangeset" closeDialog="closeDialog"}}{{/issue-table}}
   </div>
-  <div class="col-md-9">
-    <div>
-      {{#edit-map model=model rspAdded="rspAdded" stopAdded="stopAdded" actionDrawEdited="actionDrawEdited"}}{{/edit-map}}
-    </div>
-  </div>
+  <div class="col-md-3"></div>
 </div>

@@ -4,6 +4,7 @@
       <button type="button" data-toggle="collapse in" data-target="#{{issue.id}}" class="list-group-item active" {{action "issueClicked" issue}}>
         {{issue.id}}
       </button>
+      {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
       <div id={{issue.id}} class="collapse in">
         {{issue-details classNames='issue-details' issue=issue}}
       </div>
