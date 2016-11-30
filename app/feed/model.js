@@ -7,6 +7,7 @@ export default EntityWithActivityModel.extend({
   active_feed_version: DS.belongsTo('feed-version', { async: true, inverse: 'active_for_feed' }),
   created_or_updated_in_changeset: DS.belongsTo('changeset', { async: true }),
   changesets_imported_from_this_feed: DS.hasMany('changeset', { async: true, inverse: 'imported_from_feed' }),
+  issues: DS.hasMany('issue', { async: true }),
 
   import_level_of_active_feed_version: DS.attr('number'),
   import_status: DS.attr('string'),
@@ -22,7 +23,6 @@ export default EntityWithActivityModel.extend({
   last_sha1: DS.attr('string'),
   last_fetched_at: DS.attr('date'),
   last_imported_at: DS.attr('date'),
-  latest_fetch_exception_log: DS.attr('string'),
   feed_versions_count: DS.attr('number'),
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),

@@ -1,23 +1,7 @@
 import Ember from 'ember';
+import IssuesController from 'dispatcher/mixins/issues-controller';
 
-export default Ember.Controller.extend({
-
-  queryParams: ['feed_onestop_id', 'open', 'issue_type', 'per_page'],
-
-  issue_type: '',
-
-  feed_onestop_id: '',
-
-  open: true,
-
-  per_page: '∞',
-
-  queryParamsObject: function() {
-    var queryParams = {};
-    var self = this;
-    this.get('queryParams').forEach(function(param) { queryParams[param] = self.get(param);  });
-    return queryParams;
-  },
+export default Ember.Controller.extend(IssuesController, {
 
   leafletObjects: {
 
@@ -55,38 +39,6 @@ export default Ember.Controller.extend({
   },
 
   actions: {
-    issueClicked: function(issue) {
-      if (this.get('model.selectedIssue')) {
-        if (issue.get('id') === this.get('model.selectedIssue').get('id')) {
-          return;
-        }
-      }
-      let queryParams = this.queryParamsObject();
-      this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: queryParams });
-    },
-    actionDrawEdited: function(EditedEvent) {
-      var self = this;
-
-      // TODO: duplication refactor
-
-      this.get('model.issueStops').forEach(function(stop){
-        for (var layer in EditedEvent.layers._layers) {
-          if (stop.get('onestop_id') === self.get('leafletObjects')[layer]) {
-            var latlng = EditedEvent.layers._layers[layer]._latlng;
-            stop.setCoordinates([latlng.lng, latlng.lat]);
-          }
-        }
-      });
-
-      this.get('model.issueRouteStopPatterns').forEach(function(rsp){
-        for (var layer in EditedEvent.layers._layers) {
-          if (rsp.get('onestop_id') === self.get('leafletObjects')[layer]) {
-            var latlngs = EditedEvent.layers._layers[layer]._latlngs;
-            rsp.setCoordinates(latlngs.map(function(latlng){ return [latlng.lng, latlng.lat]; }));
-          }
-        }
-      });
-    },
     showChangeset: function() {
       var payload = {changes: this.getChanges()};
       this.model.changeset.get('change_payloads').get('firstObject').set('payload', payload);
@@ -112,14 +64,22 @@ export default Ember.Controller.extend({
     toggleApplyMessage: function() {
       this.set('applyMessage.show', false);
       if (this.get('applyMessage').status === 'complete') {
-        let queryParams = this.queryParamsObject();
-        this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParams });
+        let queryParamsObject = this.queryParamsObject();
+        this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParamsObject });
       }
       if (this.get('applyMessage').status === 'queued') {
         var applicationAdapter = this.store.adapterFor('changeset');
         var modelUrl = applicationAdapter.buildURL('changeset', this.get('model.changeset.id'));
         var applyUrl = modelUrl + '/apply_async';
         this.pollChangesetApply(applyUrl, applicationAdapter);
+      }
+      if (this.get('applyMessage').status === 'error') {
+        // clean the changeset, but leave edits.
+        let changeset = this.store.createRecord('changeset', {
+          notes: 'Issue resolution:'
+        });
+        changeset.get('change_payloads').createRecord();
+        this.set('model.changeset', changeset);
       }
     },
     closeDialog: function() {
@@ -128,16 +88,48 @@ export default Ember.Controller.extend({
     closeIssue: function() {
       this.model.selectedIssue.set('open', false);
       var self = this;
-      this.model.selectedIssue.save().then(function(){
+      modelIssue.save().then(function(){
         self.set('closeMessage.show', false);
-        let queryParams = self.queryParamsObject();
-        self.transitionToRoute('issues.route-geometry.index', { queryParams: queryParams });
+        let queryParamsObject = self.queryParamsObject();
+        self.transitionToRoute('issues.route-geometry.index', { queryParams: queryParamsObject });
       }).catch(function(error){
         self.set('closeMessage', {show: true, error: true, message: 'Error closing issue ' + self.get('model.selectedIssue.id') + '. ' + error.message});
       });
     },
     toggleCloseMessage: function() {
       this.set('closeMessage.show', false);
+    },
+    issueClicked: function(issue) {
+      if (this.get('model.selectedIssue')) {
+        if (issue.get('id') === this.get('model.selectedIssue').get('id')) {
+          return;
+        }
+      }
+      let queryParamsObject = this.queryParamsObject();
+      this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: queryParamsObject });
+    },
+    actionDrawEdited: function(EditedEvent) {
+      var self = this;
+
+      // TODO: duplication refactor
+
+      this.get('model.issueStops').forEach(function(stop){
+        for (var layer in EditedEvent.layers._layers) {
+          if (stop.get('onestop_id') === self.get('leafletObjects')[layer]) {
+            var latlng = EditedEvent.layers._layers[layer]._latlng;
+            stop.setCoordinates([latlng.lng, latlng.lat]);
+          }
+        }
+      });
+
+      this.get('model.issueRouteStopPatterns').forEach(function(rsp){
+        for (var layer in EditedEvent.layers._layers) {
+          if (rsp.get('onestop_id') === self.get('leafletObjects')[layer]) {
+            var latlngs = EditedEvent.layers._layers[layer]._latlngs;
+            rsp.setCoordinates(latlngs.map(function(latlng){ return [latlng.lng, latlng.lat]; }));
+          }
+        }
+      });
     },
     stopAdded: function(leafletId, onestop_id) {
       this.get('leafletObjects')[leafletId] = onestop_id;
