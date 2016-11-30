@@ -5,15 +5,7 @@
 {{/if}}
 
 {{#if applyMessage.show}}
-  {{#modal-message title='Apply Issue-resolving Changeset' close='toggleApplyMessage'}}
-    <p>{{applyMessage.message}}</p>
-    {{#each applyMessage.newIssues as |issue|}}
-      <h3>New Issue:</h3>
-      {{#each-in issue as |key value|}}
-        <p>{{key}}: {{value}}</p>
-      {{/each-in}}
-    {{/each}}
-  {{/modal-message}}
+  {{#changeset-apply-modal message=applyMessage.message newIssues=applyMessage.newIssues toggleApplyMessage='toggleApplyMessage'}}{{/changeset-apply-modal}}
 {{/if}}
 
 {{#if closeMessage.show}}
@@ -29,8 +21,7 @@
 <div class="row">
   <div class="col-md-3"></div>
   <div class="col-md-6">
-    {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
-    {{#issue-table model=model issueClicked="issueClicked"}}{{/issue-table}}
+    {{#issue-table model=model issueClicked="issueClicked" showChangeset="showChangeset" closeDialog="closeDialog"}}{{/issue-table}}
   </div>
   <div class="col-md-3"></div>
 </div>
