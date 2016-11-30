@@ -21,6 +21,9 @@ export default Ember.Component.extend({
     return (this.get('selectedFeeds.length') === this.get('feeds.length')) && (this.get('feeds.length') > 0);
   }),
   actions: {
+    changeSort: function(sortKey) {
+      this.sendAction('action', sortKey);
+    },
     selectNone: function () {
       this.get("selectableFeeds").forEach(function (feed) {
         feed.set("isSelected", false);

@@ -1,14 +1,16 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  per_page: '50',
   queryParams: [
     "offset",
     "per_page",
     "sort_key",
     "sort_order"
   ],
+  per_page: '50',
   offset: 0,
+  sort_key: null,
+  sort_order: null,
   hasPreviousPage: Ember.computed("offset", function() {
     return this.get("offset") > 0;
   }),
@@ -34,5 +36,19 @@ export default Ember.Mixin.create({
     } else {
       return 0;
     }
-  })
+  }),
+  actions: {
+    changeSort: function(sortKey) {
+      if (this.get('sort_key') !== sortKey){
+        var sortOrder = 'asc';
+      }
+      else if (this.get('sort_order') === 'desc') {
+        var sortOrder = 'asc';
+      } else {
+        var sortOrder = 'desc';
+      }
+      this.set('sort_key', sortKey);
+      this.set('sort_order', sortOrder);
+    }
+  }
 });

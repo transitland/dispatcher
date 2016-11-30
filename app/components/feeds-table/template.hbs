@@ -36,11 +36,11 @@
           {{/if}}
         {{/if}}
       </th>
-      <th>Onestop ID</th>
+      <th {{action "changeSort" "onestop_id"}}>Onestop ID</th>
       <th># of Feed Versions</th>
-      <th>Last Fetched</th>
+      <th {{action "changeSort" "last_fetched_at"}}>Last Fetched</th>
       <th>Import Status</th>
-      <th>Last Imported</th>
+      <th {{action "changeSort" "latest_feed_version_import.created_at"}}>Last Imported</th>
       <th>Import Level of Active Feed Version</th>
     </tr>
   </thead>
