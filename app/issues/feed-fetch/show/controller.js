@@ -8,9 +8,7 @@ export default Ember.Controller.extend(IssuesController,
                                        IssuesCloseController, {
   selected: false,
 
-  index_route: 'issues.feed-fetch.index',
-
-  show_route: 'issues.feed-fetch.show',
+  root_route: 'issues.feed-fetch',
 
   getChanges: function() {
     let thisIssue = this.model.selectedIssue;

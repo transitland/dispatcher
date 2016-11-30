@@ -47,7 +47,7 @@ export default Ember.Mixin.create({
       this.set('applyMessage.show', false);
       if (this.get('applyMessage').status === 'complete') {
         let queryParamsObject = this.queryParamsObject();
-        this.transitionToRoute(this.index_route, { queryParams: queryParamsObject });
+        this.transitionToRoute(this.root_route + '.index', { queryParams: queryParamsObject });
       }
       if (this.get('applyMessage').status === 'queued') {
         var applicationAdapter = this.store.adapterFor('changeset');

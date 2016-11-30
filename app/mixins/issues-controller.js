@@ -20,9 +20,7 @@ export default Ember.Mixin.create({
     return queryParams;
   },
 
-  index_route: '',
-
-  show_route: '',
+  route_route: '',
 
   // this is not a query param
   selected: false,
@@ -37,12 +35,12 @@ export default Ember.Mixin.create({
       var self = this;
       this.set('selected', !this.get('selected'));
       let queryParamsObject = self.queryParamsObject();
-      this.transitionToRoute(this.show_route, issue.id, { queryParams: queryParamsObject });
+      this.transitionToRoute(this.root_route + '.show', issue.id, { queryParams: queryParamsObject });
     },
     typeChanged: function(selected) {
       this.set('issue_type', selected);
       let queryParamsObject = self.queryParamsObject();
-      self.transitionToRoute(this.index_route, { queryParams: queryParamsObject });
+      self.transitionToRoute(this.root_route + '.index', { queryParams: queryParamsObject });
     }
   }
 });
