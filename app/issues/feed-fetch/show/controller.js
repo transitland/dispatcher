@@ -4,6 +4,8 @@ import IssuesController from 'dispatcher/mixins/issues-controller';
 export default Ember.Controller.extend(IssuesController, {
   selected: false,
 
+  index_route: 'issues.feed-fetch.index',
+
   getChanges: function() {
     let thisIssue = this.model.selectedIssue;
     var ret = {};
@@ -19,23 +21,6 @@ export default Ember.Controller.extend(IssuesController, {
       this.set('selected', !this.get('selected'));
       let queryParamsObject = self.queryParamsObject();
       this.transitionToRoute('issues.feed-fetch.show', issue.id, { queryParams: queryParamsObject });
-    },
-    toggleApplyMessage: function() {
-      this.set('applyMessage.show', false);
-      if (this.get('applyMessage').status === 'complete') {
-        this.store.unloadAll();
-        this.transitionToRoute('issues.feed-fetch.index');
-      }
-      if (this.get('applyMessage').status === 'queued') {
-        var applicationAdapter = this.store.adapterFor('changeset');
-        var modelUrl = applicationAdapter.buildURL('changeset', this.model.changeset.id);
-        var applyUrl = modelUrl + '/apply_async';
-        this.pollChangesetApply(this.model.feed.get('issues').get('firstObject'), applyUrl, applicationAdapter);
-      }
-      if (this.get('applyMessage').status === 'error') {
-        // clean the changeset
-        this.cleanChangeset();
-      }
     },
     closeDialog: function() {
       this.set('closeMessage', { show: true, message: 'Closing issues is unavailable.' } );

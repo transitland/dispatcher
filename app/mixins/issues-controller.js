@@ -13,6 +13,8 @@ export default Ember.Mixin.create({
 
   of_entity: '',
 
+  index_route: '',
+
   getChanges: function() {
 
   },
@@ -68,7 +70,21 @@ export default Ember.Mixin.create({
         });
     },
     toggleApplyMessage: function() {
-
+      this.set('applyMessage.show', false);
+      if (this.get('applyMessage').status === 'complete') {
+        let queryParamsObject = this.queryParamsObject();
+        this.transitionToRoute(this.index_route, { queryParams: queryParamsObject });
+      }
+      if (this.get('applyMessage').status === 'queued') {
+        var applicationAdapter = this.store.adapterFor('changeset');
+        var modelUrl = applicationAdapter.buildURL('changeset', this.get('model.changeset.id'));
+        var applyUrl = modelUrl + '/apply_async';
+        this.pollChangesetApply(this.model.selectedIssue, applyUrl, applicationAdapter);
+      }
+      if (this.get('applyMessage').status === 'error') {
+        // clean the changeset, but leave edits.
+        this.cleanChangeset();
+      }
     },
     typeChanged: function(selected) {
       this.set('issue_type', selected);
@@ -84,7 +100,19 @@ export default Ember.Mixin.create({
     toggleCloseMessage: function() {
       this.set('closeMessage.show', false);
     },
+    closeIssue: function() {
+      this.model.selectedIssue.set('open', false);
+      var self = this;
+      modelIssue.save().then(function(){
+        self.set('closeMessage.show', false);
+        let queryParamsObject = self.queryParamsObject();
+        self.transitionToRoute(this.index_route, { queryParams: queryParamsObject });
+      }).catch(function(error){
+        self.set('closeMessage', {show: true, error: true, message: 'Error closing issue ' + self.get('model.selectedIssue.id') + '. ' + error.message});
+      });
+    },
     closeDialog: function() {
+      console.log('test');
       this.set('closeMessage', {show: true, message: 'Close issue ' + this.get('model.selectedIssue.id')});
     }
   }

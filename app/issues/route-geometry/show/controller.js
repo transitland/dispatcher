@@ -7,6 +7,8 @@ export default Ember.Controller.extend(IssuesController, {
 
   },
 
+  index_route: 'issues.route-geometry.index',
+
   getChanges: function() {
     var entities = [];
     entities = entities.concat(this.store.peekAll('route-stop-pattern').filter(function(e) { return e.get('hasDirtyAttributes'); }) );
@@ -22,34 +24,6 @@ export default Ember.Controller.extend(IssuesController, {
   },
 
   actions: {
-    toggleApplyMessage: function() {
-      this.set('applyMessage.show', false);
-      if (this.get('applyMessage').status === 'complete') {
-        let queryParamsObject = this.queryParamsObject();
-        this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParamsObject });
-      }
-      if (this.get('applyMessage').status === 'queued') {
-        var applicationAdapter = this.store.adapterFor('changeset');
-        var modelUrl = applicationAdapter.buildURL('changeset', this.get('model.changeset.id'));
-        var applyUrl = modelUrl + '/apply_async';
-        this.pollChangesetApply(this.model.selectedIssue, applyUrl, applicationAdapter);
-      }
-      if (this.get('applyMessage').status === 'error') {
-        // clean the changeset, but leave edits.
-        this.cleanChangeset();
-      }
-    },
-    closeIssue: function() {
-      this.model.selectedIssue.set('open', false);
-      var self = this;
-      modelIssue.save().then(function(){
-        self.set('closeMessage.show', false);
-        let queryParamsObject = self.queryParamsObject();
-        self.transitionToRoute('issues.route-geometry.index', { queryParams: queryParamsObject });
-      }).catch(function(error){
-        self.set('closeMessage', {show: true, error: true, message: 'Error closing issue ' + self.get('model.selectedIssue.id') + '. ' + error.message});
-      });
-    },
     issueClicked: function(issue) {
       if (this.get('model.selectedIssue')) {
         if (issue.get('id') === this.get('model.selectedIssue').get('id')) {
