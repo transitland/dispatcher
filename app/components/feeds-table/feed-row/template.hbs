@@ -14,7 +14,11 @@
   {{/if}}
 </td>
 <td class="{{feed.fetchStatusCssClass}}">
-  {{feed.issues.firstObject.issue_type}}
+  {{#if feed.issues.firstObject.issue_type}}
+    {{feed.issues.firstObject.issue_type}}
+  {{else}}
+    most_recent_succeeded
+  {{/if}}
 </td>
 <td class="{{feed.importStatusCssClass}}">
   {{feed.import_status}}
