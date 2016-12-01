@@ -6,14 +6,14 @@
       </button>
       {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
       <div id={{issue.id}} class="collapse in">
-        {{issue-details classNames='issue-details' issue=issue}}
+        {{issue-contents classNames='issue-contents' issue=issue}}
       </div>
     {{else}}
       <button type="button" data-toggle="collapse" data-target="#{{issue.id}}" class="list-group-item" {{action "issueClicked" issue}}>
         {{issue.id}}
       </button>
       <div id={{issue.id}} class="collapse">
-        {{issue-details classNames='issue-details' issue=issue}}
+        {{issue-contents classNames='issue-contents' issue=issue}}
       </div>
     {{/if}}
   {{/each}}
