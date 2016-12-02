@@ -15,15 +15,10 @@ export default Ember.Mixin.create({
     var self = this;
     applicationAdapter.ajax(url, 'post').then(function(response){
       if (response.status === 'complete') {
-        self.set('applyMessage', {show: true, status: response.status, newIssues: [], message: 'Successfully resolved issue ' + resolvingIssue.id });
-        setTimeout(function(){
-          self.set('applyMessage', { show: false });
-          let queryParamsObject = self.queryParamsObject();
-          self.transitionToRoute(self.root_route + '.index', { queryParams: queryParamsObject });
-        }, 3000);
+        self.set('applyMessage', { show: true, status: response.status, newIssues: [], message: 'Successfully resolved issue ' + resolvingIssue.id });
       }
       else if (response.status === 'queued') {
-        self.pollChangesetApply(self.model.selectedIssue, url, applicationAdapter);
+        Ember.run.later(self.pollChangesetApply.bind(self, resolvingIssue, url, applicationAdapter), 2000);
       }
       else if (response.status === 'error') {
         self.set('applyMessage', {show: true, status: response.status, newIssues: response.errors, message: 'Error resolving issue ' + resolvingIssue.id + '. ' + response.errors});
@@ -31,10 +26,12 @@ export default Ember.Mixin.create({
         self.emptyChangeset();
       }
       else {
-        Ember.run.later(self.pollChangesetApply.bind(self, resolvingIssue, url, applicationAdapter), 5000);
+        Ember.run.later(self.pollChangesetApply.bind(self, resolvingIssue, url, applicationAdapter), 2000);
       }
     }).catch(function(error){
       self.set('applyMessage', {show: true, status: 'error', message: 'Error resolving issue ' + resolvingIssue.id + '. ' + error.errors.map(function(e){ return e.message}).join('. ')});
+      // clean the changeset, but leave edits.
+      self.emptyChangeset();
     });
   },
 
@@ -65,5 +62,9 @@ export default Ember.Mixin.create({
     hideChangeset: function() {
       this.set('showChangeset', false);
     },
+    closeApplyMessage: function() {
+      let queryParamsObject = this.queryParamsObject();
+      this.transitionToRoute(this.root_route + '.index', { queryParams: queryParamsObject });
+    }
   }
 });

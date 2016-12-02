@@ -4,8 +4,8 @@ export default Ember.Component.extend({
   message: '',
   newIssues: [],
   actions: {
-    toggleApplyMessage() {
-      this.sendAction('toggleApplyMessage');
+    closeApplyMessage() {
+      this.sendAction("closeApplyMessage");
     }
   }
 });

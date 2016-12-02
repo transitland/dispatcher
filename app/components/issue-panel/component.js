@@ -6,7 +6,7 @@ export default Ember.Component.extend({
     classNameBindings: ['panelClass'],
     panelClass: 'panel-default',
     show: false,
-    issue: null
+    issue: null,
     actions: {
       issueClicked: function(issue) {
         this.toggleProperty("show");
