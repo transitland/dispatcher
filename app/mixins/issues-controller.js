@@ -22,19 +22,9 @@ export default Ember.Mixin.create({
 
   route_route: '',
 
-  // this is not a query param
-  selected: false,
-
   actions: {
     issueClicked: function(issue) {
-      if (this.get('model.selectedIssue')) {
-        if (issue.get('id') === this.model.selectedIssue.id) {
-          return;
-        }
-      }
-      var self = this;
-      this.set('selected', !this.get('selected'));
-      let queryParamsObject = self.queryParamsObject();
+      let queryParamsObject = this.queryParamsObject();
       this.transitionToRoute(this.root_route + '.show', issue.id, { queryParams: queryParamsObject });
     },
     typeChanged: function(selected) {
