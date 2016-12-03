@@ -4,10 +4,6 @@
   {{/modal-dialog}}
 {{/if}}
 
-{{#if applyMessage.show}}
-  {{#changeset-apply-modal message=applyMessage.message newIssues=applyMessage.newIssues toggleApplyMessage='toggleApplyMessage'}}{{/changeset-apply-modal}}
-{{/if}}
-
 {{#if closeMessage.show}}
   {{#modal-dialog title='Closing Issue' ok='closeIssue' close='toggleCloseMessage' closeText='Cancel' okText='Ok'}}
     <p>{{closeMessage.message}}</p>
@@ -19,9 +15,7 @@
 {{/if}}
 
 <div class="row">
-  <div class="col-md-3"></div>
-  <div class="col-md-6">
+  <div class="col-md-9">
     {{#issue-table model=model issueClicked="issueClicked" showChangeset="showChangeset" closeDialog="closeDialog"}}{{/issue-table}}
   </div>
-  <div class="col-md-3"></div>
 </div>

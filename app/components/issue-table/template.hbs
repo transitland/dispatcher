@@ -1,20 +1,18 @@
 <div class="list-group">
   {{#each model.issues as |issue|}}
     {{#if (eq issue.id model.selectedIssue.id)}}
-      <button type="button" data-toggle="collapse in" data-target="#{{issue.id}}" class="list-group-item active" {{action "issueClicked" issue}}>
-        {{issue.id}}
-      </button>
-      {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
-      <div id={{issue.id}} class="collapse in">
-        {{issue-details classNames='issue-details' issue=issue}}
-      </div>
+      {{#issue-panel title=issue.id show=true issueClicked='issueClicked' issue=issue}}
+        {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
+        <div id={{issue.id}}>
+          {{issue-contents classNames='issue-contents' issue=issue}}
+        </div>
+      {{/issue-panel}}
     {{else}}
-      <button type="button" data-toggle="collapse" data-target="#{{issue.id}}" class="list-group-item" {{action "issueClicked" issue}}>
-        {{issue.id}}
-      </button>
-      <div id={{issue.id}} class="collapse">
-        {{issue-details classNames='issue-details' issue=issue}}
-      </div>
+      {{#issue-panel title=issue.id show=false issueClicked='issueClicked' issue=issue}}
+        <div id={{issue.id}}>
+          {{issue-contents classNames='issue-contents' issue=issue}}
+        </div>
+      {{/issue-panel}}
     {{/if}}
   {{/each}}
 </div>

@@ -10,7 +10,7 @@ export default Ember.Route.extend(IssuesRoute, {
   model: function(params) {
     var self = this;
     if (!('issue_type' in params) || ['all', ''].includes(params['issue_type']) ) params['issue_type'] = self.issueTypes.join(',')
-    let issues = this.store.query('issue', params);
+    let issues = this.store.query('issue', params, { reload: true });
     return Ember.RSVP.hash({
       issues: issues,
       issueTypes: self.issueTypes

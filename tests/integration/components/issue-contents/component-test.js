@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('changeset-apply-modal', 'Integration | Component | changeset apply modal', {
+moduleForComponent('issue-contents', 'Integration | Component | issue contents', {
   integration: true
 });
 
@@ -9,15 +9,15 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{changeset-apply-modal}}`);
+  this.render(hbs`{{issue-contents}}`);
 
   assert.equal(this.$().text().trim(), '');
 
   // Template block usage:
   this.render(hbs`
-    {{#changeset-apply-modal}}
+    {{#issue-contents}}
       template block text
-    {{/changeset-apply-modal}}
+    {{/issue-contents}}
   `);
 
   assert.equal(this.$().text().trim(), 'template block text');

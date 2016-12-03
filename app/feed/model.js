@@ -43,6 +43,17 @@ export default EntityWithActivityModel.extend({
         return 'warning';
     }
   }),
+  fetchStatusCssClass: Ember.computed('import_status', function() {
+    if (this.get('issues').get('firstObject')) {
+      return 'danger';
+    }
+    else if (this.get('last_fetched_at')) {
+      return 'success';
+    }
+    else {
+      return '';
+    }
+  }),
   enqueue: function(importLevel) {
     var adapter = this.get('store').adapterFor('feed');
     var url = adapter.urlPrefix() + '/webhooks/feed_eater';
