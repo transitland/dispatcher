@@ -65,10 +65,6 @@ export default Ember.Mixin.create({
     },
     hideChangeset: function() {
       this.set('showChangeset', false);
-    },
-    closeApplyMessage: function() {
-      // let queryParamsObject = this.queryParamsObject();
-      // this.transitionToRoute(this.root_route + '.index', { queryParams: queryParamsObject });
     }
   }
 });
