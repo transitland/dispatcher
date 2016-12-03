@@ -1,9 +1,0 @@
-{{#modal-message title='Apply Issue-resolving Changeset' close='closeApplyMessage'}}
-  <p>{{message}}</p>
-  {{#each newIssues as |issue|}}
-    <h3>New Issue:</h3>
-    {{#each-in issue as |key value|}}
-      <p>{{key}}: {{value}}</p>
-    {{/each-in}}
-  {{/each}}
-{{/modal-message}}

@@ -4,10 +4,6 @@
   {{/modal-dialog}}
 {{/if}}
 
-{{#if applyMessage.show}}
-  {{#changeset-apply-modal message=applyMessage.message newIssues=applyMessage.newIssues closeApplyMessage='closeApplyMessage'}}{{/changeset-apply-modal}}
-{{/if}}
-
 {{#if closeMessage.show}}
   {{#modal-dialog title='Closing Issue' ok='closeIssue' close='toggleCloseMessage' closeText='Cancel' okText='Ok'}}
     <p>{{closeMessage.message}}</p>

@@ -13,15 +13,18 @@ export default Ember.Mixin.create({
   },
   pollChangesetApply: function(resolvingIssue, url, applicationAdapter) {
     var self = this;
+    const flashMessages = Ember.get(this, 'flashMessages');
     applicationAdapter.ajax(url, 'post').then(function(response){
       if (response.status === 'complete') {
-        self.set('applyMessage', { show: true, status: response.status, newIssues: [], message: 'Successfully resolved issue ' + resolvingIssue.id });
+        flashMessages.success('Successfully resolved issue ' + resolvingIssue.id);
+        let queryParamsObject = self.queryParamsObject();
+        self.transitionToRoute(self.root_route + '.index', { queryParams: queryParamsObject });
       }
       else if (response.status === 'queued') {
         Ember.run.later(self.pollChangesetApply.bind(self, resolvingIssue, url, applicationAdapter), 2000);
       }
       else if (response.status === 'error') {
-        self.set('applyMessage', {show: true, status: response.status, newIssues: response.errors, message: 'Error resolving issue ' + resolvingIssue.id + '. ' + response.errors});
+        flashMessages.danger('Error resolving issue ' + resolvingIssue.id + '. ' + response.errors);
         // clean the changeset, but leave edits.
         self.emptyChangeset();
       }
@@ -29,7 +32,7 @@ export default Ember.Mixin.create({
         Ember.run.later(self.pollChangesetApply.bind(self, resolvingIssue, url, applicationAdapter), 2000);
       }
     }).catch(function(error){
-      self.set('applyMessage', {show: true, status: 'error', message: 'Error resolving issue ' + resolvingIssue.id + '. ' + error.errors.map(function(e){ return e.message}).join('. ')});
+      flashMessages.danger('Error resolving issue ' + resolvingIssue.id + '. ' + error);
       // clean the changeset, but leave edits.
       self.emptyChangeset();
     });
@@ -37,6 +40,7 @@ export default Ember.Mixin.create({
 
   actions: {
     saveChangeset: function() {
+      const flashMessages = Ember.get(this, 'flashMessages');
       var self = this;
       return self.model.changeset.save()
         .then(function(changeset) {
@@ -45,7 +49,7 @@ export default Ember.Mixin.create({
         }).then(function(response) {
           self.set('applyingSpinner', false);
           self.set('showChangeset', false);
-          self.set('applyMessage', { show: true, status: response.status, newIssues: [], message: 'Applying changeset to resolve issue ' + self.model.selectedIssue.id });
+          flashMessages.info('Applying changeset to resolve issue ' + self.model.selectedIssue.id);
           var applicationAdapter = self.store.adapterFor('changeset');
           var modelUrl = applicationAdapter.buildURL('changeset', self.get('model.changeset.id'));
           var applyUrl = modelUrl + '/apply_async';
@@ -63,8 +67,8 @@ export default Ember.Mixin.create({
       this.set('showChangeset', false);
     },
     closeApplyMessage: function() {
-      let queryParamsObject = this.queryParamsObject();
-      this.transitionToRoute(this.root_route + '.index', { queryParams: queryParamsObject });
+      // let queryParamsObject = this.queryParamsObject();
+      // this.transitionToRoute(this.root_route + '.index', { queryParams: queryParamsObject });
     }
   }
 });
