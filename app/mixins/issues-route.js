@@ -8,9 +8,13 @@ export default Ember.Mixin.create({
     }
   },
 
+  allIssueTypes: function(params) {
+    if (!('issue_type' in params) || params['issue_type'] === 'all') params['issue_type'] = self.issueTypes.join(',')
+  },
+
   model: function(params) {
     var self = this;
-    if (!('issue_type' in params) || params['issue_type'] === 'all') params['issue_type'] = self.issueTypes.join(',')
+    self.allIssueTypes(params);
     let issues = this.store.query('issue', params);
     return Ember.RSVP.hash({
       issues: issues,
