@@ -14,7 +14,8 @@ export default Ember.Controller.extend(PaginatedSortableController, {
 
   actions: {
     feedClicked: function(feed) {
-      this.set('selectedFeed', feed.get('onestop_id'));
+      let feed_id = feed === null ? '' : feed.get('onestop_id');
+      this.set('selectedFeed', feed_id);
     }
   }
 });

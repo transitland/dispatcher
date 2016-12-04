@@ -9,9 +9,9 @@ export default Ember.Route.extend(IssuesRoute, {
                     'stop_position_inaccurate'],
 
   model: function(params) {
-    var self = this;
-    self.allIssueTypes(params);
+    this.allIssueTypes(params);
     let issues = this.store.query('issue', params);
+    var self = this;
     return Ember.RSVP.hash({
       issues: issues,
       issueTypes: self.issueTypes,

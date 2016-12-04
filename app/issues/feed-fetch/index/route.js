@@ -8,9 +8,9 @@ export default Ember.Route.extend(IssuesRoute, {
                     'feed_fetch_invalid_response'],
 
   model: function(params) {
-    var self = this;
-    self.allIssueTypes(params);
+    this.allIssueTypes(params);
     let issues = this.store.query('issue', params, { reload: true });
+    var self = this;
     return Ember.RSVP.hash({
       issues: issues,
       issueTypes: self.issueTypes
