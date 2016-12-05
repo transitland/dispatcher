@@ -26,7 +26,7 @@ export default Ember.Route.extend(IssuesRoute, {
         });
       }
 
-      if (!('issue_type' in params) || ['all', ''].includes(params['issue_type']) ) params['issue_type'] = self.issueTypes.join(',')
+      self.allIssueTypes(params);
       var issues = self.store.query('issue', params);
       let changeset = self.store.createRecord('changeset', {
         notes: 'Issue resolution:'
