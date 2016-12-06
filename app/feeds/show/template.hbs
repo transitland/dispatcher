@@ -71,7 +71,7 @@
     {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
       <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}} ago:</strong><br/>
       <h4>{{#link-to 'issues.feed-fetch.show' issue.id}}
-        View and Resolve Issue #{{issue.id}}
+        View and Resolve Issue #{{issue.id}} {{fa-icon "question" size=2 title='Issue id uniquely identifies the Issue in the Datastore'}}
       {{/link-to}}</h4>
     {{/collapsable-panel}}
   {{/each}}
