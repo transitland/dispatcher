@@ -29,8 +29,8 @@ export default Ember.Mixin.create({
     },
     typeChanged: function(selected) {
       this.set('issue_type', selected);
-      let queryParamsObject = self.queryParamsObject();
-      self.transitionToRoute(this.root_route + '.index', { queryParams: queryParamsObject });
+      let queryParamsObject = this.queryParamsObject();
+      this.transitionToRoute(this.root_route + '.index', { queryParams: queryParamsObject });
     }
   }
 });

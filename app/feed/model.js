@@ -43,6 +43,9 @@ export default EntityWithActivityModel.extend({
         return 'warning';
     }
   }),
+  hasIssues: Ember.computed('issues', function() {
+    return this.get('issues').get('length') > 0;
+  }),
   fetchStatusCssClass: Ember.computed('import_status', function() {
     if (this.get('issues').get('firstObject')) {
       return 'danger';
