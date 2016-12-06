@@ -7,5 +7,6 @@
       {{/power-select}}
     </div>
     {{#issue-table model=model issueClicked="issueClicked"}}{{/issue-table}}
+    {{pagination-controls route="issues.feed-fetch.index" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset perPage=per_page}}
   </div>
 </div>
