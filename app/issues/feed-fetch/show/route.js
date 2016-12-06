@@ -10,18 +10,15 @@ export default Ember.Route.extend(IssuesRoute, {
   model: function(params) {
     this.store.unloadAll('changeset');
     this.store.unloadAll('change_payload');
-    var self = this;
-    return self.store.find('issue', params['issue_id']).then(function(selectedIssue){
-      self.allIssueTypes(params);
-      let issues = self.store.query('issue', params);
-      let changeset = self.store.createRecord('changeset', {
-        notes: 'Issue resolution:'
-      });
-      let feed_id = null;
-      selectedIssue.get('entities_with_issues').forEach(function(entity){
-        feed_id = entity.onestop_id
-      });
-      changeset.get('change_payloads').createRecord();
+    this.allIssueTypes(params);
+    let issues = this.store.query('issue', params);
+    let changeset = this.store.createRecord('changeset', {
+      notes: 'Issue resolution:'
+    });
+    changeset.get('change_payloads').createRecord();
+    let self = this;
+    return this.store.findRecord('issue', params['issue_id']).then(function(selectedIssue){
+      let feed_id = selectedIssue.get('entities_with_issues').get('firstObject').onestop_id;
       return Ember.RSVP.hash({
         issues: issues,
         selectedIssue: selectedIssue,
