@@ -17,14 +17,16 @@ export default Ember.Route.extend(IssuesRoute, {
     });
     changeset.get('change_payloads').createRecord();
     let self = this;
-    return this.store.findRecord('issue', params['issue_id']).then(function(selectedIssue){
-      let feed_id = selectedIssue.get('entities_with_issues').get('firstObject').onestop_id;
-      return Ember.RSVP.hash({
-        issues: issues,
-        selectedIssue: selectedIssue,
-        issueTypes: self.issueTypes,
-        feed: self.store.findRecord('feed', feed_id),
-        changeset: changeset
+    return this.store.query('issue', params).then(function(issues){
+      return self.store.findRecord('issue', params['issue_id']).then(function(selectedIssue){
+        let feed_id = selectedIssue.get('entities_with_issues').get('firstObject').onestop_id;
+        return Ember.RSVP.hash({
+          issues: issues,
+          selectedIssue: selectedIssue,
+          issueTypes: self.issueTypes,
+          feed: self.store.findRecord('feed', feed_id),
+          changeset: changeset
+        });
       });
     });
   }
