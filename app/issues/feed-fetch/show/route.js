@@ -11,7 +11,6 @@ export default Ember.Route.extend(IssuesRoute, {
     this.store.unloadAll('changeset');
     this.store.unloadAll('change_payload');
     this.allIssueTypes(params);
-    let issues = this.store.query('issue', params);
     let changeset = this.store.createRecord('changeset', {
       notes: 'Issue resolution:'
     });
