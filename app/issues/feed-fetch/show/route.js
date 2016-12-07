@@ -10,24 +10,22 @@ export default Ember.Route.extend(IssuesRoute, {
   model: function(params) {
     this.store.unloadAll('changeset');
     this.store.unloadAll('change_payload');
-    var self = this;
-    return self.store.find('issue', params['issue_id']).then(function(selectedIssue){
-      if (!('issue_type' in params) || ['all', ''].includes(params['issue_type']) ) params['issue_type'] = self.issueTypes.join(',')
-      let issues = self.store.query('issue', params);
-      let changeset = self.store.createRecord('changeset', {
-        notes: 'Issue resolution:'
-      });
-      let feed_id = null;
-      selectedIssue.get('entities_with_issues').forEach(function(entity){
-        feed_id = entity.onestop_id
-      });
-      changeset.get('change_payloads').createRecord();
-      return Ember.RSVP.hash({
-        issues: issues,
-        selectedIssue: selectedIssue,
-        issueTypes: self.issueTypes,
-        feed: self.store.findRecord('feed', feed_id),
-        changeset: changeset
+    this.allIssueTypes(params);
+    let changeset = this.store.createRecord('changeset', {
+      notes: 'Issue resolution:'
+    });
+    changeset.get('change_payloads').createRecord();
+    let self = this;
+    return this.store.query('issue', params).then(function(issues){
+      return self.store.findRecord('issue', params['issue_id']).then(function(selectedIssue){
+        let feed_id = selectedIssue.get('entities_with_issues').get('firstObject').onestop_id;
+        return Ember.RSVP.hash({
+          issues: issues,
+          selectedIssue: selectedIssue,
+          issueTypes: self.issueTypes,
+          feed: self.store.findRecord('feed', feed_id),
+          changeset: changeset
+        });
       });
     });
   }

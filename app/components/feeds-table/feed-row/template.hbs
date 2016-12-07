@@ -9,8 +9,12 @@
   {{#if feed.last_fetched_at}}
     {{time-since-with-mouseover feed.last_fetched_at}}
   {{/if}}
-  {{#if feed.issues}}
-    {{fa-icon "exclamation-triangle" size=2 classNames="text-danger" title=feed.issues.firstObject.details}}
+</td>
+<td class="{{feed.fetchStatusCssClass}}">
+  {{#if feed.issues.firstObject.issue_type}}
+    {{feed.issues.firstObject.issue_type}}
+  {{else}}
+    no fetch error
   {{/if}}
 </td>
 <td class="{{feed.importStatusCssClass}}">

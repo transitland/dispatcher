@@ -1,22 +1,22 @@
-<div class="jumbotron">
-  <h3>View, Create, and Resolve Issues</h3>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <label>Choose Feed</label>
-        {{#power-select options=model.feeds searchField="display" selected=feed onchange=(action (mut feed)) onfocus=(action "onFocus") allowClear=true as |feed|}}
-          {{feed.id}}
-        {{/power-select}}
-      </div>
+<h3>View, Create, and Resolve Issues</h3>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      {{#feeds-select-table feeds=model.feeds feedClicked="feedClicked" selectedFeed=selectedFeed}}{{/feeds-select-table}}
+      {{pagination-controls route="issues" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset perPage=per_page}}
     </div>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 issues-link">
-        {{#link-to "issues.new" selectedFeed class="list-group-item active"}}Create{{/link-to}}
-      </div>
-      <div class="col-md-6 issues-link">
-        {{#link-to "issues.route-geometry" (query-params feed_onestop_id=selectedFeed) class="list-group-item active"}}Route Geometry{{/link-to}}
+    <div class="col-md-8">
+      <p>Selected Feed: <b>{{selectedFeed}}</b></p>
+      <div>
+        <div class="panel panel-default">
+          <div class="panel-body">{{#link-to "issues.new" selectedFeed}}Create New Issues{{/link-to}}</div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">{{#link-to "issues.feed-fetch" (query-params of_entity=selectedFeed)}}Feed Fetch{{/link-to}}</div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">{{#link-to "issues.route-geometry" (query-params feed_onestop_id=selectedFeed)}}Route Geometry{{/link-to}}</div>
+        </div>
       </div>
     </div>
   </div>

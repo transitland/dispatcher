@@ -1,14 +1,12 @@
 <div class="row">
-  <div class="col-md-3"></div>
-  <div class="col-md-6">
+  <div class="col-md-9">
     <div class="form-group">
       <label>Issue Type</label>
       {{#power-select options=model.issueTypes searchField="display" selected=issue_type onchange=(action "typeChanged") allowClear=true as |issueType|}}
         {{issueType}}
       {{/power-select}}
     </div>
-    {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
-    {{#issue-table model=model issueClicked="issueClicked"}}{{/issue-table}}
+    {{#issue-table model=model route="issues.feed-fetch.show"}}{{/issue-table}}
+    {{pagination-controls route="issues.feed-fetch.index" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset perPage=per_page}}
   </div>
-  <div class="col-md-3"></div>
 </div>

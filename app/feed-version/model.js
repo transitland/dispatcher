@@ -17,6 +17,9 @@ export default DS.Model.extend({
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),
   is_active_feed_version: DS.attr('boolean'),
+  url: DS.attr('string'),
+  download_url: DS.attr('string'),
+  feedvalidator_url: DS.attr('string'),
 
   sha1: Ember.computed.alias('id'),
   import_level_at_least_level_one: Ember.computed.gte('import_level', 1),

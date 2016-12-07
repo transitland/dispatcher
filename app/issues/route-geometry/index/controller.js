@@ -1,21 +1,14 @@
 import Ember from 'ember';
 import IssuesController from 'dispatcher/mixins/issues-controller';
+import PaginatedSortableController from 'dispatcher/mixins/paginated-sortable-controller';
 
-export default Ember.Controller.extend(IssuesController, {
-  actions: {
-    issueClicked: function(issue) {
-      var self = this;
-      let queryParamsObject = self.queryParamsObject();
-      this.transitionToRoute('issues.route-geometry.show', issue.id, { queryParams: queryParamsObject });
-    },
-    typeChanged: function(selected) {
-      var self = this;
-      var orig_func = self._super;
-      Ember.run.next(function(){
-        orig_func.call(self, selected);
-        let queryParamsObject = self.queryParamsObject();
-        self.transitionToRoute('issues.route-geometry.index', { queryParams: queryParamsObject });
-      });
+export default Ember.Controller.extend(IssuesController, PaginatedSortableController, {
+  root_route: 'issues.route-geometry',
+  hasNextPage: Ember.computed("model.issues.meta.next", function() {
+    if (Ember.isPresent(this.get('model.issues.meta.next'))) {
+      return true;
+    } else {
+      return false;
     }
-  }
+  })
 });
