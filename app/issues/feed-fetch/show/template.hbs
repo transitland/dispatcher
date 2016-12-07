@@ -16,6 +16,11 @@
 
 <div class="row">
   <div class="col-md-9">
-    {{#issue-table model=model issueClicked="issueClicked" showChangeset="showChangeset" closeDialog="closeDialog"}}{{/issue-table}}
+    {{#issue-panel title=model.selectedIssue.id issueClicked='issueClicked' issue=model.selectedIssue}}
+      {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
+      <div id={{issue.id}}>
+        {{issue-contents classNames='issue-contents' issue=model.selectedIssue}}
+      </div>
+    {{/issue-panel}}
   </div>
 </div>
