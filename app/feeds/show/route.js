@@ -2,6 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model: function(params) {
-    return this.store.find('feed', params['feed_id']);
+    let feed = this.store.findRecord('feed', params['feed_id'], params);
+    return Ember.RSVP.hash({
+      feed: feed
+    });
   }
 });

@@ -19,7 +19,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "ember-leaflet-measure": "transitland/ember-leaflet-draw#master",
+    "ember-leaflet-measure": "transitland/ember-leaflet-measure#master",
     "ember-leaflet-draw": "transitland/ember-leaflet-draw#master"
   },
   "devDependencies": {
