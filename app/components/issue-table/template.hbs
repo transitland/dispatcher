@@ -1,18 +1,5 @@
 <div class="list-group">
   {{#each model.issues as |issue|}}
-    {{#if (eq issue.id model.selectedIssue.id)}}
-      {{#issue-panel title=issue.id show=true issueClicked='issueClicked' issue=issue}}
-        {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
-        <div id={{issue.id}}>
-          {{issue-contents classNames='issue-contents' issue=issue}}
-        </div>
-      {{/issue-panel}}
-    {{else}}
-      {{#issue-panel title=issue.id show=false issueClicked='issueClicked' issue=issue}}
-        <div id={{issue.id}}>
-          {{issue-contents classNames='issue-contents' issue=issue}}
-        </div>
-      {{/issue-panel}}
-    {{/if}}
+    {{#link-to route issue.id tagName='button' class="btn-default btn-lg btn-block"}}{{issue.id}}{{/link-to}}
   {{/each}}
 </div>
