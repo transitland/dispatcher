@@ -13,7 +13,7 @@ export default Ember.Route.extend(IssuesRoute, {
     // leave issues, so as to not have to repopulate issues table
 
     var self = this;
-    return this.store.findRecord('issue', params['issue_id']).then(function(selectedIssue){
+    return this.store.findRecord('issue', params['issue_id'], { reload: true }).then(function(selectedIssue){
 
       let changeset = self.store.createRecord('changeset', {
         notes: 'Issue resolution:'
