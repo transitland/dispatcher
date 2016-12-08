@@ -2,23 +2,28 @@
 <b>{{issue.issue_type}}</b>
 <p>{{issue.typeDescription}}</p>
 <h3>Entities</h3>
-<table class="table">
-  <thead>
-    <th>Entity ID</th>
-    <th>Entity Attribute</th>
-    <!-- <th>Attribute Value</th> -->
-  </thead>
-  <tbody>
-  {{#each issue.entities_with_issues as |entity_with_issue|}}
-    <tr>
-      <td>{{entity_with_issue.onestop_id}}</td>
-      <td>{{entity_with_issue.entity_attribute}}</td>
-      <!-- <td>{{get entity_with_issue.entity entity_with_issue.entity_attribute}}</td> -->
-    </tr>
-  {{else}}
-    <p>No entities.</p>
-  {{/each}}
-  </tbody>
-</table>
+{{#if showEntities}}
+  <table class="table">
+    <thead>
+      <th>Entity ID</th>
+      <th>Attribute Blame</th>
+      <th>Attribute Value</th>
+    </thead>
+    <tbody>
+      {{#each issue.entities_with_issues as |entity_with_issue|}}
+        <tr>
+          <td>{{entity_with_issue.onestop_id}}</td>
+          <td>{{entity_with_issue.entity_attribute}}</td>
+          <!-- object need to be string -->
+          <td>{{get entity_with_issue.entity entity_with_issue.entity_attribute}}</td>
+        </tr>
+      {{else}}
+        <p>No entities.</p>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  See display.
+{{/if}}
 <h3>Details</h3>
 <p>{{issue.details}}</p>
