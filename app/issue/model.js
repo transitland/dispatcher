@@ -1,10 +1,11 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
   issue_type: DS.attr('string'),
   details: DS.attr('string'),
   open: DS.attr('boolean'),
-  entities_with_issues: DS.attr(),
+  entities_with_issues: DS.hasMany('entity-with-issue', { async: true, inverse: 'issue' }),
 
   typeDescription: Ember.computed('issue_type', function(){
     switch (this.get('issue_type')) {
