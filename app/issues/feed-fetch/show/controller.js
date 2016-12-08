@@ -21,7 +21,7 @@ export default Ember.Controller.extend(IssuesController,
 
   actions: {
     closeDialog: function() {
-      this.set('closeMessage', { show: true, message: 'Closing issues is unavailable.' } );
+      this.set('closeMessage', { show: true, message: 'Closing Feed fetch issues is unavailable.' } );
     },
     closeIssue: function() {
     }
