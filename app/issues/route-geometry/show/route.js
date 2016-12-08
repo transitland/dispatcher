@@ -21,14 +21,12 @@ export default Ember.Route.extend(IssuesRoute, {
       changeset.get('change_payloads').createRecord();
       var rsps = [];
       var stops = [];
-      // TODO: do on issue model itself
-      // check operator serializer, polymorphic relationship, async
       selectedIssue.get('entities_with_issues').forEach(function(entity){
-        if (entity.onestop_id.split('-')[0] === 'r') {
-          rsps.push(entity.onestop_id);
+        if (entity.get('onestop_id').split('-')[0] === 'r') {
+          rsps.push(entity.get('onestop_id'));
         }
-        else if (entity.onestop_id.split('-')[0] === 's') {
-          stops.push(entity.onestop_id);
+        else if (entity.get('onestop_id').split('-')[0] === 's') {
+          stops.push(entity.get('onestop_id'));
         }
       });
       return self.store.query('stop', {onestop_id: stops.join(',')}).then(function(stops){
