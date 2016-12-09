@@ -20,7 +20,7 @@ export default Ember.Mixin.create({
     return queryParams;
   },
 
-  route_route: '',
+  root_route: '',
 
   actions: {
     issueClicked: function(issue) {
