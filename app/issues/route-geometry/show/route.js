@@ -19,6 +19,7 @@ export default Ember.Route.extend(IssuesRoute, {
         notes: 'Issue resolution:'
       });
       changeset.get('change_payloads').createRecord();
+      let users = self.store.query('user', { per_page: false });
       var rsps = [];
       var stops = [];
       selectedIssue.get('entities_with_issues').forEach(function(entity){
@@ -47,7 +48,8 @@ export default Ember.Route.extend(IssuesRoute, {
             issueRouteStopPatterns: rsps,
             issueStops: stops,
             bounds: bounds,
-            changeset: changeset
+            changeset: changeset,
+            users: users
           });
         });
       });

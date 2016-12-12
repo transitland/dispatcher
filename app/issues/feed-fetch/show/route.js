@@ -9,6 +9,7 @@ export default Ember.Route.extend(IssuesRoute, {
       notes: 'Issue resolution:'
     });
     changeset.get('change_payloads').createRecord();
+    let users = this.store.query('user', { per_page: false });
     let self = this;
     return self.store.findRecord('issue', params['issue_id'], { reload: true }).then(function(selectedIssue){
       let feed_id = selectedIssue.get('entities_with_issues').get('firstObject').get('onestop_id');
@@ -16,7 +17,8 @@ export default Ember.Route.extend(IssuesRoute, {
       return Ember.RSVP.hash({
         selectedIssue: selectedIssue,
         feed: feed,
-        changeset: changeset
+        changeset: changeset,
+        users: users
       });
     });
   }
