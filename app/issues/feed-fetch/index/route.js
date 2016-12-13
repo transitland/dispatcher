@@ -9,7 +9,7 @@ export default Ember.Route.extend(IssuesRoute, PaginatedSortableRoute, {
                     'feed_fetch_invalid_response'],
 
   model: function(params) {
-    this.allIssueTypes(params);
+    this.handleAllIssueTypes(params);
     let issues = this.store.query('issue', params, { reload: true });
     let issueTypes = this.issueTypes;
     return Ember.RSVP.hash({
