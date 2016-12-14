@@ -65,7 +65,50 @@
   <dt>Last imported at</dt>
   <dd>{{time-since-with-mouseover model.feed.last_imported_at}}</dd>
 </dl>
-<h2>Feed fetch issues</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Feed fetch issues</th>
+      {{#if (gt model.routeGeometryIssues.meta.total 0)}}
+        <th>Route geometry issues: {{model.routeGeometryIssues.meta.total}}</th>
+      {{else}}
+        <th>Route geometry issues</th>
+      {{/if}}
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        {{#if model.feed.hasIssues}}
+          <td class="danger">
+            {{#each model.feed.issues as |issue|}}
+              <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}}:</strong><br/>
+              <h4>{{#link-to 'issues.feed-fetch.show' issue.id}}
+                View and Resolve Issue #{{issue.id}} {{fa-icon "question" size=2 title='Issue id uniquely identifies the issue in the Datastore'}}
+              {{/link-to}}</h4>
+            {{/each}}
+          </td>
+        {{else}}
+          <td class="success">
+            <strong>None</strong>
+          </td>
+        {{/if}}
+      {{#if (gt model.routeGeometryIssues.meta.total 0)}}
+        <td class="danger">
+          <h4>{{#link-to 'issues.route-geometry.index' (query-params of_feed_entities=model.feed.onestop_id)}}
+            View and resolve.
+          {{/link-to}}</h4>
+        </td>
+      {{else}}
+        <td class="success">
+          <strong>None</strong>
+        </td>
+      {{/if}}
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- <h2>Feed fetch issues</h2>
 {{#if model.feed.hasIssues}}
   {{#each model.feed.issues as |issue|}}
     {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
@@ -77,7 +120,17 @@
   {{/each}}
 {{else}}
   <strong>None</strong>
-{{/if}}
+{{/if}} -->
+
+<!-- <h2>Route geometry issues: {{model.routeGeometryIssues.meta.total}}</h2>
+<h4>{{#link-to 'issues.route-geometry.index' (query-params feed_onestop_id=model.feed.onestop_id)}}
+  View and resolve route geometry issues
+{{/link-to}}</h4> -->
+
+<h2>Create an issue</h2>
+<h4>{{#link-to 'issues.new' model.feed.onestop_id  (query-params imported_from_feed=model.feed.onestop_id)}}
+  Create an issue from feed {{model.feed.onestop_id}} entities.
+{{/link-to}}</h4>
 
 <h2>Changesets imported from this feed</h2>
 <ul>
