@@ -1,11 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
-  queryParams: ['of_feed_entities', 'open', 'issue_type', 'per_page', 'of_entity'],
+  queryParams: ['feed_onestop_id', 'open', 'issue_type', 'per_page', 'of_entity'],
 
   issue_type: '',
 
-  of_feed_entities: '',
+  feed_onestop_id: '',
 
   open: true,
 
