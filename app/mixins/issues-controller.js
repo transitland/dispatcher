@@ -24,17 +24,15 @@ export default Ember.Mixin.create({
     return queryParams;
   },
 
-  root_route: '',
-
   actions: {
     issueClicked: function(issue) {
       let queryParamsObject = this.queryParamsObject();
-      this.transitionToRoute(this.root_route + '.show', issue.id, { queryParams: queryParamsObject });
+      this.transitionToRoute(this.rootRoute + '.show', issue.id, { queryParams: queryParamsObject });
     },
     typeChanged: function(selected) {
       this.set('issue_type', selected);
       let queryParamsObject = this.queryParamsObject();
-      this.transitionToRoute(this.root_route + '.index', { queryParams: queryParamsObject });
+      this.transitionToRoute(this.rootRoute + '.index', { queryParams: queryParamsObject });
     }
   }
 });

@@ -10,8 +10,7 @@ export default Ember.Mixin.create({
       var self = this;
       self.model.selectedIssue.save().then(function(){
         self.set('closeMessage.show', false);
-        let queryParamsObject = self.queryParamsObject();
-        self.transitionToRoute(self.root_route + '.index', { queryParams: queryParamsObject });
+        self.postCloseTransition();
       }).catch(function(error){
         self.set('closeMessage', {show: true, error: true, message: 'Error closing issue ' + self.model.selectedIssue.id + '. ' + error.message});
       });
