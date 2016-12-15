@@ -6,6 +6,8 @@
 <h3>Created by changeset</h3>
 {{#if issue.created_by_changeset_id}}
   {{#link-to 'changesets.show' issue.created_by_changeset_id}}{{issue.created_by_changeset_id}}{{/link-to}}
+{{else}}
+  None.
 {{/if}}
 <h3>Entities</h3>
 {{#if showEntities}}
