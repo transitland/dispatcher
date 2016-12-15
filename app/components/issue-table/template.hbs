@@ -1,5 +1,14 @@
 <div class="list-group">
   {{#each model.issues as |issue|}}
-    {{#link-to route issue.id tagName='button' class="btn-default btn-lg btn-block"}}{{issue.id}}{{/link-to}}
+    {{#link-to route issue.id tagName='button' class="btn-default btn-lg btn-block"}}
+      <div>
+        <div style="float: left;">
+          <b>{{issue.id}}</b>
+        </div>
+        <div style="float: right;">
+          Time created: {{issue.created_at}}
+        </div>
+      </div>
+    {{/link-to}}
   {{/each}}
 </div>
