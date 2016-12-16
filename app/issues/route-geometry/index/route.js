@@ -10,7 +10,7 @@ export default Ember.Route.extend(IssuesRoute, PaginatedSortableRoute, {
                     'stop_position_inaccurate'],
 
   model: function(params) {
-    this.allIssueTypes(params);
+    this.handleAllIssueTypes(params);
     let issues = this.store.query('issue', params);
     var self = this;
     return Ember.RSVP.hash({
