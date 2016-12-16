@@ -11,7 +11,17 @@ export default Ember.Controller.extend(IssuesController,
 
   },
 
-  root_route: 'issues.route-geometry',
+  rootRoute: 'issues.route-geometry',
+
+  postSuccessTransition: function() {
+    let queryParamsObject = this.queryParamsObject();
+    this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParamsObject });
+  },
+
+  postCloseTransition: function() {
+    let queryParamsObject = this.queryParamsObject();
+    this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParamsObject });
+  },
 
   getChanges: function() {
     var entities = [];

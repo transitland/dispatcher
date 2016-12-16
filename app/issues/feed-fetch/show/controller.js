@@ -8,7 +8,11 @@ export default Ember.Controller.extend(IssuesController,
                                        IssuesCloseController, {
   selected: false,
 
-  root_route: 'issues.feed-fetch',
+  rootRoute: 'issues.feed-fetch',
+
+  postSuccessTransition: function() {
+    this.transitionToRoute('feeds.show', this.model.feed.get('onestop_id'));
+  },
 
   getChanges: function() {
     let thisIssue = this.model.selectedIssue;

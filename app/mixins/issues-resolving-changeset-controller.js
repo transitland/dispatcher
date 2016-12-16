@@ -22,8 +22,7 @@ export default Ember.Mixin.create({
           type: 'success',
           sticky: true
         });
-        let queryParamsObject = self.queryParamsObject();
-        self.transitionToRoute(self.root_route + '.index', { queryParams: queryParamsObject });
+        self.postSuccessTransition();
       }
       else if (response.status === 'queued') {
         Ember.run.later(self.pollChangesetApply.bind(self, resolvingIssue, url, applicationAdapter), 2000);
