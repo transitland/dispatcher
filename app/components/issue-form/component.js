@@ -7,18 +7,18 @@ export default Ember.Component.extend({
       "distance_calculation_inaccurate",
       "stop_position_inaccurate",
       "stop_name",
-      "uncategorized"
+      "other"
     ],
     route: [
       "route_color",
       "route_name",
-      "uncategorized"
+      "other"
     ],
     route_stop_pattern: [
       "stop_rsp_distance_gap",
       "rsp_line_inaccurate",
       "distance_calculation_inaccurate",
-      "uncategorized"
+      "other"
     ]
   },
   acceptedAttributes: {
@@ -29,7 +29,7 @@ export default Ember.Component.extend({
     "route_color": ["color"],
     "route_name": ["name"],
     "rsp_line_inaccurate": ["geometry"],
-    "uncategorized": []
+    "other": []
   },
   selectedEntities: [],
   selectedIssueType: [],
