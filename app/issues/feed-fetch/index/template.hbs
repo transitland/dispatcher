@@ -2,7 +2,7 @@
   <div class="col-md-9">
     <div class="form-group">
       <label>Issue Type</label>
-      {{#power-select options=model.issues.meta.categories.feed_fetch searchField="display" selected=issue_type onchange=(action "typeChanged") allowClear=true as |issueType|}}
+      {{#power-select options=model.issueTypes searchField="display" selected=issue_type onchange=(action "typeChanged") allowClear=true as |issueType|}}
         {{issueType}}
       {{/power-select}}
     </div>
