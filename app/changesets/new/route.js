@@ -24,7 +24,7 @@ export default Ember.Route.extend({
           message: `Error(s) creating changeset: ${error.message}`,
           type: 'danger',
           sticky: true
-        })
+        });
       });
 
     }
