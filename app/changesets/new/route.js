@@ -20,7 +20,11 @@ export default Ember.Route.extend({
       changeset.save().then(function() {
         self.transitionTo('changesets.show', changeset);
       }).catch(function(error) {
-        flashMessages.danger(`Error(s) creating changeset: ${error.message}`);
+        flashMessages.add({
+          message: `Error(s) creating changeset: ${error.message}`,
+          type: 'danger',
+          sticky: true
+        })
       });
 
     }

@@ -15,10 +15,18 @@ export default Ember.Component.extend({
       const flashMessages = Ember.get(this, 'flashMessages');
       feedVersion.set('import_level', importLevel);
       feedVersion.save().then(function() {
-        flashMessages.success("Import level updated on feed version!");
+        flashMessages.add({
+          message: "Import level updated on feed version!",
+          type: 'success',
+          sticky: true
+        });
         // TODO: force a reload of the feed model
       }).catch(function(error) {
-        flashMessages.danger(`Error(s) updating import level on feed version: ${error.message}`);
+        flashMessages.add({
+          message: `Error(s) updating import level on feed version: ${error.message}`,
+          type: 'danger',
+          sticky: true
+        });
       }).finally(function() {
         self.set('dropDownExpanded', false);
       });
@@ -28,9 +36,17 @@ export default Ember.Component.extend({
       const flashMessages = Ember.get(this, 'flashMessages');
       this.get('feedVersion').enqueue(importLevel)
       .then( () => {
-        flashMessages.success('Successfully enqueued feed version for import!');
+        flashMessages.add({
+          message: 'Successfully enqueued feed version for import!',
+          type: 'success',
+          sticky: true
+        });
       }).catch( (e) => {
-        flashMessages.danger(`Error enqueuing feed version for import: ${e.message}`);
+        flashMessages.add({
+          message: `Error enqueuing feed version for import: ${e.message}`,
+          type: 'danger',
+          sticky: true
+        });
       }).finally(function() {
         self.set('dropDownExpanded', false);
       });
