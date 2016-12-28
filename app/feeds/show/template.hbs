@@ -3,7 +3,7 @@
     <h2>{{link-to 'Feeds' 'feeds'}} / {{model.feed.onestop_id}}</h2>
   </div>
   <div class="col-md-6 text-right">
-    {{feed-fetcher-controls feedFetchSucceeded="feedFetchSucceeded" feed=model.feed}}
+    {{feed-fetcher-controls feedFetchStarted="feedFetchStarted" feed=model.feed}}
   </div>
 </div>
 
@@ -71,7 +71,7 @@
     {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
       <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}}</strong><br/>
       <b>Issue type:</b> {{issue.issue_type}}<br/>
-      <b>Description:</b> {{issue.typeDescription}}<br/>
+      <b>Description:</b> {{issue.computeTypeDescription}}<br/>
       <h4>{{#link-to 'issues.feed-fetch.show' issue.id}}
         View details and resolve issue #{{issue.id}} {{fa-icon "question" size=2 title='Issue id uniquely identifies the Issue in the Datastore'}}
       {{/link-to}}</h4>
