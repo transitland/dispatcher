@@ -7,7 +7,8 @@
 <p>{{issue.updated_at}}</p>
 <h3>Created by changeset</h3>
 {{#if issue.created_by_changeset_id}}
-  {{#link-to 'changesets.show' issue.created_by_changeset_id}}{{issue.created_by_changeset_id}}{{/link-to}}
+  <!-- {{#link-to 'changesets.show' issue.created_by_changeset_id}}{{issue.created_by_changeset_id}}{{/link-to}} -->
+  {{issue.created_by_changeset_id}}
 {{else}}
   None.
 {{/if}}
