@@ -15,10 +15,18 @@ export default Ember.Route.extend({
       let changeset = self.currentModel.changeset;
       const flashMessages = Ember.get(this, 'flashMessages');
       changeset.destroyRecord().then(() => {
-        flashMessages.success("Changeset deleted!");
+        flashMessages.add({
+          message: "Changeset deleted!",
+          type: 'success',
+          sticky: true
+        });
         self.transitionTo('changesets');
       }).catch(function(error) {
-        flashMessages.danger(`Error(s) deleting changeset: ${error.message}`);
+        flashMessages.add({
+          message: `Error(s) deleting changeset: ${error.message}`,
+          type: 'danger',
+          sticky: true
+        });
       });
     },
     update: function() {
@@ -26,10 +34,18 @@ export default Ember.Route.extend({
       let self = this;
       let changeset = self.currentModel.changeset;
       changeset.save().then(function() {
-        flashMessages.success("Changeset updated!");
+        flashMessages.add({
+          message: "Changeset updated!",
+          type: 'success',
+          sticky: true
+        });
         self.transitionTo('changesets.show', changeset);
       }).catch(function(error) {
-        flashMessages.danger(`Error(s) updating changeset: ${error.message}`);
+        flashMessages.add({
+          message: `Error(s) updating changeset: ${error.message}`,
+          type: 'danger',
+          sticky: true
+        });
       });
     }
   }
