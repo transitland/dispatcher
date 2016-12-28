@@ -37,9 +37,17 @@ export default Ember.Component.extend({
         return feed.content.enqueue(importLevel);
       });
       Ember.RSVP.allSettled(importPromises).then( () => {
-        flashMessages.success('Successfully enqueued latest versions of feed(s) for import!');
+        flashMessages.add({
+          message: 'Successfully enqueued latest versions of feed(s) for import!',
+          type: 'success',
+          sticky: true
+        });
       }).catch( (e) => {
-        flashMessages.danger(`Error enqueuing feed(s) for import: ${e.message}`);
+        flashMessages.add({
+          message: `Error enqueuing feed(s) for import: ${e.message}`,
+          type: 'danger',
+          sticky: true
+        });
       });
     }
   }
