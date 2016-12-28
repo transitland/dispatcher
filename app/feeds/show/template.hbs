@@ -3,7 +3,7 @@
     <h2>{{link-to 'Feeds' 'feeds'}} / {{model.feed.onestop_id}}</h2>
   </div>
   <div class="col-md-6 text-right">
-    {{feed-fetcher-controls feed=model.feed}}
+    {{feed-fetcher-controls feedFetchStarted="feedFetchStarted" feed=model.feed}}
   </div>
 </div>
 
@@ -69,15 +69,49 @@
 {{#if model.feed.hasIssues}}
   {{#each model.feed.issues as |issue|}}
     {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
-      <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}}:</strong><br/>
+      <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}}</strong><br/>
+      <b>Issue type:</b> {{issue.issue_type}}<br/>
+      <b>Description:</b> {{issue.computeTypeDescription}}<br/>
       <h4>{{#link-to 'issues.feed-fetch.show' issue.id}}
-        View and Resolve Issue #{{issue.id}} {{fa-icon "question" size=2 title='Issue id uniquely identifies the Issue in the Datastore'}}
+        View details and resolve issue #{{issue.id}} {{fa-icon "question" size=2 title='Issue id uniquely identifies the Issue in the Datastore'}}
       {{/link-to}}</h4>
     {{/collapsable-panel}}
   {{/each}}
 {{else}}
   <strong>None</strong>
 {{/if}}
+<h2>Feed import issues</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      {{#if (gt model.routeGeometryIssues.meta.total 0)}}
+        <th>Route geometry issues: {{model.routeGeometryIssues.meta.total}}</th>
+      {{else}}
+        <th>Route geometry issues</th>
+      {{/if}}
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {{#if (gt model.routeGeometryIssues.meta.total 0)}}
+        <td class="danger">
+          {{#link-to 'issues.route-geometry.index' (query-params of_feed_entities=model.feed.onestop_id)}}
+            View and resolve.
+          {{/link-to}}
+        </td>
+      {{else}}
+        <td class="success">
+          <strong>None</strong>
+        </td>
+      {{/if}}
+    </tr>
+  </tbody>
+</table>
+
+<h2>Create an issue</h2>
+<h4>{{#link-to 'issues.new' model.feed.onestop_id  (query-params imported_from_feed=model.feed.onestop_id)}}
+  Create an issue from feed {{model.feed.onestop_id}} entities.
+{{/link-to}}</h4>
 
 <h2>Changesets imported from this feed</h2>
 <ul>

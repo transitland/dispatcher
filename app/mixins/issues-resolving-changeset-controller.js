@@ -16,23 +16,37 @@ export default Ember.Mixin.create({
     const flashMessages = Ember.get(this, 'flashMessages');
     applicationAdapter.ajax(url, 'post').then(function(response){
       if (response.status === 'complete') {
-        flashMessages.success('Successfully resolved issue ' + resolvingIssue.id);
-        let queryParamsObject = self.queryParamsObject();
-        self.transitionToRoute(self.root_route + '.index', { queryParams: queryParamsObject });
+        flashMessages.clearMessages();
+        flashMessages.add({
+          message: 'Successfully resolved issue ' + resolvingIssue.id + '. Click to close.',
+          type: 'success',
+          sticky: true
+        });
+        self.postSuccessTransition();
       }
       else if (response.status === 'queued') {
         Ember.run.later(self.pollChangesetApply.bind(self, resolvingIssue, url, applicationAdapter), 2000);
       }
       else if (response.status === 'error') {
-        flashMessages.danger('Error resolving issue ' + resolvingIssue.id + '. ' + response.errors);
+        flashMessages.clearMessages();
+        flashMessages.add({
+          message: 'Error resolving issue ' + resolvingIssue.id + '. ' + response.errors + '. Click to close.',
+          type: 'danger',
+          sticky: true
+        });
         // clean the changeset, but leave edits.
         self.emptyChangeset();
       }
       else {
         Ember.run.later(self.pollChangesetApply.bind(self, resolvingIssue, url, applicationAdapter), 2000);
       }
-    }).catch(function(error){
-      flashMessages.danger('Error resolving issue ' + resolvingIssue.id + '. ' + error);
+    }).catch(function(e){
+      flashMessages.clearMessages();
+      flashMessages.add({
+        message: 'Error resolving issue ' + resolvingIssue.id + '. ' + e.errors[0].message + '. Click to close.',
+        type: 'danger',
+        sticky: true
+      });
       // clean the changeset, but leave edits.
       self.emptyChangeset();
     });

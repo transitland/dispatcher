@@ -8,7 +8,11 @@ export default Ember.Controller.extend(IssuesController,
                                        IssuesCloseController, {
   selected: false,
 
-  root_route: 'issues.feed-fetch',
+  rootRoute: 'issues.feed-fetch',
+
+  postSuccessTransition: function() {
+    this.transitionToRoute('feeds.show', this.model.feed.get('onestop_id'));
+  },
 
   getChanges: function() {
     let thisIssue = this.model.selectedIssue;
@@ -21,7 +25,7 @@ export default Ember.Controller.extend(IssuesController,
 
   actions: {
     closeDialog: function() {
-      this.set('closeMessage', { show: true, message: 'Closing issues is unavailable.' } );
+      this.set('closeMessage', { show: true, message: 'Closing Feed fetch issues is unavailable.' } );
     },
     closeIssue: function() {
     }

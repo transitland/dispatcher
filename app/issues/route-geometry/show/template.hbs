@@ -19,7 +19,7 @@
     {{#issue-panel title=model.selectedIssue.id issueClicked='issueClicked' issue=model.selectedIssue}}
       {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
       <div id={{issue.id}}>
-        {{issue-contents classNames='issue-contents' issue=model.selectedIssue}}
+        {{issue-contents classNames='issue-contents' issue=model.selectedIssue showEntities=false}}
       </div>
     {{/issue-panel}}
   </div>
