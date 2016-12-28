@@ -10,10 +10,18 @@ export default Ember.Route.extend({
       var self = this;
       var changeset = self.currentModel;
       changeset.apply().then(() => {
-        flashMessages.success("Changeset applied!");
+        flashMessages.add({
+          message: "Changeset applied!",
+          type: 'success',
+          sticky: true
+        });
         changeset.reload();
       }).catch((error) => {
-        flashMessages.danger(`Error(s) applying changeset: ${error.message}`);
+        flashMessages.add({
+          message: `Error(s) applying changeset: ${error.message}`,
+          type: 'danger',
+          sticky: true
+        });
       });
     }
   }

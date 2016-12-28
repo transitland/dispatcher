@@ -10,10 +10,18 @@ export default Ember.Route.extend({
       var self = this;
       var user = self.currentModel;
       user.save().then(function() {
-        flashMessages.success("User updated!");
+        flashMessages.add({
+          message: "User updated!",
+          type: 'success',
+          sticky: true
+        });
         self.transitionTo('users.show', user);
       }).catch(function(error) {
-        flashMessages.danger(`Error(s) updating user: ${error.message}`);
+        flashMessages.add({
+          message: `Error(s) updating user: ${error.message}`,
+          type: 'danger',
+          sticky: true
+        });
       });
     }
   }

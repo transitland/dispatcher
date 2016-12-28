@@ -33,10 +33,18 @@ export default Ember.Controller.extend({
         .then(function(changeset) {
           return changeset.apply();
         }).then(function() {
-          flashMessages.success(`Changeset created & applied`);
+          flashMessages.add({
+            message: `Changeset created & applied`,
+            type: 'success',
+            sticky: true
+          });
           self.set('showChangeset', false);
         }).catch(function(error) {
-          flashMessages.danger(`Error(s) updating change payload: ${error.message}`);
+          flashMessages.add({
+            message: `Error(s) updating change payload: ${error.message}`,
+            type: 'danger',
+            sticky: true
+          });
         });
     },
     setBounds: function() {
