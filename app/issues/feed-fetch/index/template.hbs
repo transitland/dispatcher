@@ -3,7 +3,9 @@
     <div class="form-group">
       <label>Issue Type</label>
       {{#power-select options=model.issueTypes searchField="display" selected=issue_type onchange=(action "typeChanged") allowClear=true as |issueType|}}
-        {{issueType}}
+        {{#unless (eq issueType 'null')}}
+          <b>{{issueType}}</b> ({{issue-type-desc issueType}})
+        {{/unless}}
       {{/power-select}}
     </div>
     {{#issue-table model=model route="issues.feed-fetch.show"}}{{/issue-table}}
