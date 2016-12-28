@@ -19,6 +19,7 @@ export default Ember.Component.extend({
           feed_onestop_id: this.get("feeds").mapBy("onestop_id").join(",")
         };
       }
+      let self = this;
       adapter.ajax(url, 'post', params)
         .then( () => {
           flashMessages.add({
