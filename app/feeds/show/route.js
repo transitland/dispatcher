@@ -8,5 +8,10 @@ export default Ember.Route.extend({
       feed: feed,
       routeGeometryIssues: routeGeometryIssues
     });
+  },
+  actions: {
+    feedFetchSucceeded: function() {
+      this.transitionTo('feeds.show', this.currentModel.feed.id);
+    }
   }
 });

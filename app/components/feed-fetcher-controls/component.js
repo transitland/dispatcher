@@ -19,9 +19,11 @@ export default Ember.Component.extend({
           feed_onestop_id: this.get("feeds").mapBy("onestop_id").join(",")
         };
       }
+      let self = this;
       adapter.ajax(url, 'post', params)
         .then( () => {
           flashMessages.success('Starting to fetch feed(s)!');
+          self.sendAction('feedFetchSucceeded');
         }).catch(function(error) {
           flashMessages.danger(`Error(s) fetching feed(s): ${error.message}`);
         });
