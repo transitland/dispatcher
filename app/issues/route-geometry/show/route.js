@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import IssuesRoute from 'dispatcher/mixins/issues-route'
+import IssuesRoute from 'dispatcher/mixins/issues-route';
 
 export default Ember.Route.extend(IssuesRoute, {
 
