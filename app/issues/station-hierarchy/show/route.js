@@ -5,6 +5,7 @@ export default Ember.Route.extend(IssuesRoute, {
   model: function(params) {
     this.store.unloadAll('changeset');
     this.store.unloadAll('change_payload');
+    this.store.unloadAll('stop');
     this.store.unloadAll('stop-station');
 
     var self = this;

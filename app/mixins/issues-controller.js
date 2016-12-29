@@ -9,7 +9,7 @@ export default Ember.Mixin.create({
 
   open: true,
 
-  per_page: '∞',
+  per_page: '50',
 
   of_entity: '',
 
