@@ -26,13 +26,15 @@ export default Ember.Route.extend(IssuesRoute, {
         }
       });
       return self.store.query('stop-station', { onestop_id: stops.join(',') }).then(function(stops){
-        var bounds = new L.latLngBounds(stops.map(function(stop) {
+        let bounds = new L.latLngBounds(stops.map(function(stop) {
           return new L.latLng(stop.get('coordinates'));
         }));
+        let latLng = bounds.getCenter();
         return Ember.RSVP.hash({
           selectedIssue: selectedIssue,
           changeset: changeset,
-          bounds: bounds,
+          lat: latLng.lat,
+          lng: latLng.lng,
           users: users,
           stops: stops
         });

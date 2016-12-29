@@ -6,6 +6,8 @@ import IssuesCloseController from 'dispatcher/mixins/issues-close-controller';
 export default Ember.Controller.extend(IssuesController,
                                        IssuesResolvingChangesetController,
                                        IssuesCloseController, {
+    zoom: 14,
+
     rootRoute: 'issues.station-hierarchy',
 
     postSuccessTransition: function() {
