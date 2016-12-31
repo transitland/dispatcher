@@ -4,6 +4,13 @@
   {{input id="name" value=stop.name class="form-control"}}
 </div>
 
+{{#if stop.issues}}
+  <h5>Issues</h5>
+  {{#each stop.issues as |issue|}}
+    {{#link-to 'issues.station-hierarchy.show' issue.id}}Issue #{{issue.id}}{{/link-to}}<br />
+  {{/each}}
+{{/if}}
+
 {{#if stop.parent_stop}}
 
   <div class="form-group">
