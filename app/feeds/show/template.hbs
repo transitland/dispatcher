@@ -109,7 +109,7 @@
           <strong>None</strong>
         </td>
       {{/if}}
-      {{#if (gt model.routeGeometryIssues.meta.total 0)}}
+      {{#if (gt model.stationHierarchyIssues.meta.total 0)}}
         <td class="danger">
           {{#link-to 'issues.station-hierarchy.index' (query-params of_feed_entities=model.feed.onestop_id)}}
             View and resolve.
