@@ -89,6 +89,11 @@
       {{else}}
         <th>Route geometry issues</th>
       {{/if}}
+      {{#if (gt model.stationHierarchyIssues.meta.total 0)}}
+        <th>Station hierarchy issues: {{model.stationHierarchyIssues.meta.total}}</th>
+      {{else}}
+        <th>Station hierarchy issues</th>
+      {{/if}}
     </tr>
   </thead>
   <tbody>
@@ -96,6 +101,17 @@
       {{#if (gt model.routeGeometryIssues.meta.total 0)}}
         <td class="danger">
           {{#link-to 'issues.route-geometry.index' (query-params of_feed_entities=model.feed.onestop_id)}}
+            View and resolve.
+          {{/link-to}}
+        </td>
+      {{else}}
+        <td class="success">
+          <strong>None</strong>
+        </td>
+      {{/if}}
+      {{#if (gt model.routeGeometryIssues.meta.total 0)}}
+        <td class="danger">
+          {{#link-to 'issues.station-hierarchy.index' (query-params of_feed_entities=model.feed.onestop_id)}}
             View and resolve.
           {{/link-to}}
         </td>

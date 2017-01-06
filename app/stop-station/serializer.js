@@ -9,6 +9,9 @@ export default ApplicationSerializer.extend(DS.EmbeddedRecordsMixin, {
     },
     stop_egresses: {
       deserialize: 'records'
+    },
+    issues: {
+      embedded: 'always'
     }
   }
 });
