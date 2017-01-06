@@ -25,7 +25,7 @@
   </div>
   <div class="col-md-8">
     <div>
-      {{#route-map model=model rspAdded="rspAdded" stopAdded="stopAdded" actionDrawEdited="actionDrawEdited"}}{{/route-map}}
+      {{stop-map stops=model.stops lat=model.lat lng=model.lng zoom=zoom onChanges=(action 'showChangeset')}}
     </div>
   </div>
 </div>
