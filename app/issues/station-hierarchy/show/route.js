@@ -10,7 +10,6 @@ export default Ember.Route.extend(IssuesRoute, {
 
     var self = this;
     return self.store.findRecord('issue', params['issue_id'], { reload: true }).then(function(selectedIssue){
-      var bbox = params.bbox;
       // Changeset
       let changeset = self.store.createRecord('changeset', {
         notes: 'Issue resolution:'
