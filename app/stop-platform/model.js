@@ -12,6 +12,7 @@ export default Stop.extend({
       this.set('parent_stop', value);
     }
   }),
+  issues: DS.hasMany('issue'),
   entityType: function() {
     return 'stopPlatform';
   },
@@ -20,7 +21,7 @@ export default Stop.extend({
       onestopId: this.id,
       parentStopOnestopId: this.get('parent_stop').get('id'),
       name: this.get('name'),
-      timezone: this.get('timezone'),      
+      timezone: this.get('timezone'),
       geometry: {
         type: "Point",
         coordinates: this.get('geometry').coordinates

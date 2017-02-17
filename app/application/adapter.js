@@ -40,6 +40,7 @@ export default DS.RESTAdapter.extend({
         data["api_key"] = ENV.apiProxyKey;
       }
       data["total"] = true;
+      data["embed_issues"] = true;
       hash.data = data;
     }
     return hash;

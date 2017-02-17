@@ -7,7 +7,7 @@ export default EntityWithActivityModel.extend({
   active_feed_version: DS.belongsTo('feed-version', { async: true, inverse: 'active_for_feed' }),
   created_or_updated_in_changeset: DS.belongsTo('changeset', { async: true }),
   changesets_imported_from_this_feed: DS.hasMany('changeset', { async: true, inverse: 'imported_from_feed' }),
-  issues: DS.hasMany('issue', { async: true }),
+  issues: DS.hasMany('issue'),
 
   operators_in_feed: DS.attr(),
   import_level_of_active_feed_version: DS.attr('number'),
