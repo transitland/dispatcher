@@ -16,6 +16,7 @@ export default EntityWithActivityModel.extend({
 	updated_at: DS.attr('date'),
 	geometry: DS.attr(),
 	tags: DS.attr(),
+	issues: DS.hasMany('issue'),
 	stopsWithDistances: Ember.computed('stop_pattern', function(){
 		var self = this;
 		var args = {};

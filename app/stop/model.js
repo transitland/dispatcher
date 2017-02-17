@@ -11,7 +11,7 @@ export default EntityWithActivityModel.extend({
 	updated_at: DS.attr('date'),
 	geometry: DS.attr(),
 	tags: DS.attr(),
-
+	issues: DS.hasMany('issue'),
   timezone: DS.attr('string'),
   coordinates: Ember.computed('geometry', function () {
     return this.get('geometry').coordinates.slice().reverse();
