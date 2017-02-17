@@ -1,0 +1,16 @@
+<table class="table table-hover">
+  <thead>
+    <th>Onestop ID</th>
+    <th>Name</th>
+  </thead>
+  <tbody>
+    {{#each operators as |operator|}}
+      <tr>
+        <td>{{link-to operator.onestop_id "operators.show" operator}}</td>
+        <td>{{operator.name}}</td>
+      </tr>
+    {{else}}
+      <p>No operators.</p>
+    {{/each}}
+  </tbody>
+</table>

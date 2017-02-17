@@ -20,6 +20,9 @@ Router.map(function() {
   this.route('feeds', function() {
     this.route('show', { path: '/:feed_id' });
   });
+  this.route('operators', function() {
+    this.route('show', { path: '/:operator_id' });
+  });
   this.route('users', function() {
     this.route('show', { path: '/:user_id' });
     this.route('edit', { path: '/:user_id/edit' });

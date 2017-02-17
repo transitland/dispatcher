@@ -20,9 +20,20 @@
   </dd>
   <dt>Operators In Feed</dt>
   <dd>
-    {{#each model.feed.operators_in_feed as |oif|}}
-      {{oif.operator_onestop_id}}: {{oif.gtfs_agency_id}} <br />
-    {{/each}}
+    <table class="table table-condensed table-bordered">
+      <thead>
+        <th>GTFS agency ID</th>
+        <th>Onestop ID</th>
+      </thead>
+      <tbody>
+        {{#each model.feed.operators_in_feed as |oif|}}
+          <tr>
+            <td>{{oif.gtfs_agency_id}}</td>
+            <td>{{link-to oif.operator_onestop_id 'operators.show' oif.operator_onestop_id}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </dd>
   <dt>License name and/or URL</dt>
   <dd>{{model.feed.license_name}} {{model.feed.license_url}}</dd>
