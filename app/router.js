@@ -34,6 +34,9 @@ Router.map(function() {
     this.route('feed-fetch', function() {
       this.route('show', { path: '/:issue_id' });
     });
+    this.route('station-hierarchy', function() {
+      this.route('show', { path: '/:issue_id' });
+    });
   });
   this.route('stations');
   this.route('routingcheck');
