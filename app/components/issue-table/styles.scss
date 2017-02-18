@@ -1,4 +1,4 @@
-.list-group {
-  height: 550px;
-  overflow-y: scroll;
+// http://getbootstrap.com/css/#tables-responsive
+@-moz-document url-prefix() {
+  fieldset { display: table-cell; }
 }
