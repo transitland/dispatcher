@@ -1,17 +1,8 @@
 <h3>Issue type</h3>
 <b>{{issue.issue_type}}</b>
 <p>{{issue.computeTypeDescription}}</p>
-<h3>Time created</h3>
-<p>{{issue.created_at}}</p>
-<h3>Time updated</h3>
-<p>{{issue.updated_at}}</p>
-<h3>Created by changeset</h3>
-{{#if issue.created_by_changeset_id}}
-  <!-- {{#link-to 'changesets.show' issue.created_by_changeset_id}}{{issue.created_by_changeset_id}}{{/link-to}} -->
-  {{issue.created_by_changeset_id}}
-{{else}}
-  None.
-{{/if}}
+<h3>Details</h3>
+<p>{{issue.details}}</p>
 <h3>Entities</h3>
 {{#if showEntities}}
   <table class="table">
@@ -34,7 +25,16 @@
     </tbody>
   </table>
 {{else}}
-  See display.
+  Click on Stop markers and RouteStopPattern lines for Onestop Ids.
 {{/if}}
-<h3>Details</h3>
-<p>{{issue.details}}</p>
+<h3>Time created</h3>
+<p>{{issue.created_at}}</p>
+<h3>Time updated</h3>
+<p>{{issue.updated_at}}</p>
+<h3>Created by changeset</h3>
+{{#if issue.created_by_changeset_id}}
+  <!-- {{#link-to 'changesets.show' issue.created_by_changeset_id}}{{issue.created_by_changeset_id}}{{/link-to}} -->
+  {{issue.created_by_changeset_id}}
+{{else}}
+  None.
+{{/if}}
