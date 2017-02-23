@@ -14,7 +14,6 @@
         <tr>
           <td>{{entity_with_issue.onestop_id}}</td>
           <td>{{entity_with_issue.entity_attribute}}</td>
-          <!-- objects need to be string -->
           <td>{{get entity_with_issue.entity entity_with_issue.entity_attribute}}</td>
         </tr>
       {{else}}
@@ -26,12 +25,11 @@
 <h3>Details</h3>
 <p>{{issue.details}}</p>
 <h3>Time created</h3>
-<p>{{issue.created_at}}</p>
+<p>{{time-since-with-mouseover issue.created_at}}</p>
 <h3>Time updated</h3>
-<p>{{issue.updated_at}}</p>
+<p>{{time-since-with-mouseover issue.updated_at}}</p>
 <h3>Created by changeset</h3>
 {{#if issue.created_by_changeset_id}}
-  <!-- {{#link-to 'changesets.show' issue.created_by_changeset_id}}{{issue.created_by_changeset_id}}{{/link-to}} -->
   {{issue.created_by_changeset_id}}
 {{else}}
   None.
