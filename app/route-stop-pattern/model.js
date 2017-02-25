@@ -17,6 +17,9 @@ export default EntityWithActivityModel.extend({
 	geometry: DS.attr(),
 	tags: DS.attr(),
 	issues: DS.hasMany('issue'),
+	patterns: [
+		{offset: 0, repeat: 20, symbol: L.Symbol.arrowHead({pixelSize: 12, pathOptions: {fillOpacity: 1, weight: 0}})}
+	],
 	stopsWithDistances: Ember.computed('stop_pattern', function(){
 		var self = this;
 		var args = {};
