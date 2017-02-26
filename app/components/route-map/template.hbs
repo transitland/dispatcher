@@ -5,13 +5,17 @@
     {{#each model.issueRouteStopPatterns as |rsp|}}
       {{route-map/route-stop-pattern rspAdded="rspAdded" model=rsp}}
       {{#each rsp.stopsWithDistances as |stop index|}}
-        {{#each model.issueStops as |issueStop|}}
-          {{#if (eq issueStop.onestop_id stop.stop.onestop_id) }}
-            {{route-map/stop-marker stopAdded="stopAdded" model=stop.stop sequence=index distance=stop.distance onestop_id=stop.stop.onestop_id}}
-          {{else}}
-            {{route-map/display-stop model=stop.stop sequence=index distance=stop.distance onestop_id=stop.stop.onestop_id}}
-          {{/if}}
-        {{/each}}
+        {{#if model.issueStops}}
+          {{#each model.issueStops as |issueStop|}}
+            {{#if (eq issueStop.onestop_id stop.stop.onestop_id) }}
+              {{route-map/stop-marker stopAdded="stopAdded" model=stop.stop sequence=index distance=stop.distance onestop_id=stop.stop.onestop_id}}
+            {{else}}
+              {{route-map/display-stop model=stop.stop sequence=index distance=stop.distance onestop_id=stop.stop.onestop_id}}
+            {{/if}}
+          {{/each}}
+        {{else}}
+          {{route-map/display-stop model=stop.stop sequence=index distance=stop.distance onestop_id=stop.stop.onestop_id}}
+        {{/if}}
       {{/each}}
     {{/each}}
   {{/tile-layer}}
