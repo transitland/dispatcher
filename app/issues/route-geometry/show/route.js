@@ -31,32 +31,52 @@ export default Ember.Route.extend(IssuesRoute, {
           stopIds.push(entity.get('onestop_id'));
         }
       });
-      var bounds = new L.latLngBounds([]);
-      var stops;
-      if (stopIds.length > 0) {
-        stops = self.store.query('stop', {onestop_id: stopIds.join(',')});
-        stops.then(function(stops){
+
+      var getStops = function(stopIds) {
+        return new Promise(function(resolve, reject){
+          if (stopIds.length > 0) {
+            resolve(self.store.query('stop', {onestop_id: stopIds.join(',')}));
+          }
+          else {
+            resolve();
+          }
+        });
+      }
+
+      var getRSPs = function(rspIds) {
+        return new Promise(function(resolve, reject){
+          resolve(self.store.query('route-stop-pattern', {onestop_id: rspIds.join(',')}));
+        });
+      }
+
+      return Ember.RSVP.allSettled([
+        getStops(stopIds), getRSPs(rspIds)
+      ]).then(function(results){
+        let [stops, rsps] = results.filter(function(result){ return result.state === 'fulfilled'; }).map(function(result){ return result.value; });
+        let bounds = new L.latLngBounds([]);
+
+        if (stops) {
           stops.forEach(function(stop){
             bounds.extend(new L.latLng(stop.get('coordinates')));
           });
-        });
-      }
-      var rsps = self.store.query('route-stop-pattern', {onestop_id: rspIds.join(',')});
-      rsps.then(function(rsps){
-        rsps.forEach(function(rsp){
-          rsp.get('coordinates').forEach(function(coord){
-            bounds.extend(new L.latLng(coord));
-          });
-        });
-      });
+        }
 
-      return Ember.RSVP.hash({
-        selectedIssue: selectedIssue,
-        issueRouteStopPatterns: rsps,
-        issueStops: stops,
-        bounds: bounds,
-        changeset: changeset,
-        users: users
+        if (rsps) {
+          rsps.forEach(function(rsp){
+            rsp.get('coordinates').forEach(function(coord){
+              bounds.extend(new L.latLng(coord));
+            });
+          });
+        }
+
+        return Ember.RSVP.hash({
+          selectedIssue: selectedIssue,
+          issueRouteStopPatterns: rsps,
+          issueStops: stops,
+          bounds: bounds,
+          changeset: changeset,
+          users: users
+        });
       });
     });
   }
