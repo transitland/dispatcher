@@ -3,7 +3,7 @@
     {{#measure-control primaryLengthUnit="meters" secondaryLengthUnit="kilometers" position="topleft"}}{{/measure-control}}
     {{#draw-control edit=edit draw=draw drawEdited="actionDrawEdited"}}{{/draw-control}}
     {{#each model.issueRouteStopPatterns as |rsp|}}
-      {{route-map/route-stop-pattern rspAdded="rspAdded" model=rsp onestop_id=rsp.onestop_id}}
+      {{route-map/route-stop-pattern rspAdded="rspAdded" model=rsp}}
       {{#each rsp.stopsWithDistances as |stop index|}}
         {{#each model.issueStops as |issueStop|}}
           {{#if (eq issueStop.onestop_id stop.stop.onestop_id) }}

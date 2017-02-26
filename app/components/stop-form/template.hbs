@@ -28,16 +28,17 @@
     <h5>{{stop.stop_platforms.length}} Platforms</h5>
     <ul>
       {{#each stop.stop_platforms as |stop_platform|}}
-      <li><a {{action "switchPopup" stop_platform}}>
-        {{stop_platform.name}}<br />
-        {{stop_platform.id}}
-      </a></li>
-      {{#if stop_platform.issues}}
-        <h5>Issues</h5>
-        {{#each stop_platform.issues as |issue|}}
-          {{#link-to 'issues.station-hierarchy.show' issue.id}}Issue #{{issue.id}}{{/link-to}}<br />
-        {{/each}}
-      {{/if}}
+        <h5>Stop Platform:</h5>
+        <li><a {{action "switchPopup" stop_platform}}>
+          {{stop_platform.name}}<br />
+          {{stop_platform.id}}
+        </a></li>
+        {{#if stop_platform.issues}}
+          <h6>Issues</h6>
+          {{#each stop_platform.issues as |issue|}}
+            {{#link-to 'issues.station-hierarchy.show' issue.id}}Issue #{{issue.id}}{{/link-to}}<br />
+          {{/each}}
+        {{/if}}
       {{/each}}
     </ul>
   </div>
