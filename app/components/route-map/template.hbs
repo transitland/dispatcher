@@ -10,11 +10,11 @@
             {{#if (eq issueStop.onestop_id stop.stop.onestop_id) }}
               {{route-map/stop-marker stopAdded="stopAdded" model=stop.stop sequence=index distance=stop.distance onestop_id=stop.stop.onestop_id}}
             {{else}}
-              {{route-map/display-stop model=stop.stop sequence=index distance=stop.distance onestop_id=stop.stop.onestop_id}}
+              {{route-map/circle-stop-marker model=stop.stop sequence=index distance=stop.distance onestop_id=stop.stop.onestop_id}}
             {{/if}}
           {{/each}}
         {{else}}
-          {{route-map/display-stop model=stop.stop sequence=index distance=stop.distance onestop_id=stop.stop.onestop_id}}
+          {{route-map/circle-stop-marker model=stop.stop sequence=index distance=stop.distance onestop_id=stop.stop.onestop_id}}
         {{/if}}
       {{/each}}
     {{/each}}
