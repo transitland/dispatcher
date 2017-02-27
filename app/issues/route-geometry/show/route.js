@@ -12,7 +12,7 @@ export default Ember.Route.extend(IssuesRoute, {
     this.store.unloadAll('route-stop-pattern');
     // leave issues, so as to not have to repopulate issues table
 
-    var self = this;
+    let self = this;
     return this.store.findRecord('issue', params['issue_id'], { reload: true }).then(function(selectedIssue){
 
       let changeset = self.store.createRecord('changeset', {
@@ -20,8 +20,8 @@ export default Ember.Route.extend(IssuesRoute, {
       });
       changeset.get('change_payloads').createRecord();
       let users = self.store.query('user', { per_page: false });
-      var rspIds = [];
-      var stopIds = [];
+      let rspIds = [];
+      let stopIds = [];
       // TODO use polymorphic association on entity-with-issue for entity
       selectedIssue.get('entities_with_issues').forEach(function(entity){
         if (entity.get('onestop_id').split('-')[0] === 'r') {
@@ -32,7 +32,7 @@ export default Ember.Route.extend(IssuesRoute, {
         }
       });
 
-      var getStops = function(stopIds) {
+      let getStops = function(stopIds) {
         return new Promise(function(resolve, reject){
           if (stopIds.length > 0) {
             resolve(self.store.query('stop', {onestop_id: stopIds.join(',')}));
@@ -43,7 +43,7 @@ export default Ember.Route.extend(IssuesRoute, {
         });
       }
 
-      var getRSPs = function(rspIds) {
+      let getRSPs = function(rspIds) {
         return new Promise(function(resolve, reject){
           resolve(self.store.query('route-stop-pattern', {onestop_id: rspIds.join(',')}));
         });
@@ -63,6 +63,16 @@ export default Ember.Route.extend(IssuesRoute, {
 
         if (rsps) {
           rsps.forEach(function(rsp){
+            // Distance calc issue details come with a full array of stop distances along the RSP
+            if (selectedIssue.get('issue_type') == 'distance_calculation_inaccurate') {
+              let re = 'Distances: \\[.+\\]';
+              let match = selectedIssue.get('details').match(re);
+              if (match) {
+                rsp.set('stop_distances', eval(match[0].replace('Distances: ', '')));
+                selectedIssue.set('details', selectedIssue.get('details').replace(/Distances: \[.+\]/, ''));
+              }
+            }
+
             rsp.get('coordinates').forEach(function(coord){
               bounds.extend(new L.latLng(coord));
             });
