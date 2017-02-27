@@ -20,8 +20,9 @@ export default Ember.Route.extend(IssuesRoute, {
       });
       changeset.get('change_payloads').createRecord();
       let users = self.store.query('user', { per_page: false });
-      var rsps = [];
-      var stops = [];
+      let rspIds = [];
+      let stopIds = [];
+      // TODO use polymorphic association on entity-with-issue for entity
       selectedIssue.get('entities_with_issues').forEach(function(entity){
         if (entity.get('onestop_id').split('-')[0] === 'r') {
           rsps.push(entity.get('onestop_id'));
@@ -38,6 +39,13 @@ export default Ember.Route.extend(IssuesRoute, {
         return self.store.query('route-stop-pattern', {onestop_id: rsps.join(',')}).then(function(rsps){
 
           rsps.forEach(function(rsp){
+
+            if (selectedIssue.get('issue_type') === 'distance_calculation_inaccurate') {
+              let re = 'Distances: \\[.+\\]';
+              rsp.set('stop_distances', eval(selectedIssue.get('details').match(re)[0].replace('Distances: ', '')));
+              selectedIssue.set('details', selectedIssue.get('details').replace(/Distances: \[.+\]/, ''));
+            }
+
             rsp.get('coordinates').forEach(function(coord){
               bounds.extend(new L.latLng(coord));
             });
