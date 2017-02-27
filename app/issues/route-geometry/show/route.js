@@ -63,11 +63,14 @@ export default Ember.Route.extend(IssuesRoute, {
 
         if (rsps) {
           rsps.forEach(function(rsp){
-
-            if (selectedIssue.get('issue_type') === 'distance_calculation_inaccurate') {
+            // Distance calc issue details come with a full array of stop distances along the RSP
+            if (selectedIssue.get('issue_type') == 'distance_calculation_inaccurate') {
               let re = 'Distances: \\[.+\\]';
-              rsp.set('stop_distances', eval(selectedIssue.get('details').match(re)[0].replace('Distances: ', '')));
-              selectedIssue.set('details', selectedIssue.get('details').replace(/Distances: \[.+\]/, ''));
+              let match = selectedIssue.get('details').match(re);
+              if (match) {
+                rsp.set('stop_distances', eval(match[0].replace('Distances: ', '')));
+                selectedIssue.set('details', selectedIssue.get('details').replace(/Distances: \[.+\]/, ''));
+              }
             }
 
             rsp.get('coordinates').forEach(function(coord){
