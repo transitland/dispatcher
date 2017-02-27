@@ -12,7 +12,7 @@ export default Ember.Route.extend(IssuesRoute, {
     this.store.unloadAll('route-stop-pattern');
     // leave issues, so as to not have to repopulate issues table
 
-    var self = this;
+    let self = this;
     return this.store.findRecord('issue', params['issue_id'], { reload: true }).then(function(selectedIssue){
 
       let changeset = self.store.createRecord('changeset', {
@@ -32,7 +32,7 @@ export default Ember.Route.extend(IssuesRoute, {
         }
       });
 
-      var getStops = function(stopIds) {
+      let getStops = function(stopIds) {
         return new Promise(function(resolve, reject){
           if (stopIds.length > 0) {
             resolve(self.store.query('stop', {onestop_id: stopIds.join(',')}));
@@ -43,7 +43,7 @@ export default Ember.Route.extend(IssuesRoute, {
         });
       }
 
-      var getRSPs = function(rspIds) {
+      let getRSPs = function(rspIds) {
         return new Promise(function(resolve, reject){
           resolve(self.store.query('route-stop-pattern', {onestop_id: rspIds.join(',')}));
         });
