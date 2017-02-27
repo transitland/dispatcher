@@ -25,19 +25,43 @@ export default Ember.Route.extend(IssuesRoute, {
       // TODO use polymorphic association on entity-with-issue for entity
       selectedIssue.get('entities_with_issues').forEach(function(entity){
         if (entity.get('onestop_id').split('-')[0] === 'r') {
-          rsps.push(entity.get('onestop_id'));
+          rspIds.push(entity.get('onestop_id'));
         }
         else if (entity.get('onestop_id').split('-')[0] === 's') {
-          stops.push(entity.get('onestop_id'));
+          stopIds.push(entity.get('onestop_id'));
         }
       });
-      return self.store.query('stop', {onestop_id: stops.join(',')}).then(function(stops){
 
-        var bounds = new L.latLngBounds(stops.map(function(stop) {
-          return new L.latLng(stop.get('coordinates'));
-        }));
-        return self.store.query('route-stop-pattern', {onestop_id: rsps.join(',')}).then(function(rsps){
+      var getStops = function(stopIds) {
+        return new Promise(function(resolve, reject){
+          if (stopIds.length > 0) {
+            resolve(self.store.query('stop', {onestop_id: stopIds.join(',')}));
+          }
+          else {
+            resolve();
+          }
+        });
+      }
 
+      var getRSPs = function(rspIds) {
+        return new Promise(function(resolve, reject){
+          resolve(self.store.query('route-stop-pattern', {onestop_id: rspIds.join(',')}));
+        });
+      }
+
+      return Ember.RSVP.allSettled([
+        getStops(stopIds), getRSPs(rspIds)
+      ]).then(function(results){
+        let [stops, rsps] = results.filter(function(result){ return result.state === 'fulfilled'; }).map(function(result){ return result.value; });
+        let bounds = new L.latLngBounds([]);
+
+        if (stops) {
+          stops.forEach(function(stop){
+            bounds.extend(new L.latLng(stop.get('coordinates')));
+          });
+        }
+
+        if (rsps) {
           rsps.forEach(function(rsp){
 
             if (selectedIssue.get('issue_type') === 'distance_calculation_inaccurate') {
@@ -50,15 +74,15 @@ export default Ember.Route.extend(IssuesRoute, {
               bounds.extend(new L.latLng(coord));
             });
           });
+        }
 
-          return Ember.RSVP.hash({
-            selectedIssue: selectedIssue,
-            issueRouteStopPatterns: rsps,
-            issueStops: stops,
-            bounds: bounds,
-            changeset: changeset,
-            users: users
-          });
+        return Ember.RSVP.hash({
+          selectedIssue: selectedIssue,
+          issueRouteStopPatterns: rsps,
+          issueStops: stops,
+          bounds: bounds,
+          changeset: changeset,
+          users: users
         });
       });
     });
