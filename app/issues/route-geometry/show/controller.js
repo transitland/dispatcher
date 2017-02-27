@@ -6,23 +6,19 @@ import IssuesCloseController from 'dispatcher/mixins/issues-close-controller';
 export default Ember.Controller.extend(IssuesController,
                                        IssuesResolvingChangesetController,
                                        IssuesCloseController, {
-
-  leafletObjects: {
-
+  editableLeafletObjects: {
+    // Some layers should not be editable, so this keeps track of those that are.
+    // leaflet layer id -> onestop_id
   },
-
   rootRoute: 'issues.route-geometry',
-
   postSuccessTransition: function() {
     let queryParamsObject = this.queryParamsObject();
     this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParamsObject });
   },
-
   postCloseTransition: function() {
     let queryParamsObject = this.queryParamsObject();
     this.transitionToRoute('issues.route-geometry.index', { queryParams: queryParamsObject });
   },
-
   getChanges: function() {
     var entities = [];
     entities = entities.concat(this.store.peekAll('route-stop-pattern').filter(function(e) { return e.get('hasDirtyAttributes'); }) );
@@ -36,25 +32,21 @@ export default Ember.Controller.extend(IssuesController,
       return ret;
     });
   },
-
   actions: {
     actionDrawEdited: function(EditedEvent) {
       var self = this;
-
       // TODO: duplication refactor
-
       this.get('model.issueStops').forEach(function(stop){
         for (var layer in EditedEvent.layers._layers) {
-          if (stop.get('onestop_id') === self.get('leafletObjects')[layer]) {
+          if (stop.get('onestop_id') === self.get('editableLeafletObjects')[layer]) {
             var latlng = EditedEvent.layers._layers[layer]._latlng;
             stop.setCoordinates([latlng.lng, latlng.lat]);
           }
         }
       });
-
       this.get('model.issueRouteStopPatterns').forEach(function(rsp){
         for (var layer in EditedEvent.layers._layers) {
-          if (rsp.get('onestop_id') === self.get('leafletObjects')[layer]) {
+          if (rsp.get('onestop_id') === self.get('editableLeafletObjects')[layer]) {
             var latlngs = EditedEvent.layers._layers[layer]._latlngs;
             rsp.setCoordinates(latlngs.map(function(latlng){ return [latlng.lng, latlng.lat]; }));
           }
@@ -62,10 +54,10 @@ export default Ember.Controller.extend(IssuesController,
       });
     },
     stopAdded: function(leafletId, onestop_id) {
-      this.get('leafletObjects')[leafletId] = onestop_id;
+      this.get('editableLeafletObjects')[leafletId] = onestop_id;
     },
     rspAdded: function(leafletId, onestop_id) {
-      this.get('leafletObjects')[leafletId] = onestop_id;
+      this.get('editableLeafletObjects')[leafletId] = onestop_id;
     }
   }
 });
