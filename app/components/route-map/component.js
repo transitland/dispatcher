@@ -5,6 +5,7 @@ export default Ember.Component.extend({
   options: {
   },
   draw: false,
+  editing: false,
   edit: {
     featureGroup: L.featureGroup()
   },
@@ -36,6 +37,13 @@ export default Ember.Component.extend({
     },
     actionDrawEdited: function(EditedEvent) {
       this.sendAction('actionDrawEdited', EditedEvent);
+      this.set('editing', false);
+    },
+    actionDrawEditStart: function(EditedEvent) {
+      this.set('editing', true);
+    },
+    actionDrawEditStop: function(EditedEvent) {
+      this.set('editing', false);
     },
     // TODO: consolidate these?
     stopAdded: function(leafletId, onestop_id){
