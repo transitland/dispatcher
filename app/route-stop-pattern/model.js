@@ -27,7 +27,7 @@ export default EntityWithActivityModel.extend({
 		}));
 		return Ember.ArrayProxy.extend(Ember.PromiseProxyMixin).create(args);
 	}),
-	coordinates: Ember.computed(function(){
+	coordinates: Ember.computed('geometry', function(){
 		return this.get('geometry').coordinates.map(function(coord){
 			return coord.slice().reverse();
 		});
@@ -46,7 +46,7 @@ export default EntityWithActivityModel.extend({
       stopPattern: this.get('stop_pattern'),
       geometry: {
         type: "LineString",
-        coordinates: this.get('geometry').coordinates
+        coordinates: this.get('coordinates')
       }
     };
   }

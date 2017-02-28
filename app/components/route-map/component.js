@@ -42,6 +42,9 @@ export default Ember.Component.extend({
     actionDrawEditStart: function(EditedEvent) {
       this.set('editing', true);
     },
+    actionDrawEditStop: function(EditedEvent) {
+      this.set('editing', false);
+    },
     // TODO: consolidate these?
     stopAdded: function(leafletId, onestop_id){
       this.sendAction('stopAdded', leafletId, onestop_id);
