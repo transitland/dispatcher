@@ -4,6 +4,7 @@ import DS from 'ember-data';
 export default DS.Model.extend({
   typeDescription: Ember.inject.service('issue-type-desc'),
   issue_type: DS.attr('string'),
+  issue_category: DS.attr('string'),
   details: DS.attr('string'),
   open: DS.attr('boolean'),
   created_at: DS.attr('date'),
