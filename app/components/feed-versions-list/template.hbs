@@ -20,16 +20,6 @@
       <div class="panel-body">
         <div class="panel-group">
           <dl class="dl-horizontal">
-
-            <!-- issues -->
-            {{#each feedVersion.issues as |issue|}}
-              {{#collapsable-panel title="Error importing feed..." panelClass="panel-danger"}}
-              {{issue-contents issue=issue}}
-              {{/collapsable-panel}}
-              <br />
-            {{/each}}
-            <!-- /issues -->
-
             <dt>Fetched from URL</dt>
             <dd><a href="{{feedVersion.url}}">{{feedVersion.url}}</a></dd>
             <dt>Archived Feed Version</dt>
@@ -65,6 +55,17 @@
             <dt>Tags</dt>
             <dd>{{stringify-json feedVersion.tags}}</dd>
           </dl>
+
+          <!-- issues -->
+          {{#each feedVersion.issues as |issue|}}
+            {{#if (eq issue.issue_category "feed_import")}}
+              {{#collapsable-panel title="Import issue..." panelClass="panel-danger"}}
+              {{issue-contents issue=issue showEntities=false}}
+              {{/collapsable-panel}}
+            {{/if}}
+          {{/each}}
+          <!-- /issues -->
+
           {{#each feedVersion.feed_version_imports as |feedVersionImport| }}
             {{feed-versions-list/feed-version-import-panel feedVersionImport=feedVersionImport}}
           {{/each}}
