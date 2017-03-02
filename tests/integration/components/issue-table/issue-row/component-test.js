@@ -1,7 +1,7 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('route-map/display-stop', 'Integration | Component | edit map/display stop', {
+moduleForComponent('issue-table/issue-row', 'Integration | Component | issue table/issue row', {
   integration: true
 });
 
@@ -9,15 +9,15 @@ test('it renders', function(assert) {
   // Set any properties with this.set('myProperty', 'value');
   // Handle any actions with this.on('myAction', function(val) { ... });
 
-  this.render(hbs`{{route-map/display-stop}}`);
+  this.render(hbs`{{issue-table/issue-row}}`);
 
   assert.equal(this.$().text().trim(), '');
 
   // Template block usage:
   this.render(hbs`
-    {{#route-map/display-stop}}
+    {{#issue-table/issue-row}}
       template block text
-    {{/route-map/display-stop}}
+    {{/issue-table/issue-row}}
   `);
 
   assert.equal(this.$().text().trim(), 'template block text');

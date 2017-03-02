@@ -20,7 +20,8 @@
   "license": "MIT",
   "dependencies": {
     "ember-leaflet-measure": "transitland/ember-leaflet-measure#master",
-    "ember-leaflet-draw": "transitland/ember-leaflet-draw#master"
+    "ember-leaflet-draw": "transitland/ember-leaflet-draw#master",
+    "ember-leaflet-polyline-decorator": "transitland/ember-leaflet-polyline-decorator#master"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",

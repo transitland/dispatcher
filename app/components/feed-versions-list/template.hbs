@@ -55,6 +55,17 @@
             <dt>Tags</dt>
             <dd>{{stringify-json feedVersion.tags}}</dd>
           </dl>
+
+          <!-- issues -->
+          {{#each feedVersion.issues as |issue|}}
+            {{#if (eq issue.issue_category "feed_import")}}
+              {{#collapsable-panel title="Import issue..." panelClass="panel-danger"}}
+              {{issue-contents issue=issue showEntities=false}}
+              {{/collapsable-panel}}
+            {{/if}}
+          {{/each}}
+          <!-- /issues -->
+
           {{#each feedVersion.feed_version_imports as |feedVersionImport| }}
             {{feed-versions-list/feed-version-import-panel feedVersionImport=feedVersionImport}}
           {{/each}}

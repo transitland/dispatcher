@@ -1,14 +1,14 @@
-<div class="list-group">
-  {{#each model.issues as |issue|}}
-    {{#link-to route issue.id tagName='button' class="btn-default btn-lg btn-block"}}
-      <div>
-        <div style="float: left;">
-          <b>{{issue.id}}</b>
-        </div>
-        <div style="float: right;">
-          Time created: {{issue.created_at}}
-        </div>
-      </div>
-    {{/link-to}}
-  {{/each}}
-</div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Issue Id</th>
+      <th>Feed</th>
+      <th>Time Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model.issues as |issue|}}
+      {{issue-table/issue-row route=route issue=issue}}
+    {{/each}}
+  </tbody>
+</table>
