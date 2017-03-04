@@ -46,7 +46,7 @@ export default EntityWithActivityModel.extend({
       stopPattern: this.get('stop_pattern'),
       geometry: {
         type: "LineString",
-        coordinates: this.get('coordinates')
+        coordinates: this.get('geometry').coordinates
       }
     };
   }
