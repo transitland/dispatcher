@@ -66,6 +66,10 @@
           {{/each}}
           <!-- /issues -->
 
+          {{#each feedVersion.feed_version_infos as |feedVersionInfo| }}
+            TEST: {{feedVersionInfo.id}}
+          {{/each}}
+
           {{#each feedVersion.feed_version_imports as |feedVersionImport| }}
             {{feed-versions-list/feed-version-import-panel feedVersionImport=feedVersionImport}}
           {{/each}}
