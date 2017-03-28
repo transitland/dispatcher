@@ -12,6 +12,7 @@ export default Stop.extend({
       this.set('parent_stop', value);
     }
   }),
+  issues: DS.hasMany('issue'),
   entityType: function() {
     return 'stopEgress';
   },

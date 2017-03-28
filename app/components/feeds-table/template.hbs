@@ -7,7 +7,7 @@
           {{feed-fetcher-controls feeds=selectedFeeds buttonText="Fetch selected feed(s)"}}
         </div>
         <div class="col-md-6">
-          Import lastest version of feed(s) at:
+          Import latest version of feed(s) at:
           <div class="btn-group" role="group" aria-label="Enqueue import:">
             <button type="button" class="btn btn-warning" title="operators, stops, routes" {{action "enqueueSelectedFeedsForImport" 1}}>Level 1</button>
             <button type="button" class="btn btn-warning" title="operators, stops, routes, schedules" {{action "enqueueSelectedFeedsForImport" 2}}>Level 2</button>
@@ -39,6 +39,7 @@
       <th>Onestop ID</th>
       <th># of Feed Versions</th>
       <th>Last Fetched</th>
+      <th>Fetch Status {{fa-icon "exclamation-triangle" size=2 classNames="text-danger" title='Fetch error status may be transient as feeds are continuously refetched'}}</th>
       <th>Import Status</th>
       <th>Last Imported</th>
       <th>Import Level of Active Feed Version</th>

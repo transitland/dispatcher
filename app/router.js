@@ -30,7 +30,14 @@ Router.map(function() {
     this.route('route-geometry', function() {
       this.route('show', { path: '/:issue_id' });
     });
-    this.route('new', {path: 'new/:feed_id' });
+    this.route('new', { path: 'new/:feed_id' });
+    this.route('show', { path: '/:issue_id' });
+    this.route('feed-fetch', function() {
+      this.route('show', { path: '/:issue_id' });
+    });
+    this.route('station-hierarchy', function() {
+      this.route('show', { path: '/:issue_id' });
+    });
   });
   this.route('stations');
   this.route('routingcheck');

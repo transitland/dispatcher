@@ -30,6 +30,7 @@ export default DS.RESTAdapter.extend(DataAdapterMixin, {
         data = {};
       }
       data["total"] = true;
+      data["embed_issues"] = true;
       hash.data = data;
     }
     return hash;

@@ -26,7 +26,7 @@ export default Ember.Route.extend({
     // Users
     let users = this.store.query('user', { per_page: false });
     // Stops
-    let stops = this.store.query('stop-station', {bbox: bbox, per_page: 100, total: false});
+    let stops = this.store.query('stop-station', {embed_issues: true, bbox: bbox, per_page: 100, total: false});
     return Ember.RSVP.hash({
       changeset: changeset,
       users: users,

@@ -20,6 +20,24 @@
       <div class="panel-body">
         <div class="panel-group">
           <dl class="dl-horizontal">
+            <dt>Fetched from URL</dt>
+            <dd><a href="{{feedVersion.url}}">{{feedVersion.url}}</a></dd>
+            <dt>Archived Feed Version</dt>
+            <dd>
+              {{#if feedVersion.download_url}}
+                <a href="{{feedVersion.download_url}}">Download</a>
+              {{else}}
+                No archived Feed Version
+              {{/if}}
+            </dd>
+            <dt>Validation results</dt>
+            <dd>
+              {{#if feedVersion.feedvalidator_url}}
+                <a target="_blank" href="{{feedVersion.feedvalidator_url}}">Results</a>
+              {{else}}
+                No results
+              {{/if}}
+            </dd>
             <dt>SHA1</dt>
             <dd>{{feedVersion.sha1}}</dd>
             <dt>MD5</dt>
@@ -37,6 +55,17 @@
             <dt>Tags</dt>
             <dd>{{stringify-json feedVersion.tags}}</dd>
           </dl>
+
+          <!-- issues -->
+          {{#each feedVersion.issues as |issue|}}
+            {{#if (eq issue.issue_category "feed_import")}}
+              {{#collapsable-panel title="Import issue..." panelClass="panel-danger"}}
+              {{issue-contents issue=issue showEntities=false}}
+              {{/collapsable-panel}}
+            {{/if}}
+          {{/each}}
+          <!-- /issues -->
+
           {{#each feedVersion.feed_version_imports as |feedVersionImport| }}
             {{feed-versions-list/feed-version-import-panel feedVersionImport=feedVersionImport}}
           {{/each}}

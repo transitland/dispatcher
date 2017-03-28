@@ -1,0 +1,31 @@
+{{#if showChangeset}}
+  {{#modal-dialog title='Changeset' ok='saveChangeset' close='hideChangeset' okText='Apply Changeset'}}
+    {{changeset-form changeset=model.changeset users=model.users }}
+  {{/modal-dialog}}
+{{/if}}
+
+{{#if closeMessage.show}}
+  {{#modal-dialog title='Closing Issue' ok='closeIssue' close='toggleCloseMessage' closeText='Cancel' okText='Ok'}}
+    <p>{{closeMessage.message}}</p>
+  {{/modal-dialog}}
+{{/if}}
+
+{{#if applyingSpinner}}
+  {{#loading-spinner}}{{/loading-spinner}}
+{{/if}}
+
+<div class="row">
+  <div class="col-md-4">
+    {{#issue-panel title=model.selectedIssue.id issueClicked='issueClicked' issue=model.selectedIssue}}
+      {{#edit-buttons showChangeset="showChangeset" closeDialog="closeDialog"}}{{/edit-buttons}}
+      <div id={{issue.id}}>
+        {{issue-contents classNames='issue-contents' issue=model.selectedIssue showEntities=false}}
+      </div>
+    {{/issue-panel}}
+  </div>
+  <div class="col-md-8">
+    <div>
+      {{stop-map stops=model.stops lat=model.lat lng=model.lng zoom=zoom onChanges=(action 'showChangeset')}}
+    </div>
+  </div>
+</div>
