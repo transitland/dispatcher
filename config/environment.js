@@ -35,7 +35,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.datastoreHost = 'http://localhost:3000';
+    ENV.datastoreHost = 'http://dev.transit.land';
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
