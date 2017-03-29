@@ -1,13 +1,21 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>sha1</th>
+      <th>SHA1</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Import Level</th>
+      <th>Active</th>
     </tr>
   </thead>
   <tbody>
     {{#each models as |model|}}
       <tr>
         <td>{{#link-to "feed-versions.show" model.id}}{{model.sha1}}{{/link-to}}</td>
+        <td>{{model.earliest_calendar_date}}</td>
+        <td>{{model.latest_calendar_date}}</td>
+        <td>{{model.import_level}}</td>
+        <td>{{model.is_active_feed_version}}</td>
       </tr>
     {{/each}}
   </tbody>
