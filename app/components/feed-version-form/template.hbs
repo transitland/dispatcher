@@ -47,8 +47,8 @@
 </dl>
 
 {{#each model.feed_version_infos as |modelInfo| }}
-  {{#collapsable-panel title="FeedVersionInfo"}}
-    FeedVersionInfo: {{modelInfo.id}}
+  {{#collapsable-panel title="FeedVersionInfo" show=true}}
+    {{feed-version-info-panel model=modelInfo}}
   {{/collapsable-panel}}
 {{/each}}
 
