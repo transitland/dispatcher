@@ -5,17 +5,17 @@
       <th>Start</th>
       <th>End</th>
       <th>Import Level</th>
-      <th>Active</th>
+      <th>Import Status</th>
     </tr>
   </thead>
   <tbody>
     {{#each models as |model|}}
       <tr>
-        <td>{{#link-to "feed-versions.show" model.id}}{{model.sha1}}{{/link-to}}</td>
+        <td class="{{if model.is_active_feed_version "success"}}">{{#link-to "feed-versions.show" model.id}}{{model.sha1}}{{/link-to}}</td>
         <td>{{model.earliest_calendar_date}}</td>
         <td>{{model.latest_calendar_date}}</td>
         <td>{{model.import_level}}</td>
-        <td>{{model.is_active_feed_version}}</td>
+        <td class="{{model.importStatusCssClass}}">{{model.import_status}}</td>
       </tr>
     {{/each}}
   </tbody>
