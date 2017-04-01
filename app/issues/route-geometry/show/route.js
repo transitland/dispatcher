@@ -33,7 +33,7 @@ export default Ember.Route.extend(IssuesRoute, {
       });
 
       let getStops = function(stopIds) {
-        return new Promise(function(resolve, reject){
+        return new Ember.RSVP.Promise(function(resolve, reject){
           if (stopIds.length > 0) {
             resolve(self.store.query('stop', {onestop_id: stopIds.join(',')}));
           }
@@ -44,7 +44,7 @@ export default Ember.Route.extend(IssuesRoute, {
       }
 
       let getRSPs = function(rspIds) {
-        return new Promise(function(resolve, reject){
+        return new Ember.RSVP.Promise(function(resolve, reject){
           resolve(self.store.query('route-stop-pattern', {onestop_id: rspIds.join(',')}));
         });
       }
