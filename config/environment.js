@@ -1,6 +1,6 @@
 /* jshint node: true */
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   var ENV = {
     modulePrefix: 'dispatcher',
     environment: environment,
@@ -68,6 +68,22 @@ module.exports = function(environment) {
     ENV.baseURL = '/dispatcher';
     ENV.apiProxyKey = 'transitland-Cc6l8Fk';
   }
+
+  // https://github.com/jpadilla/ember-simple-auth-token
+  ENV['ember-simple-auth'] = {
+    authenticationRoute: 'users.sign_in',
+    routeAfterAuthentication: 'index',
+    routeIfAlreadyAuthenticated: 'index'
+  };
+
+  ENV['ember-simple-auth-token'] = {
+    serverTokenEndpoint: ENV.datastoreHost + '/api/v1/users/session',
+    identificationField: 'email',
+    passwordField: 'password',
+    refreshAccessTokens: true,
+    timeFactor: 1,
+    refreshLeeway: 300 // Refresh the token 5 minutes (300s) before it expires.
+  };
 
   return ENV;
 };

@@ -24,6 +24,7 @@ Router.map(function() {
     this.route('show', { path: '/:user_id' });
     this.route('edit', { path: '/:user_id/edit' });
     this.route('new');
+    this.route('sign_in');
   });
   this.route('issues', function() {
     this.route('route-geometry', function() {
