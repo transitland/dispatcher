@@ -22,7 +22,8 @@ database:
 
 test:
   override:
-    - echo "we need no tests"
+    - echo "Let's see if the app will build"
+    - ember build
 
 deployment:
   staging:
