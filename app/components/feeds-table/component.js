@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  session: Ember.inject.service(),
   classNames: ['table-responsive'],
   selectableFeeds: Ember.computed('feeds', function () {
     return this.get('feeds').map(function (feed) {
