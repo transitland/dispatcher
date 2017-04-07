@@ -20,11 +20,6 @@ database:
   override:
     - echo "we need no database"
 
-test:
-  override:
-    - echo "Let's see if the app will build"
-    - ember build
-
 deployment:
   staging:
     branch: master
