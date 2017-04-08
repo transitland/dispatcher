@@ -7,15 +7,27 @@
   </div>
 </div>
 
-<div class="list-group">
-  {{#each model as |user|}}
-    {{#link-to 'users.show' user class="list-group-item" }}
-      <h4 class="list-group-item-heading">{{user.name}}</h4>
-      <p class="list-group-item-text">{{user.email}}</p>
-    {{/link-to}}
-  {{else}}
-    <p>No users.</p>
-  {{/each}}
-</div>
+<table class="table">
+  <thead>
+    <th>E-mail</th>
+    <th>Name</th>
+    <th>Admin?</th>
+  </thead>
+  <tbody>
+    {{#each model as |user|}}
+      <tr>
+        <td>{{link-to user.email 'users.show' user}}</td>
+        <td>{{user.name}}</td>
+        <td>
+          {{#if user.admin}}
+            <span class="badge" style="background-color: red;">{{fa-icon "check"}}</span>
+          {{/if}}
+        </td>
+      </tr>
+    {{else}}
+      <p>No users.</p>
+    {{/each}}
+  </tbody>
+</table>
 
 {{pagination-controls route="users" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset perPage=per_page}}
