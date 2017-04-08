@@ -12,9 +12,6 @@ export default Ember.Component.extend({
     });
   }),
   selectedFeeds: Ember.computed('selectableFeeds.@each.isSelected', function() {
-    // return this.get('selectableFeeds').filter(function(feed) {
-    //   return feed.get('isSelected');
-    // });
     return this.get('selectableFeeds').filterBy('isSelected', true);
   }),
   anyFeedsSelected: Ember.computed.notEmpty('selectedFeeds'),
