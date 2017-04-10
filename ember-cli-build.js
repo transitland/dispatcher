@@ -1,13 +1,13 @@
 /*jshint node:true*/
 /* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   var prependUrl;
   if (EmberApp.env() === 'staging') {
-    prependUrl = 'https://d2tkmr00hnrtoq.cloudfront.net/dispatcher/';
+    prependUrl = 'https://d2tkmr00hnrtoq.cloudfront.net/';
   } else if (EmberApp.env() === 'production') {
-    prependUrl = 'https://d11xhlzkgsq6oc.cloudfront.net/dispatcher/';
+    prependUrl = 'https://d11xhlzkgsq6oc.cloudfront.net/';
   }
 
   var app = new EmberApp(defaults, {
