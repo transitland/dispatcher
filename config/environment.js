@@ -63,13 +63,13 @@ module.exports = function (environment) {
     ENV.datastoreHost = 'https://dev.transit.land';
     ENV.valhallaHost = 'https://valhalla.dev.mapzen.com/route';
     ENV.valhallaApiKey = 'valhalla-tQaRSNc';
-    ENV.rootURL = '/dispatcher';
+    ENV.rootURL = '/dispatcher/';
     ENV.apiProxyKey = 'transitland-YFO6jk8';
   }
 
   if (environment === 'production') {
     ENV.datastoreHost = 'https://transit.land';
-    ENV.rootURL = '/dispatcher';
+    ENV.rootURL = '/dispatcher/';
     ENV.apiProxyKey = 'transitland-Cc6l8Fk';
   }
 
