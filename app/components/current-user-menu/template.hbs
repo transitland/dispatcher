@@ -1,6 +1,8 @@
 {{#if session.isAuthenticated}}
-  {{session.content.authenticated.user.email}}
-  <a {{action "signOut"}}>Sign Out</a>
+  {{#if currentUser}}
+    <li>{{#link-to 'users.show' currentUser.user.id}}{{currentUser.user.email}}{{/link-to}}</li>
+  {{/if}}
+  <li><a {{action "signOut"}}>Sign Out</a></li>
 {{else}}
-  {{#link-to 'users.sign_in'}}Sign In{{/link-to}}
+  <li>{{#link-to 'users.sign_in'}}Sign In{{/link-to}}</li>
 {{/if}}

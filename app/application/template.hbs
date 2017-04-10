@@ -33,11 +33,7 @@
           {{#link-to 'issues'}}Quality Issues{{/link-to}}
         {{/link-to}}
       </ul>
-      <div class="navbar-form navbar-right">
-        <div class="form-group">
-          {{current-user-menu signedIn=false currentUser=false}}
-        </div>
-      </div>
+      {{current-user-menu}}
     </div>
   </div>
 </nav>
