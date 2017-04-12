@@ -47,9 +47,11 @@
 </dl>
 
 {{#each model.feed_version_infos as |modelInfo| }}
-  {{#collapsable-panel title="FeedVersionInfo" show=true}}
-    {{feed-version-info-panel model=modelInfo}}
-  {{/collapsable-panel}}
+  {{#if (eq modelInfo.type "FeedVersionInfoStatistics")}}
+    {{#collapsable-panel title="FeedVersionInfo" show=true}}
+      {{feed-version-info-panel model=modelInfo}}
+    {{/collapsable-panel}}
+  {{/if}}
 {{/each}}
 
 {{#each model.issues as |issue|}}
