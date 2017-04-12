@@ -9,6 +9,17 @@ import { isoParse } from 'd3-time-format';
 import { axisBottom, axisLeft } from 'd3-axis';
 
 // https://github.com/brzpegasus/ember-d3/blob/master/tests/dummy/app/components/simple-circles.js
+
+function parseModel(model) {
+  let data = model.get('json').scheduled_service;
+  return {
+    id: model.get('feed_version').get('id'),
+    values: Object.keys(data).map(function(k) {
+      return { date: isoParse(k), value: (+data[k] / 3600.0) }
+    })
+  }
+}
+
 export default Ember.Component.extend({
   tagName: 'svg',
   classNames: ['service-schedule-chart-svg'],
@@ -19,15 +30,12 @@ export default Ember.Component.extend({
     // Render
     run.scheduleOnce('render', this, this.drawChart);
   },
-  parseModel() {
-    let fvi = get(this, 'model');
-    let data = fvi.get('json').scheduled_service;
-    return {
-      id: fvi.get('feed_version').get('id'),
-      values: Object.keys(data).map(function(k) {
-        return { date: isoParse(k), value: (+data[k] / 3600.0) }
-      })
-    }
+  parseModels() {
+    let models = get(this, 'models') || [];
+    if (get(this, 'model')) { models.push(get(this, 'model')) }
+    return models
+      .filter(function(i){return i.get('json').scheduled_service})
+      .map(function(i){return parseModel(i)});
   },
   drawChart() {
     // Setup
@@ -38,7 +46,7 @@ export default Ember.Component.extend({
     let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // Convert
-    let series = [this.parseModel()];
+    let series = this.parseModels();
 
     // Axes
     var x = scaleTime().rangeRound([0, width]);
