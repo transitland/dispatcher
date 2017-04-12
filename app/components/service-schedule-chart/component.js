@@ -31,7 +31,7 @@ export default Ember.Component.extend({
     let d = get(this, 'data');
     var data = Object.keys(d).map(function(k) {return {
       date: isoParse(k),
-      value: +d[k]
+      value: +d[k] / 3600.0
     }});
 
     // Axes
@@ -60,7 +60,7 @@ export default Ember.Component.extend({
         .attr("y", 6)
         .attr("dy", "0.71em")
         .attr("text-anchor", "end")
-        .text("Service (s)");
+        .text("Service (hours)");
 
     g.append("path")
         .datum(data)
