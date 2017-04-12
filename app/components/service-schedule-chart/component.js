@@ -23,8 +23,8 @@ export default Ember.Component.extend({
     // Setup
     let margin = {top: 20, right: 20, bottom: 20, left: 50};
     let svg = select(this.element);
-    let width = get(this, 'width');
-    let height = get(this, 'height');
+    let width = $(this.element).width() - margin.left - margin.right; // get(this, 'width');
+    let height = $(this.element).height() - margin.top - margin.bottom; //$(this.element).height(); // get(this, 'height');
     let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // Convert
