@@ -2,9 +2,9 @@ import Ember from 'ember';
 const { run, get } = Ember;
 
 import { select } from 'd3-selection';
-import { extent } from 'd3-array';
-import { line } from 'd3-shape';
-import { scaleTime, scaleLinear } from 'd3-scale';
+import { extent, min, max } from 'd3-array';
+import { line, curveBasis } from 'd3-shape';
+import { scaleTime, scaleLinear, scaleOrdinal, schemeCategory10 } from 'd3-scale';
 import { isoParse } from 'd3-time-format';
 import { axisBottom, axisLeft } from 'd3-axis';
 
@@ -21,38 +21,49 @@ export default Ember.Component.extend({
   },
   drawChart() {
     // Setup
-    let margin = {top: 20, right: 20, bottom: 20, left: 50};
+    let margin = {top: 20, right: 100, bottom: 20, left: 50};
     let svg = select(this.element);
-    let width = $(this.element).width() - margin.left - margin.right; // get(this, 'width');
-    let height = $(this.element).height() - margin.top - margin.bottom; //$(this.element).height(); // get(this, 'height');
+    let width = $(this.element).width() - margin.left - margin.right;
+    let height = $(this.element).height() - margin.top - margin.bottom;
     let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // Convert
-    let d = get(this, 'data');
-    var data = Object.keys(d).map(function(k) {return {
-      date: isoParse(k),
-      value: +d[k] / 3600.0
-    }});
+    let data = get(this, 'data');
+    let feeds = [""]; // ["f-9q9-bart", "f-9q9-caltrain"];
+    let series = feeds.map(function(feed) {
+      return {
+        id: feed,
+        values: Object.keys(data).map(function(k) {return { date: isoParse(k), value: (+data[k] / 3600.0) }})
+      }
+    });
 
     // Axes
     var x = scaleTime().rangeRound([0, width]);
     var y = scaleLinear().rangeRound([height, 0]);
-
-    // Line
+    var z = scaleOrdinal(schemeCategory10);
     var l = line()
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.value); });
 
-    x.domain(extent(data, function(d) { return d.date; }));
-    y.domain(extent(data, function(d) { return d.value; }));
+    // Domain
+    x.domain([
+      min(series, function(s) { return min(s.values, function(d) { return d.date; })}),
+      max(series, function(s) { return max(s.values, function(d) { return d.date; })})
+    ]);
+    y.domain([
+      0,
+      max(series, function(s) { return max(s.values, function(d) {return d.value; })})
+    ]);
+    z.domain(series.map(function(s) { return s.id }));
 
+    // Draw axes
     g.append("g")
+          .attr("class", "axis-x")
           .attr("transform", "translate(0," + height + ")")
           .call(axisBottom(x))
-        // .select(".domain") // remove line?
-        //   .remove();
 
     g.append("g")
+        .attr("class", "axis-y")
         .call(axisLeft(y))
       .append("text")
         .attr("fill", "#000")
@@ -62,14 +73,26 @@ export default Ember.Component.extend({
         .attr("text-anchor", "end")
         .text("Service (hours)");
 
-    g.append("path")
-        .datum(data)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-linecap", "round")
-        .attr("stroke-width", 1.5)
-        .attr("d", l);
+    // Draw series
+    var seriesLine = g.selectAll(".series")
+      .data(series)
+      .enter().append("g")
+        .attr("class", "series");
+
+    seriesLine.append("path") // path
+      .attr("class", "line")
+      .attr("d", function(d) { return l(d.values); })
+      .style("stroke", function(d) { return z(d.id); })
+      .style("stroke-width", 1.5)
+      .style("fill","none");
+
+    seriesLine.append("text") // path label
+      .datum(function(d) { return {id: d.id, value: d.values[d.values.length - 1]}; })
+      .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.value) + ")"; })
+      .attr("x", 3)
+      .attr("dy", "0.35em")
+      .style("font", "10px sans-serif")
+      .text(function(d) { return d.id; });
 
   }
 });
