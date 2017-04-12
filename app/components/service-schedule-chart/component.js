@@ -19,6 +19,16 @@ export default Ember.Component.extend({
     // Render
     run.scheduleOnce('render', this, this.drawChart);
   },
+  parseModel() {
+    let fvi = get(this, 'model');
+    let data = fvi.get('json').scheduled_service;
+    return {
+      id: fvi.get('feed_version').get('id'),
+      values: Object.keys(data).map(function(k) {
+        return { date: isoParse(k), value: (+data[k] / 3600.0) }
+      })
+    }
+  },
   drawChart() {
     // Setup
     let margin = {top: 20, right: 100, bottom: 20, left: 50};
@@ -28,14 +38,7 @@ export default Ember.Component.extend({
     let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // Convert
-    let data = get(this, 'data');
-    let feeds = [""]; // ["f-9q9-bart", "f-9q9-caltrain"];
-    let series = feeds.map(function(feed) {
-      return {
-        id: feed,
-        values: Object.keys(data).map(function(k) {return { date: isoParse(k), value: (+data[k] / 3600.0) }})
-      }
-    });
+    let series = [this.parseModel()];
 
     // Axes
     var x = scaleTime().rangeRound([0, width]);
