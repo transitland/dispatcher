@@ -5,6 +5,8 @@
   <dd>{{model.updated_at}}</dd>
 </dl>
 
+{{service-schedule-chart data=model.json.scheduled_service}}
+
 <h4>Feed Statistics</h4>
 <table class="table table-hover">
   <thead>
@@ -32,8 +34,6 @@
 
 
 <h4>Service</h4>
-
-{{service-schedule-chart}}
 
 <table class="table table-hover">
   <thead>
