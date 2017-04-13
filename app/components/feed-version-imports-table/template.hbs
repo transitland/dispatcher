@@ -2,14 +2,16 @@
   <thead>
     <tr>
       <th>Created</th>
-      <th>Updated</th>
+      <th>Import Level</th>
+      <th>Import Status</th>
     </tr>
   </thead>
   <tbody>
     {{#each models as |model|}}
       <tr>
         <td>{{model.created_at}}</td>
-        <td>{{model.updated_at}}</td>
+        <td>{{model.import_level}}</td>
+
         {{#if (eq model.success true)}}
           <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
         {{else if (eq model.success false)}}
