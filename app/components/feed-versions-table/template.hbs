@@ -1,0 +1,40 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Active</th>
+      <th>SHA1</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Import Level</th>
+      <th>Import Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each models as |model|}}
+      <tr>
+        <td>
+          {{#if model.is_active_feed_version}}
+            <span class="glyphicon glyphicon-ok"></span>
+          {{/if}}
+        </td>
+        <td>
+          {{#link-to "feed-versions.show" model.id}}{{model.short_sha1}}{{/link-to}}
+        </td>
+        <td>{{model.earliest_calendar_date}}</td>
+        <td>{{model.latest_calendar_date}}</td>
+        <td>{{number-as-pips model.import_level 4}}</td>
+        {{#if (eq model.import_status "most_recent_succeeded")}}
+          <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+        {{else if (eq model.import_status "most_recent_failed")}}
+          <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+        {{else if (eq model.import_status "in_progress")}}
+          <td class="danger"><span class="glyphicon glyphicon-time"></span></td>
+        {{else if (eq model.import_status "never_imported")}}
+          <td class=""></td>
+        {{else}}
+          <td class="danger"><span class="glyphicon glyphicon-question-sign"></span></td>
+        {{/if}}
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

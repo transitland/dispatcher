@@ -1,0 +1,79 @@
+<dl class="dl-horizontal">
+  <dt>Active</dt>
+  <dd>
+    {{#if model.is_active_feed_version}}
+      <span style="color: green;">
+        {{fa-icon icon="lightbulb-o" title="This is the active feed version."}}
+      </span>
+      <small>
+        this is the <strong style="color: green;">active feed version</strong>
+      </small>
+    {{/if}}
+  </dd>
+  <dt>Fetched from URL</dt>
+  <dd><a href="{{model.url}}">{{model.url}}</a></dd>
+  <dt>Archived Feed Version</dt>
+  <dd>
+    {{#if model.download_url}}
+      <a href="{{model.download_url}}">Download</a>
+    {{else}}
+      No archived Feed Version
+    {{/if}}
+  </dd>
+  <dt>Validation results</dt>
+  <dd>
+    {{#if model.feedvalidator_url}}
+      <a target="_blank" href="{{model.feedvalidator_url}}">Results</a>
+    {{else}}
+      No results
+    {{/if}}
+  </dd>
+  <dt>SHA1</dt>
+  <dd>{{model.sha1}}</dd>
+  <dt>MD5</dt>
+  <dd>{{model.md5}}</dd>
+  <dt>Earliest calendar date</dt>
+  <dd>{{model.earliest_calendar_date}}</dd>
+  <dt>Latest calendar date</dt>
+  <dd>{{model.latest_calendar_date}}</dd>
+  <dt>Fetched</dt>
+  <dd>{{time-since-with-mouseover model.fetched_at}}</dd>
+  <dt>Imported</dt>
+  <dd>{{time-since-with-mouseover mod.imported_at}}</dd>
+  <dt>Import level</dt>
+  <dd>{{model.import_level}}</dd>
+  <dt>Tags</dt>
+  <dd>{{stringify-json model.tags}}</dd>
+</dl>
+
+{{#each model.feed_version_infos as |modelInfo| }}
+  {{#if (eq modelInfo.type "FeedVersionInfoStatistics")}}
+    {{service-schedule-chart model=modelInfo}}
+    {{#collapsable-panel title="Feed Statistics" show=false}}
+      {{feed-version-info-panel model=modelInfo}}
+    {{/collapsable-panel}}
+  {{/if}}
+{{/each}}
+
+{{#each model.feed_version_infos as |modelInfo| }}
+  {{#if (eq modelInfo.type "FeedVersionInfoConveyalValidation")}}
+    {{#collapsable-panel title="Conveyal Validation" show=false}}
+      {{json-editor json=modelInfo.json mode='view' expand='all'}}
+    {{/collapsable-panel}}
+  {{/if}}
+{{/each}}
+
+{{#each model.issues as |issue|}}
+  {{#if (eq issue.issue_category "feed_import")}}
+    {{#collapsable-panel title="Import issue..." panelClass="panel-danger"}}
+      {{issue-contents issue=issue showEntities=false}}
+    {{/collapsable-panel}}
+  {{/if}}
+{{/each}}
+
+{{#each model.feed_version_imports as |feedVersionImport| }}
+  {{feed-version-import-panel feedVersionImport=feedVersionImport}}
+{{/each}}
+
+
+<!-- {{feed-version-imports-table models=model.feed_version_imports}} -->
