@@ -29,20 +29,6 @@ export default EntityWithActivityModel.extend({
   updated_at: DS.attr('date'),
 
   onestop_id: Ember.computed.alias('id'),
-  importStatusCssClass: Ember.computed('import_status', function() {
-    switch(this.get('import_status')) {
-      case 'most_recent_succeeded':
-        return 'success';
-      case 'most_recent_failed':
-        return 'danger';
-      case 'in_progress':
-        return 'active';
-      case 'never_imported':
-        return '';
-      case 'unknown':
-        return 'warning';
-    }
-  }),
   hasIssues: Ember.computed('issues', function() {
     return this.get('issues').get('length') > 0;
   }),

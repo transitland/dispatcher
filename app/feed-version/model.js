@@ -31,21 +31,6 @@ export default DS.Model.extend({
   import_level_at_least_level_three: Ember.computed.gte('import_level', 3),
   import_level_at_least_level_four: Ember.computed.gte('import_level', 4),
 
-  importStatusCssClass: Ember.computed('import_status', function() {
-    switch(this.get('import_status')) {
-      case 'most_recent_succeeded':
-        return 'success';
-      case 'most_recent_failed':
-        return 'danger';
-      case 'in_progress':
-        return 'active';
-      case 'never_imported':
-        return '';
-      case 'unknown':
-        return 'warning';
-    }
-  }),
-
   enqueue: function(import_level) {
     var adapter = this.get('store').adapterFor('feed');
     var url = adapter.urlPrefix() + '/webhooks/feed_eater';

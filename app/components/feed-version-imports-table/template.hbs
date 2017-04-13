@@ -10,6 +10,14 @@
       <tr>
         <td>{{model.created_at}}</td>
         <td>{{model.updated_at}}</td>
+        {{#if (eq model.success true)}}
+          <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+        {{else if (eq model.success false)}}
+          <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+        {{else}}
+          <td class="danger"><span class="glyphicon glyphicon-time"></span></td>
+        {{/if}}
+
       </tr>
     {{/each}}
   </tbody>

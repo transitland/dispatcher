@@ -10,5 +10,16 @@ export default DS.Model.extend({
   validation_report: DS.attr('string'),
   created_at: DS.attr('date'),
   updated_at: DS.attr('date'),
-  feed_schedule_imports: DS.attr()
+  feed_schedule_imports: DS.attr(),
+
+  importStatusCssClass: Ember.computed('success', function() {
+    switch(this.get('success')) {
+      case true:
+        return 'success';
+      case false:
+        return 'danger';
+      case null:
+        return 'active';
+    }
+  })
 });
