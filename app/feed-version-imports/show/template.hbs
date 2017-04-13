@@ -3,12 +3,9 @@
     <h2>
       {{link-to 'Feeds' 'feeds'}} /
       {{#link-to 'feeds.show' model.feed}}{{model.feed.onestop_id}}{{/link-to}} /
-      {{#link-to 'feed-versions.show' model.feed_version}}{{model.feed_version.id}}{{/link-to}} /
+      {{#link-to 'feed-versions.show' model.feed_version}}{{model.feed_version.short_sha1}}{{/link-to}} /
       {{model.id}}
     </h2>
-  </div>
-  <div class="col-md-6 text-right">
-    {{feed-version-controls model=model}}
   </div>
 </div>
 

@@ -31,6 +31,10 @@ export default DS.Model.extend({
   import_level_at_least_level_three: Ember.computed.gte('import_level', 3),
   import_level_at_least_level_four: Ember.computed.gte('import_level', 4),
 
+  short_sha1: Ember.computed('sha1', function() {
+    return this.id.slice(0,8) + "…";
+  }),
+
   enqueue: function(import_level) {
     var adapter = this.get('store').adapterFor('feed');
     var url = adapter.urlPrefix() + '/webhooks/feed_eater';
