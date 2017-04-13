@@ -97,13 +97,13 @@ export default Ember.Component.extend({
       .style("stroke-width", 1.5)
       .style("fill","none");
 
-    seriesLine.append("text") // path label
-      .datum(function(d) { return {id: d.id, value: d.values[d.values.length - 1]}; })
-      .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.value) + ")"; })
-      .attr("x", 3)
-      .attr("dy", "0.35em")
-      .style("font", "10px sans-serif")
-      .text(function(d) { return d.id; });
+    // seriesLine.append("text") // path label
+    //   .datum(function(d) { return {id: d.id, value: d.values[d.values.length - 1]}; })
+    //   .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.value) + ")"; })
+    //   .attr("x", 3)
+    //   .attr("dy", "0.35em")
+    //   .style("font", "10px sans-serif")
+    //   .text(function(d) { return d.id; });
 
   }
 });
