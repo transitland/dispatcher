@@ -32,7 +32,7 @@
   <dt>Active feed version</dt>
   <dd>
     {{#if model.active_feed_version}}
-      {{model.active_feed_version.sha1}}
+      {{#link-to 'feed-versions.show' model.active_feed_version}}{{model.active_feed_version.id}}{{/link-to}}
     {{else}}
       <em>none</em>
     {{/if}}
