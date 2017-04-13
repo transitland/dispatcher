@@ -8,10 +8,10 @@ import { scaleTime, scaleLinear, scaleOrdinal, schemeCategory10 } from 'd3-scale
 import { isoParse } from 'd3-time-format';
 import { axisBottom, axisLeft } from 'd3-axis';
 
-// https://github.com/brzpegasus/ember-d3/blob/master/tests/dummy/app/components/simple-circles.js
-
 function parseModel(model) {
-  let data = model.get('json').scheduled_service;
+  let data = model.get('json');
+  if (!data) { return { id: 'test', values: [] } }
+  data = data.scheduled_service;
   return {
     id: model.get('feed_version').get('id'),
     values: Object.keys(data).map(function(k) {
@@ -20,26 +20,26 @@ function parseModel(model) {
   }
 }
 
+// https://github.com/brzpegasus/ember-d3/blob/master/tests/dummy/app/components/simple-circles.js
+// https://bl.ocks.org/mbostock/3884955
 export default Ember.Component.extend({
   tagName: 'svg',
   classNames: ['service-schedule-chart-svg'],
   width: 720,
   height: 100,
-  data: [],
+  model: null,
+  models: [],
   didReceiveAttrs() {
     // Render
     run.scheduleOnce('render', this, this.drawChart);
   },
   parseModels() {
-    let models = get(this, 'models') || [];
-    if (get(this, 'model')) { models.push(get(this, 'model')) }
-    return models
-      .filter(function(i){return i.get('json').scheduled_service})
-      .map(function(i){return parseModel(i)});
+    let models = [parseModel(get(this, 'model'))];
+    return models;
   },
   drawChart() {
     // Setup
-    let margin = {top: 20, right: 100, bottom: 20, left: 50};
+    let margin = {top: 20, right: 50, bottom: 20, left: 50};
     let svg = select(this.element);
     let width = $(this.element).width() - margin.left - margin.right;
     let height = $(this.element).height() - margin.top - margin.bottom;
