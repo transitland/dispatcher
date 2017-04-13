@@ -32,7 +32,7 @@ module.exports = function(defaults) {
     },
     // https://www.npmjs.com/package/ember-cli-bootstrap-sassy#bootstrap-javascript
     'ember-cli-bootstrap-sassy': {
-      'glyphicons': false
+      'glyphicons': true
     },
     // https://github.com/martndemus/ember-cli-font-awesome#customize-with-sassscss
     emberCliFontAwesome: {
