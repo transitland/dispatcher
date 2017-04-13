@@ -48,8 +48,17 @@
 
 {{#each model.feed_version_infos as |modelInfo| }}
   {{#if (eq modelInfo.type "FeedVersionInfoStatistics")}}
-    {{#collapsable-panel title="FeedVersionInfo" show=true}}
+    {{service-schedule-chart model=modelInfo}}
+    {{#collapsable-panel title="Feed Statistics" show=false}}
       {{feed-version-info-panel model=modelInfo}}
+    {{/collapsable-panel}}
+  {{/if}}
+{{/each}}
+
+{{#each model.feed_version_infos as |modelInfo| }}
+  {{#if (eq modelInfo.type "FeedVersionInfoConveyalValidation")}}
+    {{#collapsable-panel title="Conveyal Validation" show=false}}
+      {{json-editor json=modelInfo.json mode='view' expand='all'}}
     {{/collapsable-panel}}
   {{/if}}
 {{/each}}
