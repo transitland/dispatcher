@@ -46,6 +46,8 @@
   <dd>{{stringify-json model.tags}}</dd>
 </dl>
 
+<h4>Statistics &amp; Validation</h4>
+
 {{#each model.feed_version_infos as |modelInfo| }}
   {{#if (eq modelInfo.type "FeedVersionInfoStatistics")}}
     {{service-schedule-chart model=modelInfo}}

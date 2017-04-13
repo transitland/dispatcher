@@ -1,0 +1,16 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Created</th>
+      <th>Updated</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each models as |model|}}
+      <tr>
+        <td>{{model.created_at}}</td>
+        <td>{{model.updated_at}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
