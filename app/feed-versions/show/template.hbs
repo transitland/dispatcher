@@ -1,6 +1,10 @@
 <div class="row">
   <div class="col-md-6">
-    <h2>{{link-to 'Feeds' 'feeds'}} / {{#link-to 'feeds.show' model.feed}}{{model.feed.onestop_id}}{{/link-to}} / {{model.sha1}}</h2>
+    <h2>
+      {{link-to 'Feeds' 'feeds'}} /
+      {{#link-to 'feeds.show' model.feed}}{{model.feed.id}}{{/link-to}} /
+      {{model.sha1}}
+    </h2>
   </div>
   <div class="col-md-6 text-right">
     {{feed-version-controls model=model}}

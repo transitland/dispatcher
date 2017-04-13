@@ -1,6 +1,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Created</th>
       <th>Import Level</th>
       <th>Import Status</th>
@@ -9,9 +10,11 @@
   <tbody>
     {{#each models as |model|}}
       <tr>
+        <td>
+          {{#link-to 'feed-version-imports.show' model}}{{model.id}}{{/link-to}}
+        </td>
         <td>{{model.created_at}}</td>
         <td>{{model.import_level}}</td>
-
         {{#if (eq model.success true)}}
           <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
         {{else if (eq model.success false)}}
@@ -19,7 +22,6 @@
         {{else}}
           <td class="danger"><span class="glyphicon glyphicon-time"></span></td>
         {{/if}}
-
       </tr>
     {{/each}}
   </tbody>
