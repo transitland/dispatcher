@@ -21,7 +21,8 @@ export default Ember.Mixin.create({
       this.transitionToRoute(this.rootRoute + '.show', issue.id, { queryParams: queryParamsObject });
     },
     typeChanged: function(selected) {
-      this.set('issue_type', selected);
+
+      this.set('issue_type', selected || '');
       let queryParamsObject = this.queryParamsObject();
       this.transitionToRoute(this.rootRoute + '.index', { queryParams: queryParamsObject });
     }

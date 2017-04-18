@@ -17,9 +17,19 @@
     no fetch error
   {{/if}}
 </td>
-<td class="{{feed.importStatusCssClass}}">
-  {{feed.import_status}}
-</td>
+
+{{#if (eq feed.import_status "most_recent_succeeded")}}
+  <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+{{else if (eq feed.import_status "most_recent_failed")}}
+  <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+{{else if (eq feed.import_status "in_progress")}}
+  <td class="active"><span class="glyphicon glyphicon-time"></span></td>
+{{else if (eq feed.import_status "never_imported")}}
+  <td class=""></td>
+{{else}}
+  <td class="danger"><span class="glyphicon glyphicon-question-sign"></span></td>
+{{/if}}
+
 <td>
   {{#if feed.last_imported_at}}
     {{time-since-with-mouseover feed.last_imported_at}}

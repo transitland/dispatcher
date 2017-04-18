@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  currentUser: Ember.inject.service(),
   queryParams: {
     zoom: {
       replace: true
@@ -20,6 +21,7 @@ export default Ember.Route.extend({
     var bbox = params.bbox;
     // Changeset
     let changeset = this.store.createRecord('changeset', {
+      user: this.get('currentUser.user'),
       notes: 'Station editor:'
     });
     changeset.get('change_payloads').createRecord();

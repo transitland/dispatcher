@@ -1,9 +1,10 @@
 import Ember from 'ember';
+import config from '../../../config/environment';
 
 export default Ember.Component.extend({
   onestop_id: '',
   markerStopIcon: L.icon({
-    iconUrl: 'assets/images/search-active.png',
+    iconUrl: config.rootURL + 'assets/images/search-active.png',
     iconSize: [36, 54],
     iconAnchor: [18, 54],
     popupAnchor: [0, -54]

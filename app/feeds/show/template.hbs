@@ -7,64 +7,8 @@
   </div>
 </div>
 
-<dl class="dl-horizontal">
-  <dt>URL</dt>
-  <dd>{{model.feed.url}}</dd>
-  <dt>Feed format</dt>
-  <dd>{{model.feed.feed_format}}</dd>
-  <dt>Tags</dt>
-  <dd>
-    {{#each-in model.feed.tags as |key value|}}
-      {{key}}: {{value}} <br />
-    {{/each-in}}
-  </dd>
-  <dt>Operators In Feed</dt>
-  <dd>
-    {{#each model.feed.operators_in_feed as |oif|}}
-      {{oif.operator_onestop_id}}: {{oif.gtfs_agency_id}} <br />
-    {{/each}}
-  </dd>
-  <dt>License name and/or URL</dt>
-  <dd>{{model.feed.license_name}} {{model.feed.license_url}}</dd>
-  <dt>License use without attribution</dt>
-  <dd>{{model.feed.license_use_without_attribution}}</dd>
-  <dt>License created derived product</dt>
-  <dd>{{model.feed.license_create_derived_product}}</dd>
-  <dt>License redistribute</dt>
-  <dd>{{model.feed.license_redistribute}}</dd>
-  {{#if model.feed.license_attribution_text}}
-    <dt>License attribution text</dt>
-    <dd>{{model.feed.license_attribution_text}}</dd>
-  {{/if}}
-  <dt># of feed versions</dt>
-  <dd>{{model.feed.feed_versions_count}}</dd>
-  <dt>Active feed version</dt>
-  <dd>
-    {{#if model.feed.active_feed_version}}
-      {{model.feed.active_feed_version.sha1}}
-    {{else}}
-      <em>none</em>
-    {{/if}}
-  </dd>
-  <dt>Import level of active feed version</dt>
-  <dd>{{number-as-pips model.feed.import_level_of_active_feed_version 4}}</dd>
-  <dt>Created</dt>
-  <dd>{{time-since-with-mouseover model.feed.created_at}}</dd>
-  <dt>Updated</dt>
-  <dd>{{time-since-with-mouseover model.feed.updated_at}}</dd>
-  {{#if model.feed.created_or_updated_in_changeset}}
-    <dt>Created or updated in</dt>
-    <dd>
-      <h4>{{#link-to 'changesets.show' model.feed.created_or_updated_in_changeset}}
-        changeset #{{model.feed.created_or_updated_in_changeset.id}}
-      {{/link-to}}</h4>
-    </dd>
-  {{/if}}
-  <dt>Last fetched at</dt>
-  <dd>{{time-since-with-mouseover model.feed.last_fetched_at}}</dd>
-  <dt>Last imported at</dt>
-  <dd>{{time-since-with-mouseover model.feed.last_imported_at}}</dd>
-</dl>
+{{feed-form model=model.feed}}
+
 <h2>Feed fetch issues</h2>
 {{#if model.feed.hasIssues}}
   {{#each model.feed.issues as |issue|}}
@@ -143,4 +87,4 @@
 </ul>
 
 <h2>Feed versions</h2>
-{{feed-versions-list feed=model.feed}}
+{{feed-versions-table models=model.feed.feed_versions}}

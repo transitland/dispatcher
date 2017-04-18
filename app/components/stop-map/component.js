@@ -1,22 +1,23 @@
 import Ember from 'ember';
+import config from '../../config/environment';
 /* global L */
 
 var stopStationIcon = L.icon({
-  iconUrl: 'assets/images/search-active.png',
+  iconUrl: config.rootURL + 'assets/images/search-active.png',
   iconSize: [36, 54],
   iconAnchor: [18, 54],
   popupAnchor: [0, -54]
 });
 
 var stopPlatformIcon = L.icon({
-  iconUrl: 'assets/images/capital-l.png',
+  iconUrl: config.rootURL + 'assets/images/capital-l.png',
   iconSize: [16, 16],
   iconAnchor: [8, 8],
   popupAnchor: [0, -16]
 });
 
 var stopEgressIcon = L.icon({
-  iconUrl: 'assets/images/capital-l.png',
+  iconUrl: config.rootURL + 'assets/images/capital-l.png',
   iconSize: [16, 16],
   iconAnchor: [8, 8],
   popupAnchor: [0, -16]

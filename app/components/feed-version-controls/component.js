@@ -34,7 +34,7 @@ export default Ember.Component.extend({
     enqueue: function(importLevel) {
       var self = this;
       const flashMessages = Ember.get(this, 'flashMessages');
-      this.get('feedVersion').enqueue(importLevel)
+      this.model.enqueue(importLevel)
       .then( () => {
         flashMessages.add({
           message: 'Successfully enqueued feed version for import!',

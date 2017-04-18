@@ -2,6 +2,7 @@ import Ember from 'ember';
 import IssuesRoute from 'dispatcher/mixins/issues-route';
 
 export default Ember.Route.extend(IssuesRoute, {
+  currentUser: Ember.inject.service(),
 
   model: function(params) {
     // In the future, it would be worthwhile to consider keeping entities
@@ -16,6 +17,7 @@ export default Ember.Route.extend(IssuesRoute, {
     return this.store.findRecord('issue', params['issue_id'], { reload: true }).then(function(selectedIssue){
 
       let changeset = self.store.createRecord('changeset', {
+        user: this.get('currentUser.user'),
         notes: 'Issue resolution:'
       });
       changeset.get('change_payloads').createRecord();
@@ -33,7 +35,7 @@ export default Ember.Route.extend(IssuesRoute, {
       });
 
       let getStops = function(stopIds) {
-        return new Promise(function(resolve, reject){
+        return new Ember.RSVP.Promise(function(resolve, reject){
           if (stopIds.length > 0) {
             resolve(self.store.query('stop', {onestop_id: stopIds.join(',')}));
           }
@@ -44,7 +46,7 @@ export default Ember.Route.extend(IssuesRoute, {
       }
 
       let getRSPs = function(rspIds) {
-        return new Promise(function(resolve, reject){
+        return new Ember.RSVP.Promise(function(resolve, reject){
           resolve(self.store.query('route-stop-pattern', {onestop_id: rspIds.join(',')}));
         });
       }

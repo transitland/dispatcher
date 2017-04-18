@@ -3,6 +3,7 @@ import config from './config/environment';
 
 const Router = Ember.Router.extend({
   location: config.locationType,
+  rootURL: config.rootURL,
   scrollToTop: function() {
     window.scrollTo(0, 0);
   }.on('didTransition')
@@ -20,10 +21,17 @@ Router.map(function() {
   this.route('feeds', function() {
     this.route('show', { path: '/:feed_id' });
   });
+  this.route('feed-versions', function () {
+    this.route('show', { path: '/:feed_version_id' });
+  });
+  this.route('feed-version-imports', function () {
+    this.route('show', { path: '/:feed_version_import_id' });
+  });
   this.route('users', function() {
     this.route('show', { path: '/:user_id' });
     this.route('edit', { path: '/:user_id/edit' });
     this.route('new');
+    this.route('sign_in');
   });
   this.route('issues', function() {
     this.route('route-geometry', function() {
