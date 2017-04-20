@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import IssuesRoute from 'dispatcher/mixins/issues-route';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend(IssuesRoute, {
+export default Ember.Route.extend(AuthenticatedRouteMixin,IssuesRoute, {
   currentUser: Ember.inject.service(),
 
   model: function(params) {
@@ -17,7 +18,7 @@ export default Ember.Route.extend(IssuesRoute, {
     return this.store.findRecord('issue', params['issue_id'], { reload: true }).then(function(selectedIssue){
 
       let changeset = self.store.createRecord('changeset', {
-        user: this.get('currentUser.user'),
+        user: self.get('currentUser.user'),
         notes: 'Issue resolution:'
       });
       changeset.get('change_payloads').createRecord();

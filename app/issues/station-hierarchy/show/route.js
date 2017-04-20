@@ -13,7 +13,7 @@ export default Ember.Route.extend(IssuesRoute, {
     return self.store.findRecord('issue', params['issue_id'], { reload: true }).then(function(selectedIssue){
       // Changeset
       let changeset = self.store.createRecord('changeset', {
-        user: this.get('currentUser.user'),
+        user: self.get('currentUser.user'),
         notes: 'Issue resolution:'
       });
       changeset.get('change_payloads').createRecord();
