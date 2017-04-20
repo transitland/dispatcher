@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import IssuesRoute from 'dispatcher/mixins/issues-route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend(AuthenticatedRouteMixin,IssuesRoute, {
+export default Ember.Route.extend(IssuesRoute, {
   currentUser: Ember.inject.service(),
 
   model: function(params) {
