@@ -9,6 +9,24 @@
 
 {{feed-form model=model.feed}}
 
+<h2>Operators In Feed</h2>
+<table class="table">
+  <thead>
+    <th>Onestop ID</th>
+    <th>GTFS agency ID</th>
+  </thead>
+  <tbody>
+    {{#each model.feed.operators_in_feed as |oif|}}
+      <tr>
+        <td>{{link-to oif.operator_onestop_id 'operators.show' oif.operator_onestop_id }}</td>
+        <td>
+          <pre>{{oif.gtfs_agency_id}}</pre>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
 <h2>Feed fetch issues</h2>
 {{#if model.feed.hasIssues}}
   {{#each model.feed.issues as |issue|}}
