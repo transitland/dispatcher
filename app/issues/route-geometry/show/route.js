@@ -2,6 +2,7 @@ import Ember from 'ember';
 import IssuesRoute from 'dispatcher/mixins/issues-route';
 
 export default Ember.Route.extend(IssuesRoute, {
+  currentUser: Ember.inject.service(),
 
   model: function(params) {
     // In the future, it would be worthwhile to consider keeping entities
@@ -12,45 +13,81 @@ export default Ember.Route.extend(IssuesRoute, {
     this.store.unloadAll('route-stop-pattern');
     // leave issues, so as to not have to repopulate issues table
 
-    var self = this;
+    let self = this;
     return this.store.findRecord('issue', params['issue_id'], { reload: true }).then(function(selectedIssue){
 
       let changeset = self.store.createRecord('changeset', {
+        user: this.get('currentUser.user'),
         notes: 'Issue resolution:'
       });
       changeset.get('change_payloads').createRecord();
       let users = self.store.query('user', { per_page: false });
-      var rsps = [];
-      var stops = [];
+      let rspIds = [];
+      let stopIds = [];
+      // TODO use polymorphic association on entity-with-issue for entity
       selectedIssue.get('entities_with_issues').forEach(function(entity){
         if (entity.get('onestop_id').split('-')[0] === 'r') {
-          rsps.push(entity.get('onestop_id'));
+          rspIds.push(entity.get('onestop_id'));
         }
         else if (entity.get('onestop_id').split('-')[0] === 's') {
-          stops.push(entity.get('onestop_id'));
+          stopIds.push(entity.get('onestop_id'));
         }
       });
-      return self.store.query('stop', {onestop_id: stops.join(',')}).then(function(stops){
 
-        var bounds = new L.latLngBounds(stops.map(function(stop) {
-          return new L.latLng(stop.get('coordinates'));
-        }));
-        return self.store.query('route-stop-pattern', {onestop_id: rsps.join(',')}).then(function(rsps){
+      let getStops = function(stopIds) {
+        return new Ember.RSVP.Promise(function(resolve, reject){
+          if (stopIds.length > 0) {
+            resolve(self.store.query('stop', {onestop_id: stopIds.join(',')}));
+          }
+          else {
+            resolve();
+          }
+        });
+      }
 
+      let getRSPs = function(rspIds) {
+        return new Ember.RSVP.Promise(function(resolve, reject){
+          resolve(self.store.query('route-stop-pattern', {onestop_id: rspIds.join(',')}));
+        });
+      }
+
+      return Ember.RSVP.allSettled([
+        getStops(stopIds), getRSPs(rspIds)
+      ]).then(function(results){
+        let [stops, rsps] = results.filter(function(result){ return result.state === 'fulfilled'; }).map(function(result){ return result.value; });
+        let bounds = new L.latLngBounds([]);
+
+        if (stops) {
+          stops.forEach(function(stop){
+            bounds.extend(new L.latLng(stop.get('coordinates')));
+          });
+        }
+
+        if (rsps) {
           rsps.forEach(function(rsp){
+            // Distance calc issue details come with a full array of stop distances along the RSP
+            if (selectedIssue.get('issue_type') == 'distance_calculation_inaccurate') {
+              let re = 'Distances: \\[.+\\]';
+              let match = selectedIssue.get('details').match(re);
+              if (match) {
+                rsp.set('stop_distances', eval(match[0].replace('Distances: ', '')));
+                selectedIssue.set('details', selectedIssue.get('details').replace(/Distances: \[.+\]/, ''));
+              }
+            }
+
             rsp.get('coordinates').forEach(function(coord){
               bounds.extend(new L.latLng(coord));
             });
           });
+        }
 
-          return Ember.RSVP.hash({
-            selectedIssue: selectedIssue,
-            issueRouteStopPatterns: rsps,
-            issueStops: stops,
-            bounds: bounds,
-            changeset: changeset,
-            users: users
-          });
+        return Ember.RSVP.hash({
+          selectedIssue: selectedIssue,
+          issueRouteStopPatterns: rsps,
+          issueStops: stops,
+          bounds: bounds,
+          changeset: changeset,
+          users: users
         });
       });
     });

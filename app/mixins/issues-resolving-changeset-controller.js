@@ -1,11 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
+  currentUser: Ember.inject.service(),
   getChanges: function() {
 
   },
   emptyChangeset: function() {
     let changeset = this.store.createRecord('changeset', {
+      user: this.get('currentUser.user'),
       notes: 'Issue resolution:'
     });
     changeset.get('change_payloads').createRecord();

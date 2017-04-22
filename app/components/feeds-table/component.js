@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  session: Ember.inject.service(),
   classNames: ['table-responsive'],
   selectableFeeds: Ember.computed('feeds', function () {
     return this.get('feeds').map(function (feed) {
@@ -11,9 +12,6 @@ export default Ember.Component.extend({
     });
   }),
   selectedFeeds: Ember.computed('selectableFeeds.@each.isSelected', function() {
-    // return this.get('selectableFeeds').filter(function(feed) {
-    //   return feed.get('isSelected');
-    // });
     return this.get('selectableFeeds').filterBy('isSelected', true);
   }),
   anyFeedsSelected: Ember.computed.notEmpty('selectedFeeds'),
