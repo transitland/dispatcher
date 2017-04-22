@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-sm-3 col-xs-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        Tag
+      </span>
+      <input type="text" class="form-control" value={{tag_key}} oninput={{action (mut tag_key_input) value="target.value"}} />
+      <input type="text" class="form-control" value={{tag_value}} oninput={{action (mut tag_value_input) value="target.value"}} />
+      <span class="input-group-addon">
+        <button {{action "setTagKeyValue"}} class="btn btn-default">Filter</button>
+      </span>
+    </div>
+  </div>
+  <div class="col-sm-3 col-xs-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        Country:
+      </span>
+      {{#power-select
+        options=geographies.countries
+        selected=country
+        onchange=(action (mut country))
+        allowClear=true
+        as |country|
+      }}
+        {{country}}
+      {{/power-select}}
+    </div>
+  </div>
+  <div class="col-sm-3 col-xs-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        State/Province:
+      </span>
+      {{#power-select
+        options=geographies.states
+        selected=state
+        onchange=(action (mut state))
+        allowClear=true
+        as |state|
+      }}
+        {{state}}
+      {{/power-select}}
+    </div>
+  </div>
+  <div class="col-sm-3 col-xs-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        Metro:
+      </span>
+      {{#power-select
+        options=geographies.metros
+        selected=metro
+        onchange=(action (mut metro))
+        allowClear=true
+        as |metro|
+      }}
+        {{metro}}
+      {{/power-select}}
+    </div>
+  </div>
+</div>
