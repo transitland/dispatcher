@@ -20,5 +20,4 @@ var Operator = DS.Model.extend({
   tags: DS.attr()
 });
 
-
 export default Operator;

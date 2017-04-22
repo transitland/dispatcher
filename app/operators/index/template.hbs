@@ -1,12 +1,16 @@
-<h2>{{model.meta.total}} Operators</h2>
+<h2>{{model.operators.meta.total}} Operators</h2>
 
 {{#collapsable-panel title="Filter Operators" panelClass="panel-primary" show=true}}
   {{operator-controls
       tag_key=tag_key
       tag_value=tag_value
+      geographies=model.geographies
+      country=country
+      state=state
+      metro=metro
   }}
 {{/collapsable-panel}}
 
-{{operators-table operators=model}}
+{{operators-table operators=model.operators}}
 
 {{pagination-controls route="operators" hasPreviousPage=hasPreviousPage hasNextPage=hasNextPage previousOffset=previousOffset nextOffset=nextOffset perPage=per_page}}

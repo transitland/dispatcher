@@ -2,12 +2,21 @@
   <thead>
     <th>Onestop ID</th>
     <th>Name</th>
+    <th>Country</th>
+    <th>State/Province</th>
+    <th>Metro</th>
+    <th>Links</th>
   </thead>
   <tbody>
     {{#each operators as |operator|}}
       <tr>
         <td>{{link-to operator.onestop_id "operators.show" operator}}</td>
         <td>{{operator.name}}</td>
+        <td>{{operator.country}}</td>
+        <td>{{operator.state}}</td>
+        <td>{{operator.metro}}</td>
+        <td><a href="https://transit.land/feed-registry/operators/{{operator.onestop_id}}">
+        {{fa-icon "external-link"}} View in Feed Registry</a></td>
       </tr>
     {{else}}
       <p>No operators.</p>

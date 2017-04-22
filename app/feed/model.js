@@ -9,6 +9,9 @@ export default EntityWithActivityModel.extend({
   changesets_imported_from_this_feed: DS.hasMany('changeset', { async: true, inverse: 'imported_from_feed' }),
   issues: DS.hasMany('issue'),
 
+  operators: DS.hasMany('operator', {
+    async: true
+  }),
   operators_in_feed: DS.attr(),
   import_level_of_active_feed_version: DS.attr('number'),
   import_status: DS.attr('string'),

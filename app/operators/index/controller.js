@@ -3,5 +3,8 @@ import PaginatedSortableController from 'dispatcher/mixins/paginated-sortable-co
 
 export default Ember.Controller.extend(PaginatedSortableController, {
   tag_key: null,
-  tag_value: null
+  tag_value: null,
+  country: null,
+  state: null,
+  metro: null
 });
