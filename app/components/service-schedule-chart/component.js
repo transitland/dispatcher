@@ -14,6 +14,7 @@ function parseModel(model) {
   data = data.scheduled_service;
   return {
     id: model.get('feed_version').get('id'),
+    short_sha1: model.get('feed_version').get('short_sha1'),
     values: Object.keys(data).map(function(k) {
       return { date: isoParse(k), value: (+data[k] / 3600.0) }
     })
@@ -39,6 +40,11 @@ export default Ember.Component.extend({
     if (model) {
       models.push(parseModel(model));
     }
+    let idx = 0;
+    models.forEach(function(i) {
+      i.idx = idx;
+      idx += 1;
+    });
     return models;
   },
   drawChart() {
@@ -59,6 +65,16 @@ export default Ember.Component.extend({
     var l = line()
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.value); });
+
+    // Highlights
+    function mouseover(d, i) {
+      select('.line#line-'+d.id).style('stroke-width', 5);
+      select('.text#text-'+d.id).style('text-decoration', 'underline');
+    }
+    function mouseout(d, i) {
+      select('.line#line-'+d.id).style('stroke-width', 1.5);
+      select('.text#text-'+d.id).style('text-decoration', 'none');
+    }
 
     // Domain
     x.domain([
@@ -96,18 +112,25 @@ export default Ember.Component.extend({
 
     seriesLine.append("path") // path
       .attr("class", "line")
+      .attr("id", function(d) { return "line-"+d.id})
       .attr("d", function(d) { return l(d.values); })
       .style("stroke", function(d) { return z(d.id); })
       .style("stroke-width", 1.5)
-      .style("fill","none");
+      .style("fill","none")
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout);
 
     seriesLine.append("text") // path label
-      .datum(function(d) { return {id: d.id, value: d.values[d.values.length - 1]}; })
-      .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.value) + ")"; })
-      .attr("x", 3)
-      .attr("dy", "0.35em")
-      .style("font", "10px sans-serif")
-      .text(function(d) { return d.id; });
-
+      .attr("class", "text")
+      .attr("id", function(d) { return "text-"+d.id})
+      .attr("x", width - 80)
+      .attr("y", height)
+      .attr("dy", function(d) { return ((-1.5*d.idx)-1.0)+"em"; })
+      .attr("fill", function(d) { return z(d.id); })
+      // .attr("dy", "0.35em")
+      .style("font", "14px sans-serif")
+      .text(function(d) { return d.short_sha1; })
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout);
   }
 });
