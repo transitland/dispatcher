@@ -127,7 +127,6 @@ export default Ember.Component.extend({
       .attr("y", height)
       .attr("dy", function(d) { return ((-1.5*d.idx)-1.0)+"em"; })
       .attr("fill", function(d) { return z(d.id); })
-      // .attr("dy", "0.35em")
       .style("font", "14px sans-serif")
       .text(function(d) { return d.short_sha1; })
       .on("mouseover", mouseover)
