@@ -34,7 +34,11 @@ export default Ember.Component.extend({
     run.scheduleOnce('render', this, this.drawChart);
   },
   parseModels() {
-    let models = [parseModel(get(this, 'model'))];
+    let models = (get(this, 'models') || []).filterBy('type', 'FeedVersionInfoStatistics').map(function(i){return parseModel(i)});
+    let model = get(this, 'model');
+    if (model) {
+      models.push(parseModel(model));
+    }
     return models;
   },
   drawChart() {
