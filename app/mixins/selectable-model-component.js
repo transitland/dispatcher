@@ -4,11 +4,13 @@ export default Ember.Mixin.create({
   getSelectableModels: function() {
     return this.get('models')
   },
+  selectableModelDefault: true,
   selectableModels: Ember.computed(function () {
+    let def = this.selectableModelDefault;
     return this.getSelectableModels().map(function (model) {
       return Ember.ObjectProxy.create({
         content: model,
-        isSelected: true
+        isSelected: def
       });
     });
   }),

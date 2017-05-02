@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import SelectableModelController from 'dispatcher/mixins/selectable-model-controller';
+import SelectableModelComponent from 'dispatcher/mixins/selectable-model-component';
 
-export default Ember.Component.extend(SelectableModelController, {
+export default Ember.Component.extend(SelectableModelComponent, {
   session: Ember.inject.service(),
   classNames: ['table-responsive'],
   getSelectableModels: function() {
