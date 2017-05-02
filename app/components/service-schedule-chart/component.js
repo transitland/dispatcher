@@ -49,7 +49,7 @@ export default Ember.Component.extend({
   },
   drawChart() {
     // Setup
-    let margin = {top: 20, right: 50, bottom: 20, left: 50};
+    let margin = {top: 20, right: 100, bottom: 20, left: 50};
     let svg = select(this.element);
     let width = $(this.element).width() - margin.left - margin.right;
     let height = $(this.element).height() - margin.top - margin.bottom;
@@ -123,11 +123,11 @@ export default Ember.Component.extend({
     seriesLine.append("text") // path label
       .attr("class", "text")
       .attr("id", function(d) { return "text-"+d.id})
-      .attr("x", width - 80)
+      .attr("x", width + 15)
       .attr("y", height)
-      .attr("dy", function(d) { return ((-1.5*d.idx)-1.0)+"em"; })
+      .attr("dy", function(d) { return ((-1.25 * d.idx) - 1.0) + "em"; })
       .attr("fill", function(d) { return z(d.id); })
-      .style("font", "14px sans-serif")
+      .style("font", "12px sans-serif")
       .text(function(d) { return d.short_sha1; })
       .on("mouseover", mouseover)
       .on("mouseout", mouseout);
