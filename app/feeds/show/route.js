@@ -15,7 +15,7 @@ export default Ember.Route.extend({
       stationHierarchyIssues: stationHierarchyIssues
     }).then(function (model) {
       let i = model.feedVersions.map(function(i){return i.id}).join(',');
-      let feedVersionInfoStatistics = self.store.query('feed-version-info', {'feed_version_sha1': i, type: 'FeedVersionInfoStatistics'} );
+      let feedVersionInfoStatistics = self.store.query('feed-version-info', {'feed_version_sha1': i, type: 'FeedVersionInfoStatistics', per_page: false} );
       return Ember.RSVP.hash({
         feed: model.feed,
         feedVersions: model.feedVersions,
