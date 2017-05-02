@@ -69,7 +69,9 @@ export default Ember.Component.extend({
 
     // Highlights
     function mouseover(d, i) {
-      select('.line#line-'+d.id).style('stroke-width', 5);
+      select('.line#line-'+d.id).style('stroke-width', 5).each(function(){
+        return this.parentNode.appendChild(this)
+      });
       select('.text#text-'+d.id).style('text-decoration', 'underline');
     }
     function mouseout(d, i) {
@@ -125,8 +127,8 @@ export default Ember.Component.extend({
       .attr("class", "text")
       .attr("id", function(d) { return "text-"+d.id})
       .attr("x", width + 15)
-      .attr("y", height)
-      .attr("dy", function(d) { return ((-1.25 * d.idx) - 1.0) + "em"; })
+      .attr("y", 0)
+      .attr("dy", function(d) { return ((1.25 * d.idx) + 1.0) + "em"; })
       .attr("fill", function(d) { return z(d.id); })
       .style("font", "12px sans-serif")
       .text(function(d) { return d.short_sha1; })
