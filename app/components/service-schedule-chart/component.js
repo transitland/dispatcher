@@ -9,12 +9,12 @@ import { isoParse } from 'd3-time-format';
 import { axisBottom, axisLeft } from 'd3-axis';
 
 function parseModel(model) {
-  let data = model.get('json');
-  if (!data) { return { id: 'test', values: [] } }
-  data = data.scheduled_service;
+  let fvi = model.get('feed_version_infos').filterBy('type','FeedVersionInfoStatistics');
+  if (!fvi || fvi.length < 1) { return { id: 'test', values: [] } }
+  let data = fvi.get('firstObject.json').scheduled_service;
   return {
-    id: model.get('feed_version').get('id'),
-    short_sha1: model.get('feed_version').get('short_sha1'),
+    id: model.get('id'),
+    short_sha1: model.get('short_sha1'),
     values: Object.keys(data).map(function(k) {
       return { date: isoParse(k), value: (+data[k] / 3600.0) }
     })
@@ -35,7 +35,7 @@ export default Ember.Component.extend({
     run.scheduleOnce('render', this, this.drawChart);
   },
   parseModels() {
-    let models = (get(this, 'models') || []).filterBy('type', 'FeedVersionInfoStatistics').map(function(i){return parseModel(i)});
+    let models = (get(this, 'models') || []).map(function(i){return parseModel(i)});
     let model = get(this, 'model');
     if (model) {
       models.push(parseModel(model));
