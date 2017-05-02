@@ -1,34 +1,14 @@
 import Ember from 'ember';
+import SelectableModelComponent from 'dispatcher/mixins/selectable-model-component';
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(SelectableModelComponent, {
   session: Ember.inject.service(),
   classNames: ['table-responsive'],
-  selectableFeeds: Ember.computed('feeds', function () {
-    return this.get('feeds').map(function (feed) {
-      return Ember.ObjectProxy.create({
-        content: feed,
-        isSelected: false
-      });
-    });
-  }),
-  selectedFeeds: Ember.computed('selectableFeeds.@each.isSelected', function() {
-    return this.get('selectableFeeds').filterBy('isSelected', true);
-  }),
-  anyFeedsSelected: Ember.computed.notEmpty('selectedFeeds'),
-  allFeedsSelected: Ember.computed('selectedFeeds.[]', function() {
-    return (this.get('selectedFeeds.length') === this.get('feeds.length')) && (this.get('feeds.length') > 0);
-  }),
+  getSelectableModels: function() {
+    return this.get('feeds');
+  },
+  selectableModelDefault: false,
   actions: {
-    selectNone: function () {
-      this.get("selectableFeeds").forEach(function (feed) {
-        feed.set("isSelected", false);
-      });
-    },
-    selectAll: function () {
-      this.get("selectableFeeds").forEach(function (feed) {
-        feed.set("isSelected", true);
-      });
-    },
     enqueueSelectedFeedsForImport: function(importLevel) {
       const flashMessages = Ember.get(this, 'flashMessages');
       let importPromises = this.get('selectedFeeds').map(function(feed) {
