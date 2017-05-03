@@ -1,8 +1,23 @@
+{{service-schedule-chart models=selectedModels}}
+
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Active</th>
+      <th>
+        {{#if allModelsSelected}}
+          <input type="checkbox" {{action "selectNone"}} checked>
+        {{else}}
+          {{#if anyModelsSelected}}
+            <!-- some day it would be nice to be able to mark this checkbox
+                 as indeterminate -->
+            <input type="checkbox" {{action "selectAll"}}>
+          {{else}}
+            <input type="checkbox" {{action "selectAll"}}>
+          {{/if}}
+        {{/if}}
+      </th>
       <th>SHA1</th>
+      <th>Active</th>
       <th>Start</th>
       <th>End</th>
       <th>Import Level</th>
@@ -10,15 +25,18 @@
     </tr>
   </thead>
   <tbody>
-    {{#each models as |model|}}
+    {{#each selectableModels as |model|}}
       <tr>
+        <td>
+          {{input type="checkbox" checked=model.isSelected}}
+        </td>
+        <td>
+          {{#link-to "feed-versions.show" model.id}}{{model.short_sha1}}{{/link-to}}
+        </td>
         <td>
           {{#if model.is_active_feed_version}}
             <span class="glyphicon glyphicon-ok"></span>
           {{/if}}
-        </td>
-        <td>
-          {{#link-to "feed-versions.show" model.id}}{{model.short_sha1}}{{/link-to}}
         </td>
         <td>{{model.earliest_calendar_date}}</td>
         <td>{{model.latest_calendar_date}}</td>
