@@ -28,7 +28,7 @@
     {{#each selectableModels as |model|}}
       <tr>
         <td>
-          {{input type="checkbox" checked=model.isSelected oninput=(action (mut model.isSelected) target.value)}}
+          {{input type="checkbox" checked=model.isSelected}}
         </td>
         <td>
           {{#link-to "feed-versions.show" model.id}}{{model.short_sha1}}{{/link-to}}
