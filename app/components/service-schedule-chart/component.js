@@ -2,18 +2,19 @@ import Ember from 'ember';
 const { run, get } = Ember;
 
 import { select } from 'd3-selection';
-import { extent, min, max } from 'd3-array';
-import { line, curveBasis } from 'd3-shape';
+import { min, max } from 'd3-array';
+import { line } from 'd3-shape';
 import { scaleTime, scaleLinear, scaleOrdinal, schemeCategory10 } from 'd3-scale';
 import { isoParse } from 'd3-time-format';
 import { axisBottom, axisLeft } from 'd3-axis';
 
 function parseModel(model) {
-  let data = model.get('json');
-  if (!data) { return { id: 'test', values: [] } }
-  data = data.scheduled_service;
+  let fvi = model.get('feed_version_infos').filterBy('type','FeedVersionInfoStatistics');
+  if (!fvi || fvi.length < 1) { return { id: 'test', values: [] } }
+  let data = fvi.get('firstObject.json').scheduled_service;
   return {
-    id: model.get('feed_version').get('id'),
+    id: model.get('id'),
+    short_sha1: model.get('short_sha1'),
     values: Object.keys(data).map(function(k) {
       return { date: isoParse(k), value: (+data[k] / 3600.0) }
     })
@@ -34,13 +35,23 @@ export default Ember.Component.extend({
     run.scheduleOnce('render', this, this.drawChart);
   },
   parseModels() {
-    let models = [parseModel(get(this, 'model'))];
+    let models = (get(this, 'models') || []).map(function(i){return parseModel(i)});
+    let model = get(this, 'model');
+    if (model) {
+      models.push(parseModel(model));
+    }
+    let idx = 0;
+    models.forEach(function(i) {
+      i.idx = idx;
+      idx += 1;
+    });
     return models;
   },
   drawChart() {
     // Setup
-    let margin = {top: 20, right: 50, bottom: 20, left: 50};
+    let margin = {top: 20, right: 100, bottom: 20, left: 50};
     let svg = select(this.element);
+    svg.selectAll("*").remove(); // clear
     let width = $(this.element).width() - margin.left - margin.right;
     let height = $(this.element).height() - margin.top - margin.bottom;
     let g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -55,6 +66,18 @@ export default Ember.Component.extend({
     var l = line()
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.value); });
+
+    // Highlights
+    function mouseover(d, i) {
+      select('.line#line-'+d.id).style('stroke-width', 5).each(function(){
+        return this.parentNode.appendChild(this)
+      });
+      select('.text#text-'+d.id).style('text-decoration', 'underline');
+    }
+    function mouseout(d, i) {
+      select('.line#line-'+d.id).style('stroke-width', 1.5);
+      select('.text#text-'+d.id).style('text-decoration', 'none');
+    }
 
     // Domain
     x.domain([
@@ -92,18 +115,24 @@ export default Ember.Component.extend({
 
     seriesLine.append("path") // path
       .attr("class", "line")
+      .attr("id", function(d) { return "line-"+d.id})
       .attr("d", function(d) { return l(d.values); })
       .style("stroke", function(d) { return z(d.id); })
       .style("stroke-width", 1.5)
-      .style("fill","none");
+      .style("fill","none")
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout);
 
-    // seriesLine.append("text") // path label
-    //   .datum(function(d) { return {id: d.id, value: d.values[d.values.length - 1]}; })
-    //   .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.value) + ")"; })
-    //   .attr("x", 3)
-    //   .attr("dy", "0.35em")
-    //   .style("font", "10px sans-serif")
-    //   .text(function(d) { return d.id; });
-
+    seriesLine.append("text") // path label
+      .attr("class", "text")
+      .attr("id", function(d) { return "text-"+d.id})
+      .attr("x", width + 15)
+      .attr("y", 0)
+      .attr("dy", function(d) { return ((1.25 * d.idx) + 1.0) + "em"; })
+      .attr("fill", function(d) { return z(d.id); })
+      .style("font", "12px sans-serif")
+      .text(function(d) { return d.short_sha1; })
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout);
   }
 });

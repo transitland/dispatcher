@@ -27,6 +27,9 @@ Router.map(function() {
   this.route('feed-version-imports', function () {
     this.route('show', { path: '/:feed_version_import_id' });
   });
+  this.route('operators', function() {
+    this.route('show', { path: '/:operator_id' });
+  });
   this.route('users', function() {
     this.route('show', { path: '/:user_id' });
     this.route('edit', { path: '/:user_id/edit' });
