@@ -40,7 +40,7 @@
 
 {{#each model.feed_version_infos as |modelInfo| }}
   {{#if (eq modelInfo.type "FeedVersionInfoStatistics")}}
-    {{service-schedule-chart model=modelInfo}}
+    {{service-schedule-chart model=model}}
     {{#collapsable-panel title="Archive files and and CSV contents" show=false}}
       {{feed-version-info-panel model=modelInfo}}
     {{/collapsable-panel}}
@@ -61,7 +61,6 @@
     <iframe class="feed-version-iframe" src="{{model.feedvalidator_url}}"></iframe>
   {{/collapsable-panel}}
 {{/if}}
-
 
 {{#each model.issues as |issue|}}
   {{#if (eq issue.issue_category "feed_import")}}

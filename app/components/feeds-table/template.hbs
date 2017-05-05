@@ -1,11 +1,11 @@
 {{#if session.isAuthenticated}}
-  {{#if anyFeedsSelected}}
+  {{#if anyModelsSelected}}
     <div class="panel panel-primary">
       <div class="panel-heading">Run Commands on Selected Feeds</div>
       <div class="panel-body">
         <div class="row">
           <div class="col-md-6">
-            {{feed-fetcher-controls feeds=selectedFeeds buttonText="Fetch selected feed(s)"}}
+            {{feed-fetcher-controls feeds=selectedModels buttonText="Fetch selected feed(s)"}}
           </div>
           <div class="col-md-6">
             Import latest version of feed(s) at:
@@ -26,10 +26,10 @@
   <thead>
     <tr>
       <th>
-        {{#if allFeedsSelected}}
+        {{#if allModelsSelected}}
           <input type="checkbox" {{action "selectNone"}} checked>
         {{else}}
-          {{#if anyFeedsSelected}}
+          {{#if anyModelsSelected}}
             <!-- some day it would be nice to be able to mark this checkbox
                  as indeterminate -->
             <input type="checkbox" {{action "selectAll"}}>
@@ -48,7 +48,7 @@
     </tr>
   </thead>
   <tbody>
-    {{#each selectableFeeds as |feed|}}
+    {{#each selectableModels as |feed|}}
       {{feeds-table/feed-row feed=feed}}
     {{/each}}
   </tbody>
