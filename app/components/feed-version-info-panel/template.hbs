@@ -1,31 +1,57 @@
-<dl class="dl-horizontal">
-  <dt>Created at</dt>
-  <dd>{{model.created_at}}</dd>
-  <dt>Updated at</dt>
-  <dd>{{model.updated_at}}</dd>
-</dl>
 
-<h4>Feed Statistics</h4>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Column</th>
-      <th>Rows</th>
-      <th>Unique</th>
-      <th>Min</th>
-      <th>Max</th>
-    </tr>
-  </thead>
+<h4>
+  Files in the Archive
+  {{#fa-icon "question-circle"}}
+    {{#popover-on-component}}
+      <p>This is a list of all files in the <code>.zip</code> archive, including files that are optional or outside of the GTFS spec.</p>
+    {{/popover-on-component}}
+  {{/fa-icon}}
+</h4>
+<ul>
+  {{#each model.json.filenames as |filename|}}
+    <li>{{filename}}</li>
+  {{/each}}
+</ul>
+
+<h4>
+  File Content Summaries
+  {{#fa-icon "question-circle"}}
+    {{#popover-on-component}}
+      <p>These tables summarize the contents of <code>.txt</code> files that are included in the GTFS spec. Files that are not whitelisted by the <a href="https://github.com/transitland/gtfs">Transitland GTFS wrapper library</a> are not parsed (for security and performance reasons). Within whitelisted files, all columns are parsed, even columns that are option or outside of the GTFS spec.</p>
+    {{/popover-on-component}}
+  {{/fa-icon}}
+</h4>
 {{#each-in model.json.statistics as |key value|}}
-  <tr><td colspan="5" style="border-bottom: solid 1px black">{{key}}</td></tr>
-  {{#each-in value as |column stats|}}
-    <tr>
-      <td>{{column}}</td>
-      <td>{{stats.total}}</td>
-      <td>{{stats.unique}}</td>
-      <td>{{stats.min}}</td>
-      <td>{{stats.max}}</td>
-    </tr>
-  {{/each-in}}
+  <table class="table table-striped">
+    <caption>
+      <h4>
+        {{key}}
+        <small class="pull-right">
+          <a href="{{links-to-gtfs-spec-and-best-practices filename=key destination="spec"}}" target="_blank">{{fa-icon "external-link"}} GTFS spec about {{key}}</a>
+          &nbsp;
+          <a href="{{links-to-gtfs-spec-and-best-practices filename=key destination="bestPractices"}}" target="_blank">{{fa-icon "external-link"}} GTFS Best Practices about on {{key}}</a>
+        </small>
+      </h4>
+    </caption>
+    <thead>
+      <tr>
+        <th>Column heading</th>
+        <th># of total rows</th>
+        <th># of unique row values</th>
+        <th>Minimum row value</th>
+        <th>Maximum row value</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each-in value as |column stats|}}
+        <tr>
+          <td>{{column}}</td>
+          <td>{{stats.total}}</td>
+          <td>{{stats.unique}}</td>
+          <td>{{stats.min}}</td>
+          <td>{{stats.max}}</td>
+        </tr>
+      {{/each-in}}
+    </tbody>
+  </table>
 {{/each-in}}
-</table>

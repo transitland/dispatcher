@@ -54,6 +54,8 @@
     "ember-simple-auth": "1.2.1",
     "ember-simple-auth-token": "2.1.0",
     "ember-source": "~2.12.0",
+    "ember-tether": "^1.0.0-beta.0",
+    "ember-tooltips": "^2.9.0-beta.0",
     "loader.js": "^4.2.3"
   },
   "engines": {

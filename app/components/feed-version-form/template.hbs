@@ -41,7 +41,7 @@
 {{#each model.feed_version_infos as |modelInfo| }}
   {{#if (eq modelInfo.type "FeedVersionInfoStatistics")}}
     {{service-schedule-chart model=modelInfo}}
-    {{#collapsable-panel title="Feed Statistics" show=false}}
+    {{#collapsable-panel title="Archive files and and CSV contents" show=false}}
       {{feed-version-info-panel model=modelInfo}}
     {{/collapsable-panel}}
   {{/if}}
@@ -49,14 +49,14 @@
 
 {{#each model.feed_version_infos as |modelInfo| }}
   {{#if (eq modelInfo.type "FeedVersionInfoConveyalValidation")}}
-    {{#collapsable-panel title="Conveyal gtfs-lib validation" show=false}}
+    {{#collapsable-panel title="Conveyal gtfs-lib validation report" show=false}}
       {{json-editor json=modelInfo.json mode='view' expand='all'}}
     {{/collapsable-panel}}
   {{/if}}
 {{/each}}
 
 {{#if model.feedvalidator_url}}
-  {{#collapsable-panel title="Google feedvalidator.py validation" show=false}}
+  {{#collapsable-panel title="Google feedvalidator.py validation report" show=false}}
     <div><a target="_blank" href="{{model.feedvalidator_url}}">View results</a></div>
     <iframe class="feed-version-iframe" src="{{model.feedvalidator_url}}"></iframe>
   {{/collapsable-panel}}
