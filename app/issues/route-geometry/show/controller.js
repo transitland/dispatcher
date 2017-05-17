@@ -57,9 +57,6 @@ export default Ember.Controller.extend(IssuesController,
         });
       }
     },
-    popupOpen: function(e) {
-      console.log(e);
-    },
     stopAdded: function(leafletId, onestop_id) {
       this.get('editableLeafletObjects')[leafletId] = onestop_id;
     },
