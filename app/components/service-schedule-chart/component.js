@@ -9,14 +9,15 @@ import { isoParse } from 'd3-time-format';
 import { axisBottom, axisLeft } from 'd3-axis';
 
 function parseModel(model) {
-  let fvi = model.get('feed_version_infos').filterBy('type','FeedVersionInfoStatistics');
-  if (!fvi || fvi.length < 1) { return { id: 'test', values: [] } }
-  let data = fvi.get('firstObject.json').scheduled_service;
+  let data = model.get('feed_version_infos').filterBy('type','FeedVersionInfoStatistics').get('firstObject.json');
+  if (!data) { return }
+  let scheduled_service = data.scheduled_service;
+  if (!scheduled_service) { return }
   return {
     id: model.get('id'),
     short_sha1: model.get('short_sha1'),
-    values: Object.keys(data).map(function(k) {
-      return { date: isoParse(k), value: (+data[k] / 3600.0) }
+    values: Object.keys(scheduled_service).map(function(k) {
+      return { date: isoParse(k), value: (+scheduled_service[k] / 3600.0) }
     })
   }
 }
@@ -35,17 +36,19 @@ export default Ember.Component.extend({
     run.scheduleOnce('render', this, this.drawChart);
   },
   parseModels() {
-    let models = (get(this, 'models') || []).map(function(i){return parseModel(i)});
+    let models = (get(this, 'models') || [])
     let model = get(this, 'model');
-    if (model) {
-      models.push(parseModel(model));
-    }
+    if (model) { models.push(model) }
+    let parsedModels = [];
     let idx = 0;
-    models.forEach(function(i) {
-      i.idx = idx;
+    models.forEach(function(model) {
+      let parsedModel = parseModel(model);
+      if (!parsedModel) { return }
       idx += 1;
-    });
-    return models;
+      parsedModel.idx = idx;
+      parsedModels.push(parsedModel);
+    })
+    return parsedModels;
   },
   drawChart() {
     // Setup
@@ -58,6 +61,13 @@ export default Ember.Component.extend({
 
     // Convert
     let series = this.parseModels();
+    if (series.length == 0) {
+      g.append("text").attr("class", "text")
+        .attr("x", width + 15)
+        .attr("y", 0)
+        .style("font", "12px sans-serif")
+        .text("No data");
+    }
 
     // Axes
     var x = scaleTime().rangeRound([0, width]);
