@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Mixin.create({
+export default Ember.Mixin.create(AuthenticatedRouteMixin, {
   queryParams: {
     issue_type: {
       refreshModel: true
