@@ -40,11 +40,14 @@ module.exports = function (environment) {
 
   if (environment === 'development') {
     ENV.datastoreHost = 'http://dev.transit.land';
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+  }
+
+  if (environment === 'localhost') {
+    ENV.datastoreHost = 'http://localhost:3000';
+  }
+
+  if (environment === 'development_production') {
+    ENV.datastoreHost = 'http://transit.land';
   }
 
   if (environment === 'test') {
