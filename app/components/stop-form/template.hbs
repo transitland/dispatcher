@@ -28,7 +28,6 @@
     <h5>{{stop.stop_platforms.length}} Platforms</h5>
     <ul>
       {{#each stop.stop_platforms as |stop_platform|}}
-        <h5>Stop Platform:</h5>
         <li><a {{action "switchPopup" stop_platform}}>
           {{stop_platform.name}}<br />
           {{stop_platform.id}}
