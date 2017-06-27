@@ -26,7 +26,7 @@ export default Ember.Route.extend({
     });
     changeset.get('change_payloads').createRecord();
     // Stops
-    let stops = this.store.query('stop-station', {embed_issues: true, bbox: bbox, per_page: 100, total: false});
+    let stops = this.store.query('stop-station', {embed_issues: true, bbox: bbox, per_page: 1000, total: false});
     return Ember.RSVP.hash({
       changeset: changeset,
       stops: stops
