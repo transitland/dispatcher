@@ -1,50 +1,56 @@
-{{#leaflet-map lat=lat lng=lng zoom=zoom onZoomend=(action "updateView") onDragend=(action "updateView")}}
+{{#leaflet-map lat=lat lng=lng zoom=zoom onZoomend=(action "updateView") onDragend=(action "updateView") as |layers|}}
 
-  {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+  {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
   {{#each stops as |stop|}}
 
-    {{#marker-layer
+    {{#layers.marker
       icon=stopStationIcon
       location=stop.coordinates
       draggable=true
-      popupOpen=stop.isOpen
       onDrag=(action "updateStopLocation" stop)
+      as |marker|
     }}
-      {{stop-form stop=stop}}
-    {{/marker-layer}}
+      {{#marker.popup popupOpen=stop.isOpen}}
+        {{stop-form stop=stop}}
+      {{/marker.popup}}
+    {{/layers.marker}}
 
     {{#each stop.stop_platforms as |stop_platform|}}
-      {{#marker-layer
+      {{#layers.marker
         icon=stopPlatformIcon
         location=stop_platform.coordinates
         draggable=true
-        popupOpen=stop_platform.isOpen
         onDrag=(action "updateStopLocation" stop_platform)
+        as |marker|
       }}
-        {{stop-form parent_stops=stops stop=stop_platform}}
-      {{/marker-layer}}
+        {{#marker.popup popupOpen=stop_platform.isOpen}}
+          {{stop-form parent_stops=stops stop=stop_platform}}
+        {{/marker.popup}}
+      {{/layers.marker}}
     {{/each}}
 
     {{#each stop.stop_egresses as |stop_egress|}}
-      {{#marker-layer
+      {{#layers.marker
         icon=stopEgressIcon
         location=stop_egress.coordinates
         draggable=true
-        popupOpen=stop_egress.isOpen
         onDrag=(action "updateStopLocation" stop_egress)
+        as |marker|
       }}
-        {{stop-form parent_stops=stops stop=stop_egress}}
-      {{/marker-layer}}
+        {{#marker.popup popupOpen=stop_egress.isOpen}}
+          {{stop-form parent_stops=stops stop=stop_egress}}
+        {{/marker.popup}}
+      {{/layers.marker}}
     {{/each}}
 
-    {{#polygon-layer locations=stop.stationPlatformLines color="red"}}
-      Platforms
-    {{/polygon-layer}}
+    {{#layers.polygon locations=stop.stationPlatformLines color="red" as |polygon|}}
+      {{#polygon.popup}}Platforms{{/polygon.popup}}
+    {{/layers.polygon}}
 
-    {{#polygon-layer locations=stop.stationEgressLines color="blue"}}
-      Egresses
-    {{/polygon-layer}}
+    {{#layers.polygon locations=stop.stationEgressLines color="blue" as |polygon|}}
+      {{#polygon.popup}}Egresses{{/polygon.popup}}
+    {{/layers.polygon}}
 
   {{/each}}
 {{/leaflet-map}}

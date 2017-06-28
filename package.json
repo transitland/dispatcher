@@ -57,6 +57,8 @@
     "ember-source": "~2.12.0",
     "ember-tether": "^1.0.0-beta.0",
     "ember-tooltips": "^2.9.0-beta.0",
+    "leaflet": "^1.1.0",
+    "leaflet-draw": "^0.4.9",
     "loader.js": "^4.2.3"
   },
   "engines": {
