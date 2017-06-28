@@ -8,11 +8,10 @@
       icon=stopStationIcon
       location=stop.coordinates
       draggable=true
-      popupOpen=stop.isOpen
       onDrag=(action "updateStopLocation" stop)
       as |marker|
     }}
-      {{#marker.popup}}
+      {{#marker.popup popupOpen=stop.isOpen}}
         {{stop-form stop=stop}}
       {{/marker.popup}}
     {{/layers.marker}}
@@ -22,11 +21,10 @@
         icon=stopPlatformIcon
         location=stop_platform.coordinates
         draggable=true
-        popupOpen=stop_platform.isOpen
         onDrag=(action "updateStopLocation" stop_platform)
         as |marker|
       }}
-        {{#marker.popup}}
+        {{#marker.popup popupOpen=stop_platform.isOpen}}
           {{stop-form parent_stops=stops stop=stop_platform}}
         {{/marker.popup}}
       {{/layers.marker}}
@@ -37,11 +35,10 @@
         icon=stopEgressIcon
         location=stop_egress.coordinates
         draggable=true
-        popupOpen=stop_egress.isOpen
         onDrag=(action "updateStopLocation" stop_egress)
         as |marker|
       }}
-        {{#marker.popup}}
+        {{#marker.popup popupOpen=stop_egress.isOpen}}
           {{stop-form parent_stops=stops stop=stop_egress}}
         {{/marker.popup}}
       {{/layers.marker}}
