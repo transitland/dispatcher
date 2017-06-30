@@ -9,6 +9,7 @@
     <h2>Stations</h2>
   </div>
   <div class="col-xs-6 text-right">
+    {{input type="checkbox" checked=isMinPlatforms click=(action "toggleMinPlatforms")}} Stations only
     <button {{action "setBounds"}} class="btn btn-primary">Refresh</button>
     <button {{action "showChangeset"}} class="btn btn-primary">Changeset</button>
   </div>

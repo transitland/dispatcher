@@ -5,6 +5,16 @@ export default Ember.Controller.extend({
   lat: 37.78990,
   lng: -122.39310,
   zoom: 14,
+  isMinPlatforms: Ember.computed('min_platforms', function() {
+    console.log('isMinPlatforms', this.get('min_platforms'));
+    if (this.get('min_platforms') > 0) {
+      console.log(true);
+      return true
+    } else {
+      console.log(false);
+      return false
+    }
+  }),
   getChanges: function() {
     var entities = [];
     entities = entities.concat(this.store.peekAll('stop-station').filter(function(e) { return e.get('hasDirtyAttributes'); }));
@@ -18,6 +28,16 @@ export default Ember.Controller.extend({
     });
   },
   actions: {
+    toggleMinPlatforms: function() {
+      console.log('toggleMinPlatforms');
+      if (this.get('min_platforms') > 0) {
+        console.log('set to null');
+        this.set('min_platforms', 0);
+      } else {
+        console.log('set to 1');
+        this.set('min_platforms', 1);
+      }
+    },
     showChangeset: function() {
       var payload = {changes: this.getChanges()};
       this.model.changeset.get('change_payloads').get('firstObject').set('payload', payload);
