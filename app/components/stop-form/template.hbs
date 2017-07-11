@@ -8,6 +8,12 @@
 {{#if stop.parent_stop}}
 
   <div class="form-group">
+    <ul>
+      {{#each stop.routes_serving_stop_and_platforms as |r|}}
+        <li>{{r.operator_name}} ({{r.operator_onestop_id}}): {{r.route_name}} ({{r.route_onestop_id}})</li>
+      {{/each}}
+    </ul>
+
     <h5>Parent Stop:</h5>
     <ul><li><a {{action "switchPopup" stop.parent_stop}}>
       {{stop.parent_stop.name}}<br />
