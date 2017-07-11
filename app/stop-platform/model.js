@@ -3,6 +3,7 @@ import DS from 'ember-data';
 import Stop from 'dispatcher/stop/model';
 
 export default Stop.extend({
+  routes_serving_stop: DS.attr(),
   parent_stop: DS.belongsTo('stop-station', { modelFor: 'stop-station' }),
   parent_stop_onestop_id: Ember.computed('parent_stop', {
     get(key) {
