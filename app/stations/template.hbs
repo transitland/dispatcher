@@ -10,6 +10,12 @@
   </div>
 
   <div class="col-xs-6 text-right">
+
+    <select class="form-control" style="display:inline;width: 150px;" onchange={{action (mut exclude) value="target.value"}}>
+      <option value=""></option>
+      <option value="generated" selected={{eq exclude "generated"}}>Exclude generated platforms</option>
+    </select>
+
     <select class="form-control" style="display:inline;width: 150px;" onchange={{action (mut min_platforms) value="target.value"}}>
       <option value=""></option>
       <option value="0" selected={{eq min_platforms ""}}>All stops</option>
@@ -17,8 +23,10 @@
       <option value="2" selected={{eq min_platforms "2"}}>Stations (2+)</option>
       <option value="2" selected={{eq min_platforms "3"}}>Stations (3+)</option>
     </select>
+
     <button {{action "setBounds"}} class="btn btn-primary">Refresh</button>
     <button {{action "showChangeset"}} class="btn btn-primary">Changeset</button>
+
   </div>
 
 </div>

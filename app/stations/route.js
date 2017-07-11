@@ -19,6 +19,10 @@ export default Ember.Route.extend({
     min_platforms: {
       replace: true,
       refreshModel: true
+    },
+    exclude: {
+      replace: true,
+      refreshModel: true
     }
   },
   model: function(params) {
@@ -34,7 +38,8 @@ export default Ember.Route.extend({
     let q = {
       bbox: bbox,
       per_page: 1000,
-      total: false
+      total: false,
+      exclude: params.exclude
     }
     if (min_platforms > 0) {
       q.min_platforms = min_platforms
