@@ -9,7 +9,7 @@
 
   <div class="form-group">
     <ul>
-      {{#each stop.routes_serving_stop_and_platforms as |r|}}
+      {{#each stop.routes_serving_stop as |r|}}
         <li>{{r.operator_name}} ({{r.operator_onestop_id}}): {{r.route_name}} ({{r.route_onestop_id}})</li>
       {{/each}}
     </ul>
