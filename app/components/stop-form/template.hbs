@@ -8,9 +8,10 @@
 {{#if stop.parent_stop}}
 
   <div class="form-group">
+    <h5>Operators and Routes:</h5>
     <ul>
       {{#each stop.routes_serving_stop as |r|}}
-        <li>{{r.operator_name}} ({{r.operator_onestop_id}}): {{r.route_name}} ({{r.route_onestop_id}})</li>
+        <li>{{#link-to "operators.show" r.operator_onestop_id}} {{r.operator_name}} {{/link-to}}: {{r.route_name}} ({{r.route_onestop_id}})</li>
       {{/each}}
     </ul>
 
@@ -32,9 +33,10 @@
 {{else}}
 
   <div class="form-group">
+    <h5>Operators and Routes:</h5>
     <ul>
       {{#each stop.routes_serving_stop_and_platforms as |r|}}
-        <li>{{r.operator_name}} ({{r.operator_onestop_id}}): {{r.route_name}} ({{r.route_onestop_id}})</li>
+        <li>{{#link-to "operators.show" r.operator_onestop_id}} {{r.operator_name}} {{/link-to}}: {{r.route_name}} ({{r.route_onestop_id}})</li>
       {{/each}}
     </ul>
 
