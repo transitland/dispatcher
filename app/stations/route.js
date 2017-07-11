@@ -20,6 +20,10 @@ export default Ember.Route.extend({
       replace: true,
       refreshModel: true
     },
+    min_egresses: {
+      replace: true,
+      refreshModel: true
+    },
     exclude: {
       replace: true,
       refreshModel: true
@@ -28,6 +32,7 @@ export default Ember.Route.extend({
   model: function(params) {
     var bbox = params.bbox;
     let min_platforms = parseInt(params.min_platforms);
+    let min_egresses = parseInt(params.min_egresses);
     // Changeset
     let changeset = this.store.createRecord('changeset', {
       user: this.get('currentUser.user'),
@@ -43,6 +48,9 @@ export default Ember.Route.extend({
     }
     if (min_platforms > 0) {
       q.min_platforms = min_platforms
+    }
+    if (min_egresses > 0) {
+      q.min_egresses = min_egresses
     }
     return Ember.RSVP.hash({
       changeset: changeset,
