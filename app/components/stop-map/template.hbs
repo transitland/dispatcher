@@ -44,11 +44,11 @@
       {{/layers.marker}}
     {{/each}}
 
-    {{#layers.polygon locations=stop.stationPlatformLines color="red" as |polygon|}}
+    {{#layers.polygon locations=stop.stationPlatformLines color="#ff4c4c" as |polygon|}}
       {{#polygon.popup}}Platforms{{/polygon.popup}}
     {{/layers.polygon}}
 
-    {{#layers.polygon locations=stop.stationEgressLines color="blue" as |polygon|}}
+    {{#layers.polygon locations=stop.stationEgressLines color="#6666e1" as |polygon|}}
       {{#polygon.popup}}Egresses{{/polygon.popup}}
     {{/layers.polygon}}
 

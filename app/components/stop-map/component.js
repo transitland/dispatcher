@@ -10,14 +10,15 @@ var stopStationIcon = L.icon({
 });
 
 var stopPlatformIcon = L.icon({
-  iconUrl: '/assets/images/capital-l.png',
+  iconUrl: '/assets/images/train.png',
   iconSize: [16, 16],
   iconAnchor: [8, 8],
   popupAnchor: [0, -16]
 });
 
+// icon source: https://thenounproject.com/search/?q=stairs&i=9
 var stopEgressIcon = L.icon({
-  iconUrl: '/assets/images/capital-l.png',
+  iconUrl: '/assets/images/stairs.png',
   iconSize: [16, 16],
   iconAnchor: [8, 8],
   popupAnchor: [0, -16]
