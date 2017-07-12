@@ -10,7 +10,7 @@ var stopStationIcon = L.icon({
 });
 
 var stopPlatformIcon = L.icon({
-  iconUrl: config.rootURL + 'assets/images/train.png', // capital-l
+  iconUrl: config.rootURL + 'assets/images/train.png',
   iconSize: [16, 16],
   iconAnchor: [8, 8],
   popupAnchor: [0, -16]
