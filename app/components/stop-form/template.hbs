@@ -4,9 +4,17 @@
   {{input id="name" value=stop.name class="form-control"}}
 </div>
 
+
 {{#if stop.parent_stop}}
 
   <div class="form-group">
+    <h5>Operators and Routes:</h5>
+    <ul>
+      {{#each stop.routes_serving_stop as |r|}}
+        <li>{{#link-to "operators.show" r.operator_onestop_id}} {{r.operator_name}} {{/link-to}}: {{r.route_name}} ({{r.route_onestop_id}})</li>
+      {{/each}}
+    </ul>
+
     <h5>Parent Stop:</h5>
     <ul><li><a {{action "switchPopup" stop.parent_stop}}>
       {{stop.parent_stop.name}}<br />
@@ -25,10 +33,16 @@
 {{else}}
 
   <div class="form-group">
+    <h5>Operators and Routes:</h5>
+    <ul>
+      {{#each stop.routes_serving_stop_and_platforms as |r|}}
+        <li>{{#link-to "operators.show" r.operator_onestop_id}} {{r.operator_name}} {{/link-to}}: {{r.route_name}} ({{r.route_onestop_id}})</li>
+      {{/each}}
+    </ul>
+
     <h5>{{stop.stop_platforms.length}} Platforms</h5>
     <ul>
       {{#each stop.stop_platforms as |stop_platform|}}
-        <h5>Stop Platform:</h5>
         <li><a {{action "switchPopup" stop_platform}}>
           {{stop_platform.name}}<br />
           {{stop_platform.id}}

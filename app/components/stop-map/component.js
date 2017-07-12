@@ -3,21 +3,22 @@ import config from '../../config/environment';
 /* global L */
 
 var stopStationIcon = L.icon({
-  iconUrl: config.rootURL + 'assets/images/search-active.png',
+  iconUrl: '/assets/images/station.png',
   iconSize: [36, 54],
   iconAnchor: [18, 54],
   popupAnchor: [0, -54]
 });
 
 var stopPlatformIcon = L.icon({
-  iconUrl: config.rootURL + 'assets/images/capital-l.png',
+  iconUrl: '/assets/images/train.png',
   iconSize: [16, 16],
   iconAnchor: [8, 8],
   popupAnchor: [0, -16]
 });
 
+// icon source: https://thenounproject.com/search/?q=stairs&i=9
 var stopEgressIcon = L.icon({
-  iconUrl: config.rootURL + 'assets/images/capital-l.png',
+  iconUrl: '/assets/images/stairs.png',
   iconSize: [16, 16],
   iconAnchor: [8, 8],
   popupAnchor: [0, -16]

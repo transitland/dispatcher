@@ -5,13 +5,39 @@
 {{/if}}
 
 <div class="row">
-  <div class="col-xs-6">
+  <div class="col-xs-4">
     <h2>Stations</h2>
   </div>
-  <div class="col-xs-6 text-right">
+
+  <div class="col-xs-8 text-right">
+
+    <select class="form-control" style="display:inline;width: 150px;" onchange={{action (mut exclude) value="target.value"}}>
+      <option value=""></option>
+      <option value="generated" selected={{eq exclude "generated"}}>Excl. generated platforms and egresses</option>
+    </select>
+
+    <select class="form-control" style="display:inline;width: 150px;" onchange={{action (mut min_platforms) value="target.value"}}>
+      <option value=""></option>
+      <option value="0" selected={{eq min_platforms ""}}>All stops</option>
+      <option value="1" selected={{eq min_platforms "1"}}>1+ Platform</option>
+      <option value="2" selected={{eq min_platforms "2"}}>2+ Platforms</option>
+      <option value="3" selected={{eq min_platforms "3"}}>3+ Platforms</option>
+    </select>
+
+
+    <select class="form-control" style="display:inline;width: 150px;" onchange={{action (mut min_egresses) value="target.value"}}>
+      <option value=""></option>
+      <option value="0" selected={{eq min_egresses ""}}>All stops</option>
+      <option value="1" selected={{eq min_egresses "1"}}>1+ Egress</option>
+      <option value="2" selected={{eq min_egresses "2"}}>2+ Egresses</option>
+      <option value="3" selected={{eq min_egresses "3"}}>3+ Egresses</option>
+    </select>
+
     <button {{action "setBounds"}} class="btn btn-primary">Refresh</button>
     <button {{action "showChangeset"}} class="btn btn-primary">Changeset</button>
+
   </div>
+
 </div>
 
 {{stop-map stops=model.stops lat=lat lng=lng zoom=zoom bounds=bounds onChanges=(action 'showChangeset')}}

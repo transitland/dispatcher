@@ -5,6 +5,7 @@ module.exports = function (environment) {
     modulePrefix: 'dispatcher',
     environment: environment,
     rootURL: '/',
+    routerRootURL: '/',
     locationType: 'auto',
     datastoreHost: 'https://transit.land',
     // Valhalla
@@ -40,16 +41,18 @@ module.exports = function (environment) {
 
   if (environment === 'development') {
     ENV.datastoreHost = 'http://dev.transit.land';
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+  }
+
+  if (environment === 'localhost') {
+    ENV.datastoreHost = 'http://localhost:3000';
+  }
+
+  if (environment === 'development_production') {
+    ENV.datastoreHost = 'http://transit.land';
   }
 
   if (environment === 'test') {
     // Testem prefers this...
-    ENV.rootURL = '/';
     ENV.locationType = 'none';
 
     // keep test console output quieter
@@ -63,13 +66,14 @@ module.exports = function (environment) {
     ENV.datastoreHost = 'https://dev.transit.land';
     ENV.valhallaHost = 'https://valhalla.dev.mapzen.com/route';
     ENV.valhallaApiKey = 'valhalla-tQaRSNc';
-    ENV.rootURL = '/dispatcher/';
+    // ENV.rootURL = '/dispatcher/';
+    ENV.routerRootURL = '/dispatcher/';
     ENV.apiProxyKey = 'transitland-YFO6jk8';
   }
 
   if (environment === 'production') {
     ENV.datastoreHost = 'https://transit.land';
-    ENV.rootURL = '/dispatcher/';
+    ENV.routerRootURL = '/dispatcher/';
     ENV.apiProxyKey = 'transitland-Cc6l8Fk';
   }
 

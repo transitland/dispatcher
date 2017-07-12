@@ -12,6 +12,10 @@ export default Ember.Component.extend({
   actions: {
     stopAdded: function(addEvent) {
       this.sendAction('stopAdded', addEvent.target._leaflet_id, this.get('onestop_id'));
+    },
+    popupOpen: function(e) {
+      let content = "<p>Stop: " + this.get('onestop_id') + "</p><p>Sequence: " + this.get('sequence') + "</p><p>Distance: <b>"+ this.get('distance') + "</b></p>"
+      e.popup.setContent(content);
     }
   }
 });

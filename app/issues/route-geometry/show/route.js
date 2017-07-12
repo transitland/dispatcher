@@ -17,7 +17,7 @@ export default Ember.Route.extend(IssuesRoute, {
     return this.store.findRecord('issue', params['issue_id'], { reload: true }).then(function(selectedIssue){
 
       let changeset = self.store.createRecord('changeset', {
-        user: this.get('currentUser.user'),
+        user: self.get('currentUser.user'),
         notes: 'Issue resolution:'
       });
       changeset.get('change_payloads').createRecord();
@@ -70,7 +70,7 @@ export default Ember.Route.extend(IssuesRoute, {
               let re = 'Distances: \\[.+\\]';
               let match = selectedIssue.get('details').match(re);
               if (match) {
-                rsp.set('stop_distances', eval(match[0].replace('Distances: ', '')));
+                rsp.set('stop_distances', JSON.parse(match[0].replace('Distances: ', '')));
                 selectedIssue.set('details', selectedIssue.get('details').replace(/Distances: \[.+\]/, ''));
               }
             }
