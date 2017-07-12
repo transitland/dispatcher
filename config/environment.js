@@ -5,6 +5,7 @@ module.exports = function (environment) {
     modulePrefix: 'dispatcher',
     environment: environment,
     rootURL: '/',
+    routerRootURL: '/',
     locationType: 'auto',
     datastoreHost: 'https://transit.land',
     // Valhalla
@@ -52,7 +53,6 @@ module.exports = function (environment) {
 
   if (environment === 'test') {
     // Testem prefers this...
-    ENV.rootURL = '/';
     ENV.locationType = 'none';
 
     // keep test console output quieter
@@ -66,13 +66,14 @@ module.exports = function (environment) {
     ENV.datastoreHost = 'https://dev.transit.land';
     ENV.valhallaHost = 'https://valhalla.dev.mapzen.com/route';
     ENV.valhallaApiKey = 'valhalla-tQaRSNc';
-    ENV.rootURL = '/dispatcher/';
+    // ENV.rootURL = '/dispatcher/';
+    ENV.routerRootURL = '/dispatcher/';
     ENV.apiProxyKey = 'transitland-YFO6jk8';
   }
 
   if (environment === 'production') {
     ENV.datastoreHost = 'https://transit.land';
-    ENV.rootURL = '/dispatcher/';
+    ENV.routerRootURL = '/dispatcher/';
     ENV.apiProxyKey = 'transitland-Cc6l8Fk';
   }
 
