@@ -23,6 +23,7 @@ Router.map(function() {
   });
   this.route('feed-versions', function () {
     this.route('show', { path: '/:feed_version_id' });
+    this.route('upload');
   });
   this.route('feed-version-imports', function () {
     this.route('show', { path: '/:feed_version_import_id' });
