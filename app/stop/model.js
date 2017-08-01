@@ -15,8 +15,8 @@ export default EntityWithActivityModel.extend({
 	tags: DS.attr(),
 	issues: DS.hasMany('issue'),
   timezone: DS.attr('string'),
-  coordinates: Ember.computed('geometry', function () {
-    return this.get('geometry').coordinates.slice().reverse();
+  coordinates: Ember.computed('centroid', function () {
+    return this.get('centroid').coordinates.slice().reverse();
   }),
   setCoordinates: function(value) {
     this.set('geometry', {type: 'Point', coordinates: value.map(function(c) { return parseFloat(c.toFixed(5)); } ) });
