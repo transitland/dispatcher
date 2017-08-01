@@ -10,6 +10,8 @@ export default EntityWithActivityModel.extend({
 	created_at: DS.attr('date'),
 	updated_at: DS.attr('date'),
 	geometry: DS.attr(),
+	geometry_reversegeo: DS.attr(),
+  centroid: DS.attr(),
 	tags: DS.attr(),
 	issues: DS.hasMany('issue'),
   timezone: DS.attr('string'),
