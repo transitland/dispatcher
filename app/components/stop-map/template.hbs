@@ -4,6 +4,10 @@
 
   {{#each stops as |stop|}}
 
+    {{#layers.geojson
+      geoJSON=stop.geometry
+    }} {{/layers.geojson}}
+
     {{#layers.marker
       icon=stopStationIcon
       location=stop.coordinates
