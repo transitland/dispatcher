@@ -19,7 +19,7 @@ export default EntityWithActivityModel.extend({
     return this.get('centroid').coordinates.slice().reverse();
   }),
   setCoordinates: function(value) {
-    this.set('geometry', {type: 'Point', coordinates: value.map(function(c) { return parseFloat(c.toFixed(5)); } ) });
+    this.set('geometry_reversegeo', {type: 'Point', coordinates: value.map(function(c) { return parseFloat(c.toFixed(5)); } ) });
   },
   entityType: function() {
     return 'stop';
