@@ -19,13 +19,13 @@ export default Stop.extend({
   stop_platforms: DS.hasMany('stop-platform', { modelFor: 'stop-platform', inverse: 'parent_stop'}),
   stop_egresses:  DS.hasMany('stop-egress', { modelFor: 'stop-egress', inverse: 'parent_stop'}),
   issues: DS.hasMany('issue'),
-  stationPlatformLines: Ember.computed('geometry', 'stop_platforms.@each.geometry', function() {
+  stationPlatformLines: Ember.computed('coordinates', 'stop_platforms.@each.coordinates', function() {
     var origin = this.get('coordinates');
     return this.get('stop_platforms').map(function(stop_platform) {
       return [origin, stop_platform.get('coordinates')];
     });
   }),
-  stationEgressLines: Ember.computed('geometry', 'stop_egresses.@each.geometry', function() {
+  stationEgressLines: Ember.computed('coordinates', 'stop_egresses.@each.coordinates', function() {
     var origin = this.get('coordinates');
     return this.get('stop_egresses').map(function(stop_platform) {
       return [origin, stop_platform.get('coordinates')];
