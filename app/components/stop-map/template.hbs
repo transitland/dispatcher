@@ -4,9 +4,10 @@
 
   {{#each stops as |stop|}}
 
-    {{#layers.geojson
-      geoJSON=stop.geometry
-    }} {{/layers.geojson}}
+    {{#if (not-eq stop.geometry.type 'Point')}}
+      {{#layers.geojson geoJSON=stop.geometry}}
+      {{/layers.geojson}}
+    {{/if}}
 
     {{#layers.marker
       icon=stopStationIcon
@@ -21,6 +22,12 @@
     {{/layers.marker}}
 
     {{#each stop.stop_platforms as |stop_platform|}}
+
+      {{#if (not-eq stop_platform.geometry.type 'Point')}}
+        {{#layers.geojson geoJSON=stop_platform.geometry}}
+        {{/layers.geojson}}
+      {{/if}}
+
       {{#layers.marker
         icon=stopPlatformIcon
         location=stop_platform.coordinates
@@ -35,6 +42,12 @@
     {{/each}}
 
     {{#each stop.stop_egresses as |stop_egress|}}
+
+      {{#if (not-eq stop_egress.geometry.type 'Point')}}
+        {{#layers.geojson geoJSON=stop_egress.geometry}}
+        {{/layers.geojson}}
+      {{/if}}
+
       {{#layers.marker
         icon=stopEgressIcon
         location=stop_egress.coordinates
