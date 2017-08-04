@@ -10,14 +10,33 @@ export default EntityWithActivityModel.extend({
 	created_at: DS.attr('date'),
 	updated_at: DS.attr('date'),
 	geometry: DS.attr(),
+	geometry_reversegeo: DS.attr(),
+  geometry_centroid: DS.attr(),
 	tags: DS.attr(),
 	issues: DS.hasMany('issue'),
   timezone: DS.attr('string'),
-  coordinates: Ember.computed('geometry', function () {
-    return this.get('geometry').coordinates.slice().reverse();
+  coordinates: Ember.computed('geometry', 'geometry_reversegeo', function () {
+    let c = this.get('geometry');
+    if (c.type == 'Point') {
+      // return geometry
+    } else {
+      // return geometry_reversegeo, or if's not set, the geometry_centroid
+      c = this.get('geometry_reversegeo') || this.get('geometry_centroid');
+    }
+    return c.coordinates.slice().reverse();
   }),
   setCoordinates: function(value) {
-    this.set('geometry', {type: 'Point', coordinates: value.map(function(c) { return parseFloat(c.toFixed(5)); } ) });
+    // If geometry is a Point, update geometry. Otherwise, update geometry_reversegeo.
+    // This will set geometry_reversegeo if it's not initially set for a Polygon.
+    let g = {type: 'Point', coordinates: value.map(function(c) { return parseFloat(c.toFixed(5)); } ) };
+    let c = this.get('geometry');
+    if (c.type == 'Point') {
+      console.log('setCoordinates geometry');
+      this.set('geometry', g);
+    } else {
+      console.log('setCoordinates geometry_reversegeo');
+      this.set('geometry_reversegeo', g);
+    }
   },
   entityType: function() {
     return 'stop';
@@ -27,10 +46,8 @@ export default EntityWithActivityModel.extend({
       onestopId: this.id,
       name: this.get('name'),
       timezone: this.get('timezone'),
-      geometry: {
-        type: "Point",
-        coordinates: this.get('geometry').coordinates
-      }
+      geometry: this.get('geometry'),
+      geometryReversegeo: this.get('geometry_reversegeo')
     };
   }
 });
