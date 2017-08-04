@@ -4,11 +4,16 @@
 
   {{#each stops as |stop|}}
 
+    {{#if (not-eq stop.geometry.type 'Point')}}
+      {{#layers.geojson geoJSON=stop.geometry}}
+      {{/layers.geojson}}
+    {{/if}}
+
     {{#layers.marker
       icon=stopStationIcon
       location=stop.coordinates
       draggable=true
-      onDrag=(action "updateStopLocation" stop)
+      onDrag=(action "updateStopCoordinates" stop)
       as |marker|
     }}
       {{#marker.popup popupOpen=stop.isOpen}}
@@ -17,11 +22,17 @@
     {{/layers.marker}}
 
     {{#each stop.stop_platforms as |stop_platform|}}
+
+      {{#if (not-eq stop_platform.geometry.type 'Point')}}
+        {{#layers.geojson geoJSON=stop_platform.geometry}}
+        {{/layers.geojson}}
+      {{/if}}
+
       {{#layers.marker
         icon=stopPlatformIcon
         location=stop_platform.coordinates
         draggable=true
-        onDrag=(action "updateStopLocation" stop_platform)
+        onDrag=(action "updateStopCoordinates" stop_platform)
         as |marker|
       }}
         {{#marker.popup popupOpen=stop_platform.isOpen}}
@@ -31,11 +42,17 @@
     {{/each}}
 
     {{#each stop.stop_egresses as |stop_egress|}}
+
+      {{#if (not-eq stop_egress.geometry.type 'Point')}}
+        {{#layers.geojson geoJSON=stop_egress.geometry}}
+        {{/layers.geojson}}
+      {{/if}}
+
       {{#layers.marker
         icon=stopEgressIcon
         location=stop_egress.coordinates
         draggable=true
-        onDrag=(action "updateStopLocation" stop_egress)
+        onDrag=(action "updateStopCoordinates" stop_egress)
         as |marker|
       }}
         {{#marker.popup popupOpen=stop_egress.isOpen}}

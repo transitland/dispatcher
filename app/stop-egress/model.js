@@ -22,10 +22,8 @@ export default Stop.extend({
       parentStopOnestopId: this.get('parent_stop').get('id'),
       name: this.get('name'),
       timezone: this.get('timezone'),
-      geometry: {
-        type: "Point",
-        coordinates: this.get('geometry').coordinates
-      }
+      geometry: this.get('geometry'),
+      geometryReversegeo: this.get('geometry_reversegeo')
     };
   }
 });

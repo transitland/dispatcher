@@ -42,7 +42,7 @@ export default Ember.Component.extend({
       this.set('zoom', zoom);
       this.set('bounds', bounds);
     },
-    updateStopLocation(stop, e) {
+    updateStopCoordinates(stop, e) {
       let location = e.target.getLatLng();
       stop.setCoordinates([location.lng, location.lat]);
     }
