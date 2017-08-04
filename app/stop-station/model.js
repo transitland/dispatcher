@@ -38,7 +38,7 @@ export default Stop.extend({
       {
         id: this.id + separator + fragment,
         timezone: this.get('timezone'),
-        geometry: this.get('geometry'),
+        geometry: this.get('geometry_centroid'),
         name: 'New Platform'
       }
     );
@@ -50,7 +50,7 @@ export default Stop.extend({
       {
         id: this.id + separator + fragment,
         timezone: this.get('timezone'),
-        geometry: this.get('geometry'),
+        geometry: this.get('geometry_centroid'),
         name: 'New Egress'
       }
     );
