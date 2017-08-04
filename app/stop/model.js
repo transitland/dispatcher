@@ -47,7 +47,7 @@ export default EntityWithActivityModel.extend({
       name: this.get('name'),
       timezone: this.get('timezone'),
       geometry: this.get('geometry'),
-      geometry_reversegeo: this.get('geometry_reversegeo')
+      geometryReversegeo: this.get('geometry_reversegeo')
     };
   }
 });
