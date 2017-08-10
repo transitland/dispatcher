@@ -1,2 +1,7 @@
-{{#circle-marker-layer radius=5 title=model.onestop_id sequence=index location=model.coordinates onPopupopen="popupOpen"}}
+{{#circle-marker-layer radius=radius title=model.onestop_id location=model.coordinates as |marker|}}
+  {{#marker.popup}}
+    <p>Stop: {{model.onestop_id}}</p>
+    <p>Sequence: {{sequence}}</p>
+    <p>Distance: <b>{{distance}}</b></p>
+  {{/marker.popup}}
 {{/circle-marker-layer}}

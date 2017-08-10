@@ -1,2 +1,7 @@
-{{#marker-layer icon=markerStopIcon title=model.onestop_id onAdd="stopAdded" sequence=index location=model.coordinates onPopupopen="popupOpen"}}
+{{#marker-layer icon=markerStopIcon title=model.onestop_id onAdd="stopAdded" location=model.coordinates as |marker|}}
+  {{#marker.popup}}
+    <p>Stop: {{model.onestop_id}}</p>
+    <p>Sequence: {{sequence}}</p>
+    <p>Distance: <b>{{distance}}</b></p>
+  {{/marker.popup}}
 {{/marker-layer}}

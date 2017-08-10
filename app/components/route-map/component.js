@@ -4,11 +4,12 @@ export default Ember.Component.extend({
   url: "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
   options: {
   },
-  draw: false,
+  draw: { polyline: false, polygon: false, rectangle: false, circle: false, marker: false },
   editing: false,
   edit: {
     featureGroup: L.featureGroup()
   },
+  enableDeleting: false,
 
   isEntity: function(layer) {
     if (layer.hasOwnProperty('editing')) {
