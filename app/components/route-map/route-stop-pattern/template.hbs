@@ -2,5 +2,8 @@
   {{#polyline-decorator latlngs=model.coordinates patterns=model.patterns}}
   {{/polyline-decorator}}
 {{/unless}}
-{{#polyline-layer onAdd="rspAdded" locations=model.coordinates onPopupopen="popupOpen"}}
+{{#polyline-layer onAdd="rspAdded" locations=model.coordinates as |polyline|}}
+  {{#popup-layer}}
+    {{model.onestop_id}}
+  {{/popup-layer}}
 {{/polyline-layer}}

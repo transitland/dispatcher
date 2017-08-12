@@ -1,7 +1,7 @@
 {{#marker-layer icon=markerStopIcon title=model.onestop_id onAdd="stopAdded" location=model.coordinates as |marker|}}
-  {{#marker.popup}}
+  {{#popup-layer}}
     <p>Stop: {{model.onestop_id}}</p>
     <p>Sequence: {{sequence}}</p>
     <p>Distance: <b>{{distance}}</b></p>
-  {{/marker.popup}}
+  {{/popup-layer}}
 {{/marker-layer}}

@@ -40,7 +40,7 @@ module.exports = function (environment) {
   };
 
   if (environment === 'development') {
-    ENV.datastoreHost = 'http://transit.land';
+    ENV.datastoreHost = 'http://dev.transit.land';
   }
 
   if (environment === 'localhost') {

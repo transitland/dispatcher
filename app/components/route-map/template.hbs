@@ -10,7 +10,7 @@
             {{#if (eq issueStop.onestop_id stop.stop.onestop_id) }}
               {{route-map/stop-marker stopAdded="stopAdded" model=stop.stop sequence=index distance=stop.distance}}
             {{else}}
-              <!-- {{route-map/circle-stop-marker model=stop.stop sequence=index distance=stop.distance}} -->
+              {{route-map/circle-stop-marker model=stop.stop sequence=index distance=stop.distance}}
             {{/if}}
           {{/each}}
         {{else}}
