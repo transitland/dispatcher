@@ -1,4 +1,4 @@
-{{#marker-layer icon=markerStopIcon title=model.onestop_id onAdd="stopAdded" location=model.coordinates as |marker|}}
+{{#marker-layer icon=markerStopIcon title=model.onestop_id onRemove=(action "editEntityRemoved") onAdd=(action "editEntityAdded") location=model.coordinates as |marker|}}
   {{#popup-layer}}
     <p>Stop: {{model.onestop_id}}</p>
     <p>Sequence: {{sequence}}</p>

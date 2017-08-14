@@ -21,46 +21,48 @@ export default Ember.Controller.extend(IssuesController,
   },
   getChanges: function() {
     var entities = [];
-    entities = entities.concat(this.store.peekAll('route-stop-pattern').filter(function(e) { return e.get('hasDirtyAttributes'); }) );
-    entities = entities.concat(this.store.peekAll('stop').filter(function(e) { return e.get('hasDirtyAttributes'); }));
-    var self = this;
+    entities = entities.concat(this.store.peekAll('route-stop-pattern').filter(function(e) {
+        return e.get('hasDirtyAttributes') && typeof e.changedAttributes().geometry !== "undefined";
+    }));
+    entities = entities.concat(this.store.peekAll('stop').filter(function(e) {
+        return e.get('hasDirtyAttributes') && typeof e.changedAttributes().geometry !== "undefined"; 
+    }));
     return entities.map(function(e) {
       var ret = {};
       ret['action'] = 'createUpdate';
-      ret['issuesResolved'] = [parseInt(self.model.selectedIssue.id)];
+      ret['issuesResolved'] = [parseInt(this.model.selectedIssue.id)];
       ret[e.entityType()] = e.toChange();
       return ret;
-    });
+    }, this);
   },
   actions: {
     actionDrawEdited: function(EditedEvent) {
-      var self = this;
-      // TODO: duplication refactor
-      if (this.get('model.issueStops')) {
-        this.get('model.issueStops').forEach(function(stop){
-          for (var layer in EditedEvent.layers._layers) {
-            if (stop.get('onestop_id') === self.get('editableLeafletObjects')[layer]) {
-              var latlng = EditedEvent.layers._layers[layer]._latlng;
-              stop.setCoordinates([latlng.lng, latlng.lat]);
-            }
+      // applying changes
+      let layers = EditedEvent.layers._layers;
+      Object.keys(layers).forEach(function(id) {
+        var editedLayer = layers[id];
+        var onestop_id = this.get('editableLeafletObjects')[id];
+        if (onestop_id.match(/^s\-/)){
+          if (this.get('model.issueStops')) {
+            this.get('model.issueStops').forEach(function(stop){
+              if (stop.get('onestop_id') === onestop_id) {
+                let latlng = editedLayer.getLatLng();
+                stop.setCoordinates([latlng.lng, latlng.lat]);
+              }
+            });
           }
-        });
-      }
-      if (this.get('model.issueRouteStopPatterns')) {
-        this.get('model.issueRouteStopPatterns').forEach(function(rsp){
-          for (var layer in EditedEvent.layers._layers) {
-            if (rsp.get('onestop_id') === self.get('editableLeafletObjects')[layer]) {
-              var latlngs = EditedEvent.layers._layers[layer]._latlngs;
+        }
+        else if (onestop_id.match(/^r\-/)) {
+          this.get('model.issueRouteStopPatterns').forEach(function(rsp){
+            if (rsp.get('onestop_id') === onestop_id) {
+              let latlngs = editedLayer.getLatLngs();
               rsp.setCoordinates(latlngs.map(function(latlng){ return [latlng.lng, latlng.lat]; }));
             }
-          }
-        });
-      }
+          });
+        }
+      }, this);
     },
-    stopAdded: function(leafletId, onestop_id) {
-      this.get('editableLeafletObjects')[leafletId] = onestop_id;
-    },
-    rspAdded: function(leafletId, onestop_id) {
+    editEntityAdded: function(leafletId, onestop_id) {
       this.get('editableLeafletObjects')[leafletId] = onestop_id;
     }
   }

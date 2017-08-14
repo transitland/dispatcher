@@ -54,7 +54,11 @@ export default Ember.Route.extend(IssuesRoute, {
       return Ember.RSVP.allSettled([
         getStops(stopIds), getRSPs(rspIds)
       ]).then(function(results){
-        let [stops, rsps] = results.filter(function(result){ return result.state === 'fulfilled'; }).map(function(result){ return result.value; });
+        let [stops, rsps] = results.filter(function(result){
+          return result.state === 'fulfilled';
+        }).map(function(result){
+          return result.value;
+        });
         let bounds = new L.latLngBounds([]);
 
         if (stops) {

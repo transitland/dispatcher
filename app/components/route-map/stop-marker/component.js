@@ -10,8 +10,11 @@ export default Ember.Component.extend({
     popupAnchor: [0, -54]
   }),
   actions: {
-    stopAdded: function(addEvent) {
-      this.sendAction('stopAdded', addEvent.target._leaflet_id, this.get('onestop_id'));
+    editEntityAdded: function(addEvent) {
+      this.sendAction('editEntityAdded', addEvent.target, this.get('onestop_id'));
+    },
+    editEntityRemoved: function(removeEvent) {
+      this.sendAction('editEntityRemoved', removeEvent.target);
     }
   }
 });
