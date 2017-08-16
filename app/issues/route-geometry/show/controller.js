@@ -25,7 +25,7 @@ export default Ember.Controller.extend(IssuesController,
         return e.get('hasDirtyAttributes') && typeof e.changedAttributes().geometry !== "undefined";
     }));
     entities = entities.concat(this.store.peekAll('stop').filter(function(e) {
-        return e.get('hasDirtyAttributes') && typeof e.changedAttributes().geometry !== "undefined"; 
+        return e.get('hasDirtyAttributes') && typeof e.changedAttributes().geometry !== "undefined";
     }));
     return entities.map(function(e) {
       var ret = {};

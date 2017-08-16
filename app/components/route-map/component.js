@@ -9,6 +9,13 @@ export default Ember.Component.extend({
     featureGroup: L.featureGroup()
   },
   enableDeleting: false,
+  willDestroyElement: function() {
+    // removeLayer event on individual layers doesn't seem to work for the purpose
+    // of clearing the edit featureGroup, but this does.
+    Object.values(this.get('edit.featureGroup')._layers).forEach(function(layer){
+      this.get('edit.featureGroup').removeLayer(layer);
+    }, this);
+  },
   actions: {
     actionDrawEdited: function(EditedEvent) {
       this.sendAction('actionDrawEdited', EditedEvent);
@@ -23,9 +30,6 @@ export default Ember.Component.extend({
     editEntityAdded: function(layer, onestop_id) {
       this.get('edit.featureGroup').addLayer(layer);
       this.sendAction('editEntityAdded', layer._leaflet_id, onestop_id);
-    },
-    editEntityRemoved: function(layer) {
-      this.get('edit.featureGroup').removeLayer(layer);
     }
   }
 });

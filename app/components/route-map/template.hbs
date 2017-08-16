@@ -1,13 +1,29 @@
-{{#leaflet-map bounds=model.bounds options=options}}
+{{#leaflet-map
+  options=options
+  bounds=model.bounds}}
   {{#tile-layer url=url}}
-    {{#draw-control edit=edit draw=draw enableDeleting=enableDeleting onDrawEditstart="actionDrawEditStart" onDrawEditstop="actionDrawEditStop" onDrawEdited="actionDrawEdited"}}{{/draw-control}}
+    {{#draw-control
+      edit=edit
+      draw=draw
+      enableDeleting=enableDeleting
+      onDrawEditstart="actionDrawEditStart"
+      onDrawEditstop="actionDrawEditStop"
+      onDrawEdited="actionDrawEdited"}}
+    {{/draw-control}}
     {{#each model.issueRouteStopPatterns as |rsp|}}
-      {{route-map/route-stop-pattern editEntityAdded=(action "editEntityAdded") onestop_id=rsp.onestop_id model=rsp editing=editing}}
+      {{route-map/route-stop-pattern
+        editEntityAdded=(action "editEntityAdded")
+        onestop_id=rsp.onestop_id
+        model=rsp
+        editing=editing}}
       {{#each rsp.stopsWithDistances as |stop index|}}
         {{#if model.issueStops}}
           {{#each model.issueStops as |issueStop|}}
             {{#if (eq issueStop.onestop_id stop.stop.onestop_id) }}
-              {{route-map/stop-marker editEntityAdded=(action "editEntityAdded") onestop_id=stop.stop.onestop_id model=stop.stop sequence=index distance=stop.distance}}
+              {{route-map/stop-marker
+                editEntityAdded=(action "editEntityAdded")
+                onestop_id=stop.stop.onestop_id model=stop.stop
+                sequence=index distance=stop.distance}}
             {{else}}
               {{route-map/circle-stop-marker model=stop.stop sequence=index distance=stop.distance}}
             {{/if}}

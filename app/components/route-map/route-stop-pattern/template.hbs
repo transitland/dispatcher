@@ -2,7 +2,7 @@
   {{#polyline-decorator latlngs=model.coordinates patterns=model.patterns}}
   {{/polyline-decorator}}
 {{/unless}}
-{{#polyline-layer onAdd=(action "editEntityAdded") onRemove=(action "editEntityRemoved") locations=model.coordinates as |polyline|}}
+{{#polyline-layer onAdd=(action "editEntityAdded") locations=model.coordinates as |polyline|}}
   {{#popup-layer}}
     {{model.onestop_id}}
   {{/popup-layer}}

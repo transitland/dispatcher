@@ -12,9 +12,6 @@ export default Ember.Component.extend({
   actions: {
     editEntityAdded: function(addEvent) {
       this.sendAction('editEntityAdded', addEvent.target, this.get('onestop_id'));
-    },
-    editEntityRemoved: function(removeEvent) {
-      this.sendAction('editEntityRemoved', removeEvent.target);
     }
   }
 });
