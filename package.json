@@ -55,10 +55,11 @@
     "ember-source": "~2.12.0",
     "ember-tether": "^1.0.0-beta.0",
     "ember-tooltips": "^2.9.0-beta.0",
-    "loader.js": "^4.2.3",
+    "ember-uploader": "^1.2.3",
     "leaflet": "^1.1.0",
     "leaflet-draw": "^0.4.9",
-    "leaflet-polylinedecorator": "^1.3.0"
+    "leaflet-polylinedecorator": "^1.3.0",
+    "loader.js": "^4.2.3"
   },
   "engines": {
     "node": ">= 4"
