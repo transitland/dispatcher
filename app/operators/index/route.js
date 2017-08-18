@@ -18,6 +18,9 @@ export default Ember.Route.extend(PaginatedSortableRoute, {
     },
     metro: {
       refreshModel: true
+    },
+    without_feed: {
+      refreshModel: true
     }
   },
   model: function(params) {
