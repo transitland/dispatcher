@@ -18,6 +18,7 @@ export default EntityWithActivityModel.extend({
   url: DS.attr('string'),
   tags: DS.attr(),
   feed_format: DS.attr('string'),
+  name: DS.attr('string'),
   license_name: DS.attr('string'),
   license_url: DS.attr('string'),
   license_use_without_attribution: DS.attr('string'),
