@@ -40,6 +40,7 @@ export default Ember.Route.extend(IssuesRoute, {
             resolve(self.store.query('stop', {onestop_id: stopIds.join(',')}));
           }
           else {
+            // sometimes issues don't have stops
             resolve();
           }
         });
@@ -93,7 +94,19 @@ export default Ember.Route.extend(IssuesRoute, {
           changeset: changeset,
           users: users
         });
+      }).catch((error) => {
+        flashMessages.add({
+          message: `Error(s) loading stops and route stop patterns: ${error.message}`,
+          type: 'danger',
+          sticky: true
+        });
+      }); // end allSettled for stops and rsps
+    }).catch((error) => {
+      flashMessages.add({
+        message: `Error(s) loading issue: ${error.message}`,
+        type: 'danger',
+        sticky: true
       });
-    });
+    }); // end findRecord issue
   }
 });
