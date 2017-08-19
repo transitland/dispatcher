@@ -13,6 +13,8 @@ export default Ember.Route.extend(IssuesRoute, {
     this.store.unloadAll('route-stop-pattern');
     // leave issues, so as to not have to repopulate issues table
 
+    const flashMessages = Ember.get(this, 'flashMessages');
+
     let self = this;
     return this.store.findRecord('issue', params['issue_id'], { reload: true }).then(function(selectedIssue){
 

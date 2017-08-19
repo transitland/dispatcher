@@ -22,8 +22,10 @@
             {{#if (eq issueStop.onestop_id stop.stop.onestop_id) }}
               {{route-map/stop-marker
                 editEntityAdded=(action "editEntityAdded")
-                onestop_id=stop.stop.onestop_id model=stop.stop
-                sequence=index distance=stop.distance}}
+                onestop_id=stop.stop.onestop_id
+                model=stop.stop
+                sequence=index
+                distance=stop.distance}}
             {{else}}
               {{route-map/circle-stop-marker model=stop.stop sequence=index distance=stop.distance}}
             {{/if}}
