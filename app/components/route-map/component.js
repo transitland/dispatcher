@@ -10,6 +10,7 @@ export default Ember.Component.extend({
   },
   enableDeleting: false,
   willDestroyElement: function() {
+    this._super(...arguments);
     // removeLayer event on individual layers doesn't seem to work for the purpose
     // of clearing the edit featureGroup, but this does.
     Object.values(this.get('edit.featureGroup')._layers).forEach(function(layer){
