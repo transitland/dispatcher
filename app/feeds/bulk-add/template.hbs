@@ -1,0 +1,37 @@
+<h2>{{#link-to 'feeds'}}Feeds{{/link-to}} / Bulk Add</h2>
+{{#if outputResults}}
+  <table class="table table-striped">
+    <thead>
+      <th>URL</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      {{#each outputResults as |result|}}
+        <tr class="{{if result.onestopId "success" "danger"}}">
+          <td>{{result.url}}</td>
+          <td>
+            {{#if result.onestopId}}
+              Already in Transitland!
+            {{else}}
+              Not found in Transitland.
+            {{/if}}
+          </td>
+          <td>
+            {{#if result.onestopId}}
+              {{#link-to 'feeds.show' result.onestopId target="_blank"}}View in Dispatcher{{/link-to}}
+            {{else}}
+              <a href="https://transit.land/feed-registry/feeds/new?feedUrl={{result.url}}" target="_blank">Add to Feed Registry</a>
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <button {{action "clear"}} class="btn btn-default">{{fa-icon icon="long-arrow-left"}} Clear or Edit URLs</button>
+{{else}}
+  <p>Enter a list of feed URLs below, separated by line breaks.</p>
+  {{textarea class="form-control" value=inputUrls cols=100 rows=6}}
+  <button {{action "add"}} class="btn btn-primary">Check and Add URLs</button>
+{{/if}}
+
