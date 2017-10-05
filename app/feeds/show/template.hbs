@@ -114,15 +114,15 @@
       <td>{{model.feedVersionUpdateStatistics.feed_versions_total}}</td>
     </tr>
     <tr>
-      <td>Time between updates</td>
+      <td>Average time between Feed Version updates</td>
       <td>{{model.feedVersionUpdateStatistics.fetched_at_frequency}} days</td>
     </tr>
     <tr>
-      <td>Average Duration</td>
+      <td>Average Feed Version duration</td>
       <td>{{to-fixed model.feedVersionUpdateStatistics.scheduled_service_duration_average 2}} days</td>
     </tr>
     <tr>
-      <td>Average overlap between subsequent versions</td>
+      <td>Average overlap between subsequent Feed Versions</td>
       <td>{{to-fixed model.feedVersionUpdateStatistics.scheduled_service_overlap_average 2}} days</td>
     </tr>
   </tbody>
