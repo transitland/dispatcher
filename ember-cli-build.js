@@ -4,10 +4,11 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   var prependUrl;
+  // TODO: put assets on CloudFront CDN
   if (EmberApp.env() === 'staging') {
-    prependUrl = 'https://d2tkmr00hnrtoq.cloudfront.net/dispatcher/';
+    prependUrl = '/dispatcher/';
   } else if (EmberApp.env() === 'production') {
-    prependUrl = 'https://d11xhlzkgsq6oc.cloudfront.net/dispatcher/';
+    prependUrl = '/dispatcher/';
   }
 
   var app = new EmberApp(defaults, {
