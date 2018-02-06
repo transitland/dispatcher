@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import SelectableModelComponent from 'dispatcher/mixins/selectable-model-component';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 
 export default Ember.Component.extend(SelectableModelComponent, {
-  session: inject.service(),
+  session: service(),
   classNames: ['table-responsive'],
   sortKey: null,
   getSelectableModels: function() {

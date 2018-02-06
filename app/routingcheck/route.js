@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 import PaginatedSortableRoute from 'dispatcher/mixins/paginated-sortable-route';
 import FeedParamsRoute from 'dispatcher/mixins/feed-params-route';
 
@@ -32,7 +32,7 @@ function stop_endpoints(stops) {
 }
 
 export default Route.extend(FeedParamsRoute, PaginatedSortableRoute, {
-  valhalla_route: inject.service('valhalla-route'),
+  valhalla_route: service('valhalla-route'),
   model: function(params) {
     // Reset valhalla queue
     this.get('valhalla_route').empty();

@@ -1,8 +1,8 @@
 import Ember from 'ember';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 
 export default Ember.Mixin.create({
-  currentUser: inject.service(),
+  currentUser: service(),
   getChanges: function() {
 
   },

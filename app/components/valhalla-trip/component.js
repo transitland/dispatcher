@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 
 export default Ember.Component.extend({
-  valhalla_route: inject.service('valhalla-route'),
+  valhalla_route: service('valhalla-route'),
   tagName: 'td',
   classNameBindings: ['failure:danger', 'success:success'],
   origin: null,
