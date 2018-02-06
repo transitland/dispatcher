@@ -1,9 +1,9 @@
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 import DS from 'ember-data';
 import { computed } from '@ember/object';
 
 export default DS.Model.extend({
-  typeDescription: inject.service('issue-type-desc'),
+  typeDescription: service('issue-type-desc'),
   issue_type: DS.attr('string'),
   issue_category: DS.attr('string'),
   details: DS.attr('string'),

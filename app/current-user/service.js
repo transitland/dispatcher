@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import { isPresent } from '@ember/utils';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 
 export default Ember.Service.extend({
-  session: inject.service(),
-  store: inject.service(),
+  session: service(),
+  store: service(),
   user: null,
 
   load() {

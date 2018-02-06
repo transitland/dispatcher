@@ -1,4 +1,4 @@
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
@@ -10,7 +10,7 @@ export default Route.extend(ApplicationRouteMixin, {
   },
 
   // https://github.com/simplabs/ember-simple-auth/blob/master/guides/managing-current-user.md#loading-the-current-user
-  currentUser: inject.service(),
+  currentUser: service(),
 
   beforeModel() {
     return this._loadCurrentUser();

@@ -1,11 +1,11 @@
 import Ember from 'ember';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 
 export default Ember.Component.extend({
   tagName: 'ul',
   classNames: ['nav','navbar-nav','navbar-right'],
-  session: inject.service(),
-  currentUser: inject.service(),
+  session: service(),
+  currentUser: service(),
   actions: {
     signOut() {
       const flashMessages = Ember.get(this, 'flashMessages');

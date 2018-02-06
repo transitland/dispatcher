@@ -1,10 +1,10 @@
 import Ember from 'ember';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
 import IssuesRoute from 'dispatcher/mixins/issues-route';
 
 export default Route.extend(IssuesRoute, {
-  currentUser: inject.service(),
+  currentUser: service(),
 
   model: function(params) {
     // In the future, it would be worthwhile to consider keeping entities

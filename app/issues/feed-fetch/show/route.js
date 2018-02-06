@@ -1,9 +1,9 @@
 import Route from '@ember/routing/route';
 import IssuesRoute from 'dispatcher/mixins/issues-route';
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 
 export default Route.extend(IssuesRoute, {
-  currentUser: inject.service(),
+  currentUser: service(),
   model: function(params) {
     this.store.unloadAll('changeset');
     this.store.unloadAll('change_payload');
