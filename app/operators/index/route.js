@@ -1,8 +1,9 @@
 import Ember from 'ember';
+import Route from '@ember/routing/route';
 import PaginatedSortableRoute from 'dispatcher/mixins/paginated-sortable-route';
 import config from '../../config/environment';
 
-export default Ember.Route.extend(PaginatedSortableRoute, {
+export default Route.extend(PaginatedSortableRoute, {
   queryParams: {
     tag_key: {
       refreshModel: true

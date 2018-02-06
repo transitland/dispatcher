@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
@@ -12,7 +12,7 @@ export default DS.Model.extend({
   note: DS.attr('string'),
   at_datetime: DS.attr('date'),
 
-  entityShowRoute: Ember.computed('entity_type', function() {
+  entityShowRoute: computed('entity_type', function() {
     return this.get('entity_type') + 's.show';
   }),
 });

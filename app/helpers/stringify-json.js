@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import { htmlSafe } from '@ember/string';
+import { helper } from '@ember/component/helper';
 
 export function stringifyJson(json) {
-  return new Ember.Handlebars.SafeString(JSON.stringify(json, null, ' '));
+  return new htmlSafe(JSON.stringify(json, null, ' '));
 }
 
-export default Ember.Helper.helper(stringifyJson);
+export default helper(stringifyJson);

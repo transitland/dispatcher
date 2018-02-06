@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
 import IssuesRoute from 'dispatcher/mixins/issues-route';
 import PaginatedSortableRoute from 'dispatcher/mixins/paginated-sortable-route';
 
-export default Ember.Route.extend(IssuesRoute, PaginatedSortableRoute, {
+export default Route.extend(IssuesRoute, PaginatedSortableRoute, {
   category: 'station_hierarchy'
 });

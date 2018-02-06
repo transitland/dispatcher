@@ -1,8 +1,10 @@
 import Ember from 'ember';
+import { inject } from '@ember/service';
+import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Ember.Route.extend(AuthenticatedRouteMixin, {
-  currentUser: Ember.inject.service(),
+export default Route.extend(AuthenticatedRouteMixin, {
+  currentUser: inject.service(),
   model: function() {
     let changeset = this.store.createRecord('changeset', {
       user: this.get('currentUser.user'),

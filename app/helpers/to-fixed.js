@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
 
 export function toFixed(params/*, hash*/) {
   let value = params[0];
@@ -10,4 +10,4 @@ export function toFixed(params/*, hash*/) {
   }
 }
 
-export default Ember.Helper.helper(toFixed);
+export default helper(toFixed);

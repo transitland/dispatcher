@@ -1,15 +1,16 @@
 import Ember from 'ember';
+import { computed } from '@ember/object';
 
 export default Ember.Component.extend({
   // Proxy values
   tag_key_input: null,
   tag_value_input: null,
   // Convert ISO dates to JS Dates
-  active_feed_version_valid_jsdate: Ember.computed('active_feed_version_valid', function() {
+  active_feed_version_valid_jsdate: computed('active_feed_version_valid', function() {
     var value = this.get('active_feed_version_valid');
     return value ? new Date(value) : null;
   }),
-  active_feed_version_expired_jsdate: Ember.computed('active_feed_version_expired', function() {
+  active_feed_version_expired_jsdate: computed('active_feed_version_expired', function() {
     var value = this.get('active_feed_version_expired');
     return value ? new Date(value) : null;
   }),

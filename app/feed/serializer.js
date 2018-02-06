@@ -12,7 +12,7 @@ export default ApplicationSerializer.extend(DS.EmbeddedRecordsMixin, {
       embedded: 'always'
     }
   },
-  normalize(modelClass, resourceHash, prop) {
+  normalize(modelClass, resourceHash) {
     resourceHash.operators = resourceHash.operators_in_feed.map((oif) => {
       return oif.operator_onestop_id;
     });

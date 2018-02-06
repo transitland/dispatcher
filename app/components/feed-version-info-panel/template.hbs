@@ -5,14 +5,14 @@
 </p>
 
 {{else}}
-
+  
   <h4>
     Files in the Archive
-    {{#fa-icon "question-circle"}}
+    {{#component "fa-icon" "question-circle"}}
       {{#popover-on-component}}
         <p>This is a list of all files in the <code>.zip</code> archive, including files that are optional or outside of the GTFS spec.</p>
       {{/popover-on-component}}
-    {{/fa-icon}}
+    {{/component}}
   </h4>
   <ul>
     {{#each model.json.filenames as |filename|}}
@@ -22,11 +22,11 @@
 
   <h4>
     File Content Summaries
-    {{#fa-icon "question-circle"}}
+    {{#component "fa-icon" "question-circle"}}
       {{#popover-on-component}}
         <p>These tables summarize the contents of <code>.txt</code> files that are included in the GTFS spec. Files that are not whitelisted by the <a href="https://github.com/transitland/gtfs">Transitland GTFS wrapper library</a> are not parsed (for security and performance reasons). Within whitelisted files, all columns are parsed, even columns that are option or outside of the GTFS spec.</p>
       {{/popover-on-component}}
-    {{/fa-icon}}
+    {{/component}}
   </h4>
   {{#each-in model.json.statistics as |key value|}}
     <table class="table table-striped">

@@ -1,8 +1,9 @@
-import Ember from 'ember';
+import { inject } from '@ember/service';
 import DS from 'ember-data';
+import { computed } from '@ember/object';
 
 export default DS.Model.extend({
-  typeDescription: Ember.inject.service('issue-type-desc'),
+  typeDescription: inject.service('issue-type-desc'),
   issue_type: DS.attr('string'),
   issue_category: DS.attr('string'),
   details: DS.attr('string'),
@@ -15,7 +16,7 @@ export default DS.Model.extend({
   imported_from_feed_onestop_id: DS.attr('string'),
   imported_from_feed_version_sha1: DS.attr('string'),
 
-  computeTypeDescription: Ember.computed('issue_type', function(){
+  computeTypeDescription: computed('issue_type', function(){
     return this.get('typeDescription').typeDescription(this.get('issue_type'));
   })
 });

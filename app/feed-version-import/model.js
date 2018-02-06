@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import { computed } from '@ember/object';
 
 export default DS.Model.extend({
   feed: DS.belongsTo('feed', { async: true }),
@@ -12,7 +13,7 @@ export default DS.Model.extend({
   updated_at: DS.attr('date'),
   feed_schedule_imports: DS.attr(),
 
-  importStatusCssClass: Ember.computed('success', function() {
+  importStatusCssClass: computed('success', function() {
     switch(this.get('success')) {
       case true:
         return 'success';

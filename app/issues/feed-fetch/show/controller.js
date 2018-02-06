@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
 import IssuesController from 'dispatcher/mixins/issues-controller';
 import IssuesResolvingChangesetController from 'dispatcher/mixins/issues-resolving-changeset-controller';
 import IssuesCloseController from 'dispatcher/mixins/issues-close-controller';
 
-export default Ember.Controller.extend(IssuesController,
+export default Controller.extend(IssuesController,
                                        IssuesResolvingChangesetController,
                                        IssuesCloseController, {
   selected: false,

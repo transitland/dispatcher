@@ -1,11 +1,13 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { isPresent } from '@ember/utils';
+import Controller from '@ember/controller';
 import PaginatedSortableController from 'dispatcher/mixins/paginated-sortable-controller';
 
-export default Ember.Controller.extend(PaginatedSortableController, {
+export default Controller.extend(PaginatedSortableController, {
   selectedFeed: '',
 
-  hasNextPage: Ember.computed("model.feeds.meta.next", function() {
-    if (Ember.isPresent(this.get('model.feeds.meta.next'))) {
+  hasNextPage: computed("model.feeds.meta.next", function() {
+    if (isPresent(this.get('model.feeds.meta.next'))) {
       return true;
     } else {
       return false;
