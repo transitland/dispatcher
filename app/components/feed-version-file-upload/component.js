@@ -1,9 +1,10 @@
 import Ember from 'ember';
 import EmberUploader from 'ember-uploader';
 import config from '../../config/environment';
+import { inject } from '@ember/service';
 
 export default EmberUploader.FileField.extend({
-  session: Ember.inject.service(),
+  session: inject.service(),
   filesDidChange: function(files) {
     let uploader;
     this.get('session').authorize('authorizer:token', (headerName, headerValue) => {

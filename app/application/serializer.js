@@ -1,5 +1,7 @@
 import DS from "ember-data";
 import Ember from "ember";
+import { underscore } from '@ember/string';
+import { isEmpty } from '@ember/utils';
 
 export default DS.RESTSerializer.extend({
   // Custom json root. The API returns single models without a JSON root node.
@@ -11,12 +13,12 @@ export default DS.RESTSerializer.extend({
     return this._super(store, primaryModelClass, payload, id, requestType);
   },
   serializeIntoHash: function(data, type, record, options) {
-    var root = Ember.String.underscore(type.modelName);
+    var root = underscore(type.modelName);
     data[root] = this.serialize(record, options);
   },
   extractMeta: function(store, typeClass, payload) {
     if (payload && payload.hasOwnProperty('meta')) {
-      if (!payload.meta.hasOwnProperty('next') || Ember.isEmpty(payload.meta.next)) {
+      if (!payload.meta.hasOwnProperty('next') || isEmpty(payload.meta.next)) {
         // The meta.next property will be used by app/mixins/paginated-sortable-controller
         // to decide if there's another page of results. By default, Ember Data
         // won't nullify the meta properties from a past result. So we'll do that

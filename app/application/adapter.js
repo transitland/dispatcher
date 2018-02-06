@@ -2,6 +2,8 @@ import Ember from 'ember';
 import DS from 'ember-data';
 import ENV from 'dispatcher/config/environment';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
+import { pluralize } from 'ember-inflector';
+import { decamelize, underscore } from '@ember/string';
 
 export default DS.RESTAdapter.extend(DataAdapterMixin, {
   authorizer: 'authorizer:token',
@@ -11,9 +13,9 @@ export default DS.RESTAdapter.extend(DataAdapterMixin, {
   pathForType: function(type) {
     // model names should be underscored in URLs
     // For example: /api/v1/feed_version_imports
-    let decamelized = Ember.String.decamelize(type);
-    let underscored = Ember.String.underscore(decamelized);
-    return Ember.String.pluralize(underscored);
+    let decamelized = decamelize(type);
+    let underscored = underscore(decamelized);
+    return pluralize(underscored);
   },
   ajaxOptions: function(url, type, options) {
     var hash = this._super(url, type, options);

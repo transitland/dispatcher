@@ -1,15 +1,16 @@
 import Ember from 'ember';
+import { computed } from '@ember/object';
 
 const TimeSinceWithMouseoverComponent = Ember.Component.extend({
   tagName: 'abbr',
-  dateAsString: Ember.computed('date', function() {
+  dateAsString: computed('date', function() {
     let date = this.get('date');
     if (Ember.isPresent(date)) {
       return this.get('date').toString();
     }
   }),
   attributeBindings: ['title'],
-  title: Ember.computed.alias('dateAsString')
+  title: computed.alias('dateAsString')
 });
 
 TimeSinceWithMouseoverComponent.reopenClass({

@@ -1,7 +1,7 @@
-/* eslint node: true */
+'use strict';
 
 module.exports = function (environment) {
-  var ENV = {
+  let ENV = {
     modulePrefix: 'dispatcher',
     environment: environment,
     rootURL: '/',

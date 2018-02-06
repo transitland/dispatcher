@@ -1,13 +1,15 @@
 import Ember from 'ember';
+import { isPresent } from '@ember/utils';
+import { inject } from '@ember/service';
 
 export default Ember.Service.extend({
-  session: Ember.inject.service(),
-  store: Ember.inject.service(),
+  session: inject.service(),
+  store: inject.service(),
   user: null,
 
   load() {
     let userId = this.get('session.data.authenticated.user.id');
-    if (Ember.isPresent(userId)) {
+    if (isPresent(userId)) {
       return this.get('store').findRecord('user', userId).then((user) => {
         this.set('user', user);
       }).catch(() => {

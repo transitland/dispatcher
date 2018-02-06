@@ -1,7 +1,8 @@
 import Ember from 'ember';
+import { computed } from '@ember/object';
 
 export default Ember.Component.extend({
-  color: Ember.computed(function(){
+  color: computed(function(){
     return '#000';
   }),
   onestop_id: '',

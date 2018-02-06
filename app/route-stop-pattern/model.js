@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { computed } from '@ember/object';
 import DS from 'ember-data';
 import EntityWithActivityModel from 'dispatcher/entity-with-activity/model';
 
@@ -10,7 +11,7 @@ export default EntityWithActivityModel.extend({
   stop_pattern: DS.attr(),
   color: DS.attr('string'),
   route_onestop_id: DS.attr('string', {readOnly: true}),
-	onestop_id: Ember.computed.alias('id'),
+	onestop_id: computed.alias('id'),
 	created_at: DS.attr('date'),
 	updated_at: DS.attr('date'),
 	geometry: DS.attr(),
@@ -19,7 +20,7 @@ export default EntityWithActivityModel.extend({
 	patterns: [
 		{offset: 0, repeat: 20, symbol: L.Symbol.arrowHead({pixelSize: 12, pathOptions: {fillOpacity: 1, weight: 0}})}
 	],
-	stopsWithDistances: Ember.computed('stop_pattern', function(){
+	stopsWithDistances: computed('stop_pattern', function(){
 		var self = this;
 		var args = {};
 		args.promise =  Ember.RSVP.all(this.get('stop_pattern').map(function(stop_onestop_id, index){
@@ -27,7 +28,7 @@ export default EntityWithActivityModel.extend({
 		}));
 		return Ember.ArrayProxy.extend(Ember.PromiseProxyMixin).create(args);
 	}),
-	coordinates: Ember.computed('geometry', function(){
+	coordinates: computed('geometry', function(){
 		return this.get('geometry').coordinates.map(function(coord){
 			return coord.slice().reverse();
 		});

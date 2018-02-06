@@ -3,6 +3,7 @@
 // code copied from https://github.com/Glavin001/ember-jsoneditor
 
 import Ember from 'ember';
+import { computed } from '@ember/object';
 
 export default Ember.Component.extend({
   /**
@@ -21,7 +22,7 @@ export default Ember.Component.extend({
   /**
 
   */
-  editor: Ember.computed('options', 'json', 'expand', function() {
+  editor: computed('options', 'json', 'expand', function() {
     var self = this;
     var editor = self.get('_editor');
     // console.log('editor', editor);
@@ -53,7 +54,7 @@ export default Ember.Component.extend({
   /**
   Object with options.
   */
-  options: Ember.computed(
+  options: computed(
     'mode',
     'modes',
     '_change',

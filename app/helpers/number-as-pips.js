@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
 
 export function numberAsPips(params) {
   let selectedNumber = params[0];
@@ -13,4 +13,4 @@ export function numberAsPips(params) {
   return string;
 }
 
-export default Ember.Helper.helper(numberAsPips);
+export default helper(numberAsPips);

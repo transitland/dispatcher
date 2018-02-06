@@ -1,7 +1,8 @@
-import Ember from 'ember';
+import { inject } from '@ember/service';
+import Route from '@ember/routing/route';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
-export default Ember.Route.extend(ApplicationRouteMixin, {
+export default Route.extend(ApplicationRouteMixin, {
   didTransition: function() {
     this._super();
     // always scroll to the top of the page after transitioning to a new route
@@ -9,7 +10,7 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   },
 
   // https://github.com/simplabs/ember-simple-auth/blob/master/guides/managing-current-user.md#loading-the-current-user
-  currentUser: Ember.inject.service(),
+  currentUser: inject.service(),
 
   beforeModel() {
     return this._loadCurrentUser();

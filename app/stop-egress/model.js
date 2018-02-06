@@ -1,10 +1,10 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
 import DS from 'ember-data';
 import Stop from 'dispatcher/stop/model';
 
 export default Stop.extend({
   parent_stop: DS.belongsTo('stop-station', { modelFor: 'stop-station' }),
-  parent_stop_onestop_id: Ember.computed('parent_stop', {
+  parent_stop_onestop_id: computed('parent_stop', {
     get(key) {
       return this.get('parent_stop').get('id');
     },

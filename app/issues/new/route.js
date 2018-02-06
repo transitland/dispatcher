@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
+export default Route.extend({
   beforeModel: function(transition){
     this.set('feed_onestop_id', transition.params['issues.new'].feed_id);
   },

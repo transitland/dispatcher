@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
@@ -6,7 +6,7 @@ export default DS.Model.extend({
   onestop_id: DS.attr('string'),
   entity_type: DS.attr('string'),
   entity_attribute: DS.attr('string'),
-  entity: Ember.computed('onestop_id', 'entity_type', function(){
+  entity: computed('onestop_id', 'entity_type', function(){
     return this.store.findRecord(this.get('entity_type'), this.get('onestop_id'));
   })
 });

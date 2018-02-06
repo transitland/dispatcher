@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { computed } from '@ember/object';
 
 export default Ember.Component.extend({
   issueTypesMap: {
@@ -71,7 +72,7 @@ export default Ember.Component.extend({
   computeAvailableAttributes: function() {
     return this.get("acceptedAttributes")[this.get("selectedIssueType")];
   },
-  entities: Ember.computed(function(){
+  entities: computed(function(){
     var entities = [];
     entities = entities.concat(this.get('model.stops').map(function(e){return e.id}))
     .concat(this.get('model.route_stop_patterns').map(function(e){return e.id}));
