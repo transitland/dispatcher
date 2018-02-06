@@ -1,6 +1,6 @@
 machine:
   node:
-    version: lts/carbon
+    version: 8.9.4
 
 dependencies:
   pre:
