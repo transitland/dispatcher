@@ -5,10 +5,12 @@ machine:
 dependencies:
   pre:
     - sudo pip install -U awscli
+    - npm install -g yarn
   override:
     - yarn
   cache_directories:
     - ~/.cache/yarn
+    - ~/.cache/pip
 
 database:
   override:
