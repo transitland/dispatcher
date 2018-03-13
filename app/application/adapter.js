@@ -1,11 +1,18 @@
-import Ember from 'ember';
 import DS from 'ember-data';
 import ENV from 'dispatcher/config/environment';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
 import { pluralize } from 'ember-inflector';
 import { decamelize, underscore } from '@ember/string';
+import PromiseThrottle from 'dispatcher/application/promise-throttle';
+import { Promise } from 'rsvp';
 
 export default DS.RESTAdapter.extend(DataAdapterMixin, {
+  init() {
+    this.set('promiseThrottle', new PromiseThrottle({
+      requestsPerSecond: 4,
+      promiseImplementation: Promise
+    }));
+  },
   authorizer: 'authorizer:token',
   host: ENV.datastoreHost,
   namespace: 'api/v1',
@@ -36,5 +43,8 @@ export default DS.RESTAdapter.extend(DataAdapterMixin, {
       hash.data = data;
     }
     return hash;
+  },
+  ajax: function (url, type, options) {
+    return this.get('promiseThrottle').add(this._super.bind(this, url, type, options));
   }
 });
