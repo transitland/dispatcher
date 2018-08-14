@@ -18,7 +18,8 @@ export default EntityWithActivityModel.extend({
 	tags: DS.attr(),
 	issues: DS.hasMany('issue'),
 	patterns: [
-		{offset: 0, repeat: 20, symbol: L.Symbol.arrowHead({pixelSize: 12, pathOptions: {fillOpacity: 1, weight: 0}})}
+    // NOTE: this is commented out for now, because we have issues loading Leaflet
+		// {offset: 0, repeat: 20, symbol: L.Symbol.arrowHead({pixelSize: 12, pathOptions: {fillOpacity: 1, weight: 0}})}
 	],
 	stopsWithDistances: computed('stop_pattern', function(){
 		var self = this;
