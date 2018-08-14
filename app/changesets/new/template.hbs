@@ -1,6 +1,6 @@
 <h2>{{link-to 'Changesets' 'changesets'}} / New Changeset</h2>
 
-{{changeset-form changeset=model.changeset users=model.users}}
+{{changeset-form changeset=model}}
 
 {{#link-to 'changesets' class="btn btn-default"}}Cancel{{/link-to}}
 <input type="button" {{action 'create'}} value="Create" class="btn btn-primary pull-right">

@@ -20,6 +20,7 @@ Router.map(function() {
   });
   this.route('feeds', function() {
     this.route('show', { path: '/:feed_id' });
+    this.route('edit', { path: '/:feed_id/edit' });
     this.route('bulk-add');
   });
   this.route('feed-versions', function () {

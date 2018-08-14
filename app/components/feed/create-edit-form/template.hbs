@@ -1,0 +1,75 @@
+<form>
+  <div class="form-group">
+    <label for="onestopId">Onestop ID</label>
+    <!-- NOTE: in the future allow editing of Onestop ID -->
+    {{input type="text" class="form-control" id="onestopId" placeholder="Onestop ID" value=feed.onestop_id disabled=true}}
+  </div>
+  <div class="form-group">
+    <label for="feed_format">Feed Format</label>
+    {{#power-select
+      selected=feed.feed_format
+      options=enumOptions.feed_format
+      onchange=(action (mut feed.feed_format))
+      as |option|
+    }}
+      {{option}}
+    {{/power-select}}
+  </div>
+  <div class="form-group">
+    <label for="url">URL</label>
+    {{input type="text" class="form-control" id="url" placeholder="URL" value=feed.url}}
+  </div>
+  <div class="form-group">
+    <label for="licenseName">License Name</label>
+    {{input type="text" class="form-control" id="licenseName" placeholder="License Name" value=feed.license_name}}
+  </div>
+  <div class="form-group">
+    <label for="license_attribution_text">License URL</label>
+    {{input type="text" class="form-control" id="licenseUrl" placeholder="License URL" value=feed.license_url}}
+  </div>
+  <div class="form-group">
+    <label for="license_use_without_attribution">License Use Without Attribution</label>
+    {{#power-select
+      selected=feed.license_use_without_attribution
+      options=enumOptions.license_use_without_attribution
+      onchange=(action (mut feed.license_use_without_attribution))
+      as |option|
+    }}
+      {{option}}
+    {{/power-select}}
+  </div>
+  <div class="form-group">
+    <label for="license_attribution_text">License Attribution Text</label>
+    {{textarea class="form-control" id="license_attribution_text" placeholder="License Attribution Text" value=feed.license_attribution_text}}
+  </div>
+  <div class="form-group">
+    <label for="license_create_derived_product">License Create Derived Product</label>
+    {{#power-select
+      selected=feed.license_create_derived_product
+      options=enumOptions.license_create_derived_product
+      onchange=(action (mut feed.license_create_derived_product))
+      as |option|
+    }}
+      {{option}}
+    {{/power-select}}
+  </div>
+  <div class="form-group">
+    <label for="license_redistribute">License Redistribute</label>
+    {{#power-select
+      selected=feed.license_redistribute
+      options=enumOptions.license_redistribute
+      onchange=(action (mut feed.license_redistribute))
+      as |option|
+    }}
+      {{option}}
+    {{/power-select}}
+  </div>
+  <div class="form-group">
+    <label for="tags">Tags</label>
+    {{json-editor json=feed.tags mode='code'}}
+  </div>
+  <div class="form-group">
+    <label for="operators">Operators in Feed</label>
+    TODO
+  </div>
+</form>
