@@ -7,7 +7,7 @@ module.exports = function (environment) {
     rootURL: '/',
     routerRootURL: '/',
     locationType: 'auto',
-    datastoreHost: 'https://transit.land',
+    datastoreHost: 'https://api.transitland.org',
     // Valhalla
     valhallaHost: 'https://valhalla.mapzen.com/route',
     valhallaApiKey: 'valhalla-xwXfg5J',
@@ -40,7 +40,7 @@ module.exports = function (environment) {
   };
 
   if (environment === 'development') {
-    ENV.datastoreHost = 'https://transit.land';
+    ENV.datastoreHost = 'https://api.transitland.org';
   }
 
   if (environment === 'localhost') {
@@ -68,7 +68,7 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-    ENV.datastoreHost = 'https://transit.land';
+    ENV.datastoreHost = 'https://api.transit.land';
     ENV.routerRootURL = '/dispatcher/';
     ENV.apiProxyKey = 'transitland-Cc6l8Fk';
   }
