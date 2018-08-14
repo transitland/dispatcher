@@ -5,22 +5,24 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 
 export default Route.extend(AuthenticatedRouteMixin, {
   currentUser: service(),
-  model: function() {
+  model: function(params) {
+    let payload = {};
+    if (params.payload) {
+      payload = JSON.parse(decodeURI(params.payload));
+    }
     let changeset = this.store.createRecord('changeset', {
       user: this.get('currentUser.user'),
-      notes: ''
+      notes: params.notes
     });
-    changeset.get('change_payloads').createRecord();
-    let users = this.store.query('user', { per_page: false });
-    return Ember.RSVP.hash({
-      changeset: changeset,
-      users: users
+    changeset.get('change_payloads').createRecord({
+      payload: payload
     });
+    return changeset;
   },
   actions: {
     create: function() {
       let self = this;
-      let changeset = self.currentModel.changeset;
+      let changeset = self.currentModel;
       const flashMessages = Ember.get(this, 'flashMessages');
       changeset.save().then(function() {
         self.transitionTo('changesets.show', changeset);

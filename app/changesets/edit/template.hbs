@@ -1,4 +1,6 @@
-<h2>{{link-to 'Changesets' 'changesets'}} / Editing Changeset #{{model.changeset.id}}</h2>
+<h2>
+  {{link-to 'Changesets' 'changesets'}} / Editing {{#if model.isNew}}New Changeset{{else}}Changeset #{{model.changeset.id}}{{/if}}
+</h2>
 
 {{changeset-form changeset=model.changeset users=model.users}}
 

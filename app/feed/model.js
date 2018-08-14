@@ -47,6 +47,22 @@ export default EntityWithActivityModel.extend({
       return '';
     }
   }),
+  entityType: function() {
+    return 'feed';
+  },
+  // TODO: move toChange to a mixin
+  toChange: function() {
+    let change = {
+      onestopId: this.id
+    };
+    // TODO: move list of attributes
+    ['url', 'tags', 'feed_format', 'name', 'license_name', 'license_url', 'license_use_without_attribution', 'license_attribution_text', 'license_create_derived_product', 'license_redistribute', 'operators_in_feed'].map((attribute) => {
+      if (Object.keys(this.changedAttributes()).includes(attribute)) {
+        change[attribute] = this.get(attribute);
+      }
+    });
+    return change;
+  },
   enqueue: function(importLevel) {
     var adapter = this.get('store').adapterFor('feed');
     var url = adapter.urlPrefix() + '/webhooks/feed_eater';
