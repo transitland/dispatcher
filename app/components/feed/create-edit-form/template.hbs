@@ -6,18 +6,7 @@
   </div>
   <div class="form-group">
     <label for="feed_format">Feed Format</label>
-    {{#power-select
-      selected=feed.feed_format
-      options=enumOptions.feed_format
-      onchange=(action (mut feed.feed_format))
-      as |option|
-    }}
-      {{option}}
-    {{/power-select}}
-  </div>
-  <div class="form-group">
-    <label for="url">URL</label>
-    {{input type="text" class="form-control" id="url" placeholder="URL" value=feed.url}}
+    {{input type="text" class="form-control" id="feedFormat" placeholder="" value=feed.feed_format disabled=true}}
   </div>
   <div class="form-group">
     <label for="licenseName">License Name</label>
@@ -65,11 +54,11 @@
     {{/power-select}}
   </div>
   <div class="form-group">
-    <label for="tags">Tags</label>
-    {{json-editor json=feed.tags mode='code'}}
+    <label for="urls">URLs</label>
+    {{json-editor json=feed.urls mode='code'}}
   </div>
   <div class="form-group">
-    <label for="operators">Operators in Feed</label>
-    TODO
+    <label for="tags">Tags</label>
+    {{json-editor json=feed.tags mode='code'}}
   </div>
 </form>

@@ -3,8 +3,10 @@
     <h2>{{link-to 'Feeds' 'feeds'}} / {{model.feed.onestop_id}}</h2>
   </div>
   <div class="col-md-6 text-right">
-    {{feed-fetcher-controls feedFetchStarted="feedFetchStarted" feed=model.feed}}
-    {{#link-to 'feed-versions.upload' (query-params feed_onestop_id=model.feed.onestop_id) class="btn btn-primary"}}Upload a Feed Version{{/link-to}}
+    {{#if model.feed.feedFormatIsGtfsStatic}}
+      {{feed-fetcher-controls feedFetchStarted="feedFetchStarted" feed=model.feed}}
+      {{#link-to 'feed-versions.upload' (query-params feed_onestop_id=model.feed.onestop_id) class="btn btn-primary"}}Upload a Feed Version{{/link-to}}
+    {{/if}}
     {{#link-to 'feeds.edit' model.feed class="btn btn-default"}}Edit{{/link-to}}
   </div>
 </div>
@@ -29,104 +31,106 @@
   </tbody>
 </table>
 
-<h2>Feed fetch issues</h2>
-{{#if model.feed.hasIssues}}
-  {{#each model.feed.issues as |issue|}}
-    {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
-      <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}}</strong><br/>
-      <b>Issue type:</b> {{issue.issue_type}}<br/>
-      <b>Description:</b> {{issue.computeTypeDescription}}<br/>
-      <h4>{{#link-to 'issues.feed-fetch.show' issue.id}}
-        View details and resolve issue #{{issue.id}} {{fa-icon "question" size=2 title='Issue id uniquely identifies the Issue in the Datastore'}}
-      {{/link-to}}</h4>
-    {{/collapsable-panel}}
-  {{/each}}
-{{else}}
-  <strong>None</strong>
-{{/if}}
-<h2>Feed import issues</h2>
-<table class="table table-hover">
-  <thead>
-    <tr>
-      {{#if (gt model.routeGeometryIssues.meta.total 0)}}
-        <th>Route geometry issues: {{model.routeGeometryIssues.meta.total}}</th>
-      {{else}}
-        <th>Route geometry issues</th>
-      {{/if}}
-      {{#if (gt model.stationHierarchyIssues.meta.total 0)}}
-        <th>Station hierarchy issues: {{model.stationHierarchyIssues.meta.total}}</th>
-      {{else}}
-        <th>Station hierarchy issues</th>
-      {{/if}}
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      {{#if (gt model.routeGeometryIssues.meta.total 0)}}
-        <td class="danger">
-          {{#link-to 'issues.route-geometry.index' (query-params of_feed_entities=model.feed.onestop_id)}}
-            View and resolve.
-          {{/link-to}}
-        </td>
-      {{else}}
-        <td class="success">
-          <strong>None</strong>
-        </td>
-      {{/if}}
-      {{#if (gt model.stationHierarchyIssues.meta.total 0)}}
-        <td class="danger">
-          {{#link-to 'issues.station-hierarchy.index' (query-params of_feed_entities=model.feed.onestop_id)}}
-            View and resolve.
-          {{/link-to}}
-        </td>
-      {{else}}
-        <td class="success">
-          <strong>None</strong>
-        </td>
-      {{/if}}
-    </tr>
-  </tbody>
-</table>
-
-<h2>Create an issue</h2>
-<h4>{{#link-to 'issues.new' model.feed.onestop_id  (query-params imported_from_feed=model.feed.onestop_id)}}
-  Create an issue from feed {{model.feed.onestop_id}} entities.
-{{/link-to}}</h4>
-
-<h2>Changesets imported from this feed</h2>
-<ul>
-  {{#each model.feed.changesets_imported_from_this_feed as |changeset|}}
-    <li>
-      {{#link-to 'changesets.show' changeset}}
-        changeset #{{changeset.id}}
-      {{/link-to}}
-    </li>
+{{#if model.feed.feedFormatIsGtfsStatic}}
+  <h2>Feed fetch issues</h2>
+  {{#if model.feed.hasIssues}}
+    {{#each model.feed.issues as |issue|}}
+      {{#collapsable-panel title="Error fetching feed..." panelClass="panel-danger"}}
+        <strong>Issue created by feed fetch {{moment-from-now model.feed.last_fetched_at}}</strong><br/>
+        <b>Issue type:</b> {{issue.issue_type}}<br/>
+        <b>Description:</b> {{issue.computeTypeDescription}}<br/>
+        <h4>{{#link-to 'issues.feed-fetch.show' issue.id}}
+          View details and resolve issue #{{issue.id}} {{fa-icon "question" size=2 title='Issue id uniquely identifies the Issue in the Datastore'}}
+        {{/link-to}}</h4>
+      {{/collapsable-panel}}
+    {{/each}}
   {{else}}
-    <p>No changesets have been imported from this feed.</p>
-  {{/each}}
-</ul>
+    <strong>None</strong>
+  {{/if}}
+  <h2>Feed import issues</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        {{#if (gt model.routeGeometryIssues.meta.total 0)}}
+          <th>Route geometry issues: {{model.routeGeometryIssues.meta.total}}</th>
+        {{else}}
+          <th>Route geometry issues</th>
+        {{/if}}
+        {{#if (gt model.stationHierarchyIssues.meta.total 0)}}
+          <th>Station hierarchy issues: {{model.stationHierarchyIssues.meta.total}}</th>
+        {{else}}
+          <th>Station hierarchy issues</th>
+        {{/if}}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {{#if (gt model.routeGeometryIssues.meta.total 0)}}
+          <td class="danger">
+            {{#link-to 'issues.route-geometry.index' (query-params of_feed_entities=model.feed.onestop_id)}}
+              View and resolve.
+            {{/link-to}}
+          </td>
+        {{else}}
+          <td class="success">
+            <strong>None</strong>
+          </td>
+        {{/if}}
+        {{#if (gt model.stationHierarchyIssues.meta.total 0)}}
+          <td class="danger">
+            {{#link-to 'issues.station-hierarchy.index' (query-params of_feed_entities=model.feed.onestop_id)}}
+              View and resolve.
+            {{/link-to}}
+          </td>
+        {{else}}
+          <td class="success">
+            <strong>None</strong>
+          </td>
+        {{/if}}
+      </tr>
+    </tbody>
+  </table>
 
-<h2>Feed versions</h2>
+  <h2>Create an issue</h2>
+  <h4>{{#link-to 'issues.new' model.feed.onestop_id  (query-params imported_from_feed=model.feed.onestop_id)}}
+    Create an issue from feed {{model.feed.onestop_id}} entities.
+  {{/link-to}}</h4>
 
-<table class="table">
-  <tbody>
-    <tr>
-      <td>Total Feed Versions</td>
-      <td>{{model.feedVersionUpdateStatistics.feed_versions_total}}</td>
-    </tr>
-    <tr>
-      <td>Average time between Feed Version updates</td>
-      <td>{{model.feedVersionUpdateStatistics.fetched_at_frequency}} days</td>
-    </tr>
-    <tr>
-      <td>Average Feed Version duration</td>
-      <td>{{to-fixed model.feedVersionUpdateStatistics.scheduled_service_duration_average 2}} days</td>
-    </tr>
-    <tr>
-      <td>Average overlap between subsequent Feed Versions</td>
-      <td>{{to-fixed model.feedVersionUpdateStatistics.scheduled_service_overlap_average 2}} days</td>
-    </tr>
-  </tbody>
-</table>
+  <h2>Changesets imported from this feed</h2>
+  <ul>
+    {{#each model.feed.changesets_imported_from_this_feed as |changeset|}}
+      <li>
+        {{#link-to 'changesets.show' changeset}}
+          changeset #{{changeset.id}}
+        {{/link-to}}
+      </li>
+    {{else}}
+      <p>No changesets have been imported from this feed.</p>
+    {{/each}}
+  </ul>
 
-{{feed-versions-table models=model.feedVersions sortKey=sort_key}}
+  <h2>Feed versions</h2>
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Total Feed Versions</td>
+        <td>{{model.feedVersionUpdateStatistics.feed_versions_total}}</td>
+      </tr>
+      <tr>
+        <td>Average time between Feed Version updates</td>
+        <td>{{model.feedVersionUpdateStatistics.fetched_at_frequency}} days</td>
+      </tr>
+      <tr>
+        <td>Average Feed Version duration</td>
+        <td>{{to-fixed model.feedVersionUpdateStatistics.scheduled_service_duration_average 2}} days</td>
+      </tr>
+      <tr>
+        <td>Average overlap between subsequent Feed Versions</td>
+        <td>{{to-fixed model.feedVersionUpdateStatistics.scheduled_service_overlap_average 2}} days</td>
+      </tr>
+    </tbody>
+  </table>
+
+  {{feed-versions-table models=model.feedVersions sortKey=sort_key}}
+{{/if}}
