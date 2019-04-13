@@ -5,9 +5,11 @@
   <dd>{{model.feed_format}}</dd>
   <dt>URLs</dt>
   <dd>
+    <ul class="list-unstyled">
     {{#each-in model.urls as |key value|}}
-    {{key}}: {{value}} <br />
+      <li>{{key}}: {{value}} </li>
     {{/each-in}}
+    </ul>
   </dd>
 
   <dt>Tags</dt>
