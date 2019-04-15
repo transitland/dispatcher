@@ -17,6 +17,7 @@ export default EntityWithActivityModel.extend({
   import_status: DS.attr('string'),
   urls: DS.attr(),
   type: DS.attr('string'),
+  authorization: DS.attr(),
   tags: DS.attr(),
   feed_format: DS.attr('string'),
   name: DS.attr('string'),

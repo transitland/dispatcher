@@ -11,6 +11,15 @@
     {{/each-in}}
     </ul>
   </dd>
+  <dt>Authorization</dt>
+  <dd>
+    <ul class="list-unstyled">
+    {{#each-in model.authorization as |key value|}}
+      <li>{{key}}: {{value}} </li>
+    {{/each-in}}
+    </ul>
+  </dd>
+
 
   <dt>Tags</dt>
   <dd>
