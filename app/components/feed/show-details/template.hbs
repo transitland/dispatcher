@@ -1,10 +1,26 @@
 <dl class="dl-horizontal">
   <dt>Name</dt>
   <dd>{{model.name}}</dd>
-  <dt>URL</dt>
-  <dd>{{model.url}}</dd>
   <dt>Feed format</dt>
   <dd>{{model.feed_format}}</dd>
+  <dt>URLs</dt>
+  <dd>
+    <ul class="list-unstyled">
+    {{#each-in model.urls as |key value|}}
+      <li>{{key}}: {{value}} </li>
+    {{/each-in}}
+    </ul>
+  </dd>
+  <dt>Authorization</dt>
+  <dd>
+    <ul class="list-unstyled">
+    {{#each-in model.authorization as |key value|}}
+      <li>{{key}}: {{value}} </li>
+    {{/each-in}}
+    </ul>
+  </dd>
+
+
   <dt>Tags</dt>
   <dd>
     {{#each-in model.tags as |key value|}}
@@ -23,32 +39,35 @@
     <dt>License attribution text</dt>
     <dd>{{model.license_attribution_text}}</dd>
   {{/if}}
-  <dt># of feed versions</dt>
-  <dd>{{model.feed_versions_count}}</dd>
-  <dt>Active feed version</dt>
-  <dd>
-    {{#if model.active_feed_version}}
-      {{#link-to 'feed-versions.show' model.active_feed_version}}{{model.active_feed_version.short_sha1}}{{/link-to}}
-    {{else}}
-      <em>none</em>
-    {{/if}}
-  </dd>
-  <dt>Import level of active feed version</dt>
-  <dd>{{number-as-pips model.import_level_of_active_feed_version 4}}</dd>
   <dt>Created</dt>
   <dd>{{time-since-with-mouseover model.created_at}}</dd>
   <dt>Updated</dt>
   <dd>{{time-since-with-mouseover model.updated_at}}</dd>
-  {{#if model.created_or_updated_in_changeset}}
-    <dt>Created or updated in</dt>
+
+  {{#if model.feedFormatIsGtfsStatic}}
+    <dt># of feed versions</dt>
+    <dd>{{model.feed_versions_count}}</dd>
+    <dt>Active feed version</dt>
     <dd>
-      <h4>{{#link-to 'changesets.show' model.created_or_updated_in_changeset}}
-        changeset #{{model.created_or_updated_in_changeset.id}}
-      {{/link-to}}</h4>
+      {{#if model.active_feed_version}}
+        {{#link-to 'feed-versions.show' model.active_feed_version}}{{model.active_feed_version.short_sha1}}{{/link-to}}
+      {{else}}
+        <em>none</em>
+      {{/if}}
     </dd>
+    <dt>Import level of active feed version</dt>
+    <dd>{{number-as-pips model.import_level_of_active_feed_version 4}}</dd>
+    {{#if model.created_or_updated_in_changeset}}
+      <dt>Created or updated in</dt>
+      <dd>
+        <h4>{{#link-to 'changesets.show' model.created_or_updated_in_changeset}}
+          changeset #{{model.created_or_updated_in_changeset.id}}
+        {{/link-to}}</h4>
+      </dd>
+    {{/if}}
+    <dt>Last fetched at</dt>
+    <dd>{{time-since-with-mouseover model.last_fetched_at}}</dd>
+    <dt>Last imported at</dt>
+    <dd>{{time-since-with-mouseover model.last_imported_at}}</dd>
   {{/if}}
-  <dt>Last fetched at</dt>
-  <dd>{{time-since-with-mouseover model.last_fetched_at}}</dd>
-  <dt>Last imported at</dt>
-  <dd>{{time-since-with-mouseover model.last_imported_at}}</dd>
 </dl>

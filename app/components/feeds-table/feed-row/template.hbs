@@ -5,41 +5,57 @@
   <h4>{{link-to feed.onestop_id 'feeds.show' feed.id}}</h4>
 </td>
 <td>
+  {{feed.feed_format}}
+</td>
+<td>
   {{feed.name}}
 </td>
-<td>{{feed.feed_versions_count}}</td>
-<td class="">
-  {{#if feed.last_fetched_at}}
-    {{time-since-with-mouseover feed.last_fetched_at}}
-  {{/if}}
-</td>
-<td class="{{feed.fetchStatusCssClass}}">
-  {{#if feed.issues.firstObject.issue_type}}
-    {{feed.issues.firstObject.issue_type}}
+
+
+{{#if feed.feedFormatIsGtfsStatic}}
+  <td>
+    {{feed.feed_versions_count}}
+  </td>
+  <td class="">
+      {{#if feed.last_fetched_at}}
+        {{time-since-with-mouseover feed.last_fetched_at}}
+      {{/if}}
+  </td>
+  <td class="{{feed.fetchStatusCssClass}}">
+      {{#if feed.issues.firstObject.issue_type}}
+        {{feed.issues.firstObject.issue_type}}
+      {{else}}
+        no fetch error
+      {{/if}}
+  </td>
+
+  {{#if (eq feed.import_status "most_recent_succeeded")}}
+    <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+  {{else if (eq feed.import_status "most_recent_failed")}}
+    <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+  {{else if (eq feed.import_status "in_progress")}}
+    <td class="active"><span class="glyphicon glyphicon-time"></span></td>
+  {{else if (eq feed.import_status "never_imported")}}
+    <td class=""></td>
   {{else}}
-    no fetch error
+    <td class="danger"><span class="glyphicon glyphicon-question-sign"></span></td>
   {{/if}}
-</td>
 
-{{#if (eq feed.import_status "most_recent_succeeded")}}
-  <td class="success"><span class="glyphicon glyphicon-ok"></span></td>
-{{else if (eq feed.import_status "most_recent_failed")}}
-  <td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
-{{else if (eq feed.import_status "in_progress")}}
-  <td class="active"><span class="glyphicon glyphicon-time"></span></td>
-{{else if (eq feed.import_status "never_imported")}}
-  <td class=""></td>
+  <td>
+    {{#if feed.last_imported_at}}
+      {{time-since-with-mouseover feed.last_imported_at}}
+    {{/if}}
+  </td>
+  <td>
+    {{#if feed.active_feed_version}}
+      {{number-as-pips feed.import_level_of_active_feed_version 4}}
+    {{/if}}
+  </td>
 {{else}}
-  <td class="danger"><span class="glyphicon glyphicon-question-sign"></span></td>
+  <td />
+  <td />
+  <td />
+  <td />
+  <td />
+  <td />
 {{/if}}
-
-<td>
-  {{#if feed.last_imported_at}}
-    {{time-since-with-mouseover feed.last_imported_at}}
-  {{/if}}
-</td>
-<td>
-  {{#if feed.active_feed_version}}
-    {{number-as-pips feed.import_level_of_active_feed_version 4}}
-  {{/if}}
-</td>

@@ -7,7 +7,8 @@ export default Controller.extend(PaginatedSortableController, {
   active_feed_version_valid: null,
   active_feed_version_import_level: null,
   latest_fetch_exception: null,
-  latest_feed_version_import_status: '',  
+  latest_feed_version_import_status: '',
+  feed_format: null,  
   tag_key: null,
   tag_value: null
 });

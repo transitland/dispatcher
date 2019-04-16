@@ -92,4 +92,17 @@
     </div>
   </div>
 
+  <div class="col-sm-3 col-xs-6">
+    <div class="input-group">
+      <span class="input-group-addon">
+        Feed Type:
+      </span>
+      <select class="form-control" onchange={{action (mut feed_format) value="target.value"}}>
+        <option value=""></option>
+        <option value="gtfs" selected={{eq feed_format "gtfs"}}>GTFS</option>
+        <option value="gtfs-rt" selected={{eq feed_format "gtfs-rt"}}>GTFS-RT</option>
+      </select>
+    </div>
+  </div>
+
 </div>

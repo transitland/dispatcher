@@ -20,6 +20,9 @@ export default Ember.Mixin.create({
     latest_feed_version_import_status: {
       refreshModel: true
     },
+    feed_format: {
+      refreshModel: true
+    },
     tag_key: {
       refreshModel: true
     },
