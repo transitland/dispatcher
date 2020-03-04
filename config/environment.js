@@ -9,8 +9,8 @@ module.exports = function (environment) {
     locationType: 'auto',
     datastoreHost: 'https://api.transit.land',
     // Valhalla
-    valhallaHost: 'https://valhalla.mapzen.com/route',
-    valhallaApiKey: 'valhalla-xwXfg5J',
+    valhallaHost: 'https://valhalla.interline.io/route',
+    valhallaApiKey: 'TODO',
     valhallaRateLimit: 600,
     AUTH_TOKEN_LOCALSTORAGE_KEY: 'transitland-dispatcher-auth-token',
     EmberENV: {
@@ -58,19 +58,9 @@ module.exports = function (environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
 
-  if (environment === 'staging') {
-    ENV.datastoreHost = 'https://dev.transit.land';
-    ENV.valhallaHost = 'https://valhalla.dev.mapzen.com/route';
-    ENV.valhallaApiKey = 'valhalla-tQaRSNc';
-    // ENV.rootURL = '/dispatcher/';
-    ENV.routerRootURL = '/dispatcher/';
-    ENV.apiProxyKey = 'transitland-YFO6jk8';
-  }
-
   if (environment === 'production') {
     ENV.datastoreHost = 'https://api.transit.land';
     ENV.routerRootURL = '/dispatcher/';
-    ENV.apiProxyKey = 'transitland-Cc6l8Fk';
   }
 
   // https://github.com/jpadilla/ember-simple-auth-token
@@ -88,6 +78,8 @@ module.exports = function (environment) {
     timeFactor: 1,
     refreshLeeway: 300 // Refresh the token 5 minutes (300s) before it expires.
   };
+
+  ENV.transitlandApiKey = process.env.TRANSITLAND_API_KEY;
 
   return ENV;
 };
