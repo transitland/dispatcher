@@ -3444,9 +3444,10 @@ ember-toggle@^5.2.1:
     ember-hammertime "^1.2.4"
     ember-runtime-enumerable-includes-polyfill "^2.0.0"
 
-ember-tooltips@^2.9.2:
+ember-tooltips@~2.9.2:
   version "2.9.2"
   resolved "https://registry.yarnpkg.com/ember-tooltips/-/ember-tooltips-2.9.2.tgz#4494415c177aa3dca51ca1be61ea9df21eabafc7"
+  integrity sha1-RJRBXBd6o9ylHKG+Yeqd8h6rr8c=
   dependencies:
     ember-cli-babel "^6.3.0"
     ember-cli-htmlbars "^1.1.1"

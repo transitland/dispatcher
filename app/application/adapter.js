@@ -26,9 +26,9 @@ export default DS.RESTAdapter.extend(DataAdapterMixin, {
   },
   ajaxOptions: function(url, type, options) {
     var hash = this._super(url, type, options);
-    // only need to include api_key when making GET requests
-    // because those are the most frequent type of request.
-    // if we include api_key in POSTs or PUTs, Datastore will barf
+    hash.beforeSend = function (xhr) {
+      xhr.setRequestHeader('apikey', ENV.transitlandApiKey);
+    }
     if (type === 'GET') {
       let data = {};
       if (typeof(hash.data) === 'string') {
