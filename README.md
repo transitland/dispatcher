@@ -1,5 +1,7 @@
 # Transitland Dispatcher
 
+**Deprecated** As part of the transition to [Transitland v2](https://www.transit.land/news/2019/10/17/tlv2.html), Transitland Dispatcher is no longer need. The [new Transitland web app](https://github.com/transitland/www-transit-land-v2) now handles both public and administrative front-end functions.
+
 Used to administer and monitor the [Transitland Datastore](https://github.com/transitland/transitland-datastore) back-end.
 
 ## Prerequisites
